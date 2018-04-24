@@ -1,6 +1,6 @@
 ToDos:
 
-~~- [x] Install React Native~~
+- [x] ~~Install React Native~~
 - [ ] Integrate Typescript
 - [ ] Emulate using an Android emulator
 - [ ] Ensure Hot Reloading is working
