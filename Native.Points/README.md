@@ -7,6 +7,7 @@ ToDos:
 - [ ] [Can we debug using android emulator?](https://github.com/Microsoft/vscode-react-native)
 - [ ] Introduce Redux into application
 - [ ] Make an HTTP call to server (search for 'HTTP redux', 'async redux actions', and 'redux api as middleware')
+- [ ] Submit HTTP call with [MessagePack](https://msgpack.org/index.html)
 - [ ] Introduce [Native Base](https://nativebase.io/)
 - [ ] Introduce navigation with [RNRF](http://docs.nativebase.io/docs/examples/navigation/RNRFBasicExample.html)
 - [ ] Try to test on iPhone via [Expo](expo.io)
