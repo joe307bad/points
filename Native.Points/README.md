@@ -8,6 +8,7 @@ ToDos:
 - [ ] Introduce Redux into application
 - [ ] Make an HTTP call to server (search for 'HTTP redux', 'async redux actions', and 'redux api as middleware')
 - [ ] Submit HTTP call with [MessagePack](https://msgpack.org/index.html)
+  - https://www.npmjs.com/package/body-parser-with-msgpack
 - [ ] Introduce [Native Base](https://nativebase.io/)
 - [ ] Introduce navigation with [RNRF](http://docs.nativebase.io/docs/examples/navigation/RNRFBasicExample.html)
 - [ ] Try to test on iPhone via [Expo](expo.io)
