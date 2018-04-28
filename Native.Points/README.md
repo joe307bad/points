@@ -4,8 +4,8 @@ ToDos:
 - [ ] Integrate Typescript
 - [x] ~~Emulate using an Android emulator~~
 - [x] ~~Ensure Hot Reloading is working~~
-  - Live reloading doesnt work on save but a simple R double tap reloads inside the emulator which would definitely make for easy development
-- [ ] [Can we debug using android emulator?](https://github.com/Microsoft/vscode-react-native)
+- [x] ~~[Can we debug using android emulator?](https://github.com/Microsoft/vscode-react-native)~~
+  - couldnt get the vscode-react-native plugin working, but debugging in chrome dev tools works just fine
 - [ ] Introduce Redux into application
 - [ ] Make an HTTP call to server (search for 'HTTP redux', 'async redux actions', and 'redux api as middleware')
 - [ ] Submit HTTP call with [MessagePack](https://msgpack.org/index.html)
