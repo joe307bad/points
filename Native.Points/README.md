@@ -1,11 +1,11 @@
 ToDos:
 
 - [x] ~~Install React Native~~
-- [ ] Integrate Typescript
 - [x] ~~Emulate using an Android emulator~~
 - [x] ~~Ensure Hot Reloading is working~~
 - [x] ~~[Can we debug using android emulator?](https://github.com/Microsoft/vscode-react-native)~~
   - couldnt get the vscode-react-native plugin working, but debugging in chrome dev tools works just fine
+- [ ] Integrate Typescript
 - [ ] Introduce Redux into application
 - [ ] Make an HTTP call to server (search for 'HTTP redux', 'async redux actions', and 'redux api as middleware')
 - [ ] Introduce [Native Base](https://nativebase.io/)
