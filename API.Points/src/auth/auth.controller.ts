@@ -4,11 +4,11 @@ import { AuthGuard } from '../passport/auth.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly auth: AuthService) {}
 
   @Get('token')
   async createToken(): Promise<any> {
-    return await this.authService.createToken();
+    return await this.auth.createToken();
   }
 
   @Get('data')
