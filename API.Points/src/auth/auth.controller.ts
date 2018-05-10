@@ -8,7 +8,7 @@ export class AuthController {
 
   @Get('token')
   async createToken(): Promise<any> {
-    return await this.auth.createToken();
+    return {};
   }
 
   @Get('data')

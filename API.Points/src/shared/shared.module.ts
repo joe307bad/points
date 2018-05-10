@@ -7,4 +7,4 @@ import { UserSchema } from './schemas';
         MongooseModule.forRoot('mongodb://localhost:27017/points'),
     ],
 })
-export class DatabaseModule { }
+export class SharedModule { }

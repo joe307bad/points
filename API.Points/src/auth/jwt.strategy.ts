@@ -4,7 +4,6 @@ import { PassportStrategy } from '../passport/passport.strategy';
 import { UnauthorizedException } from '@nestjs/common';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 
-// @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService) {
     super({

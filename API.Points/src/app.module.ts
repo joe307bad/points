@@ -3,12 +3,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { AuthModule } from './auth';
 import { UserModule } from './user';
-import { DatabaseModule } from './shared/db.module';
+import { SharedModule } from './shared/shared.module';
 import { UserSchema } from './shared/schemas';
+import { CoreModule } from './core/core.module';
 
 @Module({
   imports: [
-    DatabaseModule,
+    CoreModule,
+    SharedModule,
     AuthModule,
     UserModule,
   ],
