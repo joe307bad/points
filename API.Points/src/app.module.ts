@@ -8,13 +8,9 @@ import { UserSchema } from './shared/schemas';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/points'),
-    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+    DatabaseModule,
     AuthModule,
     UserModule,
-  ],
-  exports: [
-    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
   ],
 })
 export class ApplicationModule { }

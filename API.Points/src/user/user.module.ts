@@ -11,8 +11,5 @@ import { UserSchema } from '../shared/schemas';
   ],
   controllers: [UserController],
   providers: [UserService],
-  exports: [
-    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
-  ],
 })
 export class UserModule { }

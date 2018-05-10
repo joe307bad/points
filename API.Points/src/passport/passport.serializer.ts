@@ -1,8 +1,8 @@
 import * as passport from 'passport';
 
 export abstract class PassportSerializer {
-  abstract serializeUser(user: any, done: Function);
-  abstract deserializeUser(payload: any, done: Function);
+  abstract serializeUser(user: any, done: () => void);
+  abstract deserializeUser(payload: any, done: () => void);
 
   constructor() {
     passport.serializeUser((user, done) => this.serializeUser(user, done));
