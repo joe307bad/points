@@ -2,10 +2,10 @@ import * as mongoose from 'mongoose';
 import * as validator from 'mongoose-unique-validator';
 
 export const UserSchema = new mongoose.Schema({
-    firstName: String,
-    lastName: String,
+    firstName: { type : String , required : true },
+    lastName: { type : String , required : true },
     userName: { type : String , unique : true, required : true },
-    password: String,
+    password: { type : String , required : true },
 });
 
 UserSchema.plugin(validator);
