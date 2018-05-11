@@ -23,7 +23,9 @@
     "variable-name": [false],
     "one-line": [false],
     "one-variable-per-declaration": [false],
-    "no-unused-variable": true
+    "no-unused-variable": true,
+    "only-arrow-functions": false,
+    "space-before-function-paren": false
   },
   "rulesDirectory": []
 }

@@ -9,8 +9,8 @@ export class AuthService {
   async createToken(user: User): Promise<JwtResponse> {
     const expiresIn = 3600;
     const accessToken = jwt.sign(
-      { email: user.userName }, 
-      '8QnwdhUqb7TgebAwTwpvmBKdFgTE3bFNcDUL3DgTuFDG0', 
+      { email: user.userName },
+      '8QnwdhUqb7TgebAwTwpvmBKdFgTE3bFNcDUL3DgTuFDG0',
       { expiresIn });
     return {
       expiresIn,

@@ -22,4 +22,8 @@ export class UserService {
     const user = new this.userModel(userDto);
     return await this.db.save(user).then(newUser => this.auth.createToken(newUser));
   }
+
+  async findByUserName(userName: string): Promise<User> {
+    return await UserSchema.statics.findByUserName(userName);
+  }
 }
