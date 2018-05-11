@@ -24,6 +24,6 @@ export class UserService {
   }
 
   async findByUserName(userName: string): Promise<User> {
-    return await UserSchema.statics.findByUserName(userName);
+    return await this.userModel.findOne({ userName });
   }
 }

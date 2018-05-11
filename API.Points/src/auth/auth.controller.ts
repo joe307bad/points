@@ -1,10 +1,13 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
+import { Roles } from './gaurds/roles';
+import { RolesGuard } from './gaurds/roles';
 
 @Controller('auth')
+@UseGuards(RolesGuard)
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @Get('token')
   async createToken(): Promise<any> {
@@ -13,6 +16,7 @@ export class AuthController {
 
   @Get('data')
   @UseGuards(AuthGuard('jwt'))
+  @Roles('admin')
   findAll() {
     // this route is restricted
   }

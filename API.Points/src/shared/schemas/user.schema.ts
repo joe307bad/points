@@ -21,16 +21,3 @@ UserSchema.pre('save', function (next) {
         next();
     });
 });
-
-UserSchema.statics = {
-    findByUserName(userName: string) {
-        return this.findOne({ userName })
-            .exec()
-            .then((user) => {
-                if (user) {
-                    return user;
-                }
-                return Promise.reject(false);
-            });
-    },
-};
