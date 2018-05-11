@@ -1,4 +1,4 @@
-### ToDo
+### ToDos
 - [x] Encrypt/Decrypt password
 - [x] Login endpoint
 - [x] Roles gaurd
@@ -6,3 +6,7 @@
 - [ ] Access JWT info in Role Gaurd
 - [ ] Figure out how to achieve roles in MongoDB/Mongoose
 - [ ] Achievement entity
+
+### Advanced ToDos
+- [ ] Cache role data
+- [ ] Multitenancy
