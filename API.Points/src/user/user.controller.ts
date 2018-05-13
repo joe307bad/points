@@ -1,5 +1,4 @@
 import { Controller, Get, UseGuards, Post, Body, Request } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
 
 import { UserDto } from '../shared/dtos';
 import { UserService } from './user.service';
@@ -21,13 +20,7 @@ export class UserController {
 
   @Post('login')
   async login(@Body() user: UserDto): Promise<JwtResponse | ApiError> {
-    const userData = await this.user.findByUserName(user.userName);
-
-    return bcrypt.compare(user.password, userData.password)
-      .then(res => res
-        ? this.auth.createToken(user as User)
-        : Promise.reject(new ApiError('Incorrect password')))
-      .catch(err => err);
+    return await this.user.login(user).catch(err => err);
   }
 
 }
