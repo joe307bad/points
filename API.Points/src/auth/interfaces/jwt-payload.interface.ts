@@ -1,3 +1,7 @@
+import { RoleDto } from "../../shared/dtos";
+
 export interface JwtPayload {
-  email: string;
+  username: string;
+  id: string;
+  roles: String[];
 }

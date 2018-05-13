@@ -1,8 +1,10 @@
 import { Document } from 'mongoose';
+import { Role } from './role.interface';
 
-export interface User  extends Document{
+export interface User extends Document{
     readonly firstName: string;
     readonly lastName: string;
     readonly userName: string;
-    readonly password: string;
+    password: string;
+    roles: Role[];
 }

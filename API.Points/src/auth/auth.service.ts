@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { JwtResponse } from './interfaces/jwt.response';
 import { User } from '../shared/interfaces';
+import { UserDto } from '../shared/dtos';
 
 @Injectable()
 export class AuthService {
@@ -10,9 +11,10 @@ export class AuthService {
     const expiresIn = 3600;
     const accessToken = jwt.sign(
       { 
-        email: user.userName,
-        id: user.id 
-      },
+        username: user.userName,
+        id: user.id,
+        roles: user.roles.map(r => r.name)
+      } as JwtPayload,
       '8QnwdhUqb7TgebAwTwpvmBKdFgTE3bFNcDUL3DgTuFDG0',
       { expiresIn });
     return {
@@ -22,6 +24,6 @@ export class AuthService {
   }
 
   async validateUser(payload: JwtPayload): Promise<boolean> {
-    return !!payload.email;
+    return !!payload.username;
   }
 }
