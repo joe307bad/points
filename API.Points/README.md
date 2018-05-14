@@ -7,8 +7,11 @@
 - [x] ~~Figure out how to achieve roles/relationships in MongoDB/Mongoose~~
     - ~~http://mongoosejs.com/docs/populate.html~~
     - ~~many-to-many https://stackoverflow.com/a/1600166~~
-- [ ] Rework role relations tp use $lookup and virtuals
+- [ ] Rework role relations to use $lookup and virtuals (or store )
     - https://stackoverflow.com/a/46020968
+    - http://mongoosejs.com/docs/guide.html#virtuals
+    - https://www.npmjs.com/package/mongoose-authorization
+    - https://stackoverflow.com/questions/37283471/how-to-get-enum-values-from-mongoose-schema-using-virtual-method
 - [ ] Restrict roles gaurd by accessing roles in JWT payload
 - [ ] Achievement entity with user many to many
 
