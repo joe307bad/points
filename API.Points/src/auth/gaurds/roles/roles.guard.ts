@@ -9,7 +9,8 @@ export class RolesGuard implements CanActivate {
         // get user role
         // get request method (put, get, post, etc)
         // get resource attempting to be acted on
-        // use access control to determine ac.cam(role).{method based on http method}(resource)
+        // get the attributes of the resource to be acted on (check if undefined?)
+        // use access control to determine ac.cam(role).{method based on http method}(resource, attributes)
         const roles = this.reflector.get<string[]>('roles', context.getHandler());
         // if (!roles) {
         //     return true;
