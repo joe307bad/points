@@ -1,8 +1,7 @@
 export class ApiError {
-
-    private message: string;
-    private name: string;
-    private errors: { apiError: { message: string } }[];
+    message: string;
+    name: string;
+    errors: { apiError: { message: string } }[];
 
     constructor(message: string) {
         this.message = message;

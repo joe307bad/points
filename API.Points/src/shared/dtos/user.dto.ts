@@ -1,4 +1,4 @@
-import { IsString, IsInt } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class UserDto {
     readonly id: string;
@@ -6,5 +6,5 @@ export class UserDto {
     @IsString() readonly lastName: string;
     @IsString() readonly userName: string;
     @IsString() readonly password: string;
-    readonly roles: String[];
+    readonly roles: string[];
 }

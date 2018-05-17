@@ -6,7 +6,6 @@ import * as ac from 'accesscontrol';
 
 import { UserDto } from '../shared/dtos';
 import { User } from '../shared/interfaces';
-import { UserSchema } from '../shared/schemas';
 import { DatabaseService } from '../core/mongo/';
 import { AuthService } from '../auth';
 import { JwtResponse } from '../auth/interfaces/';
@@ -28,7 +27,7 @@ export class UserService {
     return this.db.save(user).then(newUser => this.auth.createToken(newUser));
   }
 
-  async login(user: UserDto): Promise<JwtResponse | ApiError>{
+  async login(user: UserDto): Promise<JwtResponse | ApiError> {
     const userData = await this.findByUserName(user.userName);
 
     return bcrypt.compare(user.password, userData.password)

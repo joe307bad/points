@@ -1,9 +1,9 @@
 import * as jwt from 'jsonwebtoken';
 import { Injectable } from '@nestjs/common';
+
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { JwtResponse } from './interfaces/jwt.response';
 import { User } from '../shared/interfaces';
-import { UserDto } from '../shared/dtos';
 
 @Injectable()
 export class AuthService {
