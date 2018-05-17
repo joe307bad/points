@@ -10,10 +10,9 @@ export class AuthService {
   async createToken(user: User): Promise<JwtResponse> {
     const expiresIn = 3600;
     const accessToken = jwt.sign(
-      { 
+      {
         username: user.userName,
         id: user.id,
-        roles: user.roles.map(r => r.name)
       } as JwtPayload,
       '8QnwdhUqb7TgebAwTwpvmBKdFgTE3bFNcDUL3DgTuFDG0',
       { expiresIn });

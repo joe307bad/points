@@ -4,5 +4,4 @@ import * as bcrypt from 'bcrypt';
 
 export const BaseSchema = (definition: mongoose.SchemaDefinition): mongoose.Schema => {
    return  new mongoose.Schema(definition, { timestamps: true });
-}
-
+};

@@ -3,18 +3,17 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { UserSchema, RoleSchema } from '../shared/schemas';
+import { UserSchema } from '../shared/schemas';
 import { AuthService } from '../auth/auth.service';
+import { AcProvider } from '../shared/shared.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: 'User', schema: UserSchema },
-      { name: 'Role', schema: RoleSchema }
     ]),
-    
   ],
   controllers: [UserController],
-  providers: [UserService, AuthService],
+  providers: [UserService, AuthService, AcProvider],
 })
 export class UserModule { }

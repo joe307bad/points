@@ -1,5 +1,4 @@
 import { IsString, IsInt } from 'class-validator';
-import { RoleDto } from './roles.dto';
 
 export class UserDto {
     readonly id: string;
@@ -7,5 +6,5 @@ export class UserDto {
     @IsString() readonly lastName: string;
     @IsString() readonly userName: string;
     @IsString() readonly password: string;
-    readonly roles: RoleDto[];
+    readonly roles: String[];
 }

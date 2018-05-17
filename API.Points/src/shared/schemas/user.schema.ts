@@ -2,8 +2,7 @@ import * as mongoose from 'mongoose';
 import * as validator from 'mongoose-unique-validator';
 import * as bcrypt from 'bcrypt';
 import { BaseSchema } from './base.schema';
-import { User, Role } from '../interfaces';
-import { RoleSchema } from '.';
+import { User } from '../interfaces';
 
 export const UserSchema = BaseSchema({
     firstName: { type: String, required: true },

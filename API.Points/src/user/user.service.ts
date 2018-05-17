@@ -1,11 +1,12 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
+import * as ac from 'accesscontrol';
 
 import { UserDto } from '../shared/dtos';
-import { User, Role } from '../shared/interfaces';
-import { UserSchema, RoleSchema } from '../shared/schemas';
+import { User } from '../shared/interfaces';
+import { UserSchema } from '../shared/schemas';
 import { DatabaseService } from '../core/mongo/';
 import { AuthService } from '../auth';
 import { JwtResponse } from '../auth/interfaces/';
@@ -17,22 +18,14 @@ export class UserService {
   private db = DatabaseService;
 
   constructor(
+    @Inject('AccessControl') private readonly access: ac.AccessControl,
     @InjectModel('User') private readonly userModel: Model<User>,
-    @InjectModel('Role') private readonly roleModel: Model<Role>,
     private auth: AuthService) { }
 
   async create(userDto: UserDto): Promise<JwtResponse> {
+    const permission = this.access.can('admin').create('user');
     const user = new this.userModel(userDto);
-
-    /// TODO im not sure if this is the correct way to add a default role to a user
-    /// in other words, how do we a specify a default for a many to many relationship
-    const role = new this.roleModel({name: "User"});
-    ///
-
-    return await this.db.save(role).then(role => {
-      user.roles.push(role);
-      return this.db.save(user).then(newUser => this.auth.createToken(newUser));
-    });
+    return this.db.save(user).then(newUser => this.auth.createToken(newUser));
   }
 
   async login(user: UserDto): Promise<JwtResponse | ApiError>{
