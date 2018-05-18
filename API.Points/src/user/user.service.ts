@@ -38,6 +38,6 @@ export class UserService {
   }
 
   private async findByUserName(userName: string): Promise<User> {
-    return await this.userModel.findOne({ userName }).populate('roles');
+    return await this.userModel.findOne({ userName });
   }
 }

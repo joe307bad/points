@@ -8,11 +8,13 @@ import { User } from '../shared/interfaces';
 @Injectable()
 export class AuthService {
   async createToken(user: User): Promise<JwtResponse> {
+    // TODO is expiresIn working?
     const expiresIn = 3600;
     const accessToken = jwt.sign(
       {
         username: user.userName,
         id: user.id,
+        roles: user.roles
       } as JwtPayload,
       '8QnwdhUqb7TgebAwTwpvmBKdFgTE3bFNcDUL3DgTuFDG0',
       { expiresIn });
@@ -23,6 +25,7 @@ export class AuthService {
   }
 
   async validateUser(payload: JwtPayload): Promise<boolean> {
+    // TODO what if user is deleted/locked? the token would still be valid until it expires
     return !!payload.username;
   }
 }
