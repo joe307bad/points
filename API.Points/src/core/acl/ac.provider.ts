@@ -1,5 +1,7 @@
-
+import * as mongoose from 'mongoose';
 import * as ac from 'accesscontrol';
+
+import { BaseSchema } from '../../shared/schemas/base.schema';
 
 // TODO how can we make this dynamic?
 // honestly, after some thought, it may not be a bad idea to have to
@@ -35,3 +37,4 @@ export const AcProvider = {
         return new ac.AccessControl(grantsObject);
     },
 };
+

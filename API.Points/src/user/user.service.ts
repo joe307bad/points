@@ -18,10 +18,11 @@ export class UserService {
 
   constructor(
     @Inject('AccessControl') private readonly access: ac.AccessControl,
-    @InjectModel('User') private readonly userModel: Model<User>,
+    @Inject('User') private readonly userModel: Model<User>,
     private auth: AuthService) { }
 
   async create(userDto: UserDto): Promise<JwtResponse> {
+    // restrict user from posting roles array
     const permission = this.access.can('admin').create('user');
     const user = new this.userModel(userDto);
     return this.db.save(user).then(newUser => this.auth.createToken(newUser));
