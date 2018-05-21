@@ -20,7 +20,7 @@ export const AcProvider = {
             user: {
                 user: {
                     'read:any': ['*'],
-                    'update:own': ['*'],
+                    'update:own': ['*', '!id'],
                     'delete:own': ['*']
                 },
                 achievements: {

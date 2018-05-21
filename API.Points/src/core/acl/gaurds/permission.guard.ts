@@ -12,48 +12,42 @@ export class PermissionGaurd implements CanActivate {
         private readonly access: ac.AccessControl) { }
 
     canActivate(context: ExecutionContext): boolean {
-        // get user role
-        // get request method (put, get, post, etc) --> i dont think this is necessary
-        // get resource attempting to be acted on --> can only seem to get close to the type by doing this.constructor.name
-        // get the attributes of the resource to be acted on (check if undefined?)
-        // use access control to determine ac.cam(role).{method based on http method}(resource, attributes)
+
+        const intent = this.reflector.get<ApiPermission>('permission', context.getHandler());
+
+        if (!intent) {
+            return true;
+        }
+
         const request = context.switchToHttp().getRequest();
         const user = this.decodeToken(request);
-        const roles = user.roles;
-        const intent = this.reflector.get<ApiPermission>('permission', context.getHandler());
-        // const permission = this.access.can('admin').create('user');
-        const can = () => this.access.can(roles);
 
-        const permission = (() => {
-            switch(intent.action){
-                case 'create':
-                    return can().create(intent.resource);
-                case 'read':
-                    return can().read(intent.resource);
-                case 'update':
-                    return can().update(intent.resource);
-                case 'delete':
-                    return can().delete(intent.resource);
+        if (!user) {
+            return false;
+        }
+
+        let attributes = null;
+        let owned = false;
+
+        if (!!request.body) {
+            attributes = Object.keys(request.body);
+            if (!!request.params && !!request.params.id) {
+                request.body.id = request.params.id;
             }
-        })();
+            owned = intent.owned(request.body, user.id);
+        }
 
-        // const request = context.switchToHttp().getRequest();
-        // const method = request.method;
-        // const user = this.decodeToken(request);
-        // const roles = user.roles;
+        const roles = user.roles;
+        const can = (action: string): ac.Permission =>
+            (this.access.can(roles))[action + (owned ? 'Own' : '')](intent.resource, attributes);
 
-        // const roles = this.reflector.get<string[]>('roles', context.getHandler());
-        // if (!roles) {
-        //     return true;
-        // }
-        // const user = request.user;
-        // const hasRole = () => user.roles.some((role) => roles.some(r => r === role));
-        // return user && user.roles && hasRole();
-        return true;
+        return can(intent.action).granted;
     }
 
     private decodeToken(request: any): JwtPayload {
-        const token = !!request.header ? request.headers.authorization.split(' ')[1] : null;
+        const token = !!request.headers && !!request.headers.authorization
+            ? request.headers.authorization.split(' ')[1]
+            : null;
         return !!token ? jwt.decode(token) : null;
     }
 }
