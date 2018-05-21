@@ -1,7 +1,7 @@
 import * as ac from 'accesscontrol';
 import { ApiResource } from './api/api.resource';
 
-export interface Grant {
+export interface Grants {
     [role: string]: { [k in ApiResource]: { [action: string]: string[] } };
 }
 
@@ -12,7 +12,7 @@ export interface Grant {
 export const AcProvider = {
     provide: 'AccessControl',
     useFactory: (): ac.AccessControl => {
-        const grantsObject: Grant  = {
+        const grants: Grants  = {
             admin: {
                 user: {
                     'read:any': ['*'],
@@ -23,26 +23,32 @@ export const AcProvider = {
                     'read:any': ['*'],
                     'create:any': ['*'],
                     'update:any': ['*']
+                },
+                checkin: {
+                    'read:any': ['*'],
+                    'update:any': ['*'],
+                    'create:any': ['*'],
+                    'delete:any': ['*']
                 }
             },
             user: {
                 user: {
                     'read:any': ['*'],
-                    'update:own': ['*', '!id'],
+                    'update:own': ['*'],
                     'delete:own': ['*']
                 },
                 achievement: {
                     'read:any': ['*']
                 },
-                // userAchievment: {
-                //     'read:any': ['*'],
-                //     'update:own': ['*'],
-                //     'create:own': ['*'],
-                //     'delete:own': ['*']
-                // }
+                checkin: {
+                    'read:any': ['*'],
+                    'update:own': ['*'],
+                    'create:own': ['*'],
+                    'delete:own': ['*']
+                }
             }
         };
-        return new ac.AccessControl(grantsObject);
+        return new ac.AccessControl(grants);
     },
 };
 

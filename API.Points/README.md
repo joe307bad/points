@@ -6,7 +6,9 @@
 - [x] ~~Restrict AccessControl gaurd by accessing roles in JWT payload~~
 - [x] ~~Achievement entity with CRU operations~~
 - [ ] Checkin entity with CRUD operations
-- [ ] Endpoint for user to checkin to achievement
+- [ ] Create join to calculate user's total points
+    - https://stackoverflow.com/a/46020968 (listing 3)
+- [ ] Upload photo with achievement
 - [ ] Endpoint for admin to add achievement and approve checkin
 - [ ] Endpoint to get all achievements
 - [ ] Endpoint to get all checkins for user

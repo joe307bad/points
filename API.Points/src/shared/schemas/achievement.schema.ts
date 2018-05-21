@@ -1,6 +1,7 @@
 import { BaseSchema } from './base.schema';
 
 // TODO should validation be here or in class-validator/DTO?
+// not sure of the purpose of class-validtor with current setup
 
 export const AchievementSchema = BaseSchema({
     name: { type: String, required: true, unique: true },
