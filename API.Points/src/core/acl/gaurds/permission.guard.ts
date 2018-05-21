@@ -2,8 +2,9 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import * as jwt from 'jsonwebtoken';
 import * as ac from 'accesscontrol';
+
 import { JwtPayload } from '../../../auth';
-import { ApiPermission } from './permission.decorator';
+import { ApiPermission } from '../api';
 
 @Injectable()
 export class PermissionGaurd implements CanActivate {
@@ -22,7 +23,7 @@ export class PermissionGaurd implements CanActivate {
         const request = context.switchToHttp().getRequest();
         const user = this.decodeToken(request);
 
-        if (!user) {
+        if (!user || !user.roles) {
             return false;
         }
 
@@ -32,9 +33,10 @@ export class PermissionGaurd implements CanActivate {
         if (!!request.body) {
             attributes = Object.keys(request.body);
             if (!!request.params && !!request.params.id) {
+                // TODO this should probably be in an interceptor
                 request.body.id = request.params.id;
             }
-            owned = intent.owned(request.body, user.id);
+            owned = intent.ownId ? intent.owned(request.body, user.id) : false;
         }
 
         const roles = user.roles;

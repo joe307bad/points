@@ -1,6 +1,8 @@
 import { IsString, IsInt, IsBase64, MaxLength, IsNotEmpty } from 'class-validator';
 
-export class AchievementDto {
+import { BaseDto } from './base.dto';
+
+export class AchievementDto extends BaseDto {
     readonly id: string;
 
     @IsString()

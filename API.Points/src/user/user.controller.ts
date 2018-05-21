@@ -9,7 +9,7 @@ import {
   HasPermission,
   ApiAction,
   ApiPermission
-} from '../core/acl/gaurds';
+} from '../core/acl';
 
 const resource = 'user';
 const to = (action: ApiAction) => new ApiPermission(action, resource, 'id', 'integer');

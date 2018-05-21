@@ -1,4 +1,9 @@
 import * as ac from 'accesscontrol';
+import { ApiResource } from './api/api.resource';
+
+export interface Grant {
+    [role: string]: { [k in ApiResource]: { [action: string]: string[] } };
+}
 
 // TODO how can we make this dynamic?
 // honestly, after some thought, it may not be a bad idea to have to
@@ -7,14 +12,14 @@ import * as ac from 'accesscontrol';
 export const AcProvider = {
     provide: 'AccessControl',
     useFactory: (): ac.AccessControl => {
-        const grantsObject = {
+        const grantsObject: Grant  = {
             admin: {
                 user: {
                     'read:any': ['*'],
                     'create:any': ['*'],
                     'update:any': ['*']
                 },
-                achievements: {
+                achievement: {
                     'read:any': ['*'],
                     'create:any': ['*'],
                     'update:any': ['*']
@@ -26,15 +31,15 @@ export const AcProvider = {
                     'update:own': ['*', '!id'],
                     'delete:own': ['*']
                 },
-                achievements: {
+                achievement: {
                     'read:any': ['*']
                 },
-                userAchievments: {
-                    'read:any': ['*'],
-                    'update:own': ['*'],
-                    'create:own': ['*'],
-                    'delete:own': ['*']
-                }
+                // userAchievment: {
+                //     'read:any': ['*'],
+                //     'update:own': ['*'],
+                //     'create:own': ['*'],
+                //     'delete:own': ['*']
+                // }
             }
         };
         return new ac.AccessControl(grantsObject);

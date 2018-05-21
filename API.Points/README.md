@@ -4,7 +4,8 @@
 - [x] ~~Figure out how to achieve roles/relationships in MongoDB/Mongoose~~
 - [x] ~~Utilize access control to lockdown service endpoints~~
 - [x] ~~Restrict AccessControl gaurd by accessing roles in JWT payload~~
-- [ ] Achievement entity with user many to many
+- [x] ~~Achievement entity with CRU operations~~
+- [ ] Checkin entity with CRUD operations
 - [ ] Endpoint for user to checkin to achievement
 - [ ] Endpoint for admin to add achievement and approve checkin
 - [ ] Endpoint to get all achievements
@@ -15,3 +16,4 @@
 - [ ] Websocket leaderboard/notifications
 - [ ] Multitenancy
 - [ ] Revoking JWT tokens with some event based system
+- [ ] Created/updated by
