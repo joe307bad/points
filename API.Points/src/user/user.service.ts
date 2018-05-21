@@ -1,8 +1,6 @@
 import { Model } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
-import * as ac from 'accesscontrol';
 
 import { UserDto } from '../shared/dtos';
 import { User } from '../shared/interfaces';
@@ -17,13 +15,11 @@ export class UserService {
   private db = DatabaseService;
 
   constructor(
-    @Inject('AccessControl') private readonly access: ac.AccessControl,
     @Inject('User') private readonly userModel: Model<User>,
     private auth: AuthService) { }
 
   async create(userDto: UserDto): Promise<JwtResponse> {
-    // restrict user from posting roles array
-    const permission = this.access.can('admin').create('user');
+    // TODO restrict user from posting roles array
     const user = new this.userModel(userDto);
     return this.db.save(user).then(newUser => this.auth.createToken(newUser));
   }

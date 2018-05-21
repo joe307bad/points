@@ -1,5 +1,4 @@
 import { Document } from 'mongoose';
-import { ApiResource } from '../../core/acl/gaurds/permission.decorator';
 
 export interface User extends Document {
     readonly firstName: string;

@@ -8,10 +8,8 @@ import {
   PermissionGaurd,
   HasPermission,
   ApiAction,
-  ApiPermission,
-  ApiResource
+  ApiPermission
 } from '../core/acl/gaurds';
-import { User } from '../shared/interfaces';
 
 const resource = 'user';
 const to = (action: ApiAction) => new ApiPermission(action, resource, 'id', 'integer');
