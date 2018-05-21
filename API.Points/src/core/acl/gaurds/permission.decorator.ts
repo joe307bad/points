@@ -2,15 +2,15 @@ import { ReflectMetadata } from '@nestjs/common';
 
 export type ApiAction = 'create' | 'read' | 'update' | 'delete';
 
-export class ApiResource {
-
-}
+export type ApiResource = 'user';
 
 export class ApiPermission {
     action: ApiAction;
+    resource: ApiResource;
 
-    constructor(action: ApiAction) {
+    constructor(action: ApiAction, resource: ApiResource) {
         this.action = action;
+        this.resource = resource;
     }
 
 }

@@ -4,15 +4,15 @@ import { UserDto } from '../shared/dtos';
 import { UserService } from './user.service';
 import { JwtResponse } from '../auth/interfaces';
 import { ApiError } from '../core/error';
-import { PermissionGaurd, HasPermission, ApiAction, ApiPermission } from '../core/acl/gaurds';
+import { PermissionGaurd, HasPermission, ApiAction, ApiPermission, ApiResource } from '../core/acl/gaurds';
 import { User } from '../shared/interfaces/user.interface';
 
-const to = (action: ApiAction) => new ApiPermission(action);
+const resource = 'user';
+const to = (action: ApiAction) => new ApiPermission(action, resource);
+// resource specific action like 'login-as' or 'approve-achievement-for'
 
-class UserGaurd extends PermissionGaurd<User> { }
-
-@Controller('user')
-@UseGuards(UserGaurd)
+@Controller(resource)
+@UseGuards(PermissionGaurd)
 export class UserController {
   constructor(private readonly user: UserService) { }
 
