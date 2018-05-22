@@ -32,7 +32,7 @@ export class CheckinService {
     }
 
     async getLeaderboard(): Promise<UserCheckinsDto[]> {
-        return this.buildCheckinAggregate();
+        return this.buildCheckinAggregate(true);
     }
 
     private buildCheckinAggregate(
