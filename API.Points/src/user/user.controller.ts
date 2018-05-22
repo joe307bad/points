@@ -1,4 +1,5 @@
 import { Controller, Post, Body, UseGuards, Put, Param } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 import { UserDto } from '../shared/dtos';
 import { UserService } from './user.service';
@@ -31,6 +32,7 @@ export class UserController {
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard('jwt'))
   @HasPermission(to('update'))
   async update(@Body() user: UserDto, @Param() params): Promise<JwtResponse | ApiError> {
     return Promise.resolve(new ApiError('Not Implemented'));

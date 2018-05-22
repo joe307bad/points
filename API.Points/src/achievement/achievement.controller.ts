@@ -6,12 +6,13 @@ import { AchievementService } from './achievement.service';
 import { AchievementDto } from '../shared/dtos';
 import { JwtResponse } from '../auth';
 import { Achievement } from '../shared/interfaces';
+import { AuthGuard } from '@nestjs/passport';
 
 const resource = 'achievement';
 export const to = (action: ApiAction) => new ApiPermission(action, resource);
 
 @Controller(resource)
-@UseGuards(PermissionGaurd)
+@UseGuards(PermissionGaurd, AuthGuard('jwt'))
 export class AchievementController {
     constructor(private readonly achievement: AchievementService) { }
 
