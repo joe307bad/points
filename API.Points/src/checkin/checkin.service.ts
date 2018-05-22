@@ -24,17 +24,33 @@ export class CheckinService {
     }
 
     async getForUser(userId: string): Promise<UserCheckinsDto> {
-        return this.buildCheckinAggregate(userId).then(userCheckins => userCheckins[0]);
+        return this.buildCheckinAggregate(true, userId).then(userCheckins => userCheckins[0]);
     }
 
-    async getAllCheckins(): Promise<UserCheckinsDto[]> {
+    async getAll(): Promise<UserCheckinsDto[]> {
+        return this.buildCheckinAggregate(true);
+    }
+
+    async getLeaderboard(): Promise<UserCheckinsDto[]> {
         return this.buildCheckinAggregate();
     }
 
-    private buildCheckinAggregate(userId?: string): Promise<UserCheckinsDto[]> {
+    private buildCheckinAggregate(
+        withAchievements = false,
+        userId?: string): Promise<UserCheckinsDto[]> {
 
         let aggregate = [];
+        const grouping = {
+            '$group': {
+                '_id': '$_id',
+                'userId': { '$first': '$_id' },
+                'userName': { '$first': '$userName' },
+                'firstName': { '$first': '$firstName' },
+                'totalCheckins': { '$size': '$checkins' }
+            }
+        };
 
+        // add match for a single user
         if (!!userId) {
             aggregate = [
                 {
@@ -46,6 +62,7 @@ export class CheckinService {
             ];
         }
 
+        // add $lookup for checkins
         aggregate = [...aggregate,
         {
             '$lookup': {
@@ -54,34 +71,37 @@ export class CheckinService {
                 'foreignField': 'userId',
                 'as': 'checkins'
             }
-        },
-        { '$unwind': '$checkins' },
-        {
-            '$lookup': {
-                'from': this.achievementModel.collection.name,
-                'localField': 'checkins.achievementId',
-                'foreignField': '_id',
-                'as': 'achievements'
-            }
-        },
-        { '$unwind': '$achievements' },
-        {
-            '$addFields': {
-                'achievements.checkinDate': '$checkins.createdAt',
-                'achievements.approved': '$checkins.approved',
-                'achievements.achievementId': '$achievements._id',
-                'achievements.checkinId': '$checkins._id'
-            }
-        },
-        {
-            '$group': {
-                '_id': '$_id',
-                'totalPoints': { '$sum': '$achievements.points' },
-                'checkins': {
-                    '$push': '$achievements'
-                },
-            }
         }];
+
+        // add achievement data
+        if (withAchievements) {
+            aggregate = [...aggregate,
+            {
+                '$lookup': {
+                    'from': this.achievementModel.collection.name,
+                    'localField': 'checkins.achievementId',
+                    'foreignField': '_id',
+                    'as': 'achievements'
+                }
+            },
+            { '$unwind': '$achievements' },
+            {
+                '$addFields': {
+                    'achievements.checkinDate': '$checkins.createdAt',
+                    'achievements.approved': '$checkins.approved',
+                    'achievements.achievementId': '$achievements._id',
+                    'achievements.checkinId': '$checkins._id'
+                }
+            }];
+
+            // add grouping data dependant on assessments
+            grouping['$group']['totalPoints'] = { '$sum': '$achievements.points' };
+            grouping['$group']['checkins'] = { '$push': '$achievements' };
+
+        }
+
+        // add final $group
+        aggregate = [...aggregate, grouping];
 
         return this.userModel.aggregate(aggregate).exec();
     }
