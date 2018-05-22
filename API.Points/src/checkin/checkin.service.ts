@@ -5,7 +5,7 @@ import { ObjectId } from 'mongodb';
 
 import { DatabaseService } from '../core/mongo';
 import { Checkin, User, Achievement } from '../shared/interfaces';
-import { CheckinDto, UserDto } from '../shared/dtos';
+import { CheckinDto, UserDto, UserCheckinsDto } from '../shared/dtos';
 
 @Injectable()
 export class CheckinService {
@@ -23,11 +23,15 @@ export class CheckinService {
         return this.db.save(checkin);
     }
 
-    async getForUser(userId: string): Promise<any[]> {
-        return Promise.resolve(this.buildCheckinAggregate(userId));
+    async getForUser(userId: string): Promise<UserCheckinsDto> {
+        return this.buildCheckinAggregate(userId).then(userCheckins => userCheckins[0]);
     }
 
-    private buildCheckinAggregate(userId?: string) {
+    async getAllCheckins(): Promise<UserCheckinsDto[]> {
+        return this.buildCheckinAggregate();
+    }
+
+    private buildCheckinAggregate(userId?: string): Promise<UserCheckinsDto[]> {
 
         let aggregate = [];
 
@@ -63,7 +67,10 @@ export class CheckinService {
         { '$unwind': '$achievements' },
         {
             '$addFields': {
-                'achievements.checkinDate': '$checkins.createdAt'
+                'achievements.checkinDate': '$checkins.createdAt',
+                'achievements.approved': '$checkins.approved',
+                'achievements.achievementId': '$achievements._id',
+                'achievements.checkinId': '$checkins._id'
             }
         },
         {
@@ -76,6 +83,7 @@ export class CheckinService {
             }
         }];
 
-        return this.userModel.aggregate(aggregate);
+        return this.userModel.aggregate(aggregate).exec();
     }
+
 }
