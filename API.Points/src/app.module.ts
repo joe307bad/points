@@ -5,6 +5,7 @@ import { UserModule } from './user';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { AchievementModule } from './achievement';
+import { CheckinModule } from './checkin';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { AchievementModule } from './achievement';
     SharedModule,
     AuthModule,
     UserModule,
-    AchievementModule
+    AchievementModule,
+    CheckinModule,
   ],
 })
 export class ApplicationModule { }

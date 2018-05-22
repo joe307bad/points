@@ -24,10 +24,10 @@ export class UserService {
     return this.db.save(user).then(newUser => this.auth.createToken(newUser));
   }
 
-  async login(user: UserDto): Promise<JwtResponse | ApiError> {
-    const userData = await this.findByUserName(user.userName);
+  async login(userDto: UserDto): Promise<JwtResponse | ApiError> {
+    const userData = await this.findByUserName(userDto.userName);
 
-    return bcrypt.compare(user.password, userData.password)
+    return bcrypt.compare(userDto.password, userData.password)
       .then(res => res
         ? this.auth.createToken(userData)
         : Promise.reject(new ApiError('Incorrect password')));

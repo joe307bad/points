@@ -30,7 +30,7 @@ export class PermissionGaurd implements CanActivate {
         let attributes = null;
         let owned = false;
 
-        if (!!request.body) {
+        if (!!request.body && !!Object.keys(request.body).length) {
             attributes = Object.keys(request.body);
             if (!!request.params && !!request.params.id) {
                 // TODO this should probably be in an interceptor
