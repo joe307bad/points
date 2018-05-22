@@ -23,6 +23,7 @@ export class CheckinService {
     }
 
     async getForUser(userId: string): Promise<any[]> {
+        // TODO query is for all users, switch to single user
         const achievements = this.userModel.aggregate([
             {
                 '$lookup': {
@@ -38,15 +39,22 @@ export class CheckinService {
                     'from': this.achievementModel.collection.name,
                     'localField': 'checkins.achievementId',
                     'foreignField': '_id',
-                    'as': 'checkins'
+                    'as': 'achievements'
                 }
             },
-            { '$unwind': '$checkins' },
+            { '$unwind': '$achievements' },
+            {
+                '$addFields': {
+                    'achievements.checkinDate': '$checkins.createdAt'
+                }
+            },
             {
                 '$group': {
                     '_id': '$_id',
-                    'name': { '$first': '$name' },
-                    'checkins': { '$push': '$checkins' }
+                    'totalPoints': { '$sum': '$achievements.points' },
+                    'checkins': {
+                        '$push': '$achievements'
+                    },
                 }
             }
         ]);
