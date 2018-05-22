@@ -1,6 +1,7 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, Inject } from '@nestjs/common';
 import { Model } from 'mongoose';
+import { ObjectId } from 'mongodb';
 
 import { DatabaseService } from '../core/mongo';
 import { Checkin, User, Achievement } from '../shared/interfaces';
@@ -23,42 +24,58 @@ export class CheckinService {
     }
 
     async getForUser(userId: string): Promise<any[]> {
-        // TODO query is for all users, switch to single user
-        const achievements = this.userModel.aggregate([
-            {
-                '$lookup': {
-                    'from': this.checkinModel.collection.name,
-                    'localField': '_id',
-                    'foreignField': 'userId',
-                    'as': 'checkins'
-                }
-            },
-            { '$unwind': '$checkins' },
-            {
-                '$lookup': {
-                    'from': this.achievementModel.collection.name,
-                    'localField': 'checkins.achievementId',
-                    'foreignField': '_id',
-                    'as': 'achievements'
-                }
-            },
-            { '$unwind': '$achievements' },
-            {
-                '$addFields': {
-                    'achievements.checkinDate': '$checkins.createdAt'
-                }
-            },
-            {
-                '$group': {
-                    '_id': '$_id',
-                    'totalPoints': { '$sum': '$achievements.points' },
-                    'checkins': {
-                        '$push': '$achievements'
-                    },
-                }
-            }
-        ]);
+        return Promise.resolve(this.buildCheckinAggregate(userId));
+    }
 
-        return Promise.resolve(achievements);
+    private buildCheckinAggregate(userId?: string) {
+
+        let aggregate = [];
+
+        if (!!userId) {
+            aggregate = [
+                {
+                    '$match':
+                        {
+                            '_id': new ObjectId(userId)
+                        }
+                }
+            ];
+        }
+
+        aggregate = [...aggregate,
+        {
+            '$lookup': {
+                'from': this.checkinModel.collection.name,
+                'localField': '_id',
+                'foreignField': 'userId',
+                'as': 'checkins'
+            }
+        },
+        { '$unwind': '$checkins' },
+        {
+            '$lookup': {
+                'from': this.achievementModel.collection.name,
+                'localField': 'checkins.achievementId',
+                'foreignField': '_id',
+                'as': 'achievements'
+            }
+        },
+        { '$unwind': '$achievements' },
+        {
+            '$addFields': {
+                'achievements.checkinDate': '$checkins.createdAt'
+            }
+        },
+        {
+            '$group': {
+                '_id': '$_id',
+                'totalPoints': { '$sum': '$achievements.points' },
+                'checkins': {
+                    '$push': '$achievements'
+                },
+            }
+        }];
+
+        return this.userModel.aggregate(aggregate);
     }
 }
