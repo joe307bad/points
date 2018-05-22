@@ -46,7 +46,7 @@ export class CheckinService {
                 'userId': { '$first': '$_id' },
                 'userName': { '$first': '$userName' },
                 'firstName': { '$first': '$firstName' },
-                'totalCheckins': { '$size': '$checkins' }
+                'totalCheckins': { '$first': { '$size': '$checkins' } }
             }
         };
 
