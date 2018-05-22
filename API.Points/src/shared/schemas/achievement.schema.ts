@@ -9,3 +9,9 @@ export const AchievementSchema = BaseSchema({
     description: { type: String, required: true },
     photo: { type: String }
 });
+
+AchievementSchema.virtual('checkins', {
+    ref: 'Checkin',
+    localField: '_id',
+    foreignField: 'achievementId'
+});

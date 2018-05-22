@@ -18,6 +18,12 @@ export const UserSchemaProvider = {
             roles: { type: [{ type: String, enum: roles }], default: 'user', required: true }
         });
 
+        UserSchema.virtual('checkins', {
+            ref: 'Checkin',
+            localField: '_id',
+            foreignField: 'userId'
+        });
+
         UserSchema.pre<User>('save', function (next) {
             const user = this;
             if (user.password) {

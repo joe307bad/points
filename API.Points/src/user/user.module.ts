@@ -8,7 +8,7 @@ import { UserSchemaProvider } from './providers';
 
 @Module({
   controllers: [UserController],
-  providers: [UserService, AuthService, UserSchemaProvider],
+  providers: [UserService, AuthService],
 })
 export class UserModule {
 }

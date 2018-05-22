@@ -12,7 +12,7 @@ const resource = 'achievement';
 export const to = (action: ApiAction) => new ApiPermission(action, resource);
 
 @Controller(resource)
-@UseGuards(PermissionGaurd, AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'), PermissionGaurd)
 export class AchievementController {
     constructor(private readonly achievement: AchievementService) { }
 

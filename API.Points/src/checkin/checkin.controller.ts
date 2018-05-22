@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, Body } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Get, Param } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { CheckinService } from './checkin.service';
@@ -10,7 +10,7 @@ export const to = (action: ApiAction) =>
     new ApiPermission(action, resource, 'userId', 'integer');
 
 @Controller(resource)
-@UseGuards(PermissionGaurd, AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'), PermissionGaurd)
 export class CheckinController {
     constructor(private readonly checkin: CheckinService) { }
 
@@ -18,6 +18,12 @@ export class CheckinController {
     @HasPermission(to('create'))
     async create(@Body() checkin: CheckinDto): Promise<CheckinDto> {
         return await this.checkin.create(checkin).catch(err => err);
+    }
+
+    @Get('user/:userId')
+    @HasPermission(to('read'))
+    async getForUser(@Param() params) {
+        return await this.checkin.getForUser(params.userId).catch(err => err);
     }
 
 }
