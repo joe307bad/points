@@ -32,7 +32,7 @@ export class CheckinService {
     }
 
     async getLeaderboard(): Promise<UserCheckinsDto[]> {
-        return this.buildCheckinAggregate(true);
+        return this.buildCheckinAggregate();
     }
 
     private buildCheckinAggregate(
@@ -46,8 +46,9 @@ export class CheckinService {
                 'userId': { '$first': '$_id' },
                 'userName': { '$first': '$userName' },
                 'firstName': { '$first': '$firstName' },
-                'totalCheckins': { '$first': { '$size': '$checkins' } }
-            }
+                'totalCheckins': { '$sum': 1 },
+                'totalPoints': { '$sum': '$achievements.points' }
+            },
         };
 
         // add match for a single user
@@ -62,7 +63,7 @@ export class CheckinService {
             ];
         }
 
-        // add $lookup for checkins
+        // add $lookup and $unwind for checkins and achievements
         aggregate = [...aggregate,
         {
             '$lookup': {
@@ -71,20 +72,21 @@ export class CheckinService {
                 'foreignField': 'userId',
                 'as': 'checkins'
             }
-        }];
+        },
+        { '$unwind': '$checkins' },
+        {
+            '$lookup': {
+                'from': this.achievementModel.collection.name,
+                'localField': 'checkins.achievementId',
+                'foreignField': '_id',
+                'as': 'achievements'
+            }
+        },
+        { '$unwind': '$achievements' }];
 
         // add achievement data
         if (withAchievements) {
             aggregate = [...aggregate,
-            {
-                '$lookup': {
-                    'from': this.achievementModel.collection.name,
-                    'localField': 'checkins.achievementId',
-                    'foreignField': '_id',
-                    'as': 'achievements'
-                }
-            },
-            { '$unwind': '$achievements' },
             {
                 '$addFields': {
                     'achievements.checkinDate': '$checkins.createdAt',
@@ -95,7 +97,6 @@ export class CheckinService {
             }];
 
             // add grouping data dependant on assessments
-            grouping['$group']['totalPoints'] = { '$sum': '$achievements.points' };
             grouping['$group']['checkins'] = { '$push': '$achievements' };
 
         }
