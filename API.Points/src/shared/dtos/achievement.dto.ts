@@ -6,6 +6,7 @@ import { UserCheckinDto } from './userCheckin.dto';
 
 export class AchievementDto extends BaseDto {
     readonly id: string;
+    readonly achievementId: string;
 
     @IsString()
     @IsNotEmpty()

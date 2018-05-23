@@ -44,6 +44,7 @@ export class AchievementService {
         const grouping = {
             '$group': {
                 '_id': '$checkins._id',
+                'achievementId': { '$first': '$_id' },
                 'name': { '$first': '$name' },
                 'description': { '$first': '$description' },
                 'points': { '$first': '$points' },
@@ -74,7 +75,7 @@ export class AchievementService {
                                     '$filter': {
                                       'input': '$checkins',
                                       'as': 'userCheckins',
-                                      'cond': '$$userCheckins.userId == $users._id'
+                                      'cond': { '$eq': ["$$userCheckins.userId", "$users._id"]  }
                                     }
                                   },
                                 'as': 'checkin',
@@ -105,7 +106,10 @@ export class AchievementService {
                     'as': 'users'
                 }
             },
-            { '$unwind': '$users' }
+            { '$unwind': {
+                'path': '$users',
+                'preserveNullAndEmptyArrays': true
+            } }
         ];
 
         pipeline = [...pipeline, grouping];
