@@ -33,7 +33,7 @@ export const AcProvider = {
             },
             user: {
                 user: {
-                    'read:any': ['*'],
+                    'read:any': ['*', '!password'],
                     'update:own': ['*'],
                     'delete:own': ['*']
                 },

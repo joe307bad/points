@@ -9,7 +9,7 @@ import { User } from '../shared/interfaces';
 export class AuthService {
   async createToken(user: User): Promise<JwtResponse> {
     // TODO is expiresIn working?
-    const expiresIn = 3600;
+    const expiresIn = 86400;
     const accessToken = jwt.sign(
       {
         username: user.userName,
