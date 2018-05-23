@@ -28,6 +28,12 @@ export class AchievementController {
         return await this.achievement.getAll().catch(err => err);
     }
 
+    @Get(':achievementId')
+    @HasPermission(to('read'))
+    async get(@Param() params): Promise<AchievementDto> {
+        return await this.achievement.get(params.achievementId).catch(err => err);
+    }
+
     @Put(':id')
     @HasPermission(to('update'))
     async update(@Body() achievement: AchievementDto): Promise<AchievementDto> {

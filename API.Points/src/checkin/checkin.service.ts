@@ -24,22 +24,23 @@ export class CheckinService {
     }
 
     async getForUser(userId: string): Promise<UserCheckinsDto> {
-        return this.buildCheckinAggregate(true, userId).then(userCheckins => userCheckins[0]);
+        return this.buildUserCheckinAggregate(true, userId)
+            .then(userCheckins => userCheckins[0]);
     }
 
     async getAll(): Promise<UserCheckinsDto[]> {
-        return this.buildCheckinAggregate(true);
+        return this.buildUserCheckinAggregate(true);
     }
 
     async getLeaderboard(): Promise<UserCheckinsDto[]> {
-        return this.buildCheckinAggregate();
+        return this.buildUserCheckinAggregate();
     }
 
-    private buildCheckinAggregate(
+    private buildUserCheckinAggregate(
         withAchievements = false,
         userId?: string): Promise<UserCheckinsDto[]> {
 
-        let aggregate = [];
+        let pipeline = [];
         const grouping = {
             '$group': {
                 '_id': '$_id',
@@ -53,18 +54,17 @@ export class CheckinService {
 
         // add match for a single user
         if (!!userId) {
-            aggregate = [
-                {
-                    '$match':
-                        {
-                            '_id': new ObjectId(userId)
-                        }
-                }
-            ];
+            pipeline = [...pipeline,
+            {
+                '$match':
+                    {
+                        '_id': new ObjectId(userId)
+                    }
+            }];
         }
 
         // add $lookup and $unwind for checkins and achievements
-        aggregate = [...aggregate,
+        pipeline = [...pipeline,
         {
             '$lookup': {
                 'from': this.checkinModel.collection.name,
@@ -86,7 +86,7 @@ export class CheckinService {
 
         // add achievement data
         if (withAchievements) {
-            aggregate = [...aggregate,
+            pipeline = [...pipeline,
             {
                 '$addFields': {
                     'achievements.checkinDate': '$checkins.createdAt',
@@ -102,9 +102,9 @@ export class CheckinService {
         }
 
         // add final $group
-        aggregate = [...aggregate, grouping];
+        pipeline = [...pipeline, grouping];
 
-        return this.userModel.aggregate(aggregate).exec();
+        return this.userModel.aggregate(pipeline).exec();
     }
 
 }

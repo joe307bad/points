@@ -3,3 +3,5 @@ export * from './user.dto';
 export * from './achievement.dto';
 export * from './checkin.dto';
 export * from './userCheckins.dto';
+export * from './userCheckin.dto';
+export * from './approval.dto';
