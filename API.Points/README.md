@@ -11,12 +11,12 @@
 - [x] ~~Create join to get users who have checked in to achievement~~
 - [x] ~~Add approved property to checkin joins~~
 - [x] ~~Add controller methods for getting one users checkins and getting all checkins~~
-- [ ] Join to get one achievement and all approved checkins for this achievement
+- [x] ~~Join to get one achievement and all approved checkins for this achievement~~
+- [x] ~~Leaderboard endpoint~~
 - [ ] Upload photo with achievement
 - [ ] Endpoint for admin to approve checkin
-- [ ] Leaderboard endpoint
+- [ ] Filter unnapproved checkins from points total
 - [ ] Update and delete operations for Checkin
-- [ ] Restrict user from checking into achievement twice
 - [ ] Paging for checkins and/or achievements
 
 ### Advanced ToDos
