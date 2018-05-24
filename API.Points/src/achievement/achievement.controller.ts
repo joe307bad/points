@@ -1,17 +1,18 @@
-import { 
-    Controller, 
-    UseGuards, 
-    Post, 
-    Body, 
-    Get, 
-    Put, 
-    Param, 
-    UseInterceptors, 
-    FileInterceptor, 
-    UploadedFile 
+import {
+    Controller,
+    UseGuards,
+    Post,
+    Body,
+    Get,
+    Put,
+    Param,
+    UseInterceptors,
+    FileInterceptor,
+    UploadedFile
 } from '@nestjs/common';
-import { diskStorage } from 'multer'
-import { extname } from 'path'
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { AuthGuard } from '@nestjs/passport';
 
 import { HasPermission, ApiAction, ApiPermission } from '../core/acl';
 import { PermissionGaurd } from '../core/acl';
@@ -19,7 +20,7 @@ import { AchievementService } from './achievement.service';
 import { AchievementDto } from '../shared/dtos';
 import { JwtResponse } from '../auth';
 import { Achievement } from '../shared/interfaces';
-import { AuthGuard } from '@nestjs/passport';
+import { UploadFileSettings } from '../app.settings';
 
 const resource = 'achievement';
 export const to = (action: ApiAction) => new ApiPermission(action, resource);
@@ -31,17 +32,7 @@ export class AchievementController {
 
     @Post()
     @HasPermission(to('create'))
-    @UseInterceptors(FileInterceptor('photo', {
-        storage: diskStorage({
-          destination: 'C:/uploads', 
-          filename: (req, file, cb) => {
-            // Generating a 32 random chars long string
-            const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('')
-            //Calling the callback passing the random name generated with the original extension name
-            cb(null, `${randomName}${extname(file.originalname)}`)
-          }
-        })
-      }))
+    @UseInterceptors(FileInterceptor('photo', UploadFileSettings))
     async create(@Body() achievement: AchievementDto, @UploadedFile() photo): Promise<AchievementDto> {
         achievement.photo = photo.filename;
         return await this.achievement.create(achievement).catch(err => err);

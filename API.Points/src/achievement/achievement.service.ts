@@ -75,7 +75,7 @@ export class AchievementService {
                                     '$filter': {
                                       'input': '$checkins',
                                       'as': 'userCheckins',
-                                      'cond': { '$eq': ["$$userCheckins.userId", "$users._id"]  }
+                                      'cond': { '$eq': ['$$userCheckins.userId', '$users._id']  }
                                     }
                                   },
                                 'as': 'checkin',
