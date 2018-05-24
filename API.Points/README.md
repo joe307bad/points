@@ -19,6 +19,7 @@
 - [ ] Endpoint for admin to approve checkin
 - [ ] Endpoint to serve up file
 - [ ] Filter unnapproved checkins from points total
+- [ ] Category capabilities for achievements
 - [ ] Update and delete operations for Checkin
 - [ ] Paging for checkins and/or achievements
 
