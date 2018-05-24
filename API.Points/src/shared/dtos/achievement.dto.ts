@@ -25,6 +25,6 @@ export class AchievementDto extends BaseDto {
     totalCheckins?: number;
     checkins?: UserCheckinDto[];
 
-    @IsBase64() readonly photo: any;
+    photo: string;
 }
 

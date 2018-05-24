@@ -14,6 +14,7 @@
 - [x] ~~Join to get one achievement and all approved checkins for this achievement~~
 - [x] ~~Leaderboard endpoint~~
 - [ ] Upload photo with achievement
+- [ ] Upload photo with checkin
 - [ ] Endpoint for admin to approve checkin
 - [ ] Filter unnapproved checkins from points total
 - [ ] Update and delete operations for Checkin
