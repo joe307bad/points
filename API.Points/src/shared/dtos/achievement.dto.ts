@@ -1,8 +1,8 @@
 import { IsString, IsInt, IsBase64, MaxLength, IsNotEmpty } from 'class-validator';
 
 import { BaseDto } from './base.dto';
-import { UserCheckinsDto } from './userCheckins.dto';
-import { UserCheckinDto } from './userCheckin.dto';
+import { UserCheckinsDto } from './user-checkins.dto';
+import { UserCheckinDto } from './user-checkin.dto';
 
 export class AchievementDto extends BaseDto {
     readonly id: string;

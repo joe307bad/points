@@ -13,5 +13,7 @@ export class CheckinDto extends BaseDto {
 
     @IsBoolean()
     readonly approved: boolean;
+
+    photo: string;
 }
 

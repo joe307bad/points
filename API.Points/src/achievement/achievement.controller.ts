@@ -34,7 +34,7 @@ export class AchievementController {
     @HasPermission(to('create'))
     @UseInterceptors(FileInterceptor('photo', UploadFileSettings))
     async create(@Body() achievement: AchievementDto, @UploadedFile() photo): Promise<AchievementDto> {
-        achievement.photo = photo.filename;
+        achievement.photo = photo ? photo.filename : null;
         return await this.achievement.create(achievement).catch(err => err);
     }
 

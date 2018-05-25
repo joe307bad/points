@@ -15,7 +15,8 @@ export const UserSchemaProvider = {
             lastName: { type: String, required: true },
             userName: { type: String, unique: true, required: true },
             password: { type: String, required: true, select: false },
-            roles: { type: [{ type: String, enum: roles }], default: 'user', required: true }
+            roles: { type: [{ type: String, enum: roles }], default: 'user', required: true },
+            photo: { type: String }
         });
 
         UserSchema.virtual('checkins', {

@@ -24,4 +24,5 @@ export class UserDto {
     readonly password: string;
 
     readonly roles: string[];
+    photo: string;
 }

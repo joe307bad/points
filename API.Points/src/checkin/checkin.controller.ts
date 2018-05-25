@@ -1,9 +1,10 @@
-import { Controller, UseGuards, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Get, Param, UseInterceptors, FileInterceptor, UploadedFile } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { CheckinService } from './checkin.service';
 import { PermissionGaurd, ApiPermission, ApiAction, HasPermission } from '../core/acl';
 import { CheckinDto, UserCheckinsDto } from '../shared/dtos';
+import { UploadFileSettings } from '../app.settings';
 
 const resource = 'checkin';
 export const to = (action: ApiAction) =>
@@ -16,7 +17,9 @@ export class CheckinController {
 
     @Post()
     @HasPermission(to('create'))
-    async create(@Body() checkin: CheckinDto): Promise<CheckinDto> {
+    @UseInterceptors(FileInterceptor('photo', UploadFileSettings))
+    async create(@Body() checkin: CheckinDto, @UploadedFile() photo): Promise<CheckinDto> {
+        checkin.photo = photo ? photo.filename : null;
         return await this.checkin.create(checkin).catch(err => err);
     }
 

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Put, Param } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Put, Param, UploadedFile, FileInterceptor, UseInterceptors } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { UserDto } from '../shared/dtos';
@@ -11,6 +11,7 @@ import {
   ApiAction,
   ApiPermission
 } from '../core/acl';
+import { UploadFileSettings } from '../app.settings';
 
 const resource = 'user';
 const to = (action: ApiAction) => new ApiPermission(action, resource, 'id', 'integer');
@@ -22,7 +23,9 @@ export class UserController {
   constructor(private readonly user: UserService) { }
 
   @Post()
-  async create(@Body() user: UserDto): Promise<JwtResponse> {
+  @UseInterceptors(FileInterceptor('photo', UploadFileSettings))
+  async create(@Body() user: UserDto, @UploadedFile() photo): Promise<JwtResponse> {
+    user.photo = photo ? photo.filename : null;
     return await this.user.create(user).catch(err => err);
   }
 

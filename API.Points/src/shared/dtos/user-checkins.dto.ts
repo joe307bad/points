@@ -1,4 +1,4 @@
-import { AchievementCheckinDto } from './achievementCheckin.dto';
+import { AchievementCheckinDto } from './achievement-checkin.dto';
 
 export class UserCheckinsDto {
     readonly userId: string;
