@@ -18,11 +18,11 @@
 - [x] ~~Upload photo with create user~~
 - [x] ~~Generic upload endpoint~~
 - [x] ~~Endpoint to serve up file~~
-- [ ] Endpoint for admin to approve checkin
-- [ ] Join and endpoint that will return uploads and associated users
+- [x] ~~Endpoint for admin to approve checkin~~
+- [ ] Aggregate and endpoint that will return uploads and associated users
 - [ ] Filter unnapproved checkins from points total
 - [ ] Category capabilities for achievements
-- [ ] Update and delete operations for Checkin
+- [ ] Delete operations for Checkin
 - [ ] Paging for checkins and/or achievements
 
 ### Advanced ToDos

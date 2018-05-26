@@ -6,6 +6,7 @@ import { ObjectId } from 'mongodb';
 import { DatabaseService } from '../core/mongo';
 import { Checkin, User, Achievement } from '../shared/interfaces';
 import { CheckinDto, UserDto, UserCheckinsDto } from '../shared/dtos';
+import { AxiosPromise } from 'axios';
 
 @Injectable()
 export class CheckinService {
@@ -34,6 +35,10 @@ export class CheckinService {
 
     async getLeaderboard(): Promise<UserCheckinsDto[]> {
         return this.buildUserCheckinAggregate();
+    }
+
+    async update(checkinDto: CheckinDto): Promise<Checkin> {
+        return this.checkinModel.findByIdAndUpdate({ _id: checkinDto.id }, checkinDto, { new: true });
     }
 
     private buildUserCheckinAggregate(

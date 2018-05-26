@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, Body, Get, Param, UseInterceptors, FileInterceptor, UploadedFile } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Get, Param, UseInterceptors, FileInterceptor, UploadedFile, Put } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { CheckinService } from './checkin.service';
@@ -39,6 +39,12 @@ export class CheckinController {
     @HasPermission(to('read'))
     async getLeaderboard(): Promise<UserCheckinsDto[]> {
         return await this.checkin.getLeaderboard().catch(err => err);
+    }
+
+    @Put()
+    @HasPermission(to('update'))
+    async update(@Body() checkin: CheckinDto): Promise<CheckinDto> {
+        return await this.checkin.update(checkin).catch(err => err);
     }
 
 
