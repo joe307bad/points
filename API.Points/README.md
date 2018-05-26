@@ -14,10 +14,12 @@
 - [x] ~~Join to get one achievement and all approved checkins for this achievement~~
 - [x] ~~Leaderboard endpoint~~
 - [x] ~~Upload photo with achievement~~
-- [ ] Upload photo with checkin
-- [ ] Upload photo with create user
+- [x] ~~Upload photo with checkin~~
+- [x] ~~Upload photo with create user~~
+- [x] ~~Generic upload endpoint~~
+- [x] ~~Endpoint to serve up file~~
 - [ ] Endpoint for admin to approve checkin
-- [ ] Endpoint to serve up file
+- [ ] Join and endpoint that will return uploads and associated users
 - [ ] Filter unnapproved checkins from points total
 - [ ] Category capabilities for achievements
 - [ ] Update and delete operations for Checkin
@@ -28,3 +30,5 @@
 - [ ] Multitenancy
 - [ ] Revoking JWT tokens with some event based system
 - [ ] Created/updated by
+- [ ] Validate model before uploading photo
+- [ ] Restrict uploads behind ACL

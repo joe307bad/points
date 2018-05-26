@@ -1,4 +1,5 @@
 export type ApiResource =
     'user' |
     'achievement' |
-    'checkin';
+    'checkin' |
+    'upload';

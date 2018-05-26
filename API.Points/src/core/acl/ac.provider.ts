@@ -29,6 +29,12 @@ export const AcProvider = {
                     'update:any': ['*'],
                     'create:any': ['*'],
                     'delete:any': ['*']
+                },
+                upload: {
+                    'read:any': ['*'],
+                    'update:any': ['*'],
+                    'create:any': ['*'],
+                    'delete:any': ['*']
                 }
             },
             user: {
@@ -41,6 +47,12 @@ export const AcProvider = {
                     'read:any': ['*']
                 },
                 checkin: {
+                    'read:any': ['*'],
+                    'update:own': ['*', '!approved'],
+                    'create:own': ['*'],
+                    'delete:own': ['*']
+                },
+                upload: {
                     'read:any': ['*'],
                     'update:own': ['*'],
                     'create:own': ['*'],

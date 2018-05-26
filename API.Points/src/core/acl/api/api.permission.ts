@@ -16,8 +16,8 @@ export class ApiPermission {
 
     owned(entity: any, userId: string): boolean {
         switch (this.ownType) {
-            case 'integer':
-                return entity[this.ownId].toString() === userId;
+            case 'objectId':
+                return entity[this.ownId] === userId;
         }
     }
 

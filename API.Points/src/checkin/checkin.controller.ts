@@ -8,7 +8,7 @@ import { UploadFileSettings } from '../app.settings';
 
 const resource = 'checkin';
 export const to = (action: ApiAction) =>
-    new ApiPermission(action, resource, 'userId', 'integer');
+    new ApiPermission(action, resource, 'userId', 'objectId');
 
 @Controller(resource)
 @UseGuards(AuthGuard('jwt'), PermissionGaurd)

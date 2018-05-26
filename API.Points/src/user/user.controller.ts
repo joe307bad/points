@@ -14,7 +14,7 @@ import {
 import { UploadFileSettings } from '../app.settings';
 
 const resource = 'user';
-const to = (action: ApiAction) => new ApiPermission(action, resource, 'id', 'integer');
+const to = (action: ApiAction) => new ApiPermission(action, resource, 'id', 'objectId');
 // resource specific action like 'login-as' or 'approve-achievement-for'
 
 @Controller(resource)
