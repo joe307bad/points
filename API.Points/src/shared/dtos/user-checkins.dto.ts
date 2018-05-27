@@ -5,6 +5,7 @@ export class UserCheckinsDto {
     readonly userName: string;
     readonly firstName: string;
     readonly totalPoints: number;
+    readonly pendingPoints: number;
     readonly totalCheckins: number;
     readonly checkins?: AchievementCheckinDto[];
 }

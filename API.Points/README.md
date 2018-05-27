@@ -20,7 +20,7 @@
 - [x] ~~Endpoint to serve up file~~
 - [x] ~~Endpoint for admin to approve checkin~~
 - [x] ~~Aggregate and endpoint that will return uploads and associated users~~
-- [ ] Filter unnapproved checkins from points total
+- [x] ~~Filter unnapproved checkins from points total~~
 - [ ] Category capabilities for achievements
 - [ ] Delete operations for Checkin
 - [ ] Paging for checkins and/or achievements

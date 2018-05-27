@@ -7,6 +7,7 @@ import { DatabaseService } from '../core/mongo';
 import { Checkin, User, Achievement } from '../shared/interfaces';
 import { CheckinDto, UserDto, UserCheckinsDto } from '../shared/dtos';
 import { AxiosPromise } from 'axios';
+import { ENETUNREACH } from 'constants';
 
 @Injectable()
 export class CheckinService {
@@ -53,7 +54,8 @@ export class CheckinService {
                 'userName': { '$first': '$userName' },
                 'firstName': { '$first': '$firstName' },
                 'totalCheckins': { '$sum': 1 },
-                'totalPoints': { '$sum': '$achievements.points' }
+                'totalPoints': { '$sum': '$achievements.approvedPoints' },
+                'pendingPoints': { '$sum': '$achievements.pendingPoints' },
             },
         };
 
@@ -87,9 +89,31 @@ export class CheckinService {
                 'as': 'achievements'
             }
         },
-        { '$unwind': '$achievements' }];
+        { '$unwind': '$achievements' },
+        {
+            '$addFields': {
+                'achievements.approvedPoints': {
+                    $cond: { 
+                        if: { 
+                            $eq: ["$checkins.approved", true] 
+                        }, 
+                        then: "$achievements.points", 
+                        else: 0
+                    }
+                },
+                'achievements.pendingPoints': {
+                    $cond: { 
+                        if: { 
+                            $eq: ["$checkins.approved", false] 
+                        }, 
+                        then: "$achievements.points", 
+                        else: 0
+                    }
+                }
+            }
+        }];
 
-        // add achievement data
+        // add achievement data              
         if (withAchievements) {
             pipeline = [...pipeline,
             {
