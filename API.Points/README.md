@@ -19,7 +19,7 @@
 - [x] ~~Generic upload endpoint~~
 - [x] ~~Endpoint to serve up file~~
 - [x] ~~Endpoint for admin to approve checkin~~
-- [ ] Aggregate and endpoint that will return uploads and associated users
+- [x] ~~Aggregate and endpoint that will return uploads and associated users~~
 - [ ] Filter unnapproved checkins from points total
 - [ ] Category capabilities for achievements
 - [ ] Delete operations for Checkin

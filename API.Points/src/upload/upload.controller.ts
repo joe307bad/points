@@ -26,4 +26,10 @@ export class UploadController {
         }
     }
 
+    @Get()
+    @HasPermission(to('create'))
+    async getAll(): Promise<UploadDto[]>{
+        return await this.upload.getAll().catch(err => err);
+    }
+
 }

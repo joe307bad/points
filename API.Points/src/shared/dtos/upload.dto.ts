@@ -1,6 +1,7 @@
 import { IsString } from 'class-validator';
 
 import { BaseDto } from './base.dto';
+import { UserDto } from './user.dto';
 
 export class UploadDto extends BaseDto {
     readonly id: string;
@@ -16,5 +17,7 @@ export class UploadDto extends BaseDto {
 
     @IsString()
     readonly description: string;
+
+    user?: UserDto;
 }
 
