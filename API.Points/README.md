@@ -21,7 +21,8 @@
 - [x] ~~Endpoint for admin to approve checkin~~
 - [x] ~~Aggregate and endpoint that will return uploads and associated users~~
 - [x] ~~Filter unnapproved checkins from points total~~
-- [ ] Category capabilities for achievements
+- [X] ~~Category capabilities for achievements~~
+- [ ] Fix GetAll endpoint for Achievements
 - [ ] Delete operations for Checkin
 - [ ] Paging for checkins and/or achievements
 
