@@ -5,4 +5,5 @@ export interface Achievement extends Document {
     readonly points: number;
     readonly description: string;
     readonly photo: string;
+    readonly category: string;
 }

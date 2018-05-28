@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { ObjectId } from 'mongodb';
 
 import { DatabaseService } from '../core/mongo';
-import { Achievement, Checkin, User } from '../shared/interfaces';
+import { Achievement, Checkin, User, Category } from '../shared/interfaces';
 import { AchievementDto } from '../shared/dtos';
 import { JwtResponse } from '../auth';
 
@@ -15,11 +15,12 @@ export class AchievementService {
 
     constructor(
         @Inject('User') private readonly userModel: Model<User>,
+        @InjectModel('Category') private readonly categoryModel: Model<Category>,
         @InjectModel('Checkin') private readonly checkinModel: Model<Checkin>,
-        @InjectModel('Achievement') private readonly achievmentModel: Model<Achievement>) { }
+        @InjectModel('Achievement') private readonly achievementModel: Model<Achievement>) { }
 
     async create(achievementDto: AchievementDto): Promise<Achievement> {
-        const achievement = new this.achievmentModel(achievementDto);
+        const achievement = new this.achievementModel(achievementDto);
         return this.db.save(achievement);
     }
 
@@ -33,7 +34,7 @@ export class AchievementService {
     }
 
     async update(achievementDto: AchievementDto): Promise<Achievement> {
-        return this.achievmentModel.update({ _id: achievementDto.id }, achievementDto);
+        return this.achievementModel.update({ _id: achievementDto.id }, achievementDto);
     }
 
     private buildAchievmentCheckinsAggregate(
@@ -114,7 +115,7 @@ export class AchievementService {
 
         pipeline = [...pipeline, grouping];
 
-        return this.achievmentModel.aggregate(pipeline).exec();
+        return this.achievementModel.aggregate(pipeline).exec();
     }
 
 }

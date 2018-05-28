@@ -7,3 +7,4 @@ export * from './user-checkins.dto';
 export * from './user-checkin.dto';
 export * from './approval.dto';
 export * from './upload.dto';
+export * from './category.dto';

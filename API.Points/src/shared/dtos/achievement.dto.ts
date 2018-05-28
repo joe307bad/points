@@ -3,6 +3,7 @@ import { IsString, IsInt, IsBase64, MaxLength, IsNotEmpty } from 'class-validato
 import { BaseDto } from './base.dto';
 import { UserCheckinsDto } from './user-checkins.dto';
 import { UserCheckinDto } from './user-checkin.dto';
+import { CategoryDto } from './category.dto';
 
 export class AchievementDto extends BaseDto {
     readonly id: string;
@@ -21,6 +22,8 @@ export class AchievementDto extends BaseDto {
     @IsInt()
     @IsNotEmpty()
     readonly points: number;
+
+    category: CategoryDto;
 
     totalCheckins?: number;
     checkins?: UserCheckinDto[];

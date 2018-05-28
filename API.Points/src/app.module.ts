@@ -7,6 +7,7 @@ import { CoreModule } from './core/core.module';
 import { AchievementModule } from './achievement';
 import { CheckinModule } from './checkin';
 import { UploadModule } from './upload';
+import { CategoryModule } from './category';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { UploadModule } from './upload';
     AchievementModule,
     CheckinModule,
     UploadModule,
+    CategoryModule
   ],
 })
 export class ApplicationModule { }

@@ -35,6 +35,12 @@ export const AcProvider = {
                     'update:any': ['*'],
                     'create:any': ['*'],
                     'delete:any': ['*']
+                },
+                category: {
+                    'read:any': ['*'],
+                    'update:any': ['*'],
+                    'create:any': ['*'],
+                    'delete:any': ['*']
                 }
             },
             user: {
@@ -57,6 +63,9 @@ export const AcProvider = {
                     'update:own': ['*'],
                     'create:own': ['*'],
                     'delete:own': ['*']
+                },
+                category: {
+                    'read:any': ['*']
                 }
             }
         };
