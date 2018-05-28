@@ -44,13 +44,23 @@ export class AchievementService {
         let pipeline = [];
         const grouping = {
             '$group': {
-                '_id': '$checkins._id',
+                '_id': '$_id',
                 'achievementId': { '$first': '$_id' },
                 'name': { '$first': '$name' },
                 'description': { '$first': '$description' },
                 'points': { '$first': '$points' },
                 'photo': { '$first': '$photo' },
-                'totalCheckins': { '$first': { '$size' : '$checkins' } }
+                'totalCheckins': { '$first': { '$size' : '$checkins' } },
+                'category': { "$first": { 
+                    "$let": {
+                        "vars": {
+                          "firstCategory": {
+                            "$arrayElemAt": ["$categories", 0]
+                          }
+                        },
+                        "in": "$$firstCategory.name"
+                      }
+                } }
             }
         };
 
@@ -90,7 +100,7 @@ export class AchievementService {
             };
         }
 
-        pipeline = [
+        pipeline = [...pipeline,
             {
                 '$lookup': {
                     'from': this.checkinModel.collection.name,
@@ -105,6 +115,14 @@ export class AchievementService {
                     'localField': 'checkins.userId',
                     'foreignField': '_id',
                     'as': 'users'
+                }
+            },
+            {
+                '$lookup': {
+                    'from': this.categoryModel.collection.name,
+                    'localField': 'categoryId',
+                    'foreignField': '_id',
+                    'as': 'categories'
                 }
             },
             { '$unwind': {

@@ -21,15 +21,15 @@
 - [x] ~~Endpoint for admin to approve checkin~~
 - [x] ~~Aggregate and endpoint that will return uploads and associated users~~
 - [x] ~~Filter unnapproved checkins from points total~~
-- [X] ~~Category capabilities for achievements~~
-- [ ] Fix GetAll endpoint for Achievements
+- [x] ~~Category capabilities for achievements~~
+- [x] ~~Fix GetAll endpoint for Achievements~~
 - [ ] Delete operations for Checkin
 - [ ] Paging for checkins and/or achievements
 
 ### Advanced ToDos
 - [ ] Websocket leaderboard/notifications
 - [ ] Multitenancy
-- [ ] Revoking JWT tokens with some event based system
+- [ ] Revoking JWT tokens with some event based systemq
 - [ ] Created/updated by
 - [ ] Validate model before uploading photo
 - [ ] Restrict uploads behind ACL
