@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, Body, Get, Param, UseInterceptors, FileInterceptor, UploadedFile, Put } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Get, Param, UseInterceptors, FileInterceptor, UploadedFile, Put, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { CheckinService } from './checkin.service';
@@ -45,6 +45,12 @@ export class CheckinController {
     @HasPermission(to('update'))
     async update(@Body() checkin: CheckinDto): Promise<CheckinDto> {
         return await this.checkin.update(checkin).catch(err => err);
+    }
+
+    @Delete()
+    @HasPermission(to('delete'))
+    async delete(@Body() checkin: CheckinDto): Promise<any> {
+        return await this.checkin.delete(checkin).catch(err => err);
     }
 
 

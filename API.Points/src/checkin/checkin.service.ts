@@ -42,6 +42,10 @@ export class CheckinService {
         return this.checkinModel.findByIdAndUpdate({ _id: checkinDto.id }, checkinDto, { new: true });
     }
 
+    async delete(checkinDto: CheckinDto): Promise<any> {
+        return this.checkinModel.deleteOne({_id: checkinDto.id});
+    }
+
     private buildUserCheckinAggregate(
         withAchievements = false,
         userId?: string): Promise<UserCheckinsDto[]> {
