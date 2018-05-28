@@ -23,8 +23,8 @@
 - [x] ~~Filter unnapproved checkins from points total~~
 - [x] ~~Category capabilities for achievements~~
 - [x] ~~Fix GetAll endpoint for Achievements~~
-- [ ] Delete operations for Checkin
-- [ ] Paging for checkins and/or achievements
+- [x] ~~Delete operations for Checkin~~
+- [x] ~~Searching for achievements~~
 
 ### Advanced ToDos
 - [ ] Websocket leaderboard/notifications
@@ -33,3 +33,4 @@
 - [ ] Created/updated by
 - [ ] Validate model before uploading photo
 - [ ] Restrict uploads behind ACL
+- [ ] Partial match search for achievements using $regex

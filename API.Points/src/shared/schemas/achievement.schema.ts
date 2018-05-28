@@ -5,11 +5,16 @@ import { Schema } from 'mongoose';
 // not sure of the purpose of class-validtor with current setup
 
 export const AchievementSchema = BaseSchema({
-    name: { type: String, required: true, unique: true },
+    name: { type: String, required: true, unique: true, text: true },
     categoryId: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
     points: { type: Number, required: true },
-    description: { type: String, required: true },
+    description: { type: String, required: true, text: true },
     photo: { type: String }
+});
+
+AchievementSchema.index({
+    name:'text',
+    description: 'text'
 });
 
 AchievementSchema.virtual('checkins', {

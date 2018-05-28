@@ -55,4 +55,10 @@ export class AchievementController {
     async update(@Body() achievement: AchievementDto): Promise<AchievementDto> {
         return await this.achievement.update(achievement).catch(err => err);
     }
+
+    @Post('search')
+    @HasPermission(to('read'))
+    async search(@Body() search: { term: string }){
+        return await this.achievement.search(search).catch(err => err);
+    }
 }

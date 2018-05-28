@@ -37,9 +37,14 @@ export class AchievementService {
         return this.achievementModel.update({ _id: achievementDto.id }, achievementDto);
     }
 
+    async search(search: { term: string }): Promise<AchievementDto[]>{
+        return this.buildAchievmentCheckinsAggregate(false, null, search);
+    }
+
     private buildAchievmentCheckinsAggregate(
         withUsers: boolean = false,
-        achievementId?: string): Promise<AchievementDto[]> {
+        achievementId?: string,
+        search?: { term: string }): Promise<AchievementDto[]> {
 
         let pipeline = [];
         const grouping = {
@@ -70,6 +75,16 @@ export class AchievementService {
                 '$match':
                     {
                         '_id': new ObjectId(achievementId)
+                    }
+            }];
+        }
+
+        if(!!search){
+            pipeline = [...pipeline,
+            {
+                '$match':
+                    {
+                        $text: { $search: search.term }
                     }
             }];
         }
