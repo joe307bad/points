@@ -29,7 +29,7 @@
 ### Advanced ToDos
 - [ ] Websocket leaderboard/notifications
 - [ ] Multitenancy
-- [ ] Revoking JWT tokens with some event based systemq
+- [ ] Revoking JWT tokens with some event based system
 - [ ] Created/updated by
 - [ ] Validate model before uploading photo
 - [ ] Restrict uploads behind ACL
