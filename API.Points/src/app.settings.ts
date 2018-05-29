@@ -2,7 +2,7 @@ import { diskStorage } from 'multer';
 import { extname } from 'path';
 
 export const dbUrl = 'mongodb://localhost:27017/points';
-export const uploadDir = './dist/public/uploads';
+export const uploadDir = './public/uploads';
 export const secret = '8QnwdhUqb7TgebAwTwpvmBKdFgTE3bFNcDUL3DgTuFDG0';
 
 // TODO pre save file that runs mongoose.validate
