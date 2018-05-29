@@ -1,4 +1,4 @@
-import { IsString, IsInt, IsBase64, MaxLength, IsNotEmpty, IsBoolean } from 'class-validator';
+import { IsString, IsBoolean } from 'class-validator';
 
 import { BaseDto } from './base.dto';
 

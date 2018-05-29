@@ -6,7 +6,6 @@ import { ObjectId } from 'mongodb';
 import { DatabaseService } from '../core/mongo';
 import { Achievement, Checkin, User, Category } from '../shared/interfaces';
 import { AchievementDto } from '../shared/dtos';
-import { JwtResponse } from '../auth';
 
 @Injectable()
 export class AchievementService {
@@ -37,7 +36,7 @@ export class AchievementService {
         return this.achievementModel.update({ _id: achievementDto.id }, achievementDto);
     }
 
-    async search(search: { term: string }): Promise<AchievementDto[]>{
+    async search(search: { term: string }): Promise<AchievementDto[]> {
         return this.buildAchievmentCheckinsAggregate(false, null, search);
     }
 
@@ -55,17 +54,19 @@ export class AchievementService {
                 'description': { '$first': '$description' },
                 'points': { '$first': '$points' },
                 'photo': { '$first': '$photo' },
-                'totalCheckins': { '$first': { '$size' : '$checkins' } },
-                'category': { "$first": { 
-                    "$let": {
-                        "vars": {
-                          "firstCategory": {
-                            "$arrayElemAt": ["$categories", 0]
-                          }
-                        },
-                        "in": "$$firstCategory.name"
-                      }
-                } }
+                'totalCheckins': { '$first': { '$size': '$checkins' } },
+                'category': {
+                    '$first': {
+                        '$let': {
+                            'vars': {
+                                'firstCategory': {
+                                    '$arrayElemAt': ['$categories', 0]
+                                }
+                            },
+                            'in': '$$firstCategory.name'
+                        }
+                    }
+                }
             }
         };
 
@@ -79,7 +80,7 @@ export class AchievementService {
             }];
         }
 
-        if(!!search){
+        if (!!search) {
             pipeline = [...pipeline,
             {
                 '$match':
@@ -99,11 +100,11 @@ export class AchievementService {
                             {
                                 'input': {
                                     '$filter': {
-                                      'input': '$checkins',
-                                      'as': 'userCheckins',
-                                      'cond': { '$eq': ['$$userCheckins.userId', '$users._id']  }
+                                        'input': '$checkins',
+                                        'as': 'userCheckins',
+                                        'cond': { '$eq': ['$$userCheckins.userId', '$users._id'] }
                                     }
-                                  },
+                                },
                                 'as': 'checkin',
                                 'in': {
                                     'checkinDate': '$$checkin.createdAt',
@@ -116,34 +117,36 @@ export class AchievementService {
         }
 
         pipeline = [...pipeline,
-            {
-                '$lookup': {
-                    'from': this.checkinModel.collection.name,
-                    'localField': '_id',
-                    'foreignField': 'achievementId',
-                    'as': 'checkins'
-                }
-            },
-            {
-                '$lookup': {
-                    'from': this.userModel.collection.name,
-                    'localField': 'checkins.userId',
-                    'foreignField': '_id',
-                    'as': 'users'
-                }
-            },
-            {
-                '$lookup': {
-                    'from': this.categoryModel.collection.name,
-                    'localField': 'categoryId',
-                    'foreignField': '_id',
-                    'as': 'categories'
-                }
-            },
-            { '$unwind': {
+        {
+            '$lookup': {
+                'from': this.checkinModel.collection.name,
+                'localField': '_id',
+                'foreignField': 'achievementId',
+                'as': 'checkins'
+            }
+        },
+        {
+            '$lookup': {
+                'from': this.userModel.collection.name,
+                'localField': 'checkins.userId',
+                'foreignField': '_id',
+                'as': 'users'
+            }
+        },
+        {
+            '$lookup': {
+                'from': this.categoryModel.collection.name,
+                'localField': 'categoryId',
+                'foreignField': '_id',
+                'as': 'categories'
+            }
+        },
+        {
+            '$unwind': {
                 'path': '$users',
                 'preserveNullAndEmptyArrays': true
-            } }
+            }
+        }
         ];
 
         pipeline = [...pipeline, grouping];

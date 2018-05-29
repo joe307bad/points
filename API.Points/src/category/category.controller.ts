@@ -1,9 +1,9 @@
-import { Controller, UseGuards, Post, Body, Get } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
+import { Controller, UseGuards, Post, Body, Get } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
-import { PermissionGaurd, ApiAction, ApiPermission, HasPermission } from "../core/acl";
-import { CategoryService } from "./category.service";
-import { CategoryDto } from "../shared/dtos";
+import { PermissionGaurd, ApiAction, ApiPermission, HasPermission } from '../core/acl';
+import { CategoryService } from './category.service';
+import { CategoryDto } from '../shared/dtos';
 
 const resource = 'category';
 export const to = (action: ApiAction) => new ApiPermission(action, resource);
@@ -21,7 +21,7 @@ export class CategoryController {
 
     @Get()
     @HasPermission(to('read'))
-    async getAll(): Promise<CategoryDto[]>{
+    async getAll(): Promise<CategoryDto[]> {
         return await this.category.getAll().catch(err => err);
     }
 }

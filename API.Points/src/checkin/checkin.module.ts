@@ -4,7 +4,6 @@ import { Module } from '@nestjs/common';
 import { CheckinController } from './checkin.controller';
 import { CheckinService } from './checkin.service';
 import { CheckinSchema, AchievementSchema } from '../shared/schemas';
-import { UserSchemaProvider } from '../user';
 
 @Module({
     imports: [

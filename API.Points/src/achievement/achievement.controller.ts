@@ -1,25 +1,9 @@
-import {
-    Controller,
-    UseGuards,
-    Post,
-    Body,
-    Get,
-    Put,
-    Param,
-    UseInterceptors,
-    FileInterceptor,
-    UploadedFile
-} from '@nestjs/common';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { Controller, UseGuards, Post, Body, Get, Put, Param, UseInterceptors, FileInterceptor, UploadedFile } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
-import { HasPermission, ApiAction, ApiPermission } from '../core/acl';
-import { PermissionGaurd } from '../core/acl';
+import { HasPermission, ApiAction, ApiPermission, PermissionGaurd } from '../core/acl';
 import { AchievementService } from './achievement.service';
 import { AchievementDto } from '../shared/dtos';
-import { JwtResponse } from '../auth';
-import { Achievement } from '../shared/interfaces';
 import { UploadFileSettings } from '../app.settings';
 
 const resource = 'achievement';
@@ -58,7 +42,7 @@ export class AchievementController {
 
     @Post('search')
     @HasPermission(to('read'))
-    async search(@Body() search: { term: string }){
+    async search(@Body() search: { term: string }) {
         return await this.achievement.search(search).catch(err => err);
     }
 }

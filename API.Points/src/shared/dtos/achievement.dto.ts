@@ -1,7 +1,6 @@
-import { IsString, IsInt, IsBase64, MaxLength, IsNotEmpty } from 'class-validator';
+import { IsString, IsInt, MaxLength, IsNotEmpty } from 'class-validator';
 
 import { BaseDto } from './base.dto';
-import { UserCheckinsDto } from './user-checkins.dto';
 import { UserCheckinDto } from './user-checkin.dto';
 import { CategoryDto } from './category.dto';
 

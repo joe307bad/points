@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { JwtResponse } from './interfaces/jwt.response';
 import { User } from '../shared/interfaces';
+import { secret } from '../app.settings';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,7 @@ export class AuthService {
         id: user.id,
         roles: user.roles
       } as JwtPayload,
-      '8QnwdhUqb7TgebAwTwpvmBKdFgTE3bFNcDUL3DgTuFDG0',
+       secret,
       { expiresIn });
     return {
       expiresIn,

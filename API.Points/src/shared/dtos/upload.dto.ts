@@ -5,7 +5,7 @@ import { UserDto } from './user.dto';
 
 export class UploadDto extends BaseDto {
     readonly id: string;
-    
+
     @IsString()
     readonly userId: string;
 
@@ -20,4 +20,3 @@ export class UploadDto extends BaseDto {
 
     user?: UserDto;
 }
-

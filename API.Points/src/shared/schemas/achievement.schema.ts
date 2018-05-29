@@ -13,7 +13,7 @@ export const AchievementSchema = BaseSchema({
 });
 
 AchievementSchema.index({
-    name:'text',
+    name: 'text',
     description: 'text'
 });
 

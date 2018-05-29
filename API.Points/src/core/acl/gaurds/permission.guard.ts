@@ -27,24 +27,23 @@ export class PermissionGaurd implements CanActivate {
             return false;
         }
 
-        let attributes = null;
-        let owned = false;
-        let hasBody = !!request.body && !!Object.keys(request.body).length;
+        let own = false;
+        const hasBody = !!request.body && !!Object.keys(request.body).length;
 
         const roles = user.roles;
         const permission = (action: string, owned: boolean): ac.Permission =>
             (this.access.can(roles))[action + (owned ? 'Own' : '')](intent.resource);
 
-        if(hasBody){
+        if (hasBody) {
             if (!!request.params && !!request.params.id) {
                 // TODO this should probably be in an interceptor
                 request.body.id = request.params.id;
             }
-            owned = intent.ownId ? intent.owned(request.body, user.id) : false;
-            request.body = permission(intent.action, owned).filter(request.body);
+            own = intent.ownId ? intent.owned(request.body, user.id) : false;
+            request.body = permission(intent.action, own).filter(request.body);
         }
 
-        return permission(intent.action, owned).granted;
+        return permission(intent.action, own).granted;
     }
 
     private decodeToken(request: any): JwtPayload {
