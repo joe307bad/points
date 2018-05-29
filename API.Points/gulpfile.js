@@ -13,7 +13,7 @@ gulp.task('default', function () {
 });
 
 gulp.task('zip', () =>
-    gulp.src(PROD_DEST + '/*')
+    gulp.src(PROD_DEST + '/*/**')
         .pipe(zip('dist.zip'))
         .pipe(gulp.dest('./'))
 );
