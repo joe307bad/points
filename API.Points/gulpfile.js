@@ -6,14 +6,11 @@ const PROD_DEST = './dist';
 
 gulp.task('default', function () {
     return gulp.src(['./package.json'])
-        .pipe(gulp.dest(PROD_DEST))
-        .pipe(install({
-            args: ['--only production']
-        }));
+        .pipe(gulp.dest(PROD_DEST));
 });
 
 gulp.task('zip', () =>
-    gulp.src(PROD_DEST + '/*/**')
+    gulp.src(PROD_DEST + '/**/**')
         .pipe(zip('dist.zip'))
         .pipe(gulp.dest('./'))
 );
