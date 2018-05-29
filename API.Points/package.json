@@ -7,7 +7,7 @@
     "start": "ts-node src/main.ts",
     "build:prod": "tsc --sourceMap false && gulp && gulp zip",
     "prestart:prod": "tsc",
-    "start:prod": "node dist/main.js",
+    "prod": "npm install --only=production && node main.js",
     "test": "jest --config=jest.json",
     "test:watch": "jest --watch --config=jest.json",
     "test:coverage": "jest --config=jest.json --coverage --coverageDirectory=coverage",
