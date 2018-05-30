@@ -34,6 +34,7 @@
 - [x] ~~Fix GetAll endpoint for Achievements~~
 - [x] ~~Delete operations for Checkin~~
 - [x] ~~Searching for achievements~~
+- [ ] Endpoint to check validity of token for when the app is reopened after a period of time
 - [ ] Set up environment variables
     - https://www.npmjs.com/package/gulp-env
 - [ ] Generate documentation
