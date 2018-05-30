@@ -2,7 +2,7 @@
 ##### Node/[NestJS](https://nestjs.com) REST API for adding achievements, checking into achievements, uploading photos, and many other features.
 ---
 ###### Technical Features:
-* Progressvie Node framework NestJS. This framework was inspired by Angular and wraps Typescript around Express
+* Progressvive Node framework NestJS. This framework was inspired by Angular and wraps Typescript around Express
 * MongoDB for storage and Mongoose for object mapping
 * [AccessControl](https://onury.io/accesscontrol/) for attribute based access control
 * Passport and JWT for token authentication
