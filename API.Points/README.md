@@ -1,3 +1,12 @@
+### API.Points
+##### Node/[NestJS](https://nestjs.com) REST API for adding achievements, checking into achievements, uploading photos, and many other features.
+---
+###### Technical Features:
+* Progressvie Node framework NestJS. This framework was inspired by Angular and wraps Typescript around Express
+* MongoDB for storage and Mongoose for object mapping
+* [AccessControl](https://onury.io/accesscontrol/) for attribute based access control
+* Passport and JWT for token authentication
+---
 ### ToDos
 - [x] ~~Encrypt/Decrypt password~~
 - [x] ~~Login endpoint~~
@@ -25,6 +34,10 @@
 - [x] ~~Fix GetAll endpoint for Achievements~~
 - [x] ~~Delete operations for Checkin~~
 - [x] ~~Searching for achievements~~
+- [ ] Set up environment variables
+    - https://www.npmjs.com/package/gulp-env
+- [ ] Generate documentation
+    - https://stackoverflow.com/questions/18626191/node-js-or-express-js-rest-api-document-generator
 
 ### Advanced ToDos
 - [ ] Websocket leaderboard/notifications
