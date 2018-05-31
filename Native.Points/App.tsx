@@ -23,11 +23,10 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
   render() {
-    debugger;
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to ss Native!
+          Welcome to ss Natqwdqwdive!
         </Text>
         <Text style={styles.instructions}>
           To get started, edit App.js
