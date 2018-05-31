@@ -1,10 +1,10 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
- * @flow
  */
 
-import React, { Component } from 'react';
+import React from 'react'
+import { Component } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -19,14 +19,15 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+
 type Props = {};
 export default class App extends Component<Props> {
   render() {
-    console.log("hey");
+    debugger;
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React sdcsdc!
+          Welcome to ss Native!
         </Text>
         <Text style={styles.instructions}>
           To get started, edit App.js
