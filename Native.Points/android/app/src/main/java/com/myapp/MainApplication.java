@@ -1,4 +1,4 @@
-package com.exampleproject;
+package com.myapp;
 
 import android.app.Application;
 

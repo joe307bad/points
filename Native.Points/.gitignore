@@ -52,10 +52,5 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 
-# TypeScript
-#
-lib/
-
-# Jest
-#
-.jest/
+# Bundle artifact
+*.jsbundle
