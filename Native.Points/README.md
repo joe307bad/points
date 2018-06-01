@@ -1,6 +1,6 @@
 ## Native.Points
-#### React Native application for adding and checking into achievements
----
+### React Native application for adding and checking into achievements
+
 ##### Technical Features:
 * React Native for native iOS/Android application development
 * Redux for state management

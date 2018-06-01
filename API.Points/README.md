@@ -1,6 +1,6 @@
 ## API.Points
-##### Node/[NestJS](https://nestjs.com) REST API for adding achievements, checking into achievements, uploading photos, and many other features.
----
+#### Node/[NestJS](https://nestjs.com) REST API for adding achievements, checking into achievements, uploading photos, and many other features.
+
 ###### Technical Features:
 * Progressvive Node framework NestJS. This framework was inspired by Angular and wraps Typescript around Express
 * MongoDB for storage and Mongoose for object mapping
