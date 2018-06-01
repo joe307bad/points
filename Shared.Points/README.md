@@ -1,5 +1,5 @@
 ## Shared.Points
-#### Shared services, assets, and entities for the Points project
+### Shared services, assets, and entities for the Points project
 
 ###### Technical Features:
 * Custom type definitions for Typescript support
