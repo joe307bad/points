@@ -23,6 +23,7 @@
     "@nestjs/passport": "^1.0.10",
     "@nestjs/testing": "^5.0.0",
     "@nestjs/websockets": "^5.0.0",
+    "@points/shared": "file:../Shared.Points",
     "accesscontrol": "^2.2.1",
     "bcrypt": "^2.0.1",
     "class-transformer": "^0.1.7",

@@ -1,0 +1,9 @@
+{
+    "name": "@points/shared",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "class-validator": "^0.8.1",
+        "typescript": "^2.9.1"
+    }
+}

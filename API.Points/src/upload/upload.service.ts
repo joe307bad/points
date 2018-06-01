@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 
 import { Upload, User } from '../shared/interfaces';
 import { DatabaseService } from '../core/mongo';
-import { UploadDto } from '../shared/dtos';
+import { UploadDto } from '@points/shared';
 
 @Injectable()
 export class UploadService {
