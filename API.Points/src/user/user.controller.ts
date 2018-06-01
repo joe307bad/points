@@ -1,7 +1,7 @@
 import { Controller, Post, Body, UseGuards, Put, Param, UploadedFile, FileInterceptor, UseInterceptors } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { UserDto } from '@points/shared';
 
-import { UserDto } from '../shared/dtos';
 import { UserService } from './user.service';
 import { JwtResponse } from '../auth/interfaces';
 import { ApiError } from '../core/error';

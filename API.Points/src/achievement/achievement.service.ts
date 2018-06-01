@@ -1,11 +1,11 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { AchievementDto } from '@points/shared';
 import { Model } from 'mongoose';
 import { ObjectId } from 'mongodb';
 
 import { DatabaseService } from '../core/mongo';
 import { Achievement, Checkin, User, Category } from '../shared/interfaces';
-import { AchievementDto } from '../shared/dtos';
 
 @Injectable()
 export class AchievementService {

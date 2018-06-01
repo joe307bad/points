@@ -1,9 +1,9 @@
 import { Controller, UseGuards, Post, Body, Get, Param, UseInterceptors, FileInterceptor, UploadedFile, Put, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { CheckinDto, UserCheckinsDto } from '@points/shared';
 
 import { CheckinService } from './checkin.service';
 import { PermissionGaurd, ApiPermission, ApiAction, HasPermission } from '../core/acl';
-import { CheckinDto, UserCheckinsDto } from '../shared/dtos';
 import { UploadFileSettings } from '../app.settings';
 
 const resource = 'checkin';

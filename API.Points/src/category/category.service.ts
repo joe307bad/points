@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { CategoryDto } from '@points/shared';
 import { Model } from 'mongoose';
 
 import { DatabaseService } from '../core/mongo';
 import { Category } from '../shared/interfaces';
-import { CategoryDto } from '../shared/dtos';
 
 @Injectable()
 export class CategoryService {

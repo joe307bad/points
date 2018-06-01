@@ -1,8 +1,8 @@
 import { Model } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { UserDto } from '@points/shared';
 
-import { UserDto } from '../shared/dtos';
 import { User } from '../shared/interfaces';
 import { DatabaseService } from '../core/mongo/';
 import { AuthService } from '../auth';

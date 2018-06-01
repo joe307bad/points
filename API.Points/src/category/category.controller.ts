@@ -1,9 +1,9 @@
 import { Controller, UseGuards, Post, Body, Get } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { CategoryDto } from '@points/shared';
 
 import { PermissionGaurd, ApiAction, ApiPermission, HasPermission } from '../core/acl';
 import { CategoryService } from './category.service';
-import { CategoryDto } from '../shared/dtos';
 
 const resource = 'category';
 export const to = (action: ApiAction) => new ApiPermission(action, resource);

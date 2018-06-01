@@ -1,9 +1,9 @@
 import { Controller, UseGuards, Post, Body, Get, Put, Param, UseInterceptors, FileInterceptor, UploadedFile } from '@nestjs/common';
+import { AchievementDto } from '@points/shared';
 import { AuthGuard } from '@nestjs/passport';
 
 import { HasPermission, ApiAction, ApiPermission, PermissionGaurd } from '../core/acl';
 import { AchievementService } from './achievement.service';
-import { AchievementDto } from '../shared/dtos';
 import { UploadFileSettings } from '../app.settings';
 
 const resource = 'achievement';

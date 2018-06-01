@@ -1,9 +1,9 @@
 import { Controller, UseGuards, Get, Post, Body, UseInterceptors, FileInterceptor, UploadedFile, Res } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { UploadDto } from '@points/shared';
 
 import { ApiAction, ApiPermission, PermissionGaurd, HasPermission } from '../core/acl';
 import { UploadService } from './upload.service';
-import { UploadDto } from '../shared/dtos';
 import { UploadFileSettings } from '../app.settings';
 
 const resource = 'upload';
