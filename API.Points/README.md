@@ -1,4 +1,4 @@
-### API.Points
+## API.Points
 ##### Node/[NestJS](https://nestjs.com) REST API for adding achievements, checking into achievements, uploading photos, and many other features.
 ---
 ###### Technical Features:

@@ -1,4 +1,4 @@
-### Shared.Points
+## Shared.Points
 ##### Shared services, assets, and entities for the Points project
 ---
 ###### Technical Features:
