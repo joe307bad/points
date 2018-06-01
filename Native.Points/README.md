@@ -11,6 +11,7 @@
 - [ ] Intoduce login/register flow with storage of JWT
     - https://github.com/cornflourblue/react-redux-registration-login-example/tree/master/src
 - [ ] HTTP wrapper that uses JWT or prompts for login if JWT is not present
+- [ ] Introduce [Saga](https://redux-saga.js.org/) for side effects (showing loading, prompting for login, etc.)
 - [ ] Introduce navigation	
 - [ ] Try to test on iPhone via [Expo](expo.io)	
 
