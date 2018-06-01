@@ -1,10 +1,10 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { UploadDto } from '@points/shared';
 import { Model } from 'mongoose';
 
 import { Upload, User } from '../shared/interfaces';
 import { DatabaseService } from '../core/mongo';
-import { UploadDto } from '@points/shared';
 
 @Injectable()
 export class UploadService {
