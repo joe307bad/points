@@ -7,7 +7,7 @@ const initialState = user ? { loggedIn: true, user } : {};
 
 export function authentication(state = initialState, action: userActions.UserAction) {
   switch (action.type) {
-    case 'USER_REGISTER_REQUEST':
+    case userActions.UserRegisterRequest:
       return {
         loggingIn: true,
         user: action.payload
