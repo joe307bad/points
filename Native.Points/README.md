@@ -10,6 +10,9 @@
 ### ToDos:
 - [ ] Intoduce login/register flow with storage of JWT
     - https://github.com/cornflourblue/react-redux-registration-login-example/tree/master/src
+    - https://github.com/sotojuan/saga-login-flow
+    - https://github.com/piotrwitek/react-redux-typescript-guide
+    - https://github.com/Microsoft/TypeScript-React-Starter
 - [ ] HTTP wrapper that uses JWT or prompts for login if JWT is not present
 - [ ] Introduce [Saga](https://redux-saga.js.org/) for side effects (showing loading, prompting for login, etc.)
 - [ ] Introduce navigation	

@@ -1,37 +1,37 @@
 import React from "react";
 import { Component } from "react";
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from "react-native";
+import { Provider, connect } from 'react-redux'
+import { Platform, StyleSheet, Text, View } from "react-native";
 import { FormLabel, FormInput, FormValidationMessage, Button } from "react-native-elements";
 
+import { store } from "./app/store";
+import { LoginState } from "./app/auth/reducers";
+import Login from "./app/auth/components";
+import { LoginProps } from "./app/auth/containers";
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component<LoginProps, LoginState> {
   render(): JSX.Element {
     return (
-      <View>
-        <FormLabel>Username</FormLabel>
-        <FormInput />
-        <FormLabel>Password</FormLabel>
-        <FormInput secureTextEntry />
-        <Button
-          raised
-          onPress={this.submitForm}
-          icon={{
-            name: "login",
-            type: "entypo"
-          }}
-          title="Login" />
-      </View>
+      <Provider store={store}>
+        <Login {...{ userName: '', password: '' }} />
+      </Provider>
     );
-  }
-
-  submitForm(): void {
-    console.log("heyther");
   }
 }
 
+
+// App.propTypes = {
+//   data: React.PropTypes.object,
+//   history: React.PropTypes.object,
+//   dispatch: React.PropTypes.func
+// }
+
+// // Which props do we want to inject, given the global state?
+// function select (state) {
+//   return {
+//     data: state
+//   }
+// }
+
+// // Wrap the component to inject dispatch and state into it
+// export default connect(select)(Login)

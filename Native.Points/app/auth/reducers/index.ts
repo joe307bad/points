@@ -1,23 +1,55 @@
-// import { combineReducers } from "redux";
+import * as userActions from '../actions';
+import { AsyncStorage } from 'react-native';
+import { BaseState } from '../../store/index.reducer';
 
-// import { DATA_AVAILABLE } from "../actions";
+export interface LoginState {
+  userName: string;
+  password: string;
+}
 
-// type DataState = { data: object, loading: boolean };
-// let dataState: DataState = { data: [], loading: true };
+export const initialState: BaseState<LoginState> = {
+  condition: {
+    userName: '',
+    password: ''
+  },
+  processing: false
+}
 
-// const dataReducer = (state = dataState, action) => {
-//     switch (action.type) {
-//         case DATA_AVAILABLE:
-//             state = Object.assign({}, state, { data: action.data, loading: false });
-//             return state;
-//         default:
-//             return state;
-//     }
-// };
+function login(state = initialState, action: userActions.UserAction): BaseState<LoginState> {
+  switch (action.type) {
 
-// const rootReducer = combineReducers({
-//     dataReducer
-//     // ,[ANOTHER REDUCER], [ANOTHER REDUCER] ....
-// });
+    case userActions.UserLoginRequest:
+      return {
+        ...state,
+        condition: {
+          userName: action.payload.userName,
+          password: action.payload.password
+        },
+        processing: true
+      }
 
-// export default rootReducer;
+    case userActions.UserLoginSuccess:
+      return {
+        ...state,
+        processing: false,
+        error: null
+      }
+
+    case userActions.UserLoginFailure:
+      return {
+        ...state,
+        processing: false,
+        error: state.error
+      }
+
+    default:
+      return state
+  }
+}
+
+// async function getUser(){
+//   const user = await AsyncStorage.getItem('user');
+//   return user ? { loggedIn: true, user } : {};
+// }
+
+export default login
