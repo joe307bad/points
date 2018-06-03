@@ -21,10 +21,6 @@ function login(state = initialState, action: userActions.UserAction): BaseState<
     case userActions.UserLoginRequest:
       return {
         ...state,
-        condition: {
-          userName: action.payload.userName,
-          password: action.payload.password
-        },
         processing: true
       }
 

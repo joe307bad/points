@@ -6,7 +6,8 @@ import { LoginProps } from "../containers";
 
 export default function Login({ userName = '', password = '', login = () => { } }: LoginProps) {
 
-    const dispatchLogin = () => {
+    function dispatchLogin() {
+        console.log("hey");
         login({ userName: 'joe307bad', password: 'P@ssw0rd' })
     }
 

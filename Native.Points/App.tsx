@@ -6,14 +6,14 @@ import { FormLabel, FormInput, FormValidationMessage, Button } from "react-nativ
 
 import { store } from "./app/store";
 import { LoginState } from "./app/auth/reducers";
-import Login from "./app/auth/components";
 import { LoginProps } from "./app/auth/containers";
+import Login from "./app/auth/containers"
 
 export default class App extends Component<LoginProps, LoginState> {
   render(): JSX.Element {
     return (
       <Provider store={store}>
-        <Login {...{ userName: '', password: '' }} />
+        <Login />
       </Provider>
     );
   }

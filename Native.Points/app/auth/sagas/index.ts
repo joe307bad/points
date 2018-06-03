@@ -52,9 +52,9 @@ export function* loginFlow() {
     while (true) {
         // And we're listening for `LOGIN_REQUEST` actions and destructuring its payload
         const request = yield take(userActions.UserLoginRequest)
-        const { username, password } = request.payload
+        const { userName, password } = request.payload
         const authorized = yield call(authorize, {
-            userName: username,
+            userName: userName,
             password: password
         });
         console.log("loginFlow")

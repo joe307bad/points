@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga'
 
 import rootReducer from './index.reducer';
 import { LoginState } from '../auth/reducers';
+import rootSaga from '../auth/sagas';
 
 // export interface StoreState {
 //     login: LoginState;
@@ -16,3 +17,5 @@ export const store = createStore(
         sagaMiddleware,
     ),
 );
+
+sagaMiddleware.run(rootSaga)
