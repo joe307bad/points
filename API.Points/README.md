@@ -8,7 +8,7 @@
 * [Passport](http://www.passportjs.org/) and [JWT](https://jwt.io/) for token authentication
 ---
 ### ToDos
-- [ ] Endpoint to check validity of token for when the app is reopened after a period of time
+- [ ] Endpoint for getting navigation and getting user settings
 - [ ] Set up environment variables
     - https://www.npmjs.com/package/gulp-env
 - [ ] Generate documentation
