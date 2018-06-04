@@ -20,6 +20,7 @@
 - [ ] Route gaurds
     - https://medium.com/the-many/adding-login-and-authentication-sections-to-your-react-or-react-native-app-7767fd251bd1
 - [ ] Try to test on iPhone via [Expo](expo.io)	
+    - https://forums.expo.io/t/private-expo-app/1515/3
 
 ### Advanced ToDos:	
 - [ ] Integrate [Redux Persist](https://github.com/rt2zz/redux-persist)	
