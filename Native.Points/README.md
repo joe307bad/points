@@ -9,11 +9,12 @@
 * [React Native Elements](https://bozzmob.github.io/react-native-elements/) UI toolkit
 ---
 ### ToDos:
-- [ ] Intoduce login/register flow with storage of JWT
+- [ ] Introduce login/register flow with storage of JWT
     - https://github.com/cornflourblue/react-redux-registration-login-example/tree/master/src
     - https://github.com/sotojuan/saga-login-flow
     - https://github.com/piotrwitek/react-redux-typescript-guide
     - https://github.com/Microsoft/TypeScript-React-Starter
+- [ ] Introduce [Reselect](https://github.com/reduxjs/reselect)
 - [ ] HTTP wrapper that uses JWT or prompts for login if JWT is not present
 - [ ] Introduce navigation	
 - [ ] Try to test on iPhone via [Expo](expo.io)	
