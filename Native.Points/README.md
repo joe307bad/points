@@ -2,9 +2,10 @@
 ### React Native application for adding and checking into achievements
 
 ##### Technical Features:
-* React Native for native iOS/Android application development
-* Redux for state management
-* Typescript for a high level of structure and strong typing
+* [React Native](https://facebook.github.io/react-native/) for native iOS/Android application development
+* [Redux](https://redux.js.org/) for state management
+* [Redux Saga](https://redux-saga.js.org/) for side effect management
+* [Typescript](https://www.typescriptlang.org/) for a high level of structure and strong typing
 * [React Native Elements](https://bozzmob.github.io/react-native-elements/) UI toolkit
 ---
 ### ToDos:
@@ -14,7 +15,6 @@
     - https://github.com/piotrwitek/react-redux-typescript-guide
     - https://github.com/Microsoft/TypeScript-React-Starter
 - [ ] HTTP wrapper that uses JWT or prompts for login if JWT is not present
-- [ ] Introduce [Saga](https://redux-saga.js.org/) for side effects (showing loading, prompting for login, etc.)
 - [ ] Introduce navigation	
 - [ ] Try to test on iPhone via [Expo](expo.io)	
 
