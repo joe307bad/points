@@ -17,6 +17,8 @@
 - [ ] Introduce [Reselect](https://github.com/reduxjs/reselect)
 - [ ] HTTP wrapper that uses JWT or prompts for login if JWT is not present
 - [ ] Introduce navigation	
+- [ ] Route gaurds
+    - https://medium.com/the-many/adding-login-and-authentication-sections-to-your-react-or-react-native-app-7767fd251bd1
 - [ ] Try to test on iPhone via [Expo](expo.io)	
 
 ### Advanced ToDos:	
