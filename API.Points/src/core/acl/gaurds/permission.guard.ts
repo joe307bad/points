@@ -1,10 +1,12 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import * as jwt from 'jsonwebtoken';
+// TODO change all instance of this to import { AccessControl } from 'accesscontrol'
 import * as ac from 'accesscontrol';
 
 import { JwtPayload } from '../../../auth';
 import { ApiPermission } from '../api';
+import { decodeToken } from '../helpers';
+import { ApiIntentHeader, OwnsHeader } from '../../../app.settings';
 
 @Injectable()
 export class PermissionGaurd implements CanActivate {
@@ -20,8 +22,13 @@ export class PermissionGaurd implements CanActivate {
             return true;
         }
 
+
         const request = context.switchToHttp().getRequest();
-        const user = this.decodeToken(request);
+        // const response = context.switchToHttp().getResponse();
+
+        // response.header(ApiIntentHeader, JSON.stringify(intent));
+
+        const user = decodeToken(request);
 
         if (!user || !user.roles) {
             return false;
@@ -39,17 +46,14 @@ export class PermissionGaurd implements CanActivate {
                 // TODO this should probably be in an interceptor
                 request.body.id = request.params.id;
             }
+
             own = intent.ownId ? intent.owned(request.body, user.id) : false;
+
             request.body = permission(intent.action, own).filter(request.body);
         }
 
+        // response.header(OwnsHeader, own);
         return permission(intent.action, own).granted;
     }
 
-    private decodeToken(request: any): JwtPayload {
-        const token = !!request.headers && !!request.headers.authorization
-            ? request.headers.authorization.split(' ')[1]
-            : null;
-        return !!token ? jwt.decode(token) : null;
-    }
 }

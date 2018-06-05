@@ -1,4 +1,4 @@
 export class BaseDto {
-    createdAt!: Date;
-    updatedAt!: Date;
+    createdAt: Date = new Date();
+    updatedAt: Date = new Date();
 }

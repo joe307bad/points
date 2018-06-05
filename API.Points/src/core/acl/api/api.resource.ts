@@ -3,4 +3,5 @@ export type ApiResource =
     'achievement' |
     'checkin' |
     'upload'|
-    'category';
+    'category' |
+    'settings';

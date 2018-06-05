@@ -41,6 +41,12 @@ export const AcProvider = {
                     'update:any': ['*'],
                     'create:any': ['*'],
                     'delete:any': ['*']
+                },
+                settings: {
+                    'read:any': ['*'],
+                    'update:any': ['*'],
+                    'create:any': ['*'],
+                    'delete:any': ['*']
                 }
             },
             user: {
@@ -66,6 +72,12 @@ export const AcProvider = {
                 },
                 category: {
                     'read:any': ['*']
+                },
+                settings: {
+                    'read:any': ['*', '!navigation.controlPanel'],
+                    'update:any': ['*'],
+                    'create:any': ['*'],
+                    'delete:any': ['*']
                 }
             }
         };

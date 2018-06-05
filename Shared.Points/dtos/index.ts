@@ -8,3 +8,6 @@ export * from './user-checkin.dto';
 export * from './approval.dto';
 export * from './upload.dto';
 export * from './category.dto';
+export * from './settings.dto';
+export * from './navigation-item.dto';
+export * from './navigation.dto';

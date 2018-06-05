@@ -10,6 +10,7 @@
 ### ToDos
 - [ ] Endpoint for getting navigation and getting user settings
     - https://github.com/onury/accesscontrol/issues/26
+- [ ] Endpoint for pending approvals
 - [ ] Implement flow for approving users and not automatically granting a token
 - [ ] Set up environment variables
     - https://www.npmjs.com/package/gulp-env

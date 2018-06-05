@@ -1,4 +1,4 @@
 export class ApprovalDto {
-    readonly checkinDate!: Date;
-    readonly approved!: boolean;
+    readonly checkinDate: Date = new Date();
+    readonly approved: boolean = false;
 }

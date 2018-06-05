@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, RequestMethod, MiddlewareConsumer } from '@nestjs/common';
 
 import { AuthModule } from './auth';
 import { UserModule } from './user';
@@ -8,6 +8,8 @@ import { AchievementModule } from './achievement';
 import { CheckinModule } from './checkin';
 import { UploadModule } from './upload';
 import { CategoryModule } from './category';
+// import { AuthMiddleware } from './core/middleware';
+import { SettingsModule } from './settings';
 
 @Module({
   imports: [
@@ -18,7 +20,12 @@ import { CategoryModule } from './category';
     AchievementModule,
     CheckinModule,
     UploadModule,
+    SettingsModule,
     CategoryModule
   ],
 })
-export class ApplicationModule { }
+export class ApplicationModule {
+  // configure(consumer: MiddlewareConsumer) {
+  //   // consumer.apply(AuthMiddleware).forRoutes('*');
+  // }
+}

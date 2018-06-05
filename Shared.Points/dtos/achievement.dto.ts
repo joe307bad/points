@@ -5,18 +5,18 @@ import { UserCheckinDto } from './user-checkin.dto';
 import { CategoryDto } from './category.dto';
 
 export class AchievementDto extends BaseDto {
-    readonly id: string = "";
-    readonly achievementId: string = "";
+    readonly id: string = '';
+    readonly achievementId: string = '';
 
     @IsString()
     @IsNotEmpty()
     @MaxLength(200, { message: '200 character max' })
-    readonly name: string = "";
+    readonly name: string = '';
 
     @IsString()
     @IsNotEmpty()
     @MaxLength(200, { message: '200 character max' })
-    readonly description: string = "";
+    readonly description: string = '';
 
     @IsInt()
     @IsNotEmpty()
@@ -27,6 +27,6 @@ export class AchievementDto extends BaseDto {
     totalCheckins?: number;
     checkins?: UserCheckinDto[];
 
-    photo: string = "";
+    photo: string = '';
 }
 

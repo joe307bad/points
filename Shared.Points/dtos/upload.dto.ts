@@ -4,19 +4,19 @@ import { BaseDto } from './base.dto';
 import { UserDto } from './user.dto';
 
 export class UploadDto extends BaseDto {
-    readonly id: string = "";
+    readonly id: string = '';
 
     @IsString()
-    readonly userId: string = "";
+    readonly userId: string = '';
 
     @IsString()
-    photo: string = "";
+    photo: string = '';
 
     @IsString()
-    readonly title: string = "";
+    readonly title: string = '';
 
     @IsString()
-    readonly description: string = "";
+    readonly description: string = '';
 
     user?: UserDto;
 }
