@@ -1,5 +1,5 @@
 ## Points
-### General purpose achievement tracking application
+### General purpose achievement tracking application. Admins create achievements and users check in to the achievements for points.
 
 ##### Projects:
 * [API.Points](API.Points/) - RESTful service to manage data storage and authentication
