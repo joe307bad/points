@@ -8,6 +8,9 @@
 * [Passport](http://www.passportjs.org/) and [JWT](https://jwt.io/) for token authentication
 ---
 ### ToDos
+- [ ] Decouple endpoints from photo uploads
+    - The reason for this is that the permissions gaurd is unable to parse the req.body of a multipart form request
+    - the req.body is important because this determines if entity is owned by the user
 - [ ] Endpoint for getting navigation and getting user settings
     - https://github.com/onury/accesscontrol/issues/26
 - [ ] Endpoint for pending approvals
