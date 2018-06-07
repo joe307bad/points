@@ -75,9 +75,9 @@ export const AcProvider = {
                 },
                 settings: {
                     'read:any': ['*', '!navigation.controlPanel'],
-                    'update:any': ['*'],
-                    'create:any': ['*'],
-                    'delete:any': ['*']
+                    'update:own': ['*'],
+                    'create:own': ['*'],
+                    'delete:own': ['*']
                 }
             }
         };
