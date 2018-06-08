@@ -15,7 +15,7 @@ async function bootstrap() {
 
   // TODO move to middleware
   app.use(express.static(__dirname + '/public'));
-  app.use(helmet());
+  // app.use(helmet());
 
   await app.listen(3000);
 }
