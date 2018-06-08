@@ -15,19 +15,7 @@ async function bootstrap() {
 
   // TODO move to middleware
   app.use(express.static(__dirname + '/public'));
-  // app.use(helmet());
-
-  // app.use(tamper(function (req, res) {
-  //   // only tamper with json responses
-  //   if (res.getHeader('Content-Type') !== 'application/json; charset=utf-8') {
-  //     return;
-  //   }
-
-  //   return function (body) {
-  //     return body;
-  //   };
-
-  // }));
+  app.use(helmet());
 
   await app.listen(3000);
 }
