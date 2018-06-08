@@ -1,6 +1,6 @@
 import { Controller, UseGuards, Post, Body, Get, Param, UseInterceptors, FileInterceptor, UploadedFile, Put, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { CheckinDto, UserCheckinsDto } from '@points/shared';
+import { CheckinDto, UserCheckinsDto, PendingApprovalDto } from '@points/shared';
 
 import { CheckinService } from './checkin.service';
 import { PermissionGaurd, ApiPermission, ApiAction, HasPermission } from '../core/acl';
@@ -33,6 +33,12 @@ export class CheckinController {
     @HasPermission(to('read'))
     async getAll(): Promise<UserCheckinsDto[]> {
         return await this.checkin.getAll().catch(err => err);
+    }
+
+    @Get('pending')
+    @HasPermission(to('read'))
+    async getPendingApprovals(): Promise<PendingApprovalDto[]> {
+        return await this.checkin.getPendingApprovals().catch(err => err);
     }
 
     @Get('leaderboard')

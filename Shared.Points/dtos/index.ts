@@ -11,3 +11,4 @@ export * from './category.dto';
 export * from './settings.dto';
 export * from './navigation-item.dto';
 export * from './navigation.dto';
+export * from './pending-approval.dto';

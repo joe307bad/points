@@ -1,6 +1,6 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, Inject } from '@nestjs/common';
-import { CheckinDto, UserCheckinsDto } from '@points/shared';
+import { CheckinDto, UserCheckinsDto, PendingApprovalDto } from '@points/shared';
 import { Model } from 'mongoose';
 import { ObjectId } from 'mongodb';
 
@@ -32,6 +32,10 @@ export class CheckinService {
         return this.buildUserCheckinAggregate(true);
     }
 
+    async getPendingApprovals(): Promise<PendingApprovalDto[]> {
+        return this.buildCheckinAggregate();
+    }
+
     async getLeaderboard(): Promise<UserCheckinsDto[]> {
         return this.buildUserCheckinAggregate();
     }
@@ -42,6 +46,45 @@ export class CheckinService {
 
     async delete(checkinDto: CheckinDto): Promise<any> {
         return this.checkinModel.deleteOne({ _id: checkinDto.id });
+    }
+
+    private buildCheckinAggregate() {
+
+        let pipeline = [];
+
+        pipeline = [...pipeline,
+        {
+            '$match':
+                {
+                    'approved': false
+                }
+        }, {
+            '$lookup': {
+                'from': this.achievementModel.collection.name,
+                'localField': 'achievementId',
+                'foreignField': '_id',
+                'as': 'achievements'
+            }
+        }, {
+            '$lookup': {
+                'from': this.userModel.collection.name,
+                'localField': 'userId',
+                'foreignField': '_id',
+                'as': 'users'
+            }
+        },
+        {
+            '$project': {
+                'checkinId': '$$ROOT._id',
+                'userName': { $arrayElemAt: ['$users.userName', 0] },
+                'achievementName': { $arrayElemAt: ['$achievements.name', 0] },
+                'points': { $arrayElemAt: ['$achievements.points', 0] },
+                'checkinDate': '$$ROOT.createdAt'
+            }
+        }];
+
+        return this.checkinModel.aggregate(pipeline).exec();
+
     }
 
     private buildUserCheckinAggregate(

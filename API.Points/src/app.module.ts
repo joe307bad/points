@@ -8,7 +8,7 @@ import { AchievementModule } from './achievement';
 import { CheckinModule } from './checkin';
 import { UploadModule } from './upload';
 import { CategoryModule } from './category';
-// import { AuthMiddleware } from './core/middleware';
+import { AuthMiddleware } from './core/middleware';
 import { SettingsModule } from './settings';
 
 @Module({
@@ -25,7 +25,7 @@ import { SettingsModule } from './settings';
   ],
 })
 export class ApplicationModule {
-  // configure(consumer: MiddlewareConsumer) {
-  //   // consumer.apply(AuthMiddleware).forRoutes('*');
-  // }
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes('*');
+  }
 }

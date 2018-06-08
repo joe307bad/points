@@ -23,7 +23,7 @@ export class AuthMiddleware implements NestMiddleware {
                 let intent = res.getHeader('X-Api-Intent');
                 let owned = res.getHeader('X-Owns-Resource');
 
-                if (intent && user && user.roles && owned) {
+                if (intent && user && user.roles) {
                     intent = JSON.parse(intent);
                     const roles = user.roles;
                     owned = owned === 'true';
