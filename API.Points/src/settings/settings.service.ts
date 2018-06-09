@@ -11,15 +11,16 @@ export class SettingsService {
             navigation: {
                 enabled: true,
                 items: [
-                    { name: 'Feed' },
+                    { name: 'Profile' },
                     { name: 'Achievements' },
+                    { name: 'Checkins' },
                     { name: 'Leaderboard' },
                     { name: 'Search' },
-                    { name: 'Uploads' }
                 ],
                 controlPanel: [
                     { name: 'Categories' },
-                    { name: 'Pending Approvals' },
+                    { name: 'Pending Approvals'},
+                    { name: 'Achievements' },
                     { name: 'Checkins' }
                 ]
             }
