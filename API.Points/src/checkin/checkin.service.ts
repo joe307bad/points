@@ -1,6 +1,6 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, Inject } from '@nestjs/common';
-import { CheckinDto, UserCheckinsDto, PendingApprovalDto } from '@points/shared';
+import { CheckinDto, UserCheckinsDto, PendingApprovalDto, ICheckinService } from '@points/shared';
 import { Model } from 'mongoose';
 import { ObjectId } from 'mongodb';
 
@@ -8,7 +8,7 @@ import { DatabaseService } from '../core/mongo';
 import { Checkin, User, Achievement } from '../shared/interfaces';
 
 @Injectable()
-export class CheckinService {
+export class CheckinService implements ICheckinService {
 
     private db = DatabaseService;
 
@@ -18,13 +18,13 @@ export class CheckinService {
         @InjectModel('Achievement') private readonly achievementModel: Model<Achievement>,
     ) { }
 
-    async create(checkinDto: CheckinDto): Promise<Checkin> {
+    async create(checkinDto: CheckinDto): Promise<CheckinDto> {
         const checkin = new this.checkinModel(checkinDto);
         return this.db.save(checkin);
     }
 
-    async getForUser(userId: string): Promise<UserCheckinsDto> {
-        return this.buildUserCheckinAggregate(true, userId)
+    async getForUser(user: { userId: string }): Promise<UserCheckinsDto> {
+        return this.buildUserCheckinAggregate(true, user.userId)
             .then(userCheckins => userCheckins[0]);
     }
 
@@ -40,8 +40,10 @@ export class CheckinService {
         return this.buildUserCheckinAggregate();
     }
 
-    async update(checkinDto: CheckinDto): Promise<Checkin> {
-        return this.checkinModel.findByIdAndUpdate({ _id: checkinDto.id }, checkinDto, { new: true });
+    async update(checkinDto: CheckinDto): Promise<CheckinDto> {
+        return this.checkinModel
+            .findByIdAndUpdate({ _id: checkinDto.id }, checkinDto, { new: true })
+            .cast(CheckinDto);
     }
 
     async delete(checkinDto: CheckinDto): Promise<any> {

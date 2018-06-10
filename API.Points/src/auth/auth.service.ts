@@ -1,8 +1,8 @@
 import * as jwt from 'jsonwebtoken';
 import { Injectable } from '@nestjs/common';
+import { JwtResponse } from '@points/shared';
 
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { JwtResponse } from './interfaces/jwt.response';
 import { User } from '../shared/interfaces';
 import { secret } from '../app.settings';
 

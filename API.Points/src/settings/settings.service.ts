@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { SettingsDto, NavigationDto } from '@points/shared';
+import { SettingsDto, NavigationDto, ISettingsService } from '@points/shared';
 
 @Injectable()
-export class SettingsService {
+export class SettingsService implements ISettingsService {
     constructor() { }
 
     async get(): Promise<SettingsDto> {

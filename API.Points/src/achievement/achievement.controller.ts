@@ -1,5 +1,5 @@
 import { Controller, UseGuards, Post, Body, Get, Put, Param, UseInterceptors, FileInterceptor, UploadedFile } from '@nestjs/common';
-import { AchievementDto } from '@points/shared';
+import { AchievementDto, IAchievementService } from '@points/shared';
 import { AuthGuard } from '@nestjs/passport';
 
 import { HasPermission, ApiAction, ApiPermission, PermissionGaurd } from '../core/acl';
@@ -11,15 +11,14 @@ export const to = (action: ApiAction) => new ApiPermission(action, resource);
 
 @Controller(resource)
 @UseGuards(AuthGuard('jwt'), PermissionGaurd)
-export class AchievementController {
+export class AchievementController implements IAchievementService {
     constructor(private readonly achievement: AchievementService) { }
 
     @Post()
     @HasPermission(to('create'))
     @UseInterceptors(FileInterceptor('photo', UploadFileSettings))
-    async create(@Body() achievement: AchievementDto, @UploadedFile() photo): Promise<AchievementDto> {
-        achievement.photo = photo ? photo.filename : null;
-        return await this.achievement.create(achievement).catch(err => err);
+    async create(@Body() achievement: AchievementDto, @UploadedFile() photo?): Promise<AchievementDto> {
+        return await this.achievement.create(achievement, photo).catch(err => err);
     }
 
     @Get()
@@ -30,8 +29,8 @@ export class AchievementController {
 
     @Get(':achievementId')
     @HasPermission(to('read'))
-    async get(@Param() params): Promise<AchievementDto> {
-        return await this.achievement.get(params.achievementId).catch(err => err);
+    async get(@Param() achievement: { achievementId: string }): Promise<AchievementDto> {
+        return await this.achievement.get(achievement).catch(err => err);
     }
 
     @Put(':id')
@@ -42,7 +41,7 @@ export class AchievementController {
 
     @Post('search')
     @HasPermission(to('read'))
-    async search(@Body() search: { term: string }) {
+    async search(@Body() search: { term: string }): Promise<AchievementDto[]> {
         return await this.achievement.search(search).catch(err => err);
     }
 }

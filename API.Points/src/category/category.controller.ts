@@ -1,6 +1,6 @@
 import { Controller, UseGuards, Post, Body, Get } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { CategoryDto } from '@points/shared';
+import { CategoryDto, ICategoryService } from '@points/shared';
 
 import { PermissionGaurd, ApiAction, ApiPermission, HasPermission } from '../core/acl';
 import { CategoryService } from './category.service';
@@ -10,7 +10,7 @@ export const to = (action: ApiAction) => new ApiPermission(action, resource);
 
 @Controller(resource)
 @UseGuards(AuthGuard('jwt'), PermissionGaurd)
-export class CategoryController {
+export class CategoryController implements ICategoryService {
     constructor(private readonly category: CategoryService) { }
 
     @Post()

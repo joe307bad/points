@@ -1,6 +1,6 @@
 import { Controller, UseGuards, Post, Body, Get, Param, UseInterceptors, FileInterceptor, UploadedFile, Put, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { CheckinDto, UserCheckinsDto, PendingApprovalDto } from '@points/shared';
+import { CheckinDto, UserCheckinsDto, PendingApprovalDto, ICheckinService } from '@points/shared';
 
 import { CheckinService } from './checkin.service';
 import { PermissionGaurd, ApiPermission, ApiAction, HasPermission } from '../core/acl';
@@ -12,7 +12,7 @@ export const to = (action: ApiAction) =>
 
 @Controller(resource)
 @UseGuards(AuthGuard('jwt'), PermissionGaurd)
-export class CheckinController {
+export class CheckinController implements ICheckinService {
     constructor(private readonly checkin: CheckinService) { }
 
     @Post()
@@ -25,8 +25,8 @@ export class CheckinController {
 
     @Get('user/:userId')
     @HasPermission(to('read'))
-    async getForUser(@Param() params): Promise<UserCheckinsDto> {
-        return await this.checkin.getForUser(params.userId).catch(err => err);
+    async getForUser(@Param() user: { userId: string }): Promise<UserCheckinsDto> {
+        return await this.checkin.getForUser(user).catch(err => err);
     }
 
     @Get()

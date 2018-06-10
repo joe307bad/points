@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { AchievementDto } from '@points/shared';
+import { AchievementDto, IAchievementService } from '@points/shared';
 import { Model } from 'mongoose';
 import { ObjectId } from 'mongodb';
 
@@ -8,7 +8,7 @@ import { DatabaseService } from '../core/mongo';
 import { Achievement, Checkin, User, Category } from '../shared/interfaces';
 
 @Injectable()
-export class AchievementService {
+export class AchievementService implements IAchievementService {
 
     private db = DatabaseService;
 
@@ -18,13 +18,14 @@ export class AchievementService {
         @InjectModel('Checkin') private readonly checkinModel: Model<Checkin>,
         @InjectModel('Achievement') private readonly achievementModel: Model<Achievement>) { }
 
-    async create(achievementDto: AchievementDto): Promise<Achievement> {
+    async create(achievementDto: AchievementDto, photo: any): Promise<AchievementDto> {
+        achievementDto.photo = photo ? photo.filename : null;
         const achievement = new this.achievementModel(achievementDto);
         return this.db.save(achievement);
     }
 
-    async get(achievementId: string): Promise<AchievementDto> {
-        return this.buildAchievmentCheckinsAggregate(true, achievementId)
+    async get(achievement: { achievementId: string }): Promise<AchievementDto> {
+        return this.buildAchievmentCheckinsAggregate(true, achievement.achievementId)
             .then(achievements => achievements[0]);
     }
 
@@ -32,7 +33,7 @@ export class AchievementService {
         return this.buildAchievmentCheckinsAggregate();
     }
 
-    async update(achievementDto: AchievementDto): Promise<Achievement> {
+    async update(achievementDto: AchievementDto): Promise<AchievementDto> {
         return this.achievementModel.update({ _id: achievementDto.id }, achievementDto);
     }
 

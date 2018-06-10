@@ -1,17 +1,14 @@
 import { Model } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { UserDto } from '@points/shared';
+import { UserDto, JwtResponse, ApiError, IUserService } from '@points/shared';
 
 import { User } from '../shared/interfaces';
 import { DatabaseService } from '../core/mongo/';
 import { AuthService } from '../auth';
-import { JwtResponse } from '../auth/interfaces/';
-import { ApiError } from '../core/error';
 
 @Injectable()
-export class UserService {
-
+export class UserService implements IUserService {
   private db = DatabaseService;
 
   constructor(
@@ -35,5 +32,9 @@ export class UserService {
 
   private async findByUserName(userName: string): Promise<User> {
     return await this.userModel.findOne({ userName }).select('+password');
+  }
+
+  update(user: UserDto, params?: { id: string; }) {
+    throw new Error("Method not implemented.");
   }
 }

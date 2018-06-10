@@ -1,10 +1,8 @@
 import { Controller, Post, Body, UseGuards, Put, Param, UploadedFile, FileInterceptor, UseInterceptors } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { UserDto } from '@points/shared';
+import { UserDto, IUserService, JwtResponse, ApiError } from '@points/shared';
 
 import { UserService } from './user.service';
-import { JwtResponse } from '../auth/interfaces';
-import { ApiError } from '../core/error';
 import {
   PermissionGaurd,
   HasPermission,
@@ -19,7 +17,7 @@ const to = (action: ApiAction) => new ApiPermission(action, resource, 'id', 'obj
 
 @Controller(resource)
 @UseGuards(PermissionGaurd)
-export class UserController {
+export class UserController implements IUserService {
   constructor(private readonly user: UserService) { }
 
   @Post()
@@ -37,7 +35,7 @@ export class UserController {
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   @HasPermission(to('update'))
-  async update(@Body() user: UserDto, @Param() params): Promise<JwtResponse | ApiError> {
+  async update(@Body() user: UserDto, @Param() params: { id: string }): Promise<JwtResponse | ApiError> {
     return Promise.resolve(new ApiError('Not Implemented'));
   }
 

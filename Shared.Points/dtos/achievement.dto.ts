@@ -22,7 +22,7 @@ export class AchievementDto extends BaseDto {
     @IsNotEmpty()
     readonly points: number = 0;
 
-    category: CategoryDto = new CategoryDto;
+    category: string = '';
 
     totalCheckins?: number;
     checkins?: UserCheckinDto[];

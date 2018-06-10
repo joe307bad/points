@@ -17,3 +17,4 @@ __export(require("./settings.dto"));
 __export(require("./navigation-item.dto"));
 __export(require("./navigation.dto"));
 __export(require("./pending-approval.dto"));
+__export(require("./api.error"));
