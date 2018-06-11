@@ -30,11 +30,11 @@ export class UserService implements IUserService {
         : Promise.reject(new ApiError('Incorrect password')));
   }
 
-  private async findByUserName(userName: string): Promise<User> {
-    return await this.userModel.findOne({ userName }).select('+password');
+  private async findByUserName(userName: string): Promise<UserDto> {
+    return await this.userModel.findOne({ userName }).select('+password') as UserDto;
   }
 
-  update(user: UserDto, params?: { id: string; }) {
-    throw new Error("Method not implemented.");
+  async update(user: UserDto, params?: { id: string; }): Promise<UserDto | ApiError> {
+    return Promise.resolve(new ApiError("Method not implemented."));
   }
 }

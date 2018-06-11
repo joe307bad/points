@@ -40,10 +40,9 @@ export class CheckinService implements ICheckinService {
         return this.buildUserCheckinAggregate();
     }
 
-    async update(checkinDto: CheckinDto): Promise<CheckinDto> {
+    async update(checkinDto: CheckinDto): Promise<any> {
         return this.checkinModel
-            .findByIdAndUpdate({ _id: checkinDto.id }, checkinDto, { new: true })
-            .cast(CheckinDto);
+            .findByIdAndUpdate({ _id: checkinDto.id }, checkinDto, { new: true });
     }
 
     async delete(checkinDto: CheckinDto): Promise<any> {

@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 const class_validator_1 = require("class-validator");
 const base_dto_1 = require("./base.dto");
-const category_dto_1 = require("./category.dto");
 class AchievementDto extends base_dto_1.BaseDto {
     constructor() {
         super(...arguments);
@@ -17,7 +16,7 @@ class AchievementDto extends base_dto_1.BaseDto {
         this.name = '';
         this.description = '';
         this.points = 0;
-        this.category = new category_dto_1.CategoryDto;
+        this.category = '';
         this.photo = '';
     }
 }

@@ -19,7 +19,7 @@ export class CategoryService implements ICategoryService {
         return await this.db.save(category);
     }
 
-    async getAll(): Promise<CategoryDto[]> {
-        return await this.categoryModel.find({}).cast(CategoryDto);
+    async getAll(): Promise<any[]> {
+        return await this.categoryModel.find({});
     }
 }

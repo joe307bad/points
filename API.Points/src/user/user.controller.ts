@@ -35,7 +35,7 @@ export class UserController implements IUserService {
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   @HasPermission(to('update'))
-  async update(@Body() user: UserDto, @Param() params: { id: string }): Promise<JwtResponse | ApiError> {
+  async update(@Body() user: UserDto, @Param() params: { id: string }): Promise<UserDto | ApiError> {
     return Promise.resolve(new ApiError('Not Implemented'));
   }
 
