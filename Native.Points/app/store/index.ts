@@ -5,6 +5,7 @@ import rootReducer from './index.reducer';
 import { LoginState } from '../auth/reducers';
 import rootSaga from '../auth/sagas';
 
+import loginReducer from '../auth/reducers';
 // export interface StoreState {
 //     login: LoginState;
 // }
@@ -12,10 +13,13 @@ import rootSaga from '../auth/sagas';
 const sagaMiddleware = createSagaMiddleware()
 
 export const store = createStore(
-    rootReducer,
+    loginReducer,
     applyMiddleware(
         sagaMiddleware,
     ),
 );
 
 sagaMiddleware.run(rootSaga)
+
+export * from './index.reducer';
+export * from './index.selectors';

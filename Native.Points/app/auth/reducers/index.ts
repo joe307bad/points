@@ -15,7 +15,7 @@ export const initialState: BaseState<LoginState> = {
   processing: false
 }
 
-function login(state = initialState, action: userActions.UserAction): BaseState<LoginState> {
+export const reducer = (state = initialState, action: userActions.UserAction): BaseState<LoginState> => {
   switch (action.type) {
 
     case userActions.UserLoginRequest:
@@ -43,9 +43,6 @@ function login(state = initialState, action: userActions.UserAction): BaseState<
   }
 }
 
-// async function getUser(){
-//   const user = await AsyncStorage.getItem('user');
-//   return user ? { loggedIn: true, user } : {};
-// }
+export default reducer;
 
-export default login
+export const isProcessing = (state: BaseState<LoginState>) => state.processing;

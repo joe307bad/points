@@ -1,4 +1,4 @@
-package com.myapp;
+package com.points;
 
 import android.app.Application;
 

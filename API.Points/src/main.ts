@@ -3,8 +3,7 @@ import { ApplicationModule } from './app.module';
 import * as mongoose from 'mongoose';
 import * as validator from 'mongoose-unique-validator';
 import * as express from 'express';
-import * as helmet from 'helmet';
-import * as tamper from 'tamper';
+// import * as helmet from 'helmet';
 
 async function bootstrap() {
 
@@ -14,6 +13,7 @@ async function bootstrap() {
   const app = await NestFactory.create(ApplicationModule);
 
   // TODO move to middleware
+  // https://github.com/wbhob/nest-middlewares
   app.use(express.static(__dirname + '/public'));
   // app.use(helmet());
 

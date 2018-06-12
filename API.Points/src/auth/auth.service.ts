@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { JwtResponse, UserDto } from '@points/shared';
 
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { User } from '../shared/interfaces';
 import { secret } from '../app.settings';
 
 @Injectable()

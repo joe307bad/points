@@ -6,11 +6,6 @@ import { LoginProps } from "../containers";
 
 export default function Login({ userName = '', password = '', login = () => { } }: LoginProps) {
 
-    function dispatchLogin() {
-        console.log("hey");
-        login({ userName: 'joe307bad', password: 'P@ssw0rd' })
-    }
-
     return (
         <View>
             <FormLabel>Username</FormLabel>
@@ -19,7 +14,7 @@ export default function Login({ userName = '', password = '', login = () => { } 
             <FormInput secureTextEntry />
             <Button
                 raised
-                onPress={dispatchLogin}
+                onPress={() => login({ userName: 'joe307bad', password: 'P@ssw0rd' })}
                 icon={{
                     name: "login",
                     type: "entypo"

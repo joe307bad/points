@@ -1,16 +1,17 @@
-import { combineReducers } from 'redux';
+import { combineReducers, ReducersMapObject } from 'redux';
+import { createSelector } from 'reselect';
 
-import login from '../auth/reducers';
+import loginReducer from '../auth/reducers';
 
 // TODO error interface
-export interface BaseState<T>{
+export interface BaseState<T> {
   condition?: T;
   processing: boolean;
   error?: any
 }
 
 const rootReducer = combineReducers({
-  login
+  loginReducer
 });
 
 export default rootReducer;

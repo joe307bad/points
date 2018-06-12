@@ -3,7 +3,6 @@ import { Reflector } from '@nestjs/core';
 // TODO change all instance of this to import { AccessControl } from 'accesscontrol'
 import * as ac from 'accesscontrol';
 
-import { JwtPayload } from '../../../auth';
 import { ApiPermission } from '../api';
 import { decodeToken } from '../helpers';
 import { ApiIntentHeader, OwnsHeader } from '../../../app.settings';

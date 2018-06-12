@@ -35,6 +35,6 @@ export class UserService implements IUserService {
   }
 
   async update(user: UserDto, params?: { id: string; }): Promise<UserDto | ApiError> {
-    return Promise.resolve(new ApiError("Method not implemented."));
+    return Promise.resolve(new ApiError('Method not implemented.'));
   }
 }

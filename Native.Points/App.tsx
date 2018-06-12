@@ -8,13 +8,17 @@ import { store } from "./app/store";
 import { LoginState } from "./app/auth/reducers";
 import { LoginProps } from "./app/auth/containers";
 import Login from "./app/auth/containers"
+import Loading from "./app/shared/components/spinner";
 
 export default class App extends Component<LoginProps, LoginState> {
   render(): JSX.Element {
     return (
-      <Provider store={store}>
-        <Login />
-      </Provider>
+      <View>
+        <Provider store={store}>
+          <Login />
+        </Provider>
+        <Loading />
+      </View>
     );
   }
 }

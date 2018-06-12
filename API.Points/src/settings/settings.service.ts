@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SettingsDto, NavigationDto, ISettingsService } from '@points/shared';
+import { SettingsDto, ISettingsService } from '@points/shared';
 
 @Injectable()
 export class SettingsService implements ISettingsService {
