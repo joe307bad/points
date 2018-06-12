@@ -7,7 +7,8 @@ import loginReducer from '../auth/reducers';
 export interface BaseState<T> {
   condition?: T;
   processing: boolean;
-  error?: any
+  error?: any,
+  message?: string
 }
 
 const rootReducer = combineReducers({

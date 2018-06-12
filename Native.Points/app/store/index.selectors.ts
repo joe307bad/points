@@ -4,12 +4,11 @@ import { BaseState } from "./index.reducer";
 import { store } from "./";
 
 function select(state: BaseState<fromLogin.LoginState>) {
-  return fromLogin.isProcessing(state);
+  return state;
 }
 
 let currentValue: any;
-export function handleChange(callback: (isProcessing: boolean) => void) {
-  debugger;
+export function handleChange(callback: (state: BaseState<any>) => void) {
   let previousValue = currentValue
   currentValue = select(store.getState())
 

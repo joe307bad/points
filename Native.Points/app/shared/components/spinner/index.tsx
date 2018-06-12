@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 import subscribe from 'redux-subscribe-reselect'
 
 import Spinner from 'react-native-loading-spinner-overlay';
-import { store, handleChange } from "../../../store";
+import { store, handleChange, BaseState } from "../../../store";
 
 interface SpinnerProps {
 
@@ -12,6 +12,7 @@ interface SpinnerProps {
 
 interface SpinnerState {
   visible: boolean;
+  message?: string;
 }
 
 export default class Loading extends Component<SpinnerProps, SpinnerState> {
@@ -19,29 +20,21 @@ export default class Loading extends Component<SpinnerProps, SpinnerState> {
   constructor(props: SpinnerProps) {
     super(props);
     this.state = {
-      visible: false
+      visible: false,
+      message: ''
     };
-    store.subscribe(() => handleChange(isProcessing => {
-      debugger;
+    store.subscribe(() => handleChange((state: BaseState<any>) => {
       this.setState({
-        visible: true
+        visible: true,
+        message: state.message
       })
     }));
   }
 
-  // /* eslint react/no-did-mount-set-state: 0 */
-  // componentDidMount() {
-  //   setInterval(() => {
-  // this.setState({
-  //   visible: !this.state.visible
-  // });
-  //   }, 3000);
-  // }
-
   render(): JSX.Element {
     return (
       <View style={{ flex: 1 }}>
-        <Spinner visible={this.state.visible} textContent={"Loading..."} textStyle={{ color: '#FFF' }} />
+        <Spinner visible={this.state.visible} textContent={this.state.message} textStyle={{ color: '#FFF' }} />
       </View>
     );
   }

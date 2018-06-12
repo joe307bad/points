@@ -16,26 +16,33 @@ export const initialState: BaseState<LoginState> = {
 }
 
 export const reducer = (state = initialState, action: userActions.UserAction): BaseState<LoginState> => {
+  
   switch (action.type) {
 
     case userActions.UserLoginRequest:
+      
       return {
         ...state,
-        processing: true
+        processing: true,
+        message: 'Logging in ' + action.payload!.userName
       }
 
     case userActions.UserLoginSuccess:
+      
       return {
         ...state,
         processing: false,
-        error: null
+        error: null,
+        message: 'Logged in ' + action.payload!.userName
       }
 
     case userActions.UserLoginFailure:
+      debugger;
       return {
         ...state,
         processing: false,
-        error: state.error
+        error: state.error,
+        message: 'Error logging in ' + action.payload!.userName
       }
 
     default:
