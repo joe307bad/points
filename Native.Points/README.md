@@ -1,20 +1,16 @@
 ## Native.Points
-### React Native application for adding and checking into achievements
+### [React Native](https://facebook.github.io/react-native/) application for adding and checking into achievements
 
 ##### Technical Features:
-* [React Native](https://facebook.github.io/react-native/) for native iOS/Android application development
+* React Native for native iOS/Android application development
 * [Redux](https://redux.js.org/) for state management
 * [Redux Saga](https://redux-saga.js.org/) for side effect management
+* [Reselect](https://github.com/reduxjs/reselect) for memoized state selection
+* [Redux Watch](https://github.com/jprichardson/redux-watch) for subscribing to and monitoring state changes
 * [Typescript](https://www.typescriptlang.org/) for a high level of structure and strong typing
 * [React Native Elements](https://bozzmob.github.io/react-native-elements/) UI toolkit
 ---
 ### ToDos:
-- [ ] Introduce login/register flow with storage of JWT
-    - https://github.com/cornflourblue/react-redux-registration-login-example/tree/master/src
-    - https://github.com/sotojuan/saga-login-flow
-    - https://github.com/piotrwitek/react-redux-typescript-guide
-    - https://github.com/Microsoft/TypeScript-React-Starter
-- [ ] Introduce [Reselect](https://github.com/reduxjs/reselect)
 - [ ] HTTP wrapper that uses JWT or prompts for login if JWT is not present
 - [ ] Introduce navigation (add endpoint to get navigation)	
 - [ ] Route gaurds
