@@ -16,11 +16,11 @@ export const initialState: BaseState<LoginState> = {
 }
 
 export const reducer = (state = initialState, action: userActions.UserAction): BaseState<LoginState> => {
-  
+
   switch (action.type) {
 
     case userActions.UserLoginRequest:
-      
+
       return {
         ...state,
         processing: true,
@@ -28,7 +28,7 @@ export const reducer = (state = initialState, action: userActions.UserAction): B
       }
 
     case userActions.UserLoginSuccess:
-      
+
       return {
         ...state,
         processing: false,
@@ -37,7 +37,7 @@ export const reducer = (state = initialState, action: userActions.UserAction): B
       }
 
     case userActions.UserLoginFailure:
-      debugger;
+
       return {
         ...state,
         processing: false,
@@ -52,4 +52,7 @@ export const reducer = (state = initialState, action: userActions.UserAction): B
 
 export default reducer;
 
-export const isProcessing = (state: BaseState<LoginState>) => state.processing;
+export const processingState =
+  (state: BaseState<LoginState>): { processing: boolean, message?: string } => {
+    return { processing: state.processing, message: state.message }
+  };

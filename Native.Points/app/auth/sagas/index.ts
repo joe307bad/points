@@ -1,36 +1,33 @@
-import { take, call, put, fork, race } from 'redux-saga/effects'
+import { take, call, put, fork, race, apply } from 'redux-saga/effects'
+import { JwtResponse, UserDto } from '@points/shared';
 
 import * as userActions from '../actions';
-import * as auth from '../services';
+import { UserService } from '../services';
 import { LoginState } from '../reducers';
+import PersistentStorage from '../../core/async-storage';
 
-export function* authorize(newLoginState: LoginState) {
-    const response = yield call(auth.login, newLoginState.userName, newLoginState.password)
+const storage = new PersistentStorage();
+const userService = new UserService();
 
-    if(response){
+export function* authorize(newLoginState: LoginState): any {
+    const response: JwtResponse = yield apply(userService, 'login', [newLoginState as UserDto]);
+
+    if (response.accessToken) {
+        storage.set('jwt', response.accessToken);
         yield put({ type: userActions.UserLoginSuccess, payload: newLoginState });
     }
-
-    debugger;
 }
 
 export function* login() {
 
     while (true) {
         const request = yield take(userActions.UserLoginRequest)
-        debugger;
+
         const authorized = yield call(authorize, {
             userName: request.payload.userName,
             password: request.payload.password
         });
 
-        // const request = yield take(userActions.UserLoginRequest)
-        // const { userName, password } = request.payload
-        
-        // ;
-        // if (authorized) {
-        
-        // }
     }
 }
 
