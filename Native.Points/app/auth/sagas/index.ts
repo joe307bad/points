@@ -2,15 +2,14 @@ import { take, call, put, fork, race, apply } from 'redux-saga/effects'
 import { JwtResponse, UserDto } from '@points/shared';
 
 import * as userActions from '../actions';
-import { UserService } from '../services';
+import UserService from '../services';
 import { LoginState } from '../reducers';
 import PersistentStorage from '../../core/async-storage';
 
 const storage = new PersistentStorage();
-const userService = new UserService();
 
 export function* authorize(newLoginState: LoginState): any {
-    const response: JwtResponse = yield apply(userService, 'login', [newLoginState as UserDto]);
+    const response: JwtResponse = yield apply(UserService, 'login', [newLoginState as UserDto]);
 
     if (response.accessToken) {
         storage.set('jwt', response.accessToken);
