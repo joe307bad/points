@@ -2,7 +2,15 @@ import { AsyncStorage } from "react-native";
 
 export type StorageKey = 'jwt';
 
-export default class PersistentStorage {
+export class PersistentStorage {
+    
+    private static _instance: PersistentStorage;
+
+    private constructor() { }
+
+    public static get Instance() {
+        return this._instance || (this._instance = new this());
+    }
 
     get(key: StorageKey): Promise<string> {
         return AsyncStorage.getItem(key);
@@ -17,3 +25,5 @@ export default class PersistentStorage {
     }
 
 }
+
+export const persistentStorage = PersistentStorage.Instance;

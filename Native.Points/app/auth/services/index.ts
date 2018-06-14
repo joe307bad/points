@@ -1,13 +1,15 @@
 import { IUserService, UserDto, JwtResponse, ApiError } from '@points/shared';
+import { http } from '../../core/http';
+
+const USERS_API_URL = 'user/';
 
 export class UserService implements IUserService {
 
     private static _instance: UserService;
 
-    private constructor(){ }
+    private constructor() { }
 
-    public static get Instance()
-    {
+    public static get Instance() {
         return this._instance || (this._instance = new this());
     }
 
@@ -17,11 +19,8 @@ export class UserService implements IUserService {
 
     login(user: UserDto): Promise<JwtResponse | ApiError> {
         debugger;
-        return new Promise((resolve, reject) => setTimeout(() =>
-            resolve({
-                expiresIn: 8600,
-                accessToken: 'access-token'
-            }), 3000));
+        const url = USERS_API_URL + 'login/';
+        return http.post<JwtResponse | ApiError>(url, user);
     }
 
     update(user: UserDto, params?: { id: string; } | undefined): Promise<UserDto | ApiError> {
@@ -29,4 +28,4 @@ export class UserService implements IUserService {
     }
 }
 
-export default UserService.Instance;
+export const userService = UserService.Instance;
