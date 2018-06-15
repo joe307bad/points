@@ -24,11 +24,14 @@ export default class Loading extends Component<SpinnerProps, SpinnerState> {
       message: ''
     };
 
-    store.subscribe(isProcessing((state: { processing: boolean, message: string }) =>
+    store.subscribe(isProcessing((state: { processing: boolean, message: string }) => {
+
+      debugger;
       this.setState({
         visible: state.processing,
         message: state.message
-      })));
+      });
+    }));
   }
 
   render(): JSX.Element {
