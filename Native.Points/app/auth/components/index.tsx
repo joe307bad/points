@@ -14,7 +14,7 @@ export default function Login({ userName = '', password = '', login = () => { } 
             <FormInput secureTextEntry />
             <Button
                 raised
-                onPress={() => login({ userName: 'joe307bad', password: 'P@ssw0rd' })}
+                onPress={() => login({ userName: 'tism', password: 'P@ssw0rd' })}
                 icon={{
                     name: "login",
                     type: "entypo"

@@ -11,7 +11,6 @@
 * [React Native Elements](https://bozzmob.github.io/react-native-elements/) UI toolkit
 ---
 ### ToDos:
-- [ ] HTTP wrapper that uses JWT or prompts for login if JWT is not present
 - [ ] Introduce navigation (add endpoint to get navigation)	
 - [ ] Route gaurds
     - https://medium.com/the-many/adding-login-and-authentication-sections-to-your-react-or-react-native-app-7767fd251bd1

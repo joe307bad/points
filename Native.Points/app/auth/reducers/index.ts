@@ -52,7 +52,7 @@ export const reducer = (state = initialState, action: userActions.UserAction): B
 
 export default reducer;
 
-export const processingState =
-  (state: BaseState<LoginState>): { processing: boolean, message?: string } => {
+export const isProcessing =
+  (state: BaseState<any>): { processing: boolean, message?: string } => {
     return { processing: state.processing, message: state.message }
   };

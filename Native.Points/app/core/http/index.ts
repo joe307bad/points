@@ -16,7 +16,7 @@ export class Http {
     private getConfig() {
         const token = persistentStorage.get('jwt');
         let config = {};
-        debugger;
+
         if (token) {
             config = {
                 headers: { 'Authorization': "Bearer " + token }
@@ -28,6 +28,14 @@ export class Http {
     public post<T>(url: string, payload: any): Promise<T> {
         return axios
             .post(API_URL + url, payload, this.getConfig())
+            .then(result => result.data);
+    }
+
+    public get<T>(url: string, payload?: any): Promise<T> {
+        return axios
+            .get(API_URL + url, {
+                params: payload
+            })
             .then(result => result.data);
     }
 

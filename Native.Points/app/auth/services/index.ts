@@ -18,7 +18,7 @@ export class UserService implements IUserService {
     }
 
     login(user: UserDto): Promise<JwtResponse | ApiError> {
-        debugger;
+        
         const url = USERS_API_URL + 'login/';
         return http.post<JwtResponse | ApiError>(url, user);
     }

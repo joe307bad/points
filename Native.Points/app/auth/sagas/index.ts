@@ -10,7 +10,6 @@ export function* authorize(newLoginState: LoginState): any {
     const response: JwtResponse = yield apply(userService, 'login', [newLoginState as UserDto]);
 
     if (response.accessToken) {
-        debugger;
         persistentStorage.set('jwt', response.accessToken);
         yield put({ type: userActions.UserLoginSuccess, payload: newLoginState });
     }

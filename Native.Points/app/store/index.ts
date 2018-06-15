@@ -6,6 +6,7 @@ import { LoginState } from '../auth/reducers';
 import rootSaga from '../auth/sagas';
 
 import loginReducer from '../auth/reducers';
+import navigationReducer from '../navigation/reducers';
 // export interface StoreState {
 //     login: LoginState;
 // }
@@ -13,7 +14,7 @@ import loginReducer from '../auth/reducers';
 const sagaMiddleware = createSagaMiddleware()
 
 export const store = createStore(
-    loginReducer,
+    rootReducer,
     applyMiddleware(
         sagaMiddleware,
     ),

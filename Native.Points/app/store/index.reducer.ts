@@ -2,6 +2,7 @@ import { combineReducers, ReducersMapObject } from 'redux';
 import { createSelector } from 'reselect';
 
 import loginReducer from '../auth/reducers';
+import navigationReducer from '../navigation/reducers';
 
 // TODO error interface
 export interface BaseState<T> {
@@ -12,7 +13,8 @@ export interface BaseState<T> {
 }
 
 const rootReducer = combineReducers({
-  loginReducer
+  loginReducer,
+  navigationReducer
 });
 
 export default rootReducer;
