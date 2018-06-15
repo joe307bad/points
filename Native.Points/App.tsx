@@ -10,32 +10,53 @@ import { LoginProps } from "./app/auth/containers";
 import Login from "./app/auth/containers"
 import Loading from "./app/shared/components/spinner";
 
+// @ts-ignore
+import SideMenu from 'react-native-side-menu';
+import Menu from "./Menu";
+
+const styles = StyleSheet.create({
+  button: {
+    position: "absolute",
+    top: 20,
+    padding: 10,
+  },
+  caption: {
+    fontSize: 20,
+    fontWeight: "bold",
+    alignItems: "center",
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF",
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: "center",
+    margin: 10,
+  },
+  instructions: {
+    textAlign: "center",
+    color: "#333333",
+    marginBottom: 5,
+  },
+});
+
 export default class App extends Component<LoginProps, LoginState> {
   render(): JSX.Element {
+    const menu = <Menu/>;
     return (
-      <View>
-        <Provider store={store}>
-          <Login />
-        </Provider>
-        <Loading />
-      </View>
+      <SideMenu menu={menu}>
+        <View style={styles.container}>
+          <Provider store={store}>
+            <Login />
+          </Provider>
+          <Loading />
+        </View>
+      </SideMenu>
     );
   }
 }
 
 
-// App.propTypes = {
-//   data: React.PropTypes.object,
-//   history: React.PropTypes.object,
-//   dispatch: React.PropTypes.func
-// }
-
-// // Which props do we want to inject, given the global state?
-// function select (state) {
-//   return {
-//     data: state
-//   }
-// }
-
-// // Wrap the component to inject dispatch and state into it
-// export default connect(select)(Login)
