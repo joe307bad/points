@@ -13,8 +13,8 @@ export class Http {
         return this._instance || (this._instance = new this());
     }
 
-    private getConfig() {
-        const token = persistentStorage.get('jwt');
+    private async getConfig() {
+        const token = await persistentStorage.get('jwt');
         let config = {};
 
         if (token) {
@@ -25,16 +25,18 @@ export class Http {
         return config;
     }
 
-    public post<T>(url: string, payload: any): Promise<T> {
+    public async post<T>(url: string, payload: any): Promise<T> {
         return axios
-            .post(API_URL + url, payload, this.getConfig())
+            .post(API_URL + url, payload, await this.getConfig())
             .then(result => result.data);
     }
 
-    public get<T>(url: string, payload?: any): Promise<T> {
+    public async get<T>(url: string, payload?: any): Promise<T> {
+        
         return axios
             .get(API_URL + url, {
-                params: payload
+                params: payload, 
+                ...await this.getConfig()
             })
             .then(result => result.data);
     }

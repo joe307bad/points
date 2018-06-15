@@ -14,6 +14,7 @@ export class SettingsService implements ISettingsService {
     }
 
     get(): Promise<SettingsDto> {
+        
         return http.get(SETTINGS_API_URL);
     }
 

@@ -7,8 +7,10 @@ import { NavigationState } from '../reducers';
 import { persistentStorage } from '../../core/async-storage';
 
 export function* loadNavigation(): any {
-    const response: SettingsDto = yield call(settingsService.get);
+    
+    const response: SettingsDto = yield apply(settingsService, 'get');
 
+    
     if (response) {
         yield put({ type: navigationActions.NavigationSuccess, payload: response });
     }
@@ -21,6 +23,6 @@ export function* navigation() {
     }
 }
 
-export default function* root() {
-    yield fork(navigation)
-};
+// export default function* root() {
+//     yield fork(navigation)
+// };
