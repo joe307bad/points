@@ -7,6 +7,9 @@ import {
   Image,
   Text,
 } from 'react-native';
+import { store } from "./app/store";
+import * as selectors from "./app/store/index.selectors";
+import { NavigationItemDto } from '@points/shared';
 
 const window = Dimensions.get('window');
 const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
@@ -41,6 +44,12 @@ const styles = StyleSheet.create({
   },
 });
 
+let navItems: NavigationItemDto[] = [];
+store.subscribe(selectors.navItems((items: NavigationItemDto[]) => {
+  debugger;
+  navItems = items
+}));
+
 export default function Menu() {
   return (
     <ScrollView scrollsToTop={false} style={styles.menu}>
@@ -51,18 +60,7 @@ export default function Menu() {
         />
         <Text style={styles.name}>Your name</Text>
       </View>
-
-      <Text
-        style={styles.item}
-      >
-        About
-      </Text>
-
-      <Text
-        style={styles.item}
-      >
-        Contacts
-      </Text>
+      {navItems.map((item, i) => <Text key={i} style={styles.item}>{item.name}</Text>)}
     </ScrollView>
   );
 }

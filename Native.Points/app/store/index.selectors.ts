@@ -30,3 +30,7 @@ export const isProcessing = watch(() => {
   const isProcessing = processing[Object.keys(processing)[0]];
   return isProcessing ? isProcessing : { processing: false, message: '' };
 });
+
+const navItemsSelector = createSelector(fromNavigation.navItems, items => items);
+
+export const navItems = watch(() => navItemsSelector(store.getState()['navigationReducer']));
