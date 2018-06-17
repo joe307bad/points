@@ -1,7 +1,8 @@
-import * as navigationActions from '../actions';
-import { AsyncStorage } from 'react-native';
-import { BaseState } from '../../store/index.reducer';
 import { SettingsDto } from '@points/shared';
+
+import { BaseState } from '../../store/index.reducer';
+
+import * as navigationActions from '../actions';
 
 export interface NavigationState extends SettingsDto { }
 

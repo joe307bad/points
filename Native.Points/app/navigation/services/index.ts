@@ -1,4 +1,5 @@
 import { ISettingsService, SettingsDto } from '@points/shared';
+
 import { http } from '../../core/http';
 
 const SETTINGS_API_URL = 'settings/';

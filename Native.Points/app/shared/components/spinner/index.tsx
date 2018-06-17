@@ -2,9 +2,10 @@ import React from "react";
 import { Component } from "react";
 import { View, Text } from 'react-native';
 import subscribe from 'redux-subscribe-reselect'
-
 import Spinner from 'react-native-loading-spinner-overlay';
-import { store, BaseState, isProcessing } from "../../../store";
+
+import store from "../../../store";
+import { isProcessing } from "../../../store/selectors";
 
 interface SpinnerProps {
 
@@ -24,14 +25,11 @@ export default class Loading extends Component<SpinnerProps, SpinnerState> {
       message: ''
     };
 
-    store.subscribe(isProcessing((state: { processing: boolean, message: string }) => {
-
-      
+    store.subscribe(isProcessing((state: { processing: boolean, message: string }) =>
       this.setState({
         visible: state.processing,
         message: state.message
-      });
-    }));
+      })));
   }
 
   render(): JSX.Element {

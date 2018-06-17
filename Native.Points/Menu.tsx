@@ -1,15 +1,9 @@
 import React from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  ScrollView,
-  View,
-  Image,
-  Text,
-} from 'react-native';
-import { store } from "./app/store";
-import * as selectors from "./app/store/index.selectors";
+import { Dimensions, StyleSheet, ScrollView, View, Image, Text } from 'react-native';
 import { NavigationItemDto } from '@points/shared';
+
+import { store } from "./app/store";
+import * as selectors from "./app/store/selectors";
 
 const window = Dimensions.get('window');
 const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';

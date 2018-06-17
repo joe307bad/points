@@ -1,4 +1,5 @@
 import { IUserService, UserDto, JwtResponse, ApiError } from '@points/shared';
+
 import { http } from '../../core/http';
 
 const USERS_API_URL = 'user/';

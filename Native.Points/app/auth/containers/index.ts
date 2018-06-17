@@ -1,14 +1,13 @@
 import { Dispatch } from "redux";
+import { connect } from "react-redux";
 
-import * as userActions from '../actions'
 import { LoginState } from "../reducers";
 import Login from '../components';
-import { connect } from "react-redux";
+
+import * as userActions from '../actions'
 
 
 export interface LoginProps {
-    userName: string;
-    password: string;
     login?: (loginState: LoginState) => void
 }
 

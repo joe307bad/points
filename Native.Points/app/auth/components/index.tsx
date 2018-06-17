@@ -1,10 +1,10 @@
 import React from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
-import { FormLabel, FormInput, FormValidationMessage, Button } from "react-native-elements";
+import { View } from "react-native";
+import { FormLabel, FormInput, Button } from "react-native-elements";
 
 import { LoginProps } from "../containers";
 
-export default function Login({ userName = '', password = '', login = () => { } }: LoginProps) {
+export default function Login({login = () => { } }: LoginProps) {
 
     return (
         <View>

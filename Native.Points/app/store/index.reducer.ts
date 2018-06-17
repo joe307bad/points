@@ -1,5 +1,4 @@
-import { combineReducers, ReducersMapObject } from 'redux';
-import { createSelector } from 'reselect';
+import { combineReducers } from 'redux';
 
 import loginReducer from '../auth/reducers';
 import navigationReducer from '../navigation/reducers';

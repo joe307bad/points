@@ -1,6 +1,6 @@
-import * as userActions from '../actions';
-import { AsyncStorage } from 'react-native';
 import { BaseState } from '../../store/index.reducer';
+
+import * as userActions from '../actions';
 
 export interface LoginState {
   userName: string;
