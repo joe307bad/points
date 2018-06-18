@@ -17,7 +17,10 @@ export function mapStateToProps(loginState: LoginState) {
 
 export function mapDispatchToProps(dispatch: Dispatch<userActions.UserAction>) {
     return {
-        login: (loginState: LoginState) => dispatch({ type: userActions.UserLoginRequest, payload: loginState })
+        login: (loginState: LoginState) => {
+            debugger;
+            dispatch({ type: userActions.UserLoginRequest, payload: loginState })
+        }
     }
 }
 
