@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 // @ts-ignore
-import { DrawerNavigator } from "react-navigation";
+import { createDrawerNavigator } from "react-navigation";
 
 import SideBar from "../../navigation/components";
 import HomeScreen from '../../home/components';
+import { AchievementList } from '../../achievement/components';
 
-const HomeScreenRouter = DrawerNavigator(
+const HomeScreenRouter = createDrawerNavigator(
     {
         Home: {
-            screen: HomeScreen,
-            navigationOptions: ({ navigation }: any) => ({
-                drawerLockMode: "locked-closed"
-            })
+            screen: HomeScreen
         }
     },
     {

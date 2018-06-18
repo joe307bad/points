@@ -1,20 +1,18 @@
 import React, { Component } from "react";
 import { Container } from "native-base";
-import { Provider } from "react-redux";
 
-import HomeScreen from "./app/home/components";
+import HomeScreen from "./app/navigation/components";
 import Loading from './app/shared/components/spinner';
 import store from './app/store/index';
 
-export default class App extends Component<{ navigation: any }> {
+export default class App extends Component<{}> {
+
   render() {
     return (
-      <Provider store={store}>
         <Container>
-          <HomeScreen {...this.props} />
+          <HomeScreen />
           <Loading />
         </Container>
-      </Provider>
     );
   }
 }

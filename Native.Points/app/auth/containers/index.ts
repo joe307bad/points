@@ -5,6 +5,7 @@ import { LoginState } from "../reducers";
 import Login from '../components';
 
 import * as userActions from '../actions'
+import { store } from "../../store";
 
 
 export interface LoginProps {
@@ -18,7 +19,7 @@ export function mapStateToProps(loginState: LoginState) {
 export function mapDispatchToProps(dispatch: Dispatch<userActions.UserAction>) {
     return {
         login: (loginState: LoginState) => {
-            debugger;
+            
             dispatch({ type: userActions.UserLoginRequest, payload: loginState })
         }
     }
