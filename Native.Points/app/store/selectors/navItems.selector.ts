@@ -7,7 +7,7 @@ import { store } from '../';
 
 import * as fromNavigation from '../../navigation/reducers';
 
-const navItemsSelector = createSelector(fromNavigation.navItems, (items: NavigationItemDto[]) => items);
+export const navItemsSelector = createSelector(fromNavigation.navItems, (items: NavigationItemDto[]) => items);
 
 // TODO do I have to reference 'navigationReducer' directly?
 export const navItems = watch(() => navItemsSelector(store.getState().navigationReducer));

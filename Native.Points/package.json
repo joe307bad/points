@@ -21,7 +21,8 @@
     "redux": "^4.0.0",
     "redux-saga": "^0.16.0",
     "redux-watch": "^1.1.1",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "rxjs": "^6.2.1"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",

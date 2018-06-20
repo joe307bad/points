@@ -7,12 +7,10 @@ import { navItems } from '../../store/selectors'
 import store from '../../store';
 
 export interface ISideBarState {
-    routes: string[];
+    routes: NavigationItemDto[];
 }
 
 export default class SideBar extends Component<{ navigation: any }, ISideBarState> {
-
-    routes: string[] = [];
 
     state: ISideBarState = {
         routes: []
@@ -23,7 +21,7 @@ export default class SideBar extends Component<{ navigation: any }, ISideBarStat
 
         store.subscribe(navItems((navItems: NavigationItemDto[]) =>
             this.setState({
-                routes: navItems.map(item => item.name)
+                routes: navItems
             })));
     }
 
@@ -33,16 +31,19 @@ export default class SideBar extends Component<{ navigation: any }, ISideBarStat
                 <Content>
                     <List
                         dataArray={this.state.routes}
-                        renderRow={(data: string) => {
+                        renderRow={(data: NavigationItemDto) => {
                             return (
                                 <ListItem
                                     button
                                     onPress={() => {
                                         this.props.navigation.dispatch(
-                                            NavigationActions.navigate({ routeName: `${data}` })
+                                            NavigationActions.navigate({
+                                                key: 'wdqwd',
+                                                routeName: `${data.route}`
+                                            })
                                         );
                                     }}>
-                                    <Text>{data}</Text>
+                                    <Text>{data.name}</Text>
                                 </ListItem>
                             );
                         }}
