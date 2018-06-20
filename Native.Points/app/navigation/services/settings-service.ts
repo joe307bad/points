@@ -6,16 +6,16 @@ const SETTINGS_API_URL = 'settings/';
 
 export class SettingsService implements ISettingsService {
 
-    private static _instance: SettingsService;
+    private static instance: SettingsService;
 
     private constructor() { }
 
     public static get Instance() {
-        return this._instance || (this._instance = new this());
+        return this.instance || (this.instance = new this());
     }
 
-    get(): Promise<SettingsDto> {
-        
+    public get(): Promise<SettingsDto> {
+
         return http.get(SETTINGS_API_URL);
     }
 

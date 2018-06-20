@@ -16,7 +16,9 @@
         "no-empty": false,
         "no-unused-variable": [
             true
-        ]
+        ],
+        "max-classes-per-file": false,
+        "no-empty-interface": false
     },
     "rulesDirectory": []
 }

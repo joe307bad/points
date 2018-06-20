@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Text, Body, Title } from 'native-base';
+import { Container, Text } from 'native-base';
 import { Toolbar } from '../../shared/components';
 
 export class AchievementList extends Component {
-    render(): JSX.Element {
+    public render(): JSX.Element {
         return (
             <Container>
                 <Toolbar />

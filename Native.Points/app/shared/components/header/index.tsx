@@ -1,15 +1,15 @@
 import { Component } from 'react';
 import React from 'react';
-import { Left, Button, Icon, Title, Body, Right, View, Header } from 'native-base';
+import { Title, Body, Header } from 'native-base';
 
 export class Toolbar extends Component {
-    render(): JSX.Element {
+    public render(): JSX.Element {
         return (
             <Header >
                 <Body>
                     <Title>HomeScreen</Title>
                 </Body>
             </Header>
-        )
+        );
     }
 }

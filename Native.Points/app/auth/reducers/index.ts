@@ -1,21 +1,21 @@
-import { BaseState } from '../../store/index.reducer';
+import { IBaseState } from '../../store/index.reducer';
 
 import * as userActions from '../actions';
 
-export interface LoginState {
+export interface ILoginState {
   userName: string;
   password: string;
 }
 
-export const initialState: BaseState<LoginState> = {
+export const initialState: IBaseState<ILoginState> = {
   condition: {
     userName: '',
     password: ''
   },
   processing: false
-}
+};
 
-export const reducer = (state = initialState, action: userActions.UserAction): BaseState<LoginState> => {
+export const reducer = (state = initialState, action: userActions.UserAction): IBaseState<ILoginState> => {
 
   switch (action.type) {
 
@@ -25,7 +25,7 @@ export const reducer = (state = initialState, action: userActions.UserAction): B
         ...state,
         processing: true,
         message: 'Logging in ' + action.payload!.userName
-      }
+      };
 
     case userActions.UserLoginSuccess:
 
@@ -34,7 +34,7 @@ export const reducer = (state = initialState, action: userActions.UserAction): B
         processing: false,
         error: null,
         message: 'Logged in ' + action.payload!.userName
-      }
+      };
 
     case userActions.UserLoginFailure:
 
@@ -43,16 +43,15 @@ export const reducer = (state = initialState, action: userActions.UserAction): B
         processing: false,
         error: state.error,
         message: 'Error logging in ' + action.payload!.userName
-      }
+      };
 
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default reducer;
 
 export const isProcessing =
-  (state: BaseState<any>): { processing: boolean, message?: string } => {
-    return { processing: state.processing, message: state.message }
-  };
+  (state: IBaseState<any>): { processing: boolean, message?: string } =>
+    ({ processing: state.processing, message: state.message });

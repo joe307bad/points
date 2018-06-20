@@ -5,10 +5,11 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "lint": "tslint -c tslint.json 'app/**/*.ts{,x}' --project tsconfig.json"
+    "lint": "tslint --project tsconfig.json"
   },
   "dependencies": {
     "@points/shared": "file:../Shared.Points",
+    "@types/react-navigation": "^2.0.6",
     "axios": "^0.18.0",
     "lodash": "^4.17.10",
     "native-base": "^2.5.2",

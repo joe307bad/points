@@ -8,5 +8,5 @@ export default function* root() {
         fork(login),
         fork(loginSuccess),
         fork(navigation)
-    ])
-};
+    ]);
+}

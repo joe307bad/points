@@ -1,12 +1,12 @@
 import { SettingsDto } from '@points/shared';
 
-import { BaseState } from '../../store/index.reducer';
+import { IBaseState } from '../../store/index.reducer';
 
 import * as navigationActions from '../actions';
 
-export interface NavigationState extends SettingsDto { }
+export interface INavigationState extends SettingsDto { }
 
-export const initialState: BaseState<NavigationState> = {
+export const initialState: IBaseState<INavigationState> = {
   condition: {
     navigation: {
       enabled: true,
@@ -15,10 +15,10 @@ export const initialState: BaseState<NavigationState> = {
     }
   },
   processing: false
-}
+};
 
-export const reducer = (state = initialState, action: navigationActions.UserAction): BaseState<NavigationState> => {
-  
+export const reducer = (state = initialState, action: navigationActions.UserAction): IBaseState<INavigationState> => {
+
   switch (action.type) {
 
     case navigationActions.NavigationRequest:
@@ -27,7 +27,7 @@ export const reducer = (state = initialState, action: navigationActions.UserActi
         ...state,
         processing: true,
         message: 'Loading navigation'
-      }
+      };
 
     case navigationActions.NavigationSuccess:
 
@@ -39,7 +39,7 @@ export const reducer = (state = initialState, action: navigationActions.UserActi
         processing: false,
         error: null,
         message: 'Loaded navigation success'
-      }
+      };
 
     case navigationActions.NavigationFailure:
 
@@ -48,24 +48,23 @@ export const reducer = (state = initialState, action: navigationActions.UserActi
         processing: false,
         error: state.error,
         message: 'Loaded navigation failure'
-      }
+      };
 
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default reducer;
 
 export const isProcessing =
-  (state: BaseState<any>): { processing: boolean, message?: string } => {
-    return { processing: state.processing, message: state.message }
-  };
+  (state: IBaseState<any>): { processing: boolean, message?: string } =>
+    ({ processing: state.processing, message: state.message });
 
-export const navItems = (state: BaseState<NavigationState>) => {
+export const navItems = (state: IBaseState<INavigationState>) => {
   const controlPanel = state.condition!.navigation!.controlPanel;
   return [
     ...state.condition!.navigation!.items,
     ...controlPanel ? controlPanel : []
-  ]
+  ];
 };

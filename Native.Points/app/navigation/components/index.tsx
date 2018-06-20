@@ -1,6 +1,5 @@
 import React from 'react';
 
-// @ts-ignore
 import { createDrawerNavigator } from 'react-navigation';
 import HomeScreen from '../../home/components';
 import { AchievementList } from '../../achievement/components';

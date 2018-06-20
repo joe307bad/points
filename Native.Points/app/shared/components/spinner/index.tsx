@@ -1,24 +1,21 @@
 import React from 'react';
 import { Component } from 'react';
-import { View, Text } from 'react-native';
-import subscribe from 'redux-subscribe-reselect'
+import { View } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import store from '../../../store';
 import { isProcessing } from '../../../store/selectors';
 
-interface SpinnerProps {
+interface ISpinnerProps { }
 
-}
-
-interface SpinnerState {
+interface ISpinnerState {
   visible: boolean;
   message?: string;
 }
 
-export default class Loading extends Component<SpinnerProps, SpinnerState> {
+export default class Loading extends Component<ISpinnerProps, ISpinnerState> {
 
-  constructor(props: SpinnerProps) {
+  constructor(props: ISpinnerProps) {
     super(props);
     this.state = {
       visible: false,
@@ -32,7 +29,7 @@ export default class Loading extends Component<SpinnerProps, SpinnerState> {
       })));
   }
 
-  render(): JSX.Element {
+  public render(): JSX.Element {
     return (
       <View style={{ flex: 1, position: 'absolute', top: 0 }}>
         <Spinner visible={this.state.visible} textContent={this.state.message} textStyle={{ color: '#FFF' }} />

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { StatusBar } from 'react-native';
-import { Container, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem } from 'native-base';
+import { Container, Content } from 'native-base';
 
 import Login from '../../auth/containers';
-import store from '../../store';
 
 export default class HomeScreen extends Component {
-  render() {
+  public render(): JSX.Element {
     return (
       <Container>
         <Content padder>

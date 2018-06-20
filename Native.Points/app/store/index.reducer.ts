@@ -4,11 +4,11 @@ import loginReducer from '../auth/reducers';
 import navigationReducer from '../navigation/reducers';
 
 // TODO error interface
-export interface BaseState<T> {
+export interface IBaseState<T> {
   condition?: T;
   processing: boolean;
-  error?: any,
-  message?: string
+  error?: any;
+  message?: string;
 }
 
 const rootReducer = combineReducers({
