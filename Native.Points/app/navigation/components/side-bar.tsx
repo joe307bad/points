@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { AppRegistry, Image, StatusBar } from "react-native";
 import { Container, Content, Text, List, ListItem } from "native-base";
-const routes = ["Home", "Chat", "Profile"];
+// @ts-ignore
+import { NavigationActions } from 'react-navigation';
+const routes = ["Home", "AchievementList", "Profile"];
 
 export default class SideBar extends Component<{ navigation: any }> {
     render() {
@@ -31,7 +33,12 @@ export default class SideBar extends Component<{ navigation: any }> {
                             return (
                                 <ListItem
                                     button
-                                    onPress={() => this.props.navigation.navigate(data)}>
+                                    onPress={() => {
+                                        
+                                        this.props.navigation.dispatch(
+                                            NavigationActions.navigate({ routeName: `${data}` })
+                                        )
+                                    }}>
                                     <Text>{data}</Text>
                                 </ListItem>
                             );
