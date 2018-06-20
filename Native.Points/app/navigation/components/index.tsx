@@ -6,7 +6,7 @@ import SideBar from "../../navigation/components";
 import HomeScreen from '../../home/components';
 import { AchievementList } from '../../achievement/components';
 
-const HomeScreenRouter = createDrawerNavigator(
+const DrawerNavigator = createDrawerNavigator(
     {
         Home: {
             screen: HomeScreen
@@ -16,5 +16,5 @@ const HomeScreenRouter = createDrawerNavigator(
         contentComponent: (props: any) => <SideBar {...props} />
     }
 );
-export default HomeScreenRouter;
 
+export default DrawerNavigator;
