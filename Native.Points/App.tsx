@@ -11,6 +11,7 @@ import SideBar from "./app/navigation/components/side-bar";
 import HomeScreen from "./app/home/components";
 import { AchievementList } from './app/achievement/components/list';
 import NavigatorService from './app/navigation/services/navigation-service';
+import { Toolbar } from "./app/shared/components";
 
 export default class App extends Component<{}> {
 
