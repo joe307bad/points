@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Container, Text, Body, Title } from "native-base";
-import { Toolbar } from "../../shared/components";
+import React, { Component } from 'react';
+import { Container, Text, Body, Title } from 'native-base';
+import { Toolbar } from '../../shared/components';
 
 export class AchievementList extends Component {
     render(): JSX.Element {

@@ -1,7 +1,7 @@
-import { all, fork } from "redux-saga/effects";
+import { all, fork } from 'redux-saga/effects';
 
-import { login, loginSuccess } from "../auth/sagas";
-import { navigation } from "../navigation/sagas";
+import { login, loginSuccess } from '../auth/sagas';
+import { navigation } from '../navigation/sagas';
 
 export default function* root() {
     yield all([

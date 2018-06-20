@@ -15,7 +15,7 @@ export class UserService implements IUserService {
     }
 
     create(user: UserDto, photo: any): Promise<JwtResponse> {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
 
     login(user: UserDto): Promise<JwtResponse | ApiError> {
@@ -25,7 +25,7 @@ export class UserService implements IUserService {
     }
 
     update(user: UserDto, params?: { id: string; } | undefined): Promise<UserDto | ApiError> {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
 }
 

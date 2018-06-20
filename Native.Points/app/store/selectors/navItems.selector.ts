@@ -1,10 +1,10 @@
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 
-import { store } from "../";
+import { store } from '../';
 
 import * as fromNavigation from '../../navigation/reducers'
 
-const watch = require("redux-watch");
+const watch = require('redux-watch');
 
 const navItemsSelector = createSelector(fromNavigation.navItems, items => items);
 

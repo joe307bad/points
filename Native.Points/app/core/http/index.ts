@@ -19,7 +19,7 @@ export class Http {
 
         if (token) {
             config = {
-                headers: { 'Authorization': "Bearer " + token }
+                headers: { 'Authorization': 'Bearer ' + token }
             };
         }
         return config;

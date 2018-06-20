@@ -1,4 +1,4 @@
-import { LoginState } from "../reducers";
+import { LoginState } from '../reducers';
 
 export const UserLoginRequest = 'USER_LOGIN_REQUEST';
 export class UserLoginRequestAction {

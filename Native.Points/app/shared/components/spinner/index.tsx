@@ -1,11 +1,11 @@
-import React from "react";
-import { Component } from "react";
+import React from 'react';
+import { Component } from 'react';
 import { View, Text } from 'react-native';
 import subscribe from 'redux-subscribe-reselect'
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import store from "../../../store";
-import { isProcessing } from "../../../store/selectors";
+import store from '../../../store';
+import { isProcessing } from '../../../store/selectors';
 
 interface SpinnerProps {
 

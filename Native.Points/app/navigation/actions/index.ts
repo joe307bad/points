@@ -1,4 +1,4 @@
-import { NavigationState } from "../reducers";
+import { NavigationState } from '../reducers';
 
 export const NavigationRequest = 'NAVIGATION_REQUEST';
 export class NavigationRequestAction {

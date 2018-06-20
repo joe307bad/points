@@ -1,8 +1,8 @@
-const watch = require("redux-watch");
-import { pickBy, mapValues, pick, first } from "lodash";
+const watch = require('redux-watch');
+import { pickBy, mapValues, pick, first } from 'lodash';
 
-import { store } from "../";
-import { BaseState } from "../index.reducer";
+import { store } from '../';
+import { BaseState } from '../index.reducer';
 
 export interface Processing { processing: boolean, message?: string }
 

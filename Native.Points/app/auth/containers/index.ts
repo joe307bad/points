@@ -1,11 +1,11 @@
-import { Dispatch } from "redux";
-import { connect } from "react-redux";
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
-import { LoginState } from "../reducers";
+import { LoginState } from '../reducers';
 import Login from '../components';
 
 import * as userActions from '../actions'
-import { store } from "../../store";
+import { store } from '../../store';
 
 
 export interface LoginProps {
