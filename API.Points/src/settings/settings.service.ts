@@ -11,16 +11,44 @@ export class SettingsService implements ISettingsService {
             navigation: {
                 enabled: true,
                 items: [
-                    { name: 'Feed' },
-                    { name: 'Achievements' },
-                    { name: 'Leaderboard' },
-                    { name: 'Search' },
-                    { name: 'Uploads' }
+                    {
+                        name: 'Feed',
+                        route: 'Feed'
+                    },
+                    {
+                        name: 'Achievements',
+                        route: 'AchievementList'
+                    },
+                    {
+                        name: 'Leaderboard',
+                        route: 'Leaderboard'
+                    },
+                    {
+                        name: 'Search',
+                        route: 'Search'
+                    },
+                    {
+                        name: 'Uploads',
+                        route: 'UploadList'
+                    },
+                    {
+                        name: 'Logout',
+                        route: 'Logout'
+                    }
                 ],
                 controlPanel: [
-                    { name: 'Categories' },
-                    { name: 'Pending Approvals' },
-                    { name: 'Add Achievement' }
+                    {
+                        name: 'Manage Categories',
+                        route: 'ManageCategories'
+                    },
+                    {
+                        name: 'Pending Approvals',
+                        route: 'PendingApprovalList'
+                    },
+                    {
+                        name: 'Manage Achievements',
+                        route: 'ManageAchievements'
+                    }
                 ]
             }
         };
