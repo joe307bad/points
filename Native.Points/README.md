@@ -7,8 +7,9 @@
 * [Redux Saga](https://redux-saga.js.org/) for side effect management
 * [Reselect](https://github.com/reduxjs/reselect) for memoized state selection
 * [Redux Watch](https://github.com/jprichardson/redux-watch) for subscribing to and monitoring state changes
+* [React Nanvigation](https://github.com/react-navigation/react-navigation) for routing 
 * [Typescript](https://www.typescriptlang.org/) for a high level of structure and strong typing
-* [React Native Elements](https://bozzmob.github.io/react-native-elements/) UI toolkit
+* [NativeBase](https://github.com/GeekyAnts/NativeBase) UI toolkit
 ---
 ### ToDos:
 - [ ] Route gaurds
