@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Text, View } from "native-base";
+import { Container, Text } from "native-base";
 import { Provider } from "react-redux";
 // @ts-ignore
 import { createDrawerNavigator } from "react-navigation";
@@ -12,8 +12,19 @@ import HomeScreen from "./app/home/components";
 import { AchievementList } from './app/achievement/components/list';
 import NavigatorService from './app/navigation/services/navigation-service';
 import { Toolbar } from "./app/shared/components";
+import { View, StyleSheet } from 'react-native';
 
 export default class App extends Component<{}> {
+
+  styles: any = StyleSheet.create({
+    loading: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      height: '100%',
+      width: '100%'
+    }
+  })
 
   render() {
     const Navigation = createDrawerNavigator({

@@ -13,6 +13,8 @@
 ### ToDos:
 - [ ] Route gaurds
     - https://medium.com/the-many/adding-login-and-authentication-sections-to-your-react-or-react-native-app-7767fd251bd1
+- [ ] Implement back button with React Navigation code
+    - https://github.com/react-navigation/react-navigation/blob/5e075e1c31d5e6192f2532a815b1737fa27ed65b/src/createNavigationContainer.js#L154
 - [ ] React Navigation transitions
     - https://www.npmjs.com/package/react-navigation-transitions
 - [ ] Try to test on iPhone via [Expo](expo.io)	

@@ -34,7 +34,7 @@ export default class Loading extends Component<SpinnerProps, SpinnerState> {
 
   render(): JSX.Element {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, position: 'absolute', top: 0 }}>
         <Spinner visible={this.state.visible} textContent={this.state.message} textStyle={{ color: '#FFF' }} />
       </View>
     );
