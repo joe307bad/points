@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, FlatList } from 'react-native';
-import { Container, List, ListItem, View } from 'native-base';
+import { Container, List, ListItem, View, Left, Thumbnail } from 'native-base';
 import { AchievementDto, CategoryDto } from '@points/shared';
 import { Subscription } from 'rxjs';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
@@ -63,9 +63,24 @@ class CategoryList extends Component<{ achievements: AchievementDto[], category:
             <FlatList
                 data={achievements}
                 renderItem={achievement =>
-                    <ListItem>
-                        <Text>{achievement.item.name}</Text>
-                    </ListItem>}
+                    achievement.item.photo
+                        ? <ListItem
+                            style={{ marginLeft: 0, paddingLeft: 10 }}
+                            avatar>
+                            <Left>
+                                <Thumbnail
+                                    style={{ marginRight: 20, marginTop: 10, marginBottom: 10 }}
+                                    source={{
+                                        uri: 'https://p.jbad.io/uploads/' + achievement.item.photo
+                                    }} size={5} />
+                            </Left>
+                            <Text >{achievement.item.name}</Text>
+                        </ListItem>
+                        : <ListItem
+                            style={{ marginLeft: 0, paddingLeft: 10 }}>
+                            <Text>{achievement.item.name}</Text>
+                        </ListItem>
+                }
             />
         )
     }
