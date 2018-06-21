@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { Text, FlatList } from 'react-native';
+import { Text, FlatList, Easing } from 'react-native';
 import { Container, List, ListItem, View, Left, Thumbnail } from 'native-base';
 import { AchievementDto, CategoryDto } from '@points/shared';
 import { Subscription } from 'rxjs';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
+import Modal from 'react-native-modalbox';
 
 import { Toolbar } from '../../shared/components';
 import { IBaseProps } from '../../navigation/components';
 import { IAchievementProps } from '../containers';
-import { IAchievementState } from '../reducers';
-import { achievements } from '../reducers/index';
+import { IAchievementState, achievements } from '../reducers';
 
 export class AchievementList extends Component<IAchievementProps> {
 
@@ -53,6 +53,8 @@ class TabView extends Component<IAchievementProps> {
 }
 
 class CategoryList extends Component<{ achievements: AchievementDto[], category: CategoryDto }>{
+
+    modal?: Modal;
     render(): JSX.Element {
 
         const achievements = this.props.category.name !== 'All'
@@ -60,28 +62,38 @@ class CategoryList extends Component<{ achievements: AchievementDto[], category:
             : this.props.achievements;
 
         return (
-            <FlatList
-                data={achievements}
-                renderItem={achievement =>
-                    achievement.item.photo
-                        ? <ListItem
-                            style={{ marginLeft: 0, paddingLeft: 10 }}
-                            avatar>
-                            <Left>
-                                <Thumbnail
-                                    style={{ marginRight: 20, marginTop: 10, marginBottom: 10 }}
-                                    source={{
-                                        uri: 'https://p.jbad.io/uploads/' + achievement.item.photo
-                                    }} size={5} />
-                            </Left>
-                            <Text >{achievement.item.name}</Text>
-                        </ListItem>
-                        : <ListItem
-                            style={{ marginLeft: 0, paddingLeft: 10 }}>
-                            <Text>{achievement.item.name}</Text>
-                        </ListItem>
-                }
-            />
+            <Container>
+                <FlatList
+                    data={achievements}
+                    renderItem={achievement =>
+                        achievement.item.photo
+                            ? <ListItem onPress={() => this.modal!.open()}
+                                style={{ marginLeft: 0, paddingLeft: 10 }}
+                                avatar>
+                                <Left>
+                                    <Thumbnail
+                                        style={{ marginRight: 20, marginTop: 10, marginBottom: 10 }}
+                                        source={{
+                                            // TODO store URL somewhere
+                                            uri: 'https://p.jbad.io/uploads/' + achievement.item.photo
+                                        }} size={5} />
+                                </Left>
+                                <Text >{achievement.item.name}</Text>
+                            </ListItem>
+                            : <ListItem onPress={() => this.modal!.open()}
+                                style={{ marginLeft: 0, paddingLeft: 10 }}>
+                                <Text>{achievement.item.name}</Text>
+                            </ListItem>
+                    }
+                />
+                <Modal
+                    style={{ height: 300 }}
+                    easing={Easing.elastic(0)}
+                    position={'bottom'}
+                    ref={(ref: Modal) => (this.modal = ref)}>
+                    <Text>Hey</Text>
+                </Modal>
+            </Container>
         )
     }
 }
