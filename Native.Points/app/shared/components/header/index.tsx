@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import { NavigationItemDto } from '@points/shared';
 import { Title, Body, Header } from 'native-base';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { IBaseProps } from '../../../navigation/components';
-import { navItems } from '../../../store/selectors';
+import { navItemsWatch } from '../../../store/selectors';
 import store from '../../../store/index';
-import { IBaseProps } from '../../../navigation/components/index';
-
-//const currentNavItems: BehaviorSubject<NavigationItemDto[]> = new BehaviorSubject([new NavigationItemDto()]);
-//store.subscribe(navItems((navItems: NavigationItemDto[]) => currentNavItems.next(navItems)));
 
 interface IToolbarState {
     title: string;
@@ -17,26 +13,20 @@ interface IToolbarState {
 
 export class Toolbar extends Component<IBaseProps> {
 
+    navItemsSubscription?: Subscription;
+
     state: IToolbarState = {
         title: ''
     }
 
-    constructor(props: IBaseProps) {
-        super(props);
-    }
-
-    componentDidMount() {
-
-        // currentNavItems.subscribe(navItems => {
-        //     const title = navItems.find(item => item.route === this.props.navigation.state.routeName);
-        //     this.setState({
-        //         title: title ? title.name : ''
-        //     })
-        // });
+    componentWillMount() {
+        const navItem = this.props.title(this.props.navigation.state.routeName);
+        this.setState({
+            title: navItem ? navItem.name : ''
+        })
     }
 
     public render(): JSX.Element {
-
         return (
             <Header >
                 <Body>

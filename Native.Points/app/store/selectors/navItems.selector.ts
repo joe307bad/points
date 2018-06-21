@@ -2,6 +2,7 @@
 import watch from 'redux-watch';
 import { createSelector } from 'reselect';
 import { NavigationItemDto } from '@points/shared';
+import { Observable } from 'rxjs';
 
 import { store } from '../';
 
@@ -9,5 +10,18 @@ import * as fromNavigation from '../../navigation/reducers';
 
 export const navItemsSelector = createSelector(fromNavigation.navItems, (items: NavigationItemDto[]) => items);
 
-// TODO do I have to reference 'navigationReducer' directly?
-export const navItems = watch(() => navItemsSelector(store.getState().navigationReducer));
+export const navItemsWatch = watch(() => navItemsSelector(store.getState().navigationReducer));
+
+export const navItems = () => {
+    return new Observable<NavigationItemDto[]>(function (observer) {
+        observer.next([]);
+
+        const unsubscribe = store.subscribe(navItemsWatch((navItems: NavigationItemDto[]) => {
+            observer.next(navItems);
+        }));
+
+        return unsubscribe;
+    });
+}
+
+

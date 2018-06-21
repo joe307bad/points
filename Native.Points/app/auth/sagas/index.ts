@@ -7,7 +7,6 @@ import * as navigationActions from '../../navigation/actions';
 import { userService } from '../services';
 import { ILoginState } from '../reducers';
 import { persistentStorage } from '../../core/async-storage';
-import NavigationService from '../../navigation/services/navigation-service';
 
 export function* authorize(newILoginState: ILoginState): any {
 
@@ -36,10 +35,6 @@ export function* loginSuccess() {
 
     while (true) {
         yield take(userActions.UserLoginSuccess);
-
         yield put({ type: navigationActions.NavigationRequest });
-
-        // TODO make this into a class like userService so we can use apply
-        NavigationService.navigate('AchievementList');
     }
 }
