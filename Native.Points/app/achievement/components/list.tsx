@@ -24,12 +24,12 @@ export class AchievementList extends Component<IAchievementProps> {
         return (
             <Container>
                 <Toolbar {...this.props} />
-                <List
+                <List style={{width: '100%'}}
                     dataArray={this.props.achievementList}
                     renderRow={(achievement: AchievementDto) => {
                         return (
-                            <ListItem>
-                                <Text>{achievement.name}</Text>
+                            <ListItem style={{marginLeft: -15, paddingLeft: 15}}>
+                                <Text style={{paddingLeft: 15}}>{achievement.name}</Text>
                             </ListItem>
                         );
                     }}

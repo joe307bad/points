@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavigationItemDto } from '@points/shared';
-import { Title, Body, Header } from 'native-base';
+import { Title, Body, Header, Left, Button, Icon } from 'native-base';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { IBaseProps } from '../../../navigation/components';
@@ -29,6 +29,11 @@ export class Toolbar extends Component<IBaseProps> {
     public render(): JSX.Element {
         return (
             <Header >
+                <Left>
+                    <Button transparent>
+                        <Icon name='menu' onPress={() => this.props.navigation.openDrawer()} />
+                    </Button>
+                </Left>
                 <Body>
                     <Title>{this.state.title}</Title>
                 </Body>
