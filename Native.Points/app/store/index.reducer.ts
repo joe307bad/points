@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import loginReducer from '../auth/reducers';
 import navigationReducer from '../navigation/reducers';
+import achievementReducer from '../achievement/reducers';
 
 // TODO error interface
 export interface IBaseState<T> {
@@ -13,7 +14,8 @@ export interface IBaseState<T> {
 
 const rootReducer = combineReducers({
   loginReducer,
-  navigationReducer
+  navigationReducer,
+  achievementReducer
 });
 
 export default rootReducer;

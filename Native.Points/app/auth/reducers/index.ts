@@ -1,5 +1,7 @@
 import { IBaseState } from '../../store/index.reducer';
 
+import { IProcessing } from '../../store/selectors';
+
 import * as userActions from '../actions';
 
 export interface ILoginState {
@@ -53,5 +55,5 @@ export const reducer = (state = initialState, action: userActions.UserAction): I
 export default reducer;
 
 export const isProcessing =
-  (state: IBaseState<any>): { processing: boolean, message?: string } =>
+  (state: IBaseState<any>): IProcessing =>
     ({ processing: state.processing, message: state.message });

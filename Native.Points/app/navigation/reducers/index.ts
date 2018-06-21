@@ -1,6 +1,7 @@
 import { SettingsDto } from '@points/shared';
 
 import { IBaseState } from '../../store/index.reducer';
+import { IProcessing } from '../../store/selectors';
 
 import * as navigationActions from '../actions';
 
@@ -30,7 +31,7 @@ export const reducer = (state = initialState, action: navigationActions.UserActi
       };
 
     case navigationActions.NavigationSuccess:
-
+    
       return {
         ...state,
         condition: {
@@ -58,7 +59,7 @@ export const reducer = (state = initialState, action: navigationActions.UserActi
 export default reducer;
 
 export const isProcessing =
-  (state: IBaseState<any>): { processing: boolean, message?: string } =>
+  (state: IBaseState<any>): IProcessing =>
     ({ processing: state.processing, message: state.message });
 
 export const navItems = (state: IBaseState<INavigationState>) => {

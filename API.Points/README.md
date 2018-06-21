@@ -8,6 +8,8 @@
 * [Passport](http://www.passportjs.org/) and [JWT](https://jwt.io/) for token authentication
 ---
 ### ToDos
+- [ ] Seed methods for achievements and categories
+- [ ] Restrict from creating user with populated role
 - [ ] Implement flow for approving users and not automatically granting a token
 - [ ] Set up environment variables
     - https://www.npmjs.com/package/gulp-env
