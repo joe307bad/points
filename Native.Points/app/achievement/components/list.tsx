@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, FlatList, Easing } from 'react-native';
-import { Container, List, ListItem, View, Left, Thumbnail } from 'native-base';
+import { Container, List, ListItem, View, Left, Thumbnail, Content, Card, CardItem, Header, Body, Button } from 'native-base';
 import { AchievementDto, CategoryDto } from '@points/shared';
 import { Subscription } from 'rxjs';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
@@ -52,9 +52,25 @@ class TabView extends Component<IAchievementProps> {
     }
 }
 
-class CategoryList extends Component<{ achievements: AchievementDto[], category: CategoryDto }>{
+interface ICategoyListState {
+    selectedAchievement: AchievementDto;
+}
+
+class CategoryList extends Component<{ achievements: AchievementDto[], category: CategoryDto }, ICategoyListState>{
 
     modal?: Modal;
+    state: ICategoyListState = {
+        selectedAchievement: {} as AchievementDto
+    }
+
+    selectAchievement(achievementId: string) {
+        const selectedAchievement = this.props.achievements.find(achievement => achievement.achievementId === achievementId);
+        this.setState({
+            selectedAchievement: selectedAchievement ? selectedAchievement : {} as AchievementDto
+        });
+        this.modal!.open();
+    }
+
     render(): JSX.Element {
 
         const achievements = this.props.category.name !== 'All'
@@ -67,7 +83,7 @@ class CategoryList extends Component<{ achievements: AchievementDto[], category:
                     data={achievements}
                     renderItem={achievement =>
                         achievement.item.photo
-                            ? <ListItem onPress={() => this.modal!.open()}
+                            ? <ListItem onPress={() => this.selectAchievement(achievement.item.achievementId)}
                                 style={{ marginLeft: 0, paddingLeft: 10 }}
                                 avatar>
                                 <Left>
@@ -80,18 +96,35 @@ class CategoryList extends Component<{ achievements: AchievementDto[], category:
                                 </Left>
                                 <Text >{achievement.item.name}</Text>
                             </ListItem>
-                            : <ListItem onPress={() => this.modal!.open()}
+                            : <ListItem onPress={() => this.selectAchievement(achievement.item.achievementId)}
                                 style={{ marginLeft: 0, paddingLeft: 10 }}>
                                 <Text>{achievement.item.name}</Text>
                             </ListItem>
                     }
                 />
                 <Modal
-                    style={{ height: 300 }}
+                    style={{ height: 'auto', padding: 10, backgroundColor: 'transparent' }}
                     easing={Easing.elastic(0)}
                     position={'bottom'}
                     ref={(ref: Modal) => (this.modal = ref)}>
-                    <Text>Hey</Text>
+                    <Card style={{ flex: 0 }}>
+                        <CardItem header bordered style={{ paddingTop: 0, paddingBottom: 0 }}>
+                            <Left style={{ paddingLeft: 0, paddingRight: 0, paddingTop: 10, paddingBottom: 10 }}>
+                                <Thumbnail
+                                    style={{ marginRight: 20 }}
+                                    source={{
+                                        // TODO store URL somewhere
+                                        uri: 'https://p.jbad.io/uploads/' + this.state.selectedAchievement.photo
+                                    }} size={5} />
+                                <Text>{this.state.selectedAchievement.name}</Text>
+                            </Left>
+                        </CardItem>
+                        <CardItem>
+                            <Body>
+                                <Text>{this.state.selectedAchievement.description}</Text>
+                            </Body>
+                        </CardItem>
+                    </Card>
                 </Modal>
             </Container>
         )
