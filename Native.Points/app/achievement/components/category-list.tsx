@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { AchievementDto, CategoryDto } from "@points/shared";
 import Modal from "react-native-modalbox";
-import { Container, ListItem, Left, Thumbnail, Text, Card, CardItem, Body } from "native-base";
+import { Container, ListItem, Left, Thumbnail, Text, Card, CardItem, Body, Button, Right, View, Icon } from "native-base";
 import { FlatList, Easing } from "react-native";
 
 interface ICategoyListState {
@@ -45,7 +45,7 @@ export class CategoryList extends Component<{ achievements: AchievementDto[], ca
                             avatar>
                             <Left>
                                 <Thumbnail
-                                    style={{ marginRight: 20, marginTop: 10, marginBottom: 10 }}
+                                    style={{ marginTop: 10, marginBottom: 10 }}
                                     source={{
                                         // TODO store URL somewhere
                                         uri: achievement.item.photo
@@ -53,7 +53,10 @@ export class CategoryList extends Component<{ achievements: AchievementDto[], ca
                                             : 'https://www.iconsdb.com/icons/preview/gray/circle-xxl.png'
                                     }} size={5} />
                             </Left>
-                            <Text >{achievement.item.name}</Text>
+                            <Body style={{ borderColor: 'transparent' }}>
+                                <Text>{achievement.item.name}</Text>
+                            </Body>
+                            <PointsContainer achievement={achievement.item} />
                         </ListItem>
                     }
                 />
@@ -75,15 +78,46 @@ export class CategoryList extends Component<{ achievements: AchievementDto[], ca
                                     }} size={5} />
                                 <Text>{this.state.selectedAchievement.name}</Text>
                             </Left>
+                            <PointsContainer achievement={this.state.selectedAchievement} />
                         </CardItem>
                         <CardItem>
                             <Body>
                                 <Text>{this.state.selectedAchievement.description}</Text>
+                                <Button style={{ marginTop: 15 }} full>
+                                    <Icon type='Entypo' name='check' />
+                                    <Text>Check In</Text>
+                                </Button>
                             </Body>
                         </CardItem>
                     </Card>
                 </Modal>
             </Container>
         )
+    }
+}
+
+class PointsContainer extends Component<{ achievement: AchievementDto }> {
+    render() {
+        return (
+            <Right style={{ borderColor: 'transparent' }}>
+                <View style={{
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                        <Icon style={{
+                            fontSize: 15,
+                            color: 'green',
+                            marginRight: 5,
+                            marginTop: 3
+                        }} type='Entypo' name='circle-with-plus' />
+                        <Text>
+                            {this.props.achievement.points}
+                        </Text>
+                    </View>
+                </View>
+            </Right>)
     }
 }
