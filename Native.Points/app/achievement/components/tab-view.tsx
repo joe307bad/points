@@ -17,9 +17,12 @@ export class TabView extends Component<IAchievementProps> {
                         tabLabel: category.name,
                         achievements: this.props.achievementList,
                         category: category,
-                        key: index
-                    }}>
-                    </CategoryList>)}
+                        checkin: this.props.checkin,
+                        currentUser: this.props.currentUser,
+                        key: index,
+                        id: index,
+                        selectAchievement: this.props.selectAchievement
+                    }} />)}
             </ScrollableTabView>
         );
     }

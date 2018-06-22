@@ -36,7 +36,7 @@ export const reducer = (state = initialState, action: achievementListActions.Ach
         },
         processing: false,
         error: null,
-        message: 'Achievement list loaded successfull'
+        message: 'Achievement list loaded successful'
       };
 
     case achievementListActions.AchievementListFailure:

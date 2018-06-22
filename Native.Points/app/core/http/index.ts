@@ -30,7 +30,6 @@ export class Http {
     private async getConfig() {
         const token = await persistentStorage.get('jwt');
         let config = {};
-
         if (token) {
             config = {
                 headers: { Authorization: 'Bearer ' + token }

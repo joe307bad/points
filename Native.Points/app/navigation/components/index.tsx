@@ -5,10 +5,12 @@ import { NavigationItemDto } from '@points/shared';
 import HomeScreen from '../../home/components';
 import AchievementList from '../../achievement/containers';
 import SideBar from './side-bar';
+import { ILoginState } from '../../auth/reducers';
 
 export interface IBaseProps {
     navigation: NavigationScreenProp<{ routeName: string }>;
     title: (routeName: string) => NavigationItemDto | undefined;
+    currentUser: ILoginState;
 }
 
 // TODO can we populate this dynamically?

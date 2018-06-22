@@ -1,5 +1,6 @@
 import { take, call, put, apply } from 'redux-saga/effects';
 import { JwtResponse, UserDto } from '@points/shared';
+import jwt_decode from 'jwt-decode';
 
 import * as userActions from '../actions';
 import * as navigationActions from '../../navigation/actions';
@@ -14,6 +15,9 @@ export function* authorize(newILoginState: ILoginState): any {
 
     if (response.accessToken) {
         persistentStorage.set('jwt', response.accessToken);
+        const userInfo = jwt_decode<{ id: string }>(response.accessToken);
+        newILoginState.userId = userInfo.id;
+        // TODO should we nuke the password here? or keep for relogging in?
         yield put({ type: userActions.UserLoginSuccess, payload: newILoginState });
     }
 }

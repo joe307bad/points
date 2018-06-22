@@ -3,24 +3,65 @@ import { AchievementDto, CategoryDto } from "@points/shared";
 import Modal from "react-native-modalbox";
 import { Container, ListItem, Left, Thumbnail, Text, Card, CardItem, Body, Button, Right, View, Icon } from "native-base";
 import { FlatList, Easing } from "react-native";
+import { Subscription } from "rxjs";
 
-interface ICategoyListState {
+import { IUserCheckin } from "../../checkin/reducers";
+import { ILoginState, currentUser } from '../../auth/reducers';
+import { successfulCheckin } from '../../checkin/selectors';
+import { PointsContainer } from './';
+
+interface ICategoryListProps {
+    tabLabel: string;
+    achievements: AchievementDto[];
+    category: CategoryDto;
+    currentUser: ILoginState;
+    key: any;
+    checkin: (userCheckin: IUserCheckin) => void;
+    selectAchievement: (achievement: AchievementDto) => void;
+}
+
+interface ICategoryListState {
     selectedAchievement: AchievementDto;
 }
 
-export class CategoryList extends Component<{ achievements: AchievementDto[], category: CategoryDto }, ICategoyListState>{
+export class CategoryList extends Component<ICategoryListProps>{
 
-    modal?: Modal;
-    state: ICategoyListState = {
+    successfulCheckinSubscription?: Subscription;
+    achievementPreviewModal?: Modal;
+
+    state: ICategoryListState = {
         selectedAchievement: {} as AchievementDto
     }
 
-    selectAchievement(achievementId: string) {
-        const selectedAchievement = this.props.achievements.find(achievement => achievement.achievementId === achievementId);
-        this.setState({
-            selectedAchievement: selectedAchievement ? selectedAchievement : {} as AchievementDto
+    constructor(props: ICategoryListProps) {
+        super(props);
+        this.closeModal = this.closeModal.bind(this);
+    }
+
+    componentWillMount() {
+        this.successfulCheckinSubscription = successfulCheckin().subscribe((isSuccessful) => {
+            if (isSuccessful) {
+                debugger;
+                // @ts-ignore
+                this.closeModal();
+            }
         });
-        this.modal!.open();
+    }
+
+    componentWillUnmount() {
+        this.successfulCheckinSubscription!.unsubscribe();
+    }
+
+    selectAchievement(selectedAchievement: AchievementDto) {
+        this.setState({
+            selectedAchievement: selectedAchievement
+        });
+        this.achievementPreviewModal!.open();
+    }
+
+    closeModal() {
+        debugger;
+        this.achievementPreviewModal!.close();
     }
 
     render(): JSX.Element {
@@ -31,6 +72,7 @@ export class CategoryList extends Component<{ achievements: AchievementDto[], ca
 
         //  TODO find more effecient way to do this
         achievements = achievements.map((achievement, index) => {
+            // @ts-ignore
             achievement.key = index.toString();
             return achievement;
         })
@@ -40,7 +82,8 @@ export class CategoryList extends Component<{ achievements: AchievementDto[], ca
                 <FlatList
                     data={achievements}
                     renderItem={achievement =>
-                        <ListItem onPress={() => this.selectAchievement(achievement.item.achievementId)}
+                        <ListItem
+                            onPress={() => this.selectAchievement(achievement.item)}
                             style={{ marginLeft: 0, paddingLeft: 10 }}
                             avatar>
                             <Left>
@@ -64,12 +107,12 @@ export class CategoryList extends Component<{ achievements: AchievementDto[], ca
                     style={{ height: 'auto', padding: 10, backgroundColor: 'transparent' }}
                     easing={Easing.elastic(0)}
                     position={'bottom'}
-                    ref={(ref: Modal) => (this.modal = ref)}>
+                    ref={(ref: Modal) => this.achievementPreviewModal = ref}>
                     <Card style={{ flex: 0 }}>
                         <CardItem header bordered style={{ paddingTop: 0, paddingBottom: 0 }}>
                             <Left style={{ paddingLeft: 0, paddingRight: 0, paddingTop: 10, paddingBottom: 10 }}>
                                 <Thumbnail
-                                    style={{ marginRight: 20 }}
+                                    style={{ marginRight: 5 }}
                                     source={{
                                         // TODO store URL somewhere
                                         uri: this.state.selectedAchievement.photo
@@ -83,7 +126,14 @@ export class CategoryList extends Component<{ achievements: AchievementDto[], ca
                         <CardItem>
                             <Body>
                                 <Text>{this.state.selectedAchievement.description}</Text>
-                                <Button style={{ marginTop: 15 }} full>
+                                <Button
+                                    onPress={() => this.props.checkin({
+                                        achievementId: this.state.selectedAchievement.achievementId,
+                                        achievementName: this.state.selectedAchievement.name,
+                                        userId: this.props.currentUser.userId,
+                                        userName: this.props.currentUser.userName
+                                    } as IUserCheckin)}
+                                    style={{ marginTop: 15 }} full>
                                     <Icon type='Entypo' name='check' />
                                     <Text>Check In</Text>
                                 </Button>
@@ -96,28 +146,19 @@ export class CategoryList extends Component<{ achievements: AchievementDto[], ca
     }
 }
 
-class PointsContainer extends Component<{ achievement: AchievementDto }> {
-    render() {
-        return (
-            <Right style={{ borderColor: 'transparent' }}>
-                <View style={{
-                    flex: 1,
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                        <Icon style={{
-                            fontSize: 15,
-                            color: 'green',
-                            marginRight: 5,
-                            marginTop: 3
-                        }} type='Entypo' name='circle-with-plus' />
-                        <Text>
-                            {this.props.achievement.points}
-                        </Text>
-                    </View>
-                </View>
-            </Right>)
-    }
-}
+// class AchievementPreview extends Component<{
+//     selectedAchievement: AchievementDto,
+//     checkin: (userCheckin: IUserCheckin) => void,
+//     currentUser: ILoginState
+// }> {
+//     render() {
+//         return (
+//             )
+//     }
+// }
+
+{/* <AchievementPreview ref='achievementPreview' {...{
+                    selectedAchievement: this.state.selectedAchievement,
+                    checkin: this.props.checkin,
+                    currentUser: this.props.currentUser
+                }} /> */}
