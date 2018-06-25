@@ -1,6 +1,6 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, Inject } from '@nestjs/common';
-import { CheckinDto, UserCheckinsDto, PendingApprovalDto, ICheckinService } from '@points/shared';
+import { CheckinDto, UserCheckinsDto, PendingApprovalDto, ICheckinService, FeedItemDto } from '@points/shared';
 import { Model } from 'mongoose';
 import { ObjectId } from 'mongodb';
 
@@ -32,6 +32,10 @@ export class CheckinService implements ICheckinService {
         return this.buildUserCheckinAggregate(true);
     }
 
+    async getFeed(): Promise<FeedItemDto[]> {
+        return this.buildFeedAggregate();
+    }
+
     async getPendingApprovals(): Promise<PendingApprovalDto[]> {
         return this.buildCheckinAggregate();
     }
@@ -47,6 +51,47 @@ export class CheckinService implements ICheckinService {
 
     async delete(checkinDto: CheckinDto): Promise<any> {
         return this.checkinModel.deleteOne({ _id: checkinDto.id });
+    }
+
+    private buildFeedAggregate() {
+
+        let pipeline = [];
+
+        pipeline = [...pipeline,
+        {
+            '$match':
+                {
+                    'approved': true
+                }
+        }, {
+            '$lookup': {
+                'from': this.achievementModel.collection.name,
+                'localField': 'achievementId',
+                'foreignField': '_id',
+                'as': 'achievements'
+            }
+        }, {
+            '$lookup': {
+                'from': this.userModel.collection.name,
+                'localField': 'userId',
+                'foreignField': '_id',
+                'as': 'users'
+            }
+        },
+        { '$sort': { 'createdAt': -1 } },
+        {
+            '$project': {
+                'checkinId': '$$ROOT._id',
+                'userId': { $arrayElemAt: ['$users._id', 0] },
+                'userName': { $arrayElemAt: ['$users.userName', 0] },
+                'achievementName': { $arrayElemAt: ['$achievements.name', 0] },
+                'points': { $arrayElemAt: ['$achievements.points', 0] },
+                'checkinDate': '$$ROOT.createdAt'
+            }
+        }];
+
+        return this.checkinModel.aggregate(pipeline).exec();
+
     }
 
     private buildCheckinAggregate() {

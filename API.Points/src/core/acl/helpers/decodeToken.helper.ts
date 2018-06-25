@@ -1,4 +1,4 @@
-import { JwtPayload } from '../../../auth';
+import { JwtPayload } from '@points/shared';
 import * as jwt from 'jsonwebtoken';
 
 export function decodeToken(request: any): JwtPayload {

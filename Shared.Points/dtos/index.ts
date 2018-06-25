@@ -14,3 +14,5 @@ export * from './navigation.dto';
 export * from './pending-approval.dto';
 export * from './api.error';
 export * from './jwt.response';
+export * from './feed-item.dto';
+export * from './jwt.payload';

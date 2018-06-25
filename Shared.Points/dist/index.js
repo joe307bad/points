@@ -18,3 +18,5 @@ __export(require("./navigation-item.dto"));
 __export(require("./navigation.dto"));
 __export(require("./pending-approval.dto"));
 __export(require("./api.error"));
+__export(require("./feed-item.dto"));
+__export(require("./jwt.payload"));
