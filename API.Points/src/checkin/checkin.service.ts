@@ -74,6 +74,7 @@ export class CheckinService implements ICheckinService {
                 'as': 'users'
             }
         },
+        { '$sort': { 'createdAt': -1 } },
         {
             '$project': {
                 'checkinId': '$$ROOT._id',

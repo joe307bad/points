@@ -7,11 +7,21 @@ import AchievementList from '../../achievement/containers';
 import SideBar from './side-bar';
 import PendingApprovalList from '../../pending-approval/containers/list';
 import { ILoginState } from '../../auth/reducers';
+import { navItemsSelector, currentUserSelector } from '../../store/selectors';
 
 export interface IBaseProps {
     navigation: NavigationScreenProp<{ routeName: string }>;
     title: (routeName: string) => NavigationItemDto | undefined;
     currentUser: ILoginState;
+}
+
+export function getBaseProps(state: any) {
+    return {
+        title: (routeName: string) =>
+            navItemsSelector(state.navigationReducer)
+                .find((item: NavigationItemDto) => item.route === routeName),
+        currentUser: currentUserSelector(state.loginReducer)
+    }
 }
 
 // TODO can we populate this dynamically?

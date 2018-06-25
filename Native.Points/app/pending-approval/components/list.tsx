@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { PendingApprovalDto } from '@points/shared';
-import { Container, ListItem, Left, Body, Text, Right, Button } from 'native-base';
+import { Container, ListItem, Left, Body, Text, Right, Button, Icon } from 'native-base';
 import { FlatList } from 'react-native';
 
 import { IPendingApprovalListProps } from '../containers';
 import { IPendingApprovalState } from '../reducers';
-
+import { Toolbar } from '../../shared/components';
+import date from '../../core/date';
 
 export class PendingApprovalList extends Component<IPendingApprovalListProps, IPendingApprovalState> {
 
     public componentWillMount() {
-        
+
         if (!this.props.pendingApprovals.length) {
             this.props.getPendingApprovals();
         }
@@ -27,16 +28,17 @@ export class PendingApprovalList extends Component<IPendingApprovalListProps, IP
 
         return (
             <Container>
+                <Toolbar {...this.props} />
                 <FlatList
-                    data={this.props.pendingApprovals}
+                    data={pendingApprovals}
                     renderItem={(pendingApproval) =>
                         <ListItem
                             style={{ marginLeft: 0, paddingLeft: 10 }}
                             avatar>
                             <Body style={{ borderColor: 'transparent' }}>
                                 <Text>
-                                    {`${pendingApproval.item.userName} checked in at ${pendingApproval.item.checkinDate}`}
-                                    <Text note>{pendingApproval.item.achievementName}</Text>
+                                    {pendingApproval.item.userName}
+                                    <Text note>{` chcecked into ${pendingApproval.item.achievementName} ${date.relativeFormat(pendingApproval.item.checkinDate)}`}</Text>
                                 </Text>
                             </Body>
                             <Right>

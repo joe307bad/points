@@ -4,7 +4,7 @@ import { AchievementDto, CategoryDto, NavigationItemDto } from '@points/shared';
 
 import { AchievementList } from '../components/list';
 import { navItemsSelector, currentUserSelector } from '../../store/selectors';
-import { IBaseProps } from '../../navigation/components';
+import { IBaseProps, getBaseProps } from '../../navigation/components';
 import { achievementListSelector, categoriesSelector, } from '../selectors';
 
 import * as achievementActions from '../actions';
@@ -21,14 +21,10 @@ export interface IAchievementProps extends IBaseProps {
 
 export function mapStateToProps() {
     return (state: any, props: any) => {
-        return {
-            title: (routeName: string) =>
-                navItemsSelector(state.navigationReducer)
-                    .find((item: NavigationItemDto) => item.route === routeName),
+        return Object.assign(getBaseProps(state), {
             achievementList: achievementListSelector(state.achievementReducer),
             categories: categoriesSelector(state.achievementReducer),
-            currentUser: currentUserSelector(state.loginReducer)
-        };
+        });
     };
 }
 

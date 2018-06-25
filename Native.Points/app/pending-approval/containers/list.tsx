@@ -8,6 +8,7 @@ import { PendingApprovalList } from '../components/list';
 
 import * as pendingApprovalActions from '../actions';
 import { IBaseProps } from "../../navigation/components";
+import { getBaseProps } from '../../navigation/components/index';
 
 export interface IPendingApprovalListProps extends IBaseProps {
     pendingApprovals: PendingApprovalDto[];
@@ -16,9 +17,9 @@ export interface IPendingApprovalListProps extends IBaseProps {
 
 export function mapStateToProps() {
     return (state: any, props: any) => {
-        return {
+        return Object.assign(getBaseProps(state), {
             pendingApprovals: pendingApprovalsSelector(state.pendingApprovalReducer)
-        }
+        });
     }
 }
 
