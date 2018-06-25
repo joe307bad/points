@@ -1,4 +1,4 @@
-import { ICheckinService, CheckinDto, UserCheckinsDto, PendingApprovalDto } from '@points/shared';
+import { ICheckinService, CheckinDto, UserCheckinsDto, PendingApprovalDto, FeedItemDto } from '@points/shared';
 
 import { http } from '../../core/http';
 
@@ -40,6 +40,10 @@ export class CheckinService implements ICheckinService {
 
     public delete(checkin: CheckinDto): Promise<any> {
         throw new Error('Method not implemented.');
+    }
+    
+    public getFeed(): Promise<FeedItemDto[]> {
+        throw new Error("Method not implemented.");
     }
 
 }

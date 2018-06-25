@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const base_dto_1 = require("./base.dto");
+// TODO combine this with FeedItemDto
 class PendingApprovalDto extends base_dto_1.BaseDto {
     constructor() {
         super(...arguments);
