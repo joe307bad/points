@@ -1,11 +1,6 @@
-// @ts-ignore
-import watch from 'redux-watch';
 import { AchievementDto, CategoryDto } from '@points/shared';
 import { createSelector } from 'reselect';
-import { Observable } from 'rxjs';
 import { uniqBy } from 'lodash';
-
-import { store } from '../../store';
 
 import * as fromAchievement from '../reducers';
 
@@ -16,10 +11,10 @@ export const categoriesSelector =
     createSelector(
         fromAchievement.achievements,
         (achievements: AchievementDto[]): CategoryDto[] => {
-            let categories = [{
+            const categories = [{
                 name: 'All'
             } as CategoryDto];
-            return [...categories, ...uniqBy(achievements, 'category').map(achievement => ({
+            return [...categories, ...uniqBy(achievements, 'category').map((achievement: AchievementDto) => ({
                 name: achievement.category
             } as CategoryDto))];
         });

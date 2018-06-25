@@ -18,7 +18,8 @@
             true
         ],
         "max-classes-per-file": false,
-        "no-empty-interface": false
+        "no-empty-interface": false,
+        "align": false
     },
     "rulesDirectory": []
 }

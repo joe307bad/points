@@ -1,4 +1,4 @@
-import { ICheckinState } from "../reducers";
+import { ICheckinState } from '../reducers';
 
 export const CheckinRequest = 'CHECKIN_REQUEST';
 export class CheckinRequestAction {

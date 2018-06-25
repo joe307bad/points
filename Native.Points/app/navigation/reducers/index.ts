@@ -31,7 +31,7 @@ export const reducer = (state = initialState, action: navigationActions.UserActi
       };
 
     case navigationActions.NavigationSuccess:
-    
+
       return {
         ...state,
         condition: {

@@ -1,4 +1,4 @@
-import { take, call, put, apply } from "redux-saga/effects";
+import { take, call, put, apply } from 'redux-saga/effects';
 import { AchievementDto } from '@points/shared';
 
 import { achievementService } from '../services';
@@ -11,7 +11,7 @@ export function* getAchievementList(): any {
     if (achievements) {
         yield put({
             type: achievementActions.AchievementListSuccess,
-            payload: { achievements: achievements }
+            payload: { achievements }
         });
     }
 }

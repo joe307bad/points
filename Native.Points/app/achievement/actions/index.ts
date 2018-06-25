@@ -1,4 +1,4 @@
-import { IAchievementState } from "../reducers";
+import { IAchievementState } from '../reducers';
 
 export const AchievementListRequest = 'ACHIEVEMENT_LIST_REQUEST';
 export class AchievementListRequestAction {

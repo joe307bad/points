@@ -1,9 +1,9 @@
 // @ts-ignore
 import watch from 'redux-watch';
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 import { Observable } from 'rxjs';
 
-import store from "../../store";
+import store from '../../store';
 
 import * as fromCheckin from '../../checkin/reducers';
 
@@ -13,7 +13,7 @@ export const successfulCheckinSelector =
 export const navItemsWatch = watch(() => successfulCheckinSelector(store.getState().checkinReducer));
 
 export const successfulCheckin = () => {
-    return new Observable<boolean>(function (observer) {
+    return new Observable<boolean>((observer) => {
         observer.next(false);
 
         const unsubscribe = store.subscribe(navItemsWatch((isSuccessful: boolean) => {
@@ -22,6 +22,4 @@ export const successfulCheckin = () => {
 
         return unsubscribe;
     });
-}
-
-
+};

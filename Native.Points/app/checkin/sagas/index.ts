@@ -1,7 +1,6 @@
 import { CheckinDto } from '@points/shared';
 import { take, call, apply, put } from 'redux-saga/effects';
 
-import { IUserCheckin, ICheckinState } from '../reducers';
 import { checkinService } from '../services';
 
 import * as checkinActions from '../actions';
@@ -16,7 +15,7 @@ export function* checkinAchievementForUser(userCheckin: CheckinDto): any {
 export function* userCheckinRequest() {
 
     while (true) {
-        var request = yield take(checkinActions.CheckinRequest);
+        const request = yield take(checkinActions.CheckinRequest);
         if (request!.payload!.userCheckin) {
             yield call(checkinAchievementForUser, request.payload.userCheckin);
         }

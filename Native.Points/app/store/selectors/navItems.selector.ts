@@ -13,15 +13,13 @@ export const navItemsSelector = createSelector(fromNavigation.navItems, (items: 
 export const navItemsWatch = watch(() => navItemsSelector(store.getState().navigationReducer));
 
 export const navItems = () => {
-    return new Observable<NavigationItemDto[]>(function (observer) {
+    return new Observable<NavigationItemDto[]>((observer) => {
         observer.next([]);
 
-        const unsubscribe = store.subscribe(navItemsWatch((navItems: NavigationItemDto[]) => {
-            observer.next(navItems);
+        const unsubscribe = store.subscribe(navItemsWatch((items: NavigationItemDto[]) => {
+            observer.next(items);
         }));
 
         return unsubscribe;
     });
-}
-
-
+};

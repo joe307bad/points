@@ -4,7 +4,6 @@ import { View } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Subscription } from 'rxjs';
 
-import store from '../../../store';
 import { isProcessing, IProcessing } from '../../../store/selectors';
 
 interface ISpinnerProps { }
@@ -16,7 +15,7 @@ interface ISpinnerState {
 
 export default class Loading extends Component<ISpinnerProps, ISpinnerState> {
 
-  processingSubscription?: Subscription;
+  private processingSubscription?: Subscription;
 
   constructor(props: ISpinnerProps) {
     super(props);
@@ -26,7 +25,7 @@ export default class Loading extends Component<ISpinnerProps, ISpinnerState> {
     };
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     this.processingSubscription = isProcessing().subscribe((state: IProcessing) =>
       this.setState({
         visible: state.processing,
@@ -34,7 +33,7 @@ export default class Loading extends Component<ISpinnerProps, ISpinnerState> {
       }));
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     this.processingSubscription!.unsubscribe();
   }
 

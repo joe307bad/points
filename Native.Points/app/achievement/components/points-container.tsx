@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { AchievementDto } from "@points/shared";
+import React, { Component } from 'react';
+import { AchievementDto } from '@points/shared';
 import { Text, View, Right, Icon } from 'native-base';
 
 export class PointsContainer extends Component<{ achievement: AchievementDto }> {
-    render() {
+    public render() {
         return (
             <Right style={{ borderColor: 'transparent' }}>
                 <View style={{
@@ -24,6 +24,6 @@ export class PointsContainer extends Component<{ achievement: AchievementDto }> 
                         </Text>
                     </View>
                 </View>
-            </Right>)
+            </Right>);
     }
 }

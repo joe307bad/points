@@ -1,10 +1,6 @@
-import { createSelector } from "reselect";
-
-import { currentUser } from '../../auth/reducers/index';
+import { createSelector } from 'reselect';
 
 import * as fromAuth from '../../auth/reducers';
 
 export const currentUserSelector =
-    createSelector(fromAuth.currentUser, (currentUser: fromAuth.ILoginState) => currentUser);
-
-
+    createSelector(fromAuth.currentUser, (user: fromAuth.ILoginState) => user);

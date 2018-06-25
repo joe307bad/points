@@ -26,7 +26,7 @@ export const isProcessingWatch = watch(() => {
 });
 
 export const isProcessing = () => {
-    return new Observable<IProcessing>(function (observer) {
+    return new Observable<IProcessing>((observer) => {
         observer.next({ processing: false, message: '' });
 
         const unsubscribe = store.subscribe(isProcessingWatch((processing: IProcessing) => {
@@ -35,4 +35,4 @@ export const isProcessing = () => {
 
         return unsubscribe;
     });
-}
+};

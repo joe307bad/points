@@ -5,7 +5,7 @@ import { IProcessing } from '../../store/selectors';
 import { AchievementDto } from '@points/shared';
 
 export interface IAchievementState {
-  achievements: AchievementDto[]
+  achievements: AchievementDto[];
 }
 
 export const initialState: IBaseState<IAchievementState> = {
@@ -15,7 +15,8 @@ export const initialState: IBaseState<IAchievementState> = {
   processing: false
 };
 
-export const reducer = (state = initialState, action: achievementListActions.AchievementListAction): IBaseState<IAchievementState> => {
+export const reducer = (state = initialState,
+  action: achievementListActions.AchievementListAction): IBaseState<IAchievementState> => {
 
   switch (action.type) {
 
@@ -61,6 +62,6 @@ export const isProcessing =
 
 export const achievements =
   (state: IBaseState<IAchievementState>): AchievementDto[] => {
-    const achievements = state.condition!.achievements;
-    return achievements ? achievements : []
-  }; 
+    const achievementList = state.condition!.achievements;
+    return achievementList ? achievementList : [];
+  };

@@ -62,6 +62,6 @@ export const isProcessing =
     ({ processing: state.processing, message: state.message });
 
 export const currentUser = (state: IBaseState<ILoginState>): ILoginState => {
-  const currentUser = state.condition;
-  return currentUser ? currentUser : {} as ILoginState
+  const user = state.condition;
+  return user ? user : {} as ILoginState;
 };

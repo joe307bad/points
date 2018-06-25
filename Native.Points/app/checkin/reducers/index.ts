@@ -1,6 +1,5 @@
-import { CheckinDto } from "@points/shared";
-import { IProcessing } from "../../store/selectors";
-import { IBaseState } from "../../store/index.reducer";
+import { IProcessing } from '../../store/selectors';
+import { IBaseState } from '../../store/index.reducer';
 
 import * as checkinActions from '../actions';
 
@@ -32,10 +31,14 @@ export const reducer = (state = initialState, action: checkinActions.CheckinActi
   switch (action.type) {
 
     case checkinActions.CheckinRequest:
+
+      const achievementName = action.payload!.userCheckin!.achievementName;
+      const userName = action.payload!.userCheckin!.userName;
+
       return {
         ...state,
         processing: true,
-        message: `Checking in ${action.payload!.userCheckin!.achievementName} for ${action.payload!.userCheckin!.userName}`
+        message: `Checking in ${achievementName} for ${userName}`
       };
 
     case checkinActions.CheckinSuccess:
@@ -68,4 +71,4 @@ export const isProcessing =
     ({ processing: state.processing, message: state.message });
 
 export const successfulCheckin = (state: IBaseState<ICheckinState>): boolean =>
-  state.error === null && !state.processing
+  state.error === null && !state.processing;

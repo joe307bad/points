@@ -4,8 +4,7 @@ import { NavigationItemDto } from '@points/shared';
 import { Subscription } from 'rxjs';
 
 import { NavigationActions } from 'react-navigation';
-import { navItems } from '../../store/selectors'
-import store from '../../store';
+import { navItems } from '../../store/selectors';
 import { IBaseProps } from './';
 
 export interface ISideBarState {
@@ -14,23 +13,20 @@ export interface ISideBarState {
 
 export default class SideBar extends Component<IBaseProps, ISideBarState> {
 
-    navItemsSubscription?: Subscription;
-
-    state: ISideBarState = {
+    public state: ISideBarState = {
         routes: []
+    };
+
+    private navItemsSubscription?: Subscription;
+
+    public componentDidMount() {
+        this.navItemsSubscription = navItems().subscribe((items: NavigationItemDto[]) =>
+            this.setState({
+                routes: items
+            }));
     }
 
-    constructor(props: IBaseProps) {
-        super(props);
-    }
-
-    componentDidMount() {
-        this.navItemsSubscription = navItems().subscribe(navItems => this.setState({
-            routes: navItems
-        }));
-    }
-
-    componentWillUnmount(){
+    public componentWillUnmount() {
         this.navItemsSubscription!.unsubscribe();
     }
 

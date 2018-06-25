@@ -5,7 +5,7 @@ import { http } from '../../core/http';
 const ACHIEVEMENT_API_URL = 'achievement/';
 
 export class AchievementService implements IAchievementService {
-    
+
     private static instance: AchievementService;
 
     private constructor() { }
@@ -15,7 +15,7 @@ export class AchievementService implements IAchievementService {
     }
 
     public create(achievement: AchievementDto, photo: any): Promise<AchievementDto> {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
 
     public getAll(): Promise<AchievementDto[]> {
@@ -23,15 +23,15 @@ export class AchievementService implements IAchievementService {
     }
 
     public get(achievement: { achievementId: string; }): Promise<AchievementDto> {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
 
     public update(achievement: AchievementDto): Promise<AchievementDto> {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
 
     public search(search: { term: string; }): Promise<AchievementDto[]> {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
 
 }

@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { NavigationItemDto } from '@points/shared';
 import { Title, Body, Header, Left, Button, Icon } from 'native-base';
-import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { IBaseProps } from '../../../navigation/components';
-import { navItemsWatch } from '../../../store/selectors';
-import store from '../../../store/index';
 
 interface IToolbarState {
     title: string;
@@ -13,17 +9,15 @@ interface IToolbarState {
 
 export class Toolbar extends Component<IBaseProps> {
 
-    navItemsSubscription?: Subscription;
-
-    state: IToolbarState = {
+    public state: IToolbarState = {
         title: ''
-    }
+    };
 
-    componentWillMount() {
+    public componentWillMount() {
         const navItem = this.props.title(this.props.navigation.state.routeName);
         this.setState({
             title: navItem ? navItem.name : ''
-        })
+        });
     }
 
     public render(): JSX.Element {
