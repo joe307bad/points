@@ -35,7 +35,7 @@ export class CheckinService implements ICheckinService {
     }
 
     public update(checkin: CheckinDto): Promise<CheckinDto> {
-        throw new Error('Method not implemented.');
+        return http.put(CHECKIN_API_URL, checkin);
     }
 
     public delete(checkin: CheckinDto): Promise<any> {

@@ -1,27 +1,12 @@
-import { IPendingApprovalState } from "../reducers";
-
-export const PendingApprovalListRequest = 'PENDING_APPROVAL_LIST_REQUEST';
-export class PendingApprovalListRequestAction {
-    public type: string = PendingApprovalListRequest;
-
-    constructor(public payload?: IPendingApprovalState) { }
-}
-
-export const PendingApprovalListSuccess = 'PENDING_APPROVAL_LIST_SUCCESS';
-export class PendingApprovalListSuccessAction {
-    public type: string = PendingApprovalListSuccess;
-
-    constructor(public payload: IPendingApprovalState) { }
-}
-
-export const PendingApprovalListFailure = 'PENDING_APPROVAL_LIST_FAILURE';
-export class PendingApprovalListFailureAction {
-    public type: string = PendingApprovalListFailure;
-
-    constructor(public payload: IPendingApprovalState) { }
-}
+import * as list from './list';
+import * as userApproval from './user-approval';
 
 export type PendingApprovalAction =
-    PendingApprovalListRequestAction |
-    PendingApprovalListSuccessAction |
-    PendingApprovalListFailureAction;
+    list.PendingApprovalListRequestAction |
+    list.PendingApprovalListSuccessAction |
+    list.PendingApprovalListFailureAction |
+    userApproval.UserApprovalRequestAction |
+    userApproval.UserApprovalSuccessAction |
+    userApproval.UserApprovalFailureAction;
+
+export default PendingApprovalAction;

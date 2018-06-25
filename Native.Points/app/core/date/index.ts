@@ -1,4 +1,3 @@
-//import moment from 'moment';
 import moment from 'moment-timezone';
 
 const DateUtilities = {

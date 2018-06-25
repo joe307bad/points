@@ -7,11 +7,11 @@ import { IPendingApprovalListProps } from '../containers';
 import { IPendingApprovalState } from '../reducers';
 import { Toolbar } from '../../shared/components';
 import date from '../../core/date';
+import { successfulCheckin } from '../selectors';
 
 export class PendingApprovalList extends Component<IPendingApprovalListProps, IPendingApprovalState> {
 
     public componentWillMount() {
-
         if (!this.props.pendingApprovals.length) {
             this.props.getPendingApprovals();
         }
@@ -42,7 +42,11 @@ export class PendingApprovalList extends Component<IPendingApprovalListProps, IP
                                 </Text>
                             </Body>
                             <Right>
-                                <Button>
+                                <Button onPress={() => this.props.approve({
+                                    achievementName: pendingApproval.item.achievementName,
+                                    userName: pendingApproval.item.userName,
+                                    checkinId: pendingApproval.item.checkinId
+                                })}>
                                     <Text>Approve</Text>
                                 </Button>
                             </Right>

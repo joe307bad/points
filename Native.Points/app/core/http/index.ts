@@ -27,6 +27,13 @@ export class Http {
             .then((result: any) => result.data);
     }
 
+    public async put<T>(url: string, payload?: any): Promise<T> {
+        debugger;
+        return axios
+            .put(API_URL + url, payload, await this.getConfig())
+            .then((result: any) => result.data);
+    }
+
     private async getConfig() {
         const token = await persistentStorage.get('jwt');
         let config = {};
