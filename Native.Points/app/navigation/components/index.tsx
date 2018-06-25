@@ -5,6 +5,7 @@ import { NavigationItemDto } from '@points/shared';
 import HomeScreen from '../../home/components';
 import AchievementList from '../../achievement/containers';
 import SideBar from './side-bar';
+import PendingApprovalList from '../../pending-approval/containers/list';
 import { ILoginState } from '../../auth/reducers';
 
 export interface IBaseProps {
@@ -23,6 +24,9 @@ const Navigation = createDrawerNavigator({
     },
     AchievementList: {
         screen: AchievementList
+    },
+    PendingApprovalList: {
+        screen: PendingApprovalList
     }
 },
     {

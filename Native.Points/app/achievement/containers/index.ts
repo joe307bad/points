@@ -19,7 +19,7 @@ export interface IAchievementProps extends IBaseProps {
     categories: CategoryDto[];
 }
 
-export function mapStateToProps(AchievementState: IAchievementProps) {
+export function mapStateToProps() {
     return (state: any, props: any) => {
         return {
             title: (routeName: string) =>

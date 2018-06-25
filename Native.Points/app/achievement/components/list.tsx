@@ -13,14 +13,12 @@ import { successfulCheckin } from '../../checkin/selectors';
 import { ILoginState } from '../../auth/reducers';
 
 interface IAchievementListState {
-    achievements: AchievementDto[];
     selectedAchievement: AchievementDto;
 }
 
 export class AchievementList extends Component<IAchievementProps, IAchievementListState> {
 
     public state: IAchievementListState = {
-        achievements: [],
         selectedAchievement: {} as AchievementDto
     };
 
@@ -33,7 +31,7 @@ export class AchievementList extends Component<IAchievementProps, IAchievementLi
     }
 
     public componentWillMount() {
-        if (!this.state.achievements.length) {
+        if (!this.props.achievementList.length) {
             this.props.getAchievementList();
         }
 

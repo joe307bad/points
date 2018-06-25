@@ -4,6 +4,7 @@ import { login, loginSuccess } from '../auth/sagas';
 import { navigation, navigationSuccess } from '../navigation/sagas';
 import { achievementListRequest } from '../achievement/sagas';
 import { userCheckinRequest } from '../checkin/sagas';
+import { pendingApprovalListRequest } from '../pending-approval/sagas';
 
 export default function* root() {
     yield all([
@@ -12,6 +13,7 @@ export default function* root() {
         fork(navigation),
         fork(navigationSuccess),
         fork(achievementListRequest),
-        fork(userCheckinRequest)
+        fork(userCheckinRequest),
+        fork(pendingApprovalListRequest)
     ]);
 }

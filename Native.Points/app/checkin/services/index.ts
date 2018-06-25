@@ -27,7 +27,7 @@ export class CheckinService implements ICheckinService {
     }
 
     public getPendingApprovals(): Promise<PendingApprovalDto[]> {
-        throw new Error('Method not implemented.');
+        return http.get(CHECKIN_API_URL + 'pending/');
     }
 
     public getLeaderboard(): Promise<UserCheckinsDto[]> {

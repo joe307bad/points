@@ -1,8 +1,9 @@
+import { AchievementDto } from '@points/shared';
+
 import { IBaseState } from '../../store/index.reducer';
+import { IProcessing } from '../../store/selectors';
 
 import * as achievementListActions from '../actions';
-import { IProcessing } from '../../store/selectors';
-import { AchievementDto } from '@points/shared';
 
 export interface IAchievementState {
   achievements: AchievementDto[];

@@ -21,7 +21,7 @@ export default function Login({ login = () => { } }: ILoginProps) {
                 <Item last style={styles.lastItem}>
                     <Input secureTextEntry={true} placeholder='Password' />
                 </Item>
-                <Button block onPress={() => login({ userName: 'tism', password: 'P@ssw0rd' })}>
+                <Button block onPress={() => login({ userName: 'joe307bad', password: 'P@ssw0rd' })}>
                     <Icon type='Entypo' name='login' />
                     <Text>
                         Login

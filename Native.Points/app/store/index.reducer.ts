@@ -4,6 +4,7 @@ import loginReducer from '../auth/reducers';
 import navigationReducer from '../navigation/reducers';
 import achievementReducer from '../achievement/reducers';
 import checkinReducer from '../checkin/reducers';
+import pendingApprovalReducer from '../pending-approval/reducers'
 
 // TODO error interface
 export interface IBaseState<T> {
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   loginReducer,
   navigationReducer,
   achievementReducer,
-  checkinReducer
+  checkinReducer,
+  pendingApprovalReducer
 });
 
 export default rootReducer;
