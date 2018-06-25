@@ -40,3 +40,23 @@ export const successfulCheckin = () => {
         return unsubscribe;
     });
 };
+
+
+export const completedPendingApprovalListRequestSelector =
+    createSelector(fromPendingApprovals.completedPendingApprovalListRequest, (requestCompleted: boolean) =>
+        requestCompleted);
+
+export const completedPendingApprovalListRequestWatch = watch(() =>
+completedPendingApprovalListRequestSelector(store.getState().pendingApprovalReducer));
+
+export const completedPendingApprovalListRequest = () => {
+    return new Observable<boolean>((observer) => {
+        observer.next(false);
+
+        const unsubscribe = store
+            .subscribe(completedPendingApprovalListRequestWatch((requestCompleted: boolean) =>
+                observer.next(requestCompleted)));
+
+        return unsubscribe;
+    });
+};

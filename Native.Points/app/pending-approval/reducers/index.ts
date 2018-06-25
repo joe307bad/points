@@ -14,13 +14,15 @@ export interface IUserApproval {
 
 export interface IPendingApprovalState {
   pendingApprovals?: PendingApprovalDto[];
-  userApproval: IUserApproval | null
+  userApproval: IUserApproval | null,
+  refreshing?: boolean
 }
 
-const initialState: IBaseState<IPendingApprovalState> = {
+export const initialState: IBaseState<IPendingApprovalState> = {
   condition: {
     pendingApprovals: [],
-    userApproval: null
+    userApproval: null,
+    refreshing: false
   },
   processing: false
 }
@@ -124,3 +126,6 @@ export const userApproval = (state: IBaseState<IPendingApprovalState>): IUserApp
 export const successfulApproval = (state: IBaseState<IPendingApprovalState>): boolean => {
   return state.error === null && !state.processing
 }
+
+export const completedPendingApprovalListRequest = (state: IBaseState<IPendingApprovalState>): boolean =>
+  !state.processing 

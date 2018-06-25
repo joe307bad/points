@@ -2,19 +2,39 @@ import React, { Component } from 'react';
 import { PendingApprovalDto } from '@points/shared';
 import { Container, ListItem, Left, Body, Text, Right, Button, Icon } from 'native-base';
 import { FlatList } from 'react-native';
+import { Subscription } from 'rxjs';
+import { skip, tap } from 'rxjs/operators';
 
 import { IPendingApprovalListProps } from '../containers';
-import { IPendingApprovalState } from '../reducers';
+import { initialState, IPendingApprovalState } from '../reducers';
 import { Toolbar } from '../../shared/components';
 import date from '../../core/date';
-import { successfulCheckin } from '../selectors';
+import { completedPendingApprovalListRequest } from '../selectors';
 
 export class PendingApprovalList extends Component<IPendingApprovalListProps, IPendingApprovalState> {
+
+    private completedPendingApprovalListRequestSubscription?: Subscription;
+    public state: IPendingApprovalState = initialState.condition
+        ? initialState.condition
+        : {} as IPendingApprovalState;
 
     public componentWillMount() {
         if (!this.props.pendingApprovals.length) {
             this.props.getPendingApprovals();
         }
+
+        this.completedPendingApprovalListRequestSubscription =
+            completedPendingApprovalListRequest()
+                .pipe(skip(1))
+                .subscribe(requestCompleted => {
+                    this.setState({
+                        refreshing: !requestCompleted
+                    })
+                });
+    }
+
+    public componentWillUnmount() {
+        this.completedPendingApprovalListRequestSubscription!.unsubscribe();
     }
 
     public render(): JSX.Element {
@@ -30,6 +50,13 @@ export class PendingApprovalList extends Component<IPendingApprovalListProps, IP
             <Container>
                 <Toolbar {...this.props} />
                 <FlatList
+                    onRefresh={() => {
+                        this.setState({
+                            refreshing: true
+                        })
+                        this.props.getPendingApprovals()
+                    }}
+                    refreshing={this.state.refreshing}
                     data={pendingApprovals}
                     renderItem={(pendingApproval) =>
                         <ListItem
