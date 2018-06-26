@@ -5,4 +5,6 @@ export class FeedItemDto {
     readonly achievementId: string = '';
     readonly userId: string = '';
     readonly points: number = 0;
+    readonly category: string = '';
+    readonly achievementDescription: string = '';
 }

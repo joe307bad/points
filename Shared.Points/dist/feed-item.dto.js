@@ -8,6 +8,8 @@ class FeedItemDto {
         this.achievementId = '';
         this.userId = '';
         this.points = 0;
+        this.category = '';
+        this.achievementDescription = '';
     }
 }
 exports.FeedItemDto = FeedItemDto;

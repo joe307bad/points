@@ -6,6 +6,7 @@ import { ObjectId } from 'mongodb';
 
 import { DatabaseService } from '../core/mongo';
 import { Checkin, User, Achievement } from '../shared/interfaces';
+import { Category } from '../shared/interfaces/category.interface';
 
 @Injectable()
 export class CheckinService implements ICheckinService {
@@ -16,9 +17,11 @@ export class CheckinService implements ICheckinService {
         @InjectModel('Checkin') private readonly checkinModel: Model<Checkin>,
         @Inject('User') private readonly userModel: Model<User>,
         @InjectModel('Achievement') private readonly achievementModel: Model<Achievement>,
+        @InjectModel('Category') private readonly categoryModel: Model<Category>,
     ) { }
 
     async create(checkinDto: CheckinDto): Promise<CheckinDto> {
+        // TODO prevent from creating approved checkins
         const checkin = new this.checkinModel(checkinDto);
         return this.db.save(checkin);
     }
@@ -78,6 +81,14 @@ export class CheckinService implements ICheckinService {
                 'as': 'users'
             }
         },
+        {
+            '$lookup': {
+                'from': this.categoryModel.collection.name,
+                'localField': 'achievements.categoryId',
+                'foreignField': '_id',
+                'as': 'categories'
+            }
+        },
         { '$sort': { 'createdAt': -1 } },
         {
             '$project': {
@@ -85,10 +96,13 @@ export class CheckinService implements ICheckinService {
                 'userId': { $arrayElemAt: ['$users._id', 0] },
                 'userName': { $arrayElemAt: ['$users.userName', 0] },
                 'achievementName': { $arrayElemAt: ['$achievements.name', 0] },
+                'achievementDescription': { $arrayElemAt: ['$achievements.description', 0] },
+                'category': { $arrayElemAt: ['$categories.name', 0] },
                 'points': { $arrayElemAt: ['$achievements.points', 0] },
                 'checkinDate': '$$ROOT.createdAt'
             }
-        }];
+        }
+    ];
 
         return this.checkinModel.aggregate(pipeline).exec();
 
