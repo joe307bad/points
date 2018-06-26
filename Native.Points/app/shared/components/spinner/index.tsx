@@ -44,7 +44,7 @@ export default class Loading extends Component<ISpinnerProps, ISpinnerState> {
           visible={this.state.visible}
           textContent={this.state.message}
           cancelable={true}
-          textStyle={{ color: '#FFF' }} />
+          textStyle={{ color: '#FFF', textAlign: 'center' }} />
       </View>
     );
   }

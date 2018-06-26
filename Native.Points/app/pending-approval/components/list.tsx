@@ -3,7 +3,7 @@ import { PendingApprovalDto } from '@points/shared';
 import { Container, ListItem, Left, Body, Text, Right, Button, Icon } from 'native-base';
 import { FlatList } from 'react-native';
 import { Subscription } from 'rxjs';
-import { skip, tap } from 'rxjs/operators';
+import { skip } from 'rxjs/operators';
 
 import { IPendingApprovalListProps } from '../containers';
 import { initialState, IPendingApprovalState } from '../reducers';

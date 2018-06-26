@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AchievementDto } from '@points/shared';
 import { Text, View, Right, Icon } from 'native-base';
 
+// TODO move into shared folder
 export class PointsContainer extends Component<{ achievement: AchievementDto }> {
     public render() {
         return (

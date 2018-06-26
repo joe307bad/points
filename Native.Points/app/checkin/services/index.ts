@@ -41,9 +41,9 @@ export class CheckinService implements ICheckinService {
     public delete(checkin: CheckinDto): Promise<any> {
         throw new Error('Method not implemented.');
     }
-    
+
     public getFeed(): Promise<FeedItemDto[]> {
-        throw new Error("Method not implemented.");
+        return http.get(CHECKIN_API_URL + 'feed/');
     }
 
 }

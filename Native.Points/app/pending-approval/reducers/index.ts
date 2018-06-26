@@ -80,7 +80,7 @@ export const reducer = (state = initialState,
     case userApprovalActions.UserApprovalSuccess:
 
       const userApproval = action.payload!.userApproval;
-      debugger;
+      
       return {
         ...state,
         condition: {

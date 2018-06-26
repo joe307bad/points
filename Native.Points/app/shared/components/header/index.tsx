@@ -22,7 +22,7 @@ export class Toolbar extends Component<IBaseProps> {
 
     public render(): JSX.Element {
         return (
-            <Header >
+            <Header>
                 <Left>
                     <Button transparent>
                         <Icon name='menu' onPress={() => this.props.navigation.openDrawer()} />

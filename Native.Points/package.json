@@ -20,6 +20,7 @@
     "react-native-loading-spinner-overlay": "^0.5.2",
     "react-native-modalbox": "^1.5.0",
     "react-native-scrollable-tab-view": "^0.8.0",
+    "react-native-timeline-listview": "^0.2.3",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.3.1",
     "react-redux": "^5.0.7",
