@@ -162,7 +162,7 @@ export class CheckinService implements ICheckinService {
                 'totalCheckins': { '$sum': 1 },
                 'totalPoints': { '$sum': '$achievements.approvedPoints' },
                 'pendingPoints': { '$sum': '$achievements.pendingPoints' },
-            },
+            }
         };
 
         // add match for a single user
@@ -237,7 +237,7 @@ export class CheckinService implements ICheckinService {
         }
 
         // add final $group
-        pipeline = [...pipeline, grouping];
+        pipeline = [...pipeline, grouping, { '$sort' : { 'totalPoints': -1 } }];
 
         return this.userModel.aggregate(pipeline).exec();
     }
