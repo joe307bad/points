@@ -7,6 +7,7 @@ import AchievementList from '../../achievement/containers';
 import SideBar from './side-bar';
 import PendingApprovalList from '../../pending-approval/containers/list';
 import Feed from '../../feed/containers';
+import Leaderboard from '../../leaderboard/containers';
 import { ILoginState } from '../../auth/reducers';
 import { navItemsSelector, currentUserSelector } from '../../store/selectors';
 
@@ -41,6 +42,9 @@ const Navigation = createDrawerNavigator({
     },
     Feed: {
         screen: Feed
+    },
+    Leaderboard: {
+        screen: Leaderboard
     }
 },
     {

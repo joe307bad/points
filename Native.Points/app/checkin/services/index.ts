@@ -31,7 +31,7 @@ export class CheckinService implements ICheckinService {
     }
 
     public getLeaderboard(): Promise<UserCheckinsDto[]> {
-        throw new Error('Method not implemented.');
+        return http.get(CHECKIN_API_URL + 'leaderboard/');
     }
 
     public update(checkin: CheckinDto): Promise<CheckinDto> {

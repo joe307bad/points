@@ -6,6 +6,7 @@ import achievementReducer from '../achievement/reducers';
 import checkinReducer from '../checkin/reducers';
 import pendingApprovalReducer from '../pending-approval/reducers'
 import feedReducer from '../feed/reducers';
+import leaderboardReducer from '../leaderboard/reducers';
 
 // TODO error interface
 export interface IBaseState<T> {
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   achievementReducer,
   checkinReducer,
   pendingApprovalReducer,
-  feedReducer
+  feedReducer,
+  leaderboardReducer
 });
 
 export default rootReducer;
