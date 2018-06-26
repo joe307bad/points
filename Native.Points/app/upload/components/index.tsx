@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Container, Card, CardItem, Left, Body, Text, Button, Icon, View } from 'native-base';
 import Modal from 'react-native-modalbox';
 import { Easing, Image } from 'react-native';
+import axios from 'axios';
 
 import { IBaseProps } from '../../navigation/components';
 import { Toolbar } from '../../shared/components/header';
@@ -13,6 +14,7 @@ interface ISelectedPhoto {
     base64: string;
     height: number;
     width: number;
+    type?: string;
 }
 
 interface IUploadState {
@@ -21,6 +23,7 @@ interface IUploadState {
 
 export class Upload extends Component<IBaseProps, IUploadState> {
 
+    private formData: FormData = new FormData();
     private uploadPreview?: Modal;
     public cameraOptions = {
         title: 'Upload a photo',
@@ -71,9 +74,32 @@ export class Upload extends Component<IBaseProps, IUploadState> {
                                         base64: response.data,
                                         location: response.uri,
                                         height: response.height,
-                                        width: response.width
+                                        width: response.width,
+                                        type: response.type
                                     }
-                                })
+                                });
+                                this.formData = new FormData();
+                                this.formData.append('userId', '5b0ec065f1c0a5001b69ff22');
+                                this.formData.append('photo', {
+                                    uri: response.uri,
+                                    type: response.type, // or photo.type
+                                    name: response.fileName
+                                });
+                                const config = {
+                                    headers: {
+                                        'Content-Type': 'multipart/form-data',
+                                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvZTMwN2JhZCIsImlkIjoiNWIwZWMwNjVmMWMwYTUwMDFiNjlmZjIyIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNTMwMDI5ODM5LCJleHAiOjE1MzAxMTYyMzl9._HpQUec7fGDpl2GGTJzMPgW0yf-QOYCvj2tzmLA6kq0'
+                                    }
+                                }
+                                debugger;
+                                axios.post('https://p.jbad.io/upload', this.formData, config)
+                                    .then(response => {
+                                        debugger;
+                                    })
+                                    .catch(respone => {
+                                        debugger;
+                                    });
+
                                 this.uploadPreview!.open();
                             }
                         });
