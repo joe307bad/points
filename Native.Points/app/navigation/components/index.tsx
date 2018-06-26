@@ -2,19 +2,23 @@ import React from 'react';
 import { createDrawerNavigator, NavigationScreenProp } from 'react-navigation';
 import { NavigationItemDto } from '@points/shared';
 
+import { ILoginState } from '../../auth/reducers';
+import { navItemsSelector, currentUserSelector } from '../../store/selectors';
+
 import HomeScreen from '../../home/components';
 import AchievementList from '../../achievement/containers';
 import SideBar from './side-bar';
 import PendingApprovalList from '../../pending-approval/containers/list';
 import Feed from '../../feed/containers';
 import Leaderboard from '../../leaderboard/containers';
-import { ILoginState } from '../../auth/reducers';
-import { navItemsSelector, currentUserSelector } from '../../store/selectors';
+import Upload from '../../upload/containers';
 
 export interface IBaseProps {
     navigation: NavigationScreenProp<{ routeName: string }>;
     title: (routeName: string) => NavigationItemDto | undefined;
     currentUser: ILoginState;
+    camera?: boolean
+    cameraHandler?: () => void
 }
 
 export function getBaseProps(state: any) {
@@ -45,6 +49,9 @@ const Navigation = createDrawerNavigator({
     },
     Leaderboard: {
         screen: Leaderboard
+    },
+    UploadList: {
+        screen: Upload
     }
 },
     {

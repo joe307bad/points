@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Title, Body, Header, Left, Button, Icon } from 'native-base';
+import { Title, Body, Header, Left, Button, Icon, Right } from 'native-base';
 
 import { IBaseProps } from '../../../navigation/components';
 
@@ -31,6 +31,15 @@ export class Toolbar extends Component<IBaseProps> {
                 <Body>
                     <Title>{this.state.title}</Title>
                 </Body>
+                {
+                    this.props.camera &&
+                    <Right>
+                        <Button transparent onPress={() =>
+                            this.props.cameraHandler && this.props.cameraHandler()}>
+                            <Icon name='camera' type='Entypo' />
+                        </Button>
+                    </Right>
+                }
             </Header>
         );
     }
