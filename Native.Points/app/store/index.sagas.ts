@@ -6,7 +6,8 @@ import { achievementListRequest } from '../achievement/sagas';
 import { userCheckinRequest } from '../checkin/sagas';
 import { pendingApprovalListRequest, userApprovalRequest } from '../pending-approval/sagas';
 import { feedRequest } from '../feed/sagas';
-import { leaderboardRequest } from '../leaderboard/sagas/index';
+import { leaderboardRequest } from '../leaderboard/sagas';
+import { getUploadListRequest } from '../upload/sagas';
 
 export default function* root() {
     yield all([
@@ -19,6 +20,7 @@ export default function* root() {
         fork(pendingApprovalListRequest),
         fork(userApprovalRequest),
         fork(feedRequest),
-        fork(leaderboardRequest)
+        fork(leaderboardRequest),
+        fork(getUploadListRequest)
     ]);
 }

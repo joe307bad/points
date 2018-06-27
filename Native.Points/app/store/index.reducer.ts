@@ -7,6 +7,7 @@ import checkinReducer from '../checkin/reducers';
 import pendingApprovalReducer from '../pending-approval/reducers'
 import feedReducer from '../feed/reducers';
 import leaderboardReducer from '../leaderboard/reducers';
+import uploadReducer from '../upload/reducers';
 
 // TODO error interface
 export interface IBaseState<T> {
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   checkinReducer,
   pendingApprovalReducer,
   feedReducer,
-  leaderboardReducer
+  leaderboardReducer,
+  uploadReducer
 });
 
 export default rootReducer;
