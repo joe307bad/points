@@ -16,6 +16,7 @@ export class UploadController implements IUploadService {
 
     @Post()
     @HasPermission(to('create'))
+    // TODO restrict to only images
     @UseInterceptors(FileInterceptor('photo', UploadFileSettings))
     async create(@Body() upload: UploadDto, @UploadedFile() photo, @Res() res): Promise<UploadDto> {
         if (!!photo) {
