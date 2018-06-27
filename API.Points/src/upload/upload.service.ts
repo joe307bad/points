@@ -1,10 +1,13 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { UploadDto } from '@points/shared';
+import { UploadDto, IUploadService } from '@points/shared';
 import { Model } from 'mongoose';
+import * as fs from 'fs';
+import * as isImage from 'is-image-filename';
 
 import { Upload, User } from '../shared/interfaces';
 import { DatabaseService } from '../core/mongo';
+import { uploadDir } from '../app.settings';
 
 @Injectable()
 export class UploadService {
@@ -20,11 +23,17 @@ export class UploadService {
         return this.db.save(upload);
     }
 
-    async getAll(): Promise<Upload[]> {
-        return this.buildUserUploadAggregate();
+    async getAll(): Promise<UploadDto[]> {
+        // TODO weed out uploads that do not exist
+        // TODO add createdDate to aggregate
+        return this.buildUserUploadAggregate()
+            .then(uploads => uploads.filter(upload => {
+                const url = `${uploadDir}/${upload.photo}`;
+                return isImage(url) && fs.existsSync(url);
+            }));
     }
 
-    private buildUserUploadAggregate() {
+    private buildUserUploadAggregate(): Promise<UploadDto[]> {
 
         const pipeline =
             [{
@@ -40,6 +49,7 @@ export class UploadService {
                     'photo': '$$ROOT.photo',
                     'title': '$$ROOT.title',
                     'description': '$$ROOT.description',
+                    'createdAt': '$$ROOT.createdAt',
                     'user': {
                         '$let': {
                             'vars': {

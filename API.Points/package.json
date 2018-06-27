@@ -29,6 +29,7 @@
     "class-transformer": "^0.1.7",
     "class-validator": "^0.8.1",
     "helmet": "^3.12.1",
+    "is-image-filename": "^1.0.0",
     "jsonwebtoken": "^8.2.1",
     "mongoose": "^5.1.0",
     "mongoose-unique-validator": "^2.0.1",
