@@ -13,6 +13,7 @@ export class PermissionGaurd implements CanActivate {
         private readonly reflector: Reflector,
         private readonly access: ac.AccessControl) { }
 
+        
     canActivate(context: ExecutionContext): boolean {
 
         const intent = this.reflector.get<ApiPermission>('permission', context.getHandler());
