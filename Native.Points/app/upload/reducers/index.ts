@@ -4,15 +4,18 @@ import { IBaseState } from '../../store/index.reducer';
 import { IProcessing } from '../../store/selectors';
 
 import * as listActions from '../actions';
+import { IPhotoData } from '../../core/camera/index';
 
 export interface IUploadState {
-  uploadList: UploadDto[]
-  refreshing?: boolean
+  uploadList: UploadDto[];
+  selectedPhoto: IPhotoData;
+  refreshing?: boolean;
 }
 
 export const initialState: IBaseState<IUploadState> = {
   condition: {
     uploadList: [],
+    selectedPhoto: {},
     refreshing: false
   },
   processing: false

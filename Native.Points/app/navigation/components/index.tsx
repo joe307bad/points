@@ -12,13 +12,14 @@ import PendingApprovalList from '../../pending-approval/containers/list';
 import Feed from '../../feed/containers';
 import Leaderboard from '../../leaderboard/containers';
 import Upload from '../../upload/containers';
+import { IPhotoData } from '../../core/camera';
 
 export interface IBaseProps {
     navigation: NavigationScreenProp<{ routeName: string }>;
     title: (routeName: string) => NavigationItemDto | undefined;
     currentUser: ILoginState;
     camera?: boolean
-    cameraHandler?: () => void
+    cameraHandler?: (photoData: IPhotoData) => void
 }
 
 export function getBaseProps(state: any) {

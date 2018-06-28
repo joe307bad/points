@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Title, Body, Header, Left, Button, Icon, Right } from 'native-base';
 
+import camera from '../../../core/camera';
 import { IBaseProps } from '../../../navigation/components';
 
 interface IToolbarState {
@@ -34,8 +35,10 @@ export class Toolbar extends Component<IBaseProps> {
                 {
                     this.props.camera &&
                     <Right>
-                        <Button transparent onPress={() =>
-                            this.props.cameraHandler && this.props.cameraHandler()}>
+                        <Button transparent
+                            onPress={() =>
+                                this.props.cameraHandler &&
+                                camera.takePhoto((photoData) => this.props.cameraHandler!(photoData))}>
                             <Icon name='camera' type='Entypo' />
                         </Button>
                     </Right>
