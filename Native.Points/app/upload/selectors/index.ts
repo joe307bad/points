@@ -28,3 +28,20 @@ export const completedUploadListRequest = () => {
     });
 };
 
+export const completedUserUploadRequestSelector = createSelector(fromUpload.completedUserUploadRequest,
+    (completedUserUpload: boolean) => completedUserUpload);
+
+export const completedUserUploadRequestWatch = watch(() =>
+    completedUserUploadRequestSelector(store.getState().uploadReducer))
+
+export const completedUserUploadRequest = () => {
+    return new Observable<boolean>((observer) => {
+        observer.next(false);
+
+        const unsubscribe = store.subscribe(completedUserUploadRequestWatch((requestComplete: boolean) => {
+            observer.next(requestComplete);
+        }));
+
+        return unsubscribe;
+    });
+};

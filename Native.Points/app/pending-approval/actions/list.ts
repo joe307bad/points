@@ -20,9 +20,3 @@ export class PendingApprovalListFailureAction {
 
     constructor(public payload: IPendingApprovalState) { }
 }
-
-
-export type PendingApprovalAction =
-    PendingApprovalListRequestAction |
-    PendingApprovalListSuccessAction |
-    PendingApprovalListFailureAction;

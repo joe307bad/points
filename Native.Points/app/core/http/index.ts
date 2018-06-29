@@ -11,9 +11,9 @@ export class Http {
         return this.instance || (this.instance = new this());
     }
 
-    public async post<T>(url: string, payload: any): Promise<T> {
+    public async post<T>(url: string, payload: any, multipart: boolean = false): Promise<T> {
         return axios
-            .post(API_URL + url, payload, await this.getConfig())
+            .post(API_URL + url, payload, await this.getConfig(multipart))
             .then((result: any) => result.data);
     }
 
@@ -33,14 +33,26 @@ export class Http {
             .then((result: any) => result.data);
     }
 
-    private async getConfig() {
+    private async getConfig(multipart: boolean = false) {
         const token = await persistentStorage.get('jwt');
         let config = {};
+
         if (token) {
             config = {
-                headers: { Authorization: 'Bearer ' + token }
+                ...config,
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
             };
         }
+
+        if (multipart) {
+            config = {
+                ...config,
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+
         return config;
     }
 

@@ -7,7 +7,7 @@ import { userCheckinRequest } from '../checkin/sagas';
 import { pendingApprovalListRequest, userApprovalRequest } from '../pending-approval/sagas';
 import { feedRequest } from '../feed/sagas';
 import { leaderboardRequest } from '../leaderboard/sagas';
-import { getUploadListRequest } from '../upload/sagas';
+import { getUploadListRequest, userUploadRequest } from '../upload/sagas';
 
 export default function* root() {
     yield all([
@@ -21,6 +21,7 @@ export default function* root() {
         fork(userApprovalRequest),
         fork(feedRequest),
         fork(leaderboardRequest),
-        fork(getUploadListRequest)
+        fork(getUploadListRequest),
+        fork(userUploadRequest)
     ]);
 }

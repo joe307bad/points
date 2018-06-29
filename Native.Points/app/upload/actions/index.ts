@@ -1,28 +1,12 @@
-import { IUploadState } from "../reducers";
-
-export const UploadListRequest = 'UPLOAD_LIST_REQUEST';
-export class UploadListRequestAction {
-    public type: string = UploadListRequest;
-
-    constructor(public payload?: IUploadState) { }
-}
-
-export const UploadListSuccess = 'UPLOAD_LIST_SUCCESS';
-export class UploadListSuccessAction {
-    public type: string = UploadListSuccess;
-
-    constructor(public payload: IUploadState) { }
-}
-
-export const UploadListFailure = 'UPLOAD_LIST_FAILURE';
-export class UploadListFailureAction {
-    public type: string = UploadListFailure;
-
-    constructor(public payload: IUploadState) { }
-}
-
+import * as list from './list';
+import * as userUpload from './user-upload';
 
 export type UploadAction =
-    UploadListRequestAction |
-    UploadListSuccessAction |
-    UploadListFailureAction;
+    list.UploadListRequestAction |
+    list.UploadListSuccessAction |
+    list.UploadListFailureAction |
+    userUpload.UserUploadRequestAction |
+    userUpload.UserUploadSuccessAction |
+    userUpload.UserUploadFailureAction;
+
+export default UploadAction;

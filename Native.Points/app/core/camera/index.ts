@@ -1,6 +1,7 @@
 import ImagePicker from 'react-native-image-picker';
 
 export interface IPhotoData {
+    name?: string;
     location?: string;
     base64?: string;
     height?: number;
@@ -39,6 +40,8 @@ const Camera = {
                     photoData.location = response.uri;
                     photoData.height = response.height;
                     photoData.width = response.width;
+                    photoData.name = response.fileName;
+                    photoData.type = response.type;
                 }
 
                 resolve(callBack(photoData));
