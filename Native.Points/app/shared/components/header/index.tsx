@@ -15,25 +15,26 @@ export class Toolbar extends Component<IBaseProps> {
     };
 
     public componentWillMount() {
-        const navItem = this.props.title(this.props.navigation.state.routeName);
+        const routeName = (this.props.navigation.state as any).routeName;
+        const navItem = this.props.title(routeName);
         this.setState({
-            title: navItem ? navItem.name : ''
+            title: navItem ? navItem.name : routeName
         });
     }
 
     public render(): JSX.Element {
         return (
             <Header>
-                <Left>
-                    <Button transparent>
-                        <Icon name='menu' onPress={() => this.props.navigation.openDrawer()} />
-                    </Button>
-                </Left>
+                {!this.props.disableMenuButton &&
+                    <Left>
+                        <Button transparent>
+                            <Icon name='menu' onPress={() => this.props.navigation.openDrawer()} />
+                        </Button>
+                    </Left>}
                 <Body>
                     <Title>{this.state.title}</Title>
                 </Body>
-                {
-                    this.props.camera &&
+                {this.props.camera &&
                     <Right>
                         <Button transparent
                             onPress={() =>
@@ -41,8 +42,7 @@ export class Toolbar extends Component<IBaseProps> {
                                 camera.takePhoto((photoData) => this.props.cameraHandler!(photoData))}>
                             <Icon name='camera' type='Entypo' />
                         </Button>
-                    </Right>
-                }
+                    </Right>}
             </Header>
         );
     }

@@ -1,17 +1,19 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { NavigationInjectedProps } from 'react-navigation';
 
 import { ILoginState } from '../reducers';
 import Login from '../components';
+import { IBaseProps, getBaseProps } from '../../navigation/components';
 
 import * as userActions from '../actions';
 
-export interface ILoginProps {
-    login?: (LoginState: ILoginState) => void;
+export interface ILoginProps extends IBaseProps {
+    login: (LoginState: ILoginState) => void;
 }
 
-export function mapStateToProps(LoginState: ILoginState) {
-    return LoginState;
+export function mapStateToProps(state: any) {
+    return Object.assign(getBaseProps(state));
 }
 
 export function mapDispatchToProps(dispatch: Dispatch<userActions.UserAction>) {

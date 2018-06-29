@@ -1,9 +1,10 @@
 import React from 'react';
-import { createDrawerNavigator, NavigationScreenProp } from 'react-navigation';
+import { createDrawerNavigator, NavigationScreenProp, NavigationInjectedProps } from 'react-navigation';
 import { NavigationItemDto } from '@points/shared';
 
 import { ILoginState } from '../../auth/reducers';
 import { navItemsSelector, currentUserSelector } from '../../store/selectors';
+import { IPhotoData } from '../../core/camera';
 
 import HomeScreen from '../../home/components';
 import AchievementList from '../../achievement/containers';
@@ -12,10 +13,11 @@ import PendingApprovalList from '../../pending-approval/containers/list';
 import Feed from '../../feed/containers';
 import Leaderboard from '../../leaderboard/containers';
 import Upload from '../../upload/containers';
-import { IPhotoData } from '../../core/camera';
+import Register from '../../auth/containers/register';
+import Login from '../../auth/containers/index';
 
-export interface IBaseProps {
-    navigation: NavigationScreenProp<{ routeName: string }>;
+export interface IBaseProps extends NavigationInjectedProps {
+    disableMenuButton: boolean;
     title: (routeName: string) => NavigationItemDto | undefined;
     currentUser: ILoginState;
     camera?: boolean
@@ -24,6 +26,7 @@ export interface IBaseProps {
 
 export function getBaseProps(state: any) {
     return {
+        disableMenuButton: false,
         title: (routeName: string) =>
             navItemsSelector(state.navigationReducer)
                 .find((item: NavigationItemDto) => item.route === routeName),
@@ -34,7 +37,13 @@ export function getBaseProps(state: any) {
 // TODO can we populate this dynamically?
 const Navigation = createDrawerNavigator({
     Home: {
-        screen: HomeScreen,
+        screen: Login,
+        navigationOptions: () => ({
+            drawerLockMode: 'locked-closed'
+        })
+    },
+    Register: {
+        screen: Register,
         navigationOptions: () => ({
             drawerLockMode: 'locked-closed'
         })

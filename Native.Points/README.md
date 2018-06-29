@@ -15,7 +15,7 @@
 - [x] ~~Upload list pull to refresh~~
 - [x] ~~Create upload action~~
     - With title and description https://medium.com/react-native-development/easily-build-forms-in-react-native-9006fcd2a73b
-- [ ] Sort uploads by created date
+- [x] ~~Sort uploads by created date~~
 - [ ] Register user
     - http://docs.nativebase.io/Components.html#success-textbox-headref
 - [ ] Error modal triggered by core Http

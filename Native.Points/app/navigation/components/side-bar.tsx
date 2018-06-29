@@ -3,7 +3,7 @@ import { Container, Content, Text, List, ListItem } from 'native-base';
 import { NavigationItemDto } from '@points/shared';
 import { Subscription } from 'rxjs';
 
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, withNavigation } from 'react-navigation';
 import { navItems } from '../../store/selectors';
 import { IBaseProps } from './';
 
@@ -11,7 +11,7 @@ export interface ISideBarState {
     routes: NavigationItemDto[];
 }
 
-export default class SideBar extends Component<IBaseProps, ISideBarState> {
+class SideBar extends Component<IBaseProps, ISideBarState> {
 
     public state: ISideBarState = {
         routes: []
@@ -58,3 +58,5 @@ export default class SideBar extends Component<IBaseProps, ISideBarState> {
         );
     }
 }
+
+export default withNavigation(SideBar);

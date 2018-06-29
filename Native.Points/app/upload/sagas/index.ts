@@ -16,7 +16,6 @@ export function* getUploadList() {
 }
 
 export function* uploadUserFile(userUpload: IUserUpload) {
-    debugger;
     const upload = {
         userId: userUpload.userId,
         title: userUpload.title,
