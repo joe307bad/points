@@ -24,8 +24,6 @@ export class UploadService {
     }
 
     async getAll(): Promise<UploadDto[]> {
-        // TODO weed out uploads that do not exist
-        // TODO add createdDate to aggregate
         return this.buildUserUploadAggregate()
             .then(uploads => uploads.filter(upload => {
                 const url = `${uploadDir}/${upload.photo}`;
@@ -44,6 +42,7 @@ export class UploadService {
                     'as': 'users'
                 }
             },
+            { '$sort': { 'createdAt': -1 } },
             {
                 '$project': {
                     'photo': '$$ROOT.photo',
