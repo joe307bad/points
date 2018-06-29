@@ -10,7 +10,7 @@ export interface IPhotoData {
     didCancel?: boolean;
 }
 
-const CamerOptions = {
+const CameraOptions = {
     title: 'Upload a photo',
     storageOptions: {
         skipBackup: true,
@@ -21,12 +21,9 @@ const CamerOptions = {
 const Camera = {
     takePhoto: (callBack: (photoData: IPhotoData) => void): Promise<void> => {
         return new Promise<void>((resolve, reject) => {
-            ImagePicker.showImagePicker(CamerOptions, (response) => {
+            ImagePicker.showImagePicker(CameraOptions, (response) => {
 
-                const photoData: IPhotoData = {
-                    location: '',
-                    base64: ''
-                }
+                const photoData: IPhotoData = {};
 
                 if (response.didCancel) {
                     photoData.didCancel = true;
@@ -38,7 +35,6 @@ const Camera = {
 
                 }
                 else {
-                    let source = { uri: response.uri };
                     photoData.base64 = response.data;
                     photoData.location = response.uri;
                     photoData.height = response.height;
