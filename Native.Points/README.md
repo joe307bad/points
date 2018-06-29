@@ -14,6 +14,7 @@
 ### MVP ToDos:
 - [ ] Upload list pull to refresh
 - [ ] Create upload action
+    - With title and description https://medium.com/react-native-development/easily-build-forms-in-react-native-9006fcd2a73b
 - [ ] Sort uploads by created date
 - [ ] Register user
 - [ ] Error modal triggered by core Http
@@ -22,11 +23,12 @@
 - [ ] Logout functionality
 - [ ] Achievement search functionality
 - [ ] Some indicator that you have already checked into an achievement
+    - Add user checkins to ILoginState
 - [ ] Deploy to Android
 - [ ] Deploy to iOS and Expo
 
 ### Post Beta ToDos:
-- [ ] Endpoint accessible by admins to check for existing achievements and add if necessary
+- [ ] Seed endpoint accessible by admins to check for existing achievements and add if necessary
     - Download photos and save to jbhs-scripts projects
     - Transcribe all achievements on bachlr to json file
     - Alter points playbook to copy up json file and photos and run endpoint
@@ -35,6 +37,7 @@
 - [ ] Manage Achievements
 - [ ] Approve all functionality
 - [ ] Checkin details and photo upload
+- [ ] User profile page with personal feed and photo upload capabilities
 - [ ] Implement back button with React Navigation code
     - https://github.com/react-navigation/react-navigation/blob/5e075e1c31d5e6192f2532a815b1737fa27ed65b/src/createNavigationContainer.js#L154
 - [ ] React Navigation transitions
