@@ -18,6 +18,7 @@
 - [x] ~~Sort uploads by created date~~
 - [ ] Register user
     - http://docs.nativebase.io/Components.html#success-textbox-headref
+    - https://github.com/jaredpalmer/formik
 - [ ] Error modal triggered by core Http
 - [ ] If JWT is invalid/expired, boot back to login screen
 - [ ] Remember me functionality
