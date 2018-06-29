@@ -17,6 +17,7 @@
 - [ ] Sort uploads by created date
 - [ ] Register user
 - [ ] Error modal triggered by core Http
+- [ ] If JWT is invalid/expired, boot back to login screen
 - [ ] Remember me functionality
 - [ ] Logout functionality
 - [ ] Achievement search functionality
@@ -24,8 +25,12 @@
 - [ ] Deploy to Android
 - [ ] Deploy to iOS and Expo
 
-### Post Beta ToDos
-- [ ] Node Script to check for existing achievements and add if necessary
+### Post Beta ToDos:
+- [ ] Endpoint accessible by admins to check for existing achievements and add if necessary
+    - Download photos and save to jbhs-scripts projects
+    - Transcribe all achievements on bachlr to json file
+    - Alter points playbook to copy up json file and photos and run endpoint
+- [ ] Flow to approve users instead of automatially granting access
 - [ ] Manage Categories
 - [ ] Manage Achievements
 - [ ] Approve all functionality
