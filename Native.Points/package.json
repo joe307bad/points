@@ -10,6 +10,7 @@
   "dependencies": {
     "@points/shared": "file:../Shared.Points",
     "axios": "^0.18.0",
+    "class-validator": "^0.8.5",
     "formik": "^0.11.11",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.10",

@@ -10,15 +10,13 @@
 * [React Navigation](https://github.com/react-navigation/react-navigation) for routing 
 * [Typescript](https://www.typescriptlang.org/) for a high level of structure and strong typing
 * [NativeBase](https://github.com/GeekyAnts/NativeBase) UI toolkit
+* [Formik](https://github.com/jaredpalmer/formik) and [Yup](https://github.com/jquense/yup) for easy form construction and validation
 ---
 ### MVP ToDos:
 - [x] ~~Upload list pull to refresh~~
 - [x] ~~Create upload action~~
-    - With title and description https://medium.com/react-native-development/easily-build-forms-in-react-native-9006fcd2a73b
 - [x] ~~Sort uploads by created date~~
-- [x] ~~Register user~~
-    - http://docs.nativebase.io/Components.html#success-textbox-headref
-    - https://github.com/jaredpalmer/formik
+- [ ] Register user
 - [ ] Error modal triggered by core Http
 - [ ] If JWT is invalid/expired, boot back to login screen
 - [ ] Remember me functionality
