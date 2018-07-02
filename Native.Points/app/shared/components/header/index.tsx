@@ -3,6 +3,7 @@ import { Title, Body, Header, Left, Button, Icon, Right } from 'native-base';
 
 import camera from '../../../core/camera';
 import { IBaseProps } from '../../../navigation/components';
+import { NavigationActions } from 'react-navigation';
 
 interface IToolbarState {
     title: string;
@@ -25,12 +26,18 @@ export class Toolbar extends Component<IBaseProps> {
     public render(): JSX.Element {
         return (
             <Header>
-                {!this.props.disableMenuButton &&
-                    <Left>
+                <Left>
+                    {!this.props.disableMenuButton &&
                         <Button transparent>
                             <Icon name='menu' onPress={() => this.props.navigation.openDrawer()} />
-                        </Button>
-                    </Left>}
+                        </Button>}
+                    {this.props.enableBackButton &&
+                        <Button transparent>
+                            <Icon name='arrow-with-circle-left' type='Entypo' onPress={() => this.props.navigation.dispatch(
+                                NavigationActions.navigate({ routeName: `Home` })
+                            )} />
+                        </Button>}
+                </Left>
                 <Body>
                     <Title>{this.state.title}</Title>
                 </Body>

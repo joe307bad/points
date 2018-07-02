@@ -18,6 +18,7 @@ import Login from '../../auth/containers/index';
 
 export interface IBaseProps extends NavigationInjectedProps {
     disableMenuButton: boolean;
+    enableBackButton: boolean;
     title: (routeName: string) => NavigationItemDto | undefined;
     currentUser: ILoginState;
     camera?: boolean
@@ -26,6 +27,7 @@ export interface IBaseProps extends NavigationInjectedProps {
 
 export function getBaseProps(state: any) {
     return {
+        enableBackButton: false,
         disableMenuButton: false,
         title: (routeName: string) =>
             navItemsSelector(state.navigationReducer)

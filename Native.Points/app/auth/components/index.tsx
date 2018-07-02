@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { Container, Form, Item, Input, Button, Text, Icon, Card, CardItem, View, Body, Header, Content } from 'native-base';
 
 import { ILoginProps } from '../containers';
@@ -15,9 +15,13 @@ class Login extends Component<ILoginProps> {
 
     render(): JSX.Element {
         return (
-            <Container>
-                <Content style={{ paddingLeft: 10, paddingRight: 10 }}>
-                    <Card  style={{ flex: 1 }}>
+            <Container >
+                <Content style={{ paddingLeft: 10, paddingRight: 10 }} contentContainerStyle={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
+                    <Image
+                        resizeMode={'contain'}
+                        style={{ height: 100, width: '100%' }}
+                        source={require('../../assets/images/logo.png')} />
+                    <Card style={{ flex: 0 }}>
                         <CardItem>
                             <Body>
                                 <Form style={{ width: '100%' }}>

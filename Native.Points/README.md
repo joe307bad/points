@@ -16,7 +16,7 @@
 - [x] ~~Create upload action~~
     - With title and description https://medium.com/react-native-development/easily-build-forms-in-react-native-9006fcd2a73b
 - [x] ~~Sort uploads by created date~~
-- [ ] Register user
+- [x] ~~Register user~~
     - http://docs.nativebase.io/Components.html#success-textbox-headref
     - https://github.com/jaredpalmer/formik
 - [ ] Error modal triggered by core Http
