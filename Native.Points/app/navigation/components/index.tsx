@@ -25,14 +25,16 @@ export interface IBaseProps extends NavigationInjectedProps {
     cameraHandler?: (photoData: IPhotoData) => void
 }
 
+// TODO is there a way to stringly type this `state` argument?
 export function getBaseProps(state: any) {
+   
     return {
         enableBackButton: false,
         disableMenuButton: false,
         title: (routeName: string) =>
             navItemsSelector(state.navigationReducer)
                 .find((item: NavigationItemDto) => item.route === routeName),
-        currentUser: currentUserSelector(state.loginReducer)
+        currentUser: currentUserSelector(state.authReducer)
     }
 }
 

@@ -15,7 +15,7 @@ export class UserService implements IUserService {
     }
 
     public create(user: UserDto, photo: any): Promise<JwtResponse> {
-        throw new Error('Method not implemented.');
+        return http.post(USERS_API_URL, user);
     }
 
     public login(user: UserDto): Promise<JwtResponse | ApiError> {

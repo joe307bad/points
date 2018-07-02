@@ -5,6 +5,7 @@ import { Content, Form, Item, Button, Text, Icon } from 'native-base';
 
 import TextInput from '../../../shared/form/components/text-input';
 import { IRegisterValues } from './index';
+import { IRegisterProps } from '../../containers/register';
 
 const doesUserExist = (userName: string) => {
     if (userName) {
@@ -19,7 +20,7 @@ export interface IRegisterState {
 }
 
 // TODO there is a lot of redundancy here
-export class RegisterInnerForm extends Component<FormikProps<IRegisterValues>, IRegisterState> {
+export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IRegisterValues>, IRegisterState> {
     //const { touched, errors, isSubmitting, dirty } = this.props;
 
     state = {
@@ -44,6 +45,7 @@ export class RegisterInnerForm extends Component<FormikProps<IRegisterValues>, I
                                 doesUserExist(value)
                                     .then(userExists => {
                                         if (userExists) {
+                                            // TODO this gets wiped out when another field is marked as valid
                                             this.props.setFieldError('userName', 'Username is already taken')
                                         }
                                         this.setState({
@@ -104,6 +106,7 @@ export class RegisterInnerForm extends Component<FormikProps<IRegisterValues>, I
                         value={this.props.values.confirmPassword}
                         errors={this.props.touched.confirmPassword && this.props.errors.confirmPassword} />
                     <Button
+                        onPress={() => this.props.register(this.props.values)}
                         block
                         disabled={
                             Object.keys(this.props.errors).length > 0 ||
