@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Put, Param, UploadedFile, FileInterceptor, UseInterceptors } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Put, Param, UploadedFile, FileInterceptor, UseInterceptors, Get } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserDto, IUserService, JwtResponse, ApiError } from '@points/shared';
 
@@ -30,6 +30,11 @@ export class UserController implements IUserService {
   @Post('login')
   async login(@Body() user: UserDto): Promise<JwtResponse | ApiError> {
     return await this.user.login(user).catch(err => err);
+  }
+
+  @Get('userExists/:userName')
+  async userExists(@Param() params: { userName: string }) {
+    return await this.user.userExists(params.userName).catch(err => err);
   }
 
   @Put(':id')
