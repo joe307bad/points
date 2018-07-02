@@ -32,9 +32,9 @@ export class UserController implements IUserService {
     return await this.user.login(user).catch(err => err);
   }
 
-  @Get('userExists/:userName')
-  async userExists(@Param() params: { userName: string }) {
-    return await this.user.userExists(params.userName).catch(err => err);
+  @Get('exists/:userName')
+  async exists(@Param() params: { userName: string }) {
+    return await this.user.exists(params.userName).catch(err => err);
   }
 
   @Put(':id')

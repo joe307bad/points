@@ -30,7 +30,7 @@ export class UserService implements IUserService {
         : Promise.reject(new ApiError('Incorrect password')));
   }
 
-  async userExists(userName: string): Promise<boolean> {
+  async exists(userName: string): Promise<boolean> {
     return this.userModel.count({ userName }).then(numberOfUsers => numberOfUsers > 0);
   }
 
