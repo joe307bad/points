@@ -16,7 +16,7 @@
 - [x] ~~Upload list pull to refresh~~
 - [x] ~~Create upload action~~
 - [x] ~~Sort uploads by created date~~
-- [ ] Register user
+- [x] ~~Register user~~
 - [ ] Error modal triggered by core Http
 - [ ] If JWT is invalid/expired, boot back to login screen
 - [ ] Remember me functionality
