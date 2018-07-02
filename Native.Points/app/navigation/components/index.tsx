@@ -2,7 +2,7 @@ import React from 'react';
 import { createDrawerNavigator, NavigationScreenProp, NavigationInjectedProps } from 'react-navigation';
 import { NavigationItemDto } from '@points/shared';
 
-import { ILoginState } from '../../auth/reducers';
+import { ICurrentUser } from '../../auth/reducers';
 import { navItemsSelector, currentUserSelector } from '../../store/selectors';
 import { IPhotoData } from '../../core/camera';
 
@@ -20,7 +20,7 @@ export interface IBaseProps extends NavigationInjectedProps {
     disableMenuButton: boolean;
     enableBackButton: boolean;
     title: (routeName: string) => NavigationItemDto | undefined;
-    currentUser: ILoginState;
+    currentUser: ICurrentUser;
     camera?: boolean
     cameraHandler?: (photoData: IPhotoData) => void
 }

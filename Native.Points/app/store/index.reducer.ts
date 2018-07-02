@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import loginReducer from '../auth/reducers';
+import authReducer from '../auth/reducers';
 import navigationReducer from '../navigation/reducers';
 import achievementReducer from '../achievement/reducers';
 import checkinReducer from '../checkin/reducers';
@@ -18,7 +18,7 @@ export interface IBaseState<T> {
 }
 
 const rootReducer = combineReducers({
-  loginReducer,
+  authReducer,
   navigationReducer,
   achievementReducer,
   checkinReducer,

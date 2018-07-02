@@ -10,7 +10,7 @@ import { IAchievementProps } from '../containers';
 import { TabView, PointsContainer } from './';
 import { IUserCheckin } from '../../checkin/reducers';
 import { successfulCheckin } from '../../checkin/selectors';
-import { ILoginState } from '../../auth/reducers';
+import { ICurrentUser } from '../../auth/reducers';
 
 interface IAchievementListState {
     selectedAchievement: AchievementDto;
@@ -77,7 +77,7 @@ export class AchievementList extends Component<IAchievementProps, IAchievementLi
 class AchievementPreview extends Component<{
     selectedAchievement: AchievementDto,
     checkin: (userCheckin: IUserCheckin) => void,
-    currentUser: ILoginState
+    currentUser: ICurrentUser
 }> {
 
     public render() {
