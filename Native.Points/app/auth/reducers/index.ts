@@ -75,8 +75,8 @@ export const reducer = (state = initialState, action: userActions.UserAction): I
       return {
         ...state,
         processing: false,
-        error: state.error,
-        message: 'Error logging in ' + action.payload!.currentUser!.userName
+        error: true,
+        message: 'Error logging in ' + state.condition!.currentUser!.userName
       };
 
     case registerActions.RegisterRequest:
@@ -105,8 +105,8 @@ export const reducer = (state = initialState, action: userActions.UserAction): I
       return {
         ...state,
         processing: false,
-        error: state.error,
-        message: 'Error registering user ' + action.payload!.currentUser!.userName
+        error: true,
+        message: 'Error registering user ' + state.condition!.currentUser!.userName
       };
 
     default:

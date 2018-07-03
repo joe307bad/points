@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { NavigationActions, withNavigation } from 'react-navigation';
 import { navItems } from '../../store/selectors';
 import { IBaseProps } from './';
+import { isUnauthorized } from '../../store/selectors/isUnauthorized';
 
 export interface ISideBarState {
     routes: NavigationItemDto[];
@@ -13,6 +14,7 @@ export interface ISideBarState {
 
 class SideBar extends Component<IBaseProps, ISideBarState> {
 
+    isUnauthorizedSubscription?: Subscription;
     public state: ISideBarState = {
         routes: []
     };
@@ -24,10 +26,22 @@ class SideBar extends Component<IBaseProps, ISideBarState> {
             this.setState({
                 routes: items
             }));
+
+        // TODO find better place for this
+        this.isUnauthorizedSubscription = isUnauthorized().subscribe(unauthorized => {
+            if (unauthorized) {
+                this.props.navigation.dispatch(
+                    NavigationActions.navigate({
+                        routeName: 'Home'
+                    })
+                )
+            }
+        })
     }
 
     public componentWillUnmount() {
         this.navItemsSubscription!.unsubscribe();
+        this.isUnauthorizedSubscription!.unsubscribe();
     }
 
     public render(): JSX.Element {
@@ -43,8 +57,9 @@ class SideBar extends Component<IBaseProps, ISideBarState> {
                                     onPress={() => {
                                         this.props.navigation.dispatch(
                                             NavigationActions.navigate({
-                                                key: 'wdqwd',
-                                                routeName: `${data.route}`
+                                                routeName: data.route === 'Logout'
+                                                    ? 'Home'
+                                                    : `${data.route}`
                                             })
                                         );
                                     }}>

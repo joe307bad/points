@@ -16,6 +16,7 @@ export interface ITextInputProps {
     title: string;
     name: string;
     asyncError?: { passing: boolean, message: string };
+    style?: {}
 }
 
 // TODO make stateless
@@ -47,6 +48,7 @@ export default class TextInput extends React.Component<ITextInputProps> {
 
         return (
             <Item
+                style={this.props.style}
                 success={!props.errors && !asyncError}
                 error={(props.errors !== false && props.errors !== undefined) || asyncError}>
                 <Input
@@ -62,7 +64,7 @@ export default class TextInput extends React.Component<ITextInputProps> {
                     }}
                 />
                 {this.props.loading && !props.errors && <Text>Checking...</Text>}
-                {props.touched && !props.errors && !this.props.loading && !asyncError &&<Icon name='checkmark-circle' />}
+                {props.touched && !props.errors && !this.props.loading && !asyncError && <Icon name='checkmark-circle' />}
                 {(props.errors || asyncError) && !this.props.loading && <Icon name='close-circle' />}
                 {asyncError && !this.props.loading && <Text>{this.props.asyncError!.message}</Text>}
                 {props.errors &&

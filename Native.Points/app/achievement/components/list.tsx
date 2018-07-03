@@ -74,6 +74,7 @@ export class AchievementList extends Component<IAchievementProps, IAchievementLi
     }
 }
 
+// TODO put this in seperate file
 class AchievementPreview extends Component<{
     selectedAchievement: AchievementDto,
     checkin: (userCheckin: IUserCheckin) => void,

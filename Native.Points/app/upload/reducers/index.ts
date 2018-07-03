@@ -67,7 +67,7 @@ export const reducer = (state = initialState, action: uploadActions.UploadAction
       return {
         ...state,
         processing: false,
-        error: state.error,
+        error: true,
         message: 'Error loading Upload List'
       };
 
@@ -97,7 +97,7 @@ export const reducer = (state = initialState, action: uploadActions.UploadAction
       return {
         ...state,
         processing: false,
-        error: state.error,
+        error: true,
         message: 'Error uploading photo'
       };
 

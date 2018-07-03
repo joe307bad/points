@@ -3,6 +3,7 @@ import { PendingApprovalDto, CheckinDto } from "@points/shared";
 import { IBaseState } from '../../store/index.reducer';
 import { IProcessing } from "../../store/selectors";
 
+import * as pendingApprovalActions from '../actions';
 import * as listActions from '../actions/list';
 import * as userApprovalActions from '../actions/user-approval';
 
@@ -28,7 +29,7 @@ export const initialState: IBaseState<IPendingApprovalState> = {
 }
 
 export const reducer = (state = initialState,
-  action: listActions.PendingApprovalAction): IBaseState<IPendingApprovalState> => {
+  action: pendingApprovalActions.PendingApprovalAction): IBaseState<IPendingApprovalState> => {
 
   switch (action.type) {
 
@@ -58,7 +59,7 @@ export const reducer = (state = initialState,
       return {
         ...state,
         processing: false,
-        error: state.error,
+        error: true,
         message: 'Error loading Pending Approvals'
       };
 
@@ -98,7 +99,7 @@ export const reducer = (state = initialState,
       return {
         ...state,
         processing: false,
-        error: state.error,
+        error: true,
         message: 'Error approving Checkin'
       };
 

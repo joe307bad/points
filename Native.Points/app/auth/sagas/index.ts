@@ -1,5 +1,5 @@
 import { take, call, put, apply } from 'redux-saga/effects';
-import { JwtResponse, UserDto } from '@points/shared';
+import { JwtResponse, UserDto, ApiError } from '@points/shared';
 import jwt_decode from 'jwt-decode';
 
 import { userService } from '../services';
@@ -18,7 +18,7 @@ export function* registerUser(userRegister: IUserRegister): any {
     // @ts-ignore
     const response = yield apply(userService, 'create', [userRegister as UserDto]);
 
-    if (response.accessToken) {
+    if (response.accessToken && !response.errors) {
 
         const currentUser = storeJwt({
             userName: response.userName,
@@ -28,15 +28,23 @@ export function* registerUser(userRegister: IUserRegister): any {
 
         yield put({ type: loginActions.UserLoginSuccess, payload: { currentUser } });
     }
+
+    if (response.errors) {
+        yield put({ type: loginActions.UserLoginFailure });
+    }
 }
 
 export function* authorize(currentUser: ICurrentUser): any {
 
-    const response: JwtResponse = yield apply(userService, 'login', [currentUser as UserDto]);
+    const response: JwtResponse & ApiError = yield apply(userService, 'login', [currentUser as UserDto]);
 
-    if (response.accessToken) {
+    if (response.accessToken && !response.errors) {
         currentUser = storeJwt(currentUser, response);
         yield put({ type: loginActions.UserLoginSuccess, payload: { currentUser } });
+    }
+
+    if (response.errors) {
+        yield put({ type: loginActions.UserLoginFailure });
     }
 }
 

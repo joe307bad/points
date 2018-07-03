@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FormikProps } from 'formik';
 import { Content, Form, Item, Button, Text, Icon } from 'native-base';
 
+import utils from '../../../core/utils';
 import TextInput from '../../../shared/form/components/text-input';
 import { IRegisterValues } from './index';
 import { IRegisterProps } from '../../containers/register';
@@ -55,7 +56,6 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
                                         } else {
 
                                         }
-                                        debugger;
                                         this.setState({
                                             userNameIsTaken: userExists,
                                             checkingUsername: false
@@ -125,7 +125,7 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
                         onPress={() => this.props.register(this.props.values)}
                         block
                         disabled={
-                            Object.keys(this.props.errors).length > 0 ||
+                            !utils.isEmptyObject(this.props.errors) ||
                             !this.props.dirty ||
                             this.state.checkingUsername ||
                             this.state.userNameIsTaken}

@@ -7,8 +7,12 @@ import * as feedActions from '../actions';
 
 export function* getFeed() {
     const feedItems = yield apply(checkinService, 'getFeed');
-    if (feedItems) {
+    if (feedItems && !feedItems.errors) {
         yield put({ type: feedActions.FeedSuccess, payload: { feedItems } });
+    }
+
+    if(feedItems.errors){
+        yield put({ type: feedActions.FeedFailure });
     }
 }
 

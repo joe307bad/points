@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavigationInjectedProps } from 'react-navigation';
 
 import { IAuthState, ICurrentUser } from '../reducers';
-import Login from '../components';
+import Login from '../components/login';
 import { IBaseProps, getBaseProps } from '../../navigation/components';
 
 import * as userActions from '../actions';

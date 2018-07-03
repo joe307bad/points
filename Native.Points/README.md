@@ -13,12 +13,12 @@
 * [Formik](https://github.com/jaredpalmer/formik) and [Yup](https://github.com/jquense/yup) for easy form construction and validation
 ---
 ### MVP ToDos:
-- [x] ~~Upload list pull to refresh~~
-- [x] ~~Create upload action~~
-- [x] ~~Sort uploads by created date~~
-- [x] ~~Register user~~
-- [ ] Error modal triggered by core Http
-- [ ] If JWT is invalid/expired, boot back to login screen
+- [X] ~~Upload list pull to refresh~~
+- [X] ~~Create upload action~~
+- [X] ~~Sort uploads by created date~~
+- [X] ~~Register user~~
+- [X] ~~Error modal triggered by core Http~~
+- [X] ~~If JWT is invalid/expired, boot back to login screen~~
 - [ ] Remember me functionality
 - [ ] Logout functionality
 - [ ] Achievement search functionality
@@ -29,16 +29,18 @@
     - Preview is very tall on android release build
     - Possibly create thumbnail on upload?
 - [ ] Better align feed bullets
-    - [ ] Why are the bullets not loading automatically?
+    - Why are the bullets not loading automatically?
 - [ ] Add minor padding to leaderboard left numbers
 - [ ] Deploy to Android
 - [ ] Deploy to iOS and Expo
 
 ### Post Beta ToDos:
+- [ ] Why does upload endpoint return empty object when no uploads are present
 - [ ] Seed endpoint accessible by admins to check for existing achievements and add if necessary
     - Download photos and save to jbhs-scripts projects
     - Transcribe all achievements on bachlr to json file
     - Alter points playbook to copy up json file and photos and run endpoint
+- [ ] If use is booted back to login screen, return them to previous screen once they log back in
 - [ ] Flow to approve users instead of automatially granting access
 - [ ] Manage Categories
 - [ ] Manage Achievements

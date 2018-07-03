@@ -1,5 +1,5 @@
 import { take, call, put, apply } from 'redux-saga/effects';
-import { SettingsDto } from '@points/shared';
+import { SettingsDto, ApiError } from '@points/shared';
 
 import { settingsService } from '../services';
 import NavigationService from '../../navigation/services/navigation-service';
@@ -8,10 +8,14 @@ import * as navigationActions from '../actions';
 
 export function* loadNavigation(): any {
 
-    const response: SettingsDto = yield apply(settingsService, 'get');
+    const response: SettingsDto & ApiError = yield apply(settingsService, 'get');
 
-    if (response) {
+    if (response && !response.errors) {
         yield put({ type: navigationActions.NavigationSuccess, payload: response });
+    }
+
+    if (response.errors) {
+        yield put({ type: navigationActions.NavigationFailure });
     }
 }
 

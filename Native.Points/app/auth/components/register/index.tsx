@@ -18,7 +18,6 @@ export interface IRegisterValues {
     confirmPassword: string;
 }
 
-// Wrap our form with the using withFormik HoC
 const RegisterForm = withFormik<IRegisterProps, IRegisterValues>({
 
     mapPropsToValues: props => {

@@ -67,7 +67,7 @@ const Navigation = createDrawerNavigator({
     UploadList: {
         screen: Upload
     }
-},
+    },
     {
         contentComponent: (props: any) => <SideBar {...props} />
     });

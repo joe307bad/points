@@ -9,8 +9,12 @@ import * as userApprovalActions from '../actions/user-approval';
 
 export function* getPendingApprovalList() {
     const pendingApprovals = yield apply(checkinService, 'getPendingApprovals');
-    if (pendingApprovals) {
+    if (pendingApprovals && !pendingApprovals.errors) {
         yield put({ type: listActions.PendingApprovalListSuccess, payload: { pendingApprovals } });
+    }
+
+    if (pendingApprovals.errors) {
+        yield put({ type: listActions.PendingApprovalListFailure });
     }
 }
 
@@ -23,7 +27,7 @@ export function* approveCheckinForUser(userApproval: IUserApproval) {
 
     const approvedCheckin = yield apply(checkinService, 'update', [checkin]);
 
-    if (approvedCheckin) {
+    if (approvedCheckin && !approvedCheckin.errors) {
         yield put({
             type: userApprovalActions.UserApprovalSuccess,
             payload: {
@@ -31,6 +35,12 @@ export function* approveCheckinForUser(userApproval: IUserApproval) {
                     checkinId: approvedCheckin.id
                 }
             }
+        });
+    }
+
+    if (approvedCheckin.errors) {
+        yield put({
+            type: userApprovalActions.UserApprovalFailure
         });
     }
 }

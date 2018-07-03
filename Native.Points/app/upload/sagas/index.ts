@@ -10,8 +10,12 @@ import { UserUploadSuccess } from '../actions/user-upload';
 
 export function* getUploadList() {
     const uploadList = yield apply(uploadService, 'getAll');
-    if (uploadList) {
+    if (uploadList && !uploadList.errors) {
         yield put({ type: listActions.UploadListSuccess, payload: { uploadList } });
+    }
+
+    if (uploadList.errors) {
+        yield put({ type: listActions.UploadListFailure });
     }
 }
 
@@ -22,11 +26,14 @@ export function* uploadUserFile(userUpload: IUserUpload) {
         description: userUpload.description
     } as UploadDto;
 
-    // @ts-ignore
     const response = yield apply(uploadService, 'create', [upload, userUpload.photoData]);
 
-    if (response) {
+    if (response && !response.errors) {
         yield put({ type: userUploadActions.UserUploadSuccess });
+    }
+
+    if (response.errors) {
+        yield put({ type: userUploadActions.UserUploadFailure });
     }
 }
 

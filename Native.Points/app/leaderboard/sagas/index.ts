@@ -7,8 +7,12 @@ import { LeaderboardSuccess, LeaderboardRequest } from '../actions/index';
 
 export function* getLeaderboard() {
     const leaderboard = yield apply(checkinService, 'getLeaderboard');
-    if (leaderboard) {
+    if (leaderboard && !leaderboard.errors) {
         yield put({ type: leaderboardActions.LeaderboardSuccess, payload: { leaderboard } });
+    }
+
+    if (leaderboard.errors) {
+        yield put({ type: leaderboardActions.LeaderboardFailure });
     }
 }
 

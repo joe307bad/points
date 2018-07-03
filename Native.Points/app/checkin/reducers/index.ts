@@ -55,8 +55,8 @@ export const reducer = (state = initialState, action: checkinActions.CheckinActi
       return {
         ...state,
         processing: false,
-        error: state.error,
-        message: 'Error checkin in'
+        error: true,
+        message: 'Error checking in'
       };
 
     default:

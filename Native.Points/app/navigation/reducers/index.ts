@@ -47,7 +47,7 @@ export const reducer = (state = initialState, action: navigationActions.UserActi
       return {
         ...state,
         processing: false,
-        error: state.error,
+        error: true,
         message: 'Loaded navigation failure'
       };
 
@@ -63,9 +63,10 @@ export const isProcessing =
     ({ processing: state.processing, message: state.message });
 
 export const navItems = (state: IBaseState<INavigationState>) => {
-  const controlPanel = state.condition!.navigation!.controlPanel;
+  const controlPanel = state.condition!.navigation! && state.condition!.navigation!.controlPanel;
+  const navigation = state.condition!.navigation;
   return [
-    ...state.condition!.navigation!.items,
-    ...controlPanel ? controlPanel : []
+    ...navigation ? navigation.items : [],
+    ...controlPanel ? state.condition!.navigation!.controlPanel : []
   ];
 };

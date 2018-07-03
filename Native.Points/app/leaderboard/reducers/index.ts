@@ -47,7 +47,7 @@ export const reducer = (state = initialState,
       return {
         ...state,
         processing: false,
-        error: state.error,
+        error: true,
         message: 'Error loading Leaderboard'
       };
 
