@@ -4,7 +4,7 @@ class FeedItemDto {
     constructor() {
         this.achievementName = '';
         this.userName = '';
-        this.checkinDate = '';
+        this.checkinDate = new Date();
         this.achievementId = '';
         this.userId = '';
         this.points = 0;

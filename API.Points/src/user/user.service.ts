@@ -16,7 +16,7 @@ export class UserService implements IUserService {
     private auth: AuthService) { }
 
   async create(userDto: UserDto): Promise<JwtResponse> {
-    // TODO restrict user from posting roles array
+    userDto = Object.assign(userDto, { userName: userDto.userName.toLowerCase(), roles: [] });
     const user = new this.userModel(userDto);
     return this.db.save(user).then(newUser => this.auth.createToken(newUser));
   }
@@ -30,8 +30,9 @@ export class UserService implements IUserService {
         : Promise.reject(new ApiError('Incorrect password')));
   }
 
-  async exists(userName: string): Promise<boolean> {
-    return this.userModel.count({ userName }).then(numberOfUsers => numberOfUsers > 0);
+  async exists(user: { userName: string }): Promise<boolean> {
+    return this.userModel.count({ userName: user.userName.toLowerCase() })
+      .then(numberOfUsers => numberOfUsers > 0);
   }
 
   private async findByUserName(userName: string): Promise<UserDto> {
