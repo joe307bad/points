@@ -27,6 +27,10 @@ export class UserService implements IUserService {
     public update(user: UserDto, params?: { id: string; } | undefined): Promise<UserDto | ApiError> {
         throw new Error('Method not implemented.');
     }
+
+    public exists(user: { userName: any; }): Promise<boolean> {
+        return http.get(USERS_API_URL + 'exists/' + user.userName);
+    }
 }
 
 export const userService = UserService.Instance;

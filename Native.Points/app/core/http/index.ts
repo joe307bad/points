@@ -120,7 +120,6 @@ export class Http {
                 }
             }
         }
-        debugger;
         return config;
     }
 

@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { FormikProps } from 'formik';
-import { Content, Form, Item, Button, Text, Icon } from 'native-base';
+import { Content, Form, Button, Text, Icon } from 'native-base';
 
 import utils from '../../../core/utils';
 import TextInput from '../../../shared/form/components/text-input';
 import { IRegisterValues } from './index';
 import { IRegisterProps } from '../../containers/register';
-
-const doesUserExist = (userName: string) => {
-    if (userName) {
-        return axios.get<boolean>('https://p.jbad.io/user/exists/' + userName)
-            .then(result => result.data);
-    }
-    return Promise.resolve(false);
-}
+import { userService } from '../../services';
 
 export interface IRegisterState {
     checkingUsername: boolean;
@@ -23,14 +16,13 @@ export interface IRegisterState {
 
 // TODO there is a lot of redundancy here
 export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IRegisterValues>, IRegisterState> {
-    //const { touched, errors, isSubmitting, dirty } = this.props;
 
-    state = {
+    public state = {
         checkingUsername: false,
         userNameIsTaken: false
     }
 
-    render(): JSX.Element {
+    public render(): JSX.Element {
         return (
             <Content>
                 <Form style={{ padding: 10 }}>
@@ -42,25 +34,12 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
                             this.props.setFieldTouched('userName', true)
                         }}
                         onPause={(value: any) => {
-                            // TODO can we have some loading icon here to designate
-                            // that we are checking the uniqueness
                             if (value.trim() !== '') {
-                                doesUserExist(value)
-                                    .then(userExists => {
-                                        if (userExists) {
-                                            // TODO this gets wiped out when another field is marked as valid
-                                            // this.props.setFieldError('userName', 'Username is already taken')
-                                            // this.setState({
-                                            //     userNameIsTaken: true
-                                            // })
-                                        } else {
-
-                                        }
-                                        this.setState({
-                                            userNameIsTaken: userExists,
-                                            checkingUsername: false
-                                        })
-                                    })
+                                userService.exists({ userName: value })
+                                    .then(userExists => this.setState({
+                                        userNameIsTaken: userExists,
+                                        checkingUsername: false
+                                    }))
                             } else {
                                 this.setState({
                                     userNameIsTaken: false,
