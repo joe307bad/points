@@ -15,6 +15,7 @@ export interface ITextInputProps {
     value?: any;
     title: string;
     name: string;
+    asyncError?: { passing: boolean, message: string };
 }
 
 // TODO make stateless
@@ -42,10 +43,12 @@ export default class TextInput extends React.Component<ITextInputProps> {
 
         // we want to pass through all the props except for onChangeText
         const { onChangeText, ...props } = this.props;
+        const asyncError = this.props.asyncError && !this.props.asyncError.passing;
+
         return (
             <Item
-                success={!props.errors}
-                error={props.errors !== false && props.errors !== undefined}>
+                success={!props.errors && !asyncError}
+                error={(props.errors !== false && props.errors !== undefined) || asyncError}>
                 <Input
                     secureTextEntry={props.secureTextEntry}
                     placeholder={props.title}
@@ -59,8 +62,9 @@ export default class TextInput extends React.Component<ITextInputProps> {
                     }}
                 />
                 {this.props.loading && !props.errors && <Text>Checking...</Text>}
-                {props.touched && !props.errors && !this.props.loading && <Icon name='checkmark-circle' />}
-                {props.errors && <Icon name='close-circle' />}
+                {props.touched && !props.errors && !this.props.loading && !asyncError &&<Icon name='checkmark-circle' />}
+                {(props.errors || asyncError) && !this.props.loading && <Icon name='close-circle' />}
+                {asyncError && !this.props.loading && <Text>{this.props.asyncError!.message}</Text>}
                 {props.errors &&
                     <Text>
                         {props.errors}
