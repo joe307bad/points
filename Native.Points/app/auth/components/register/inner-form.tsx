@@ -17,6 +17,7 @@ const doesUserExist = (userName: string) => {
 
 export interface IRegisterState {
     checkingUsername: boolean;
+    userNameIsTaken: boolean;
 }
 
 // TODO there is a lot of redundancy here
@@ -24,7 +25,8 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
     //const { touched, errors, isSubmitting, dirty } = this.props;
 
     state = {
-        checkingUsername: false
+        checkingUsername: false,
+        userNameIsTaken: false
     }
 
     render(): JSX.Element {
@@ -46,23 +48,37 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
                                     .then(userExists => {
                                         if (userExists) {
                                             // TODO this gets wiped out when another field is marked as valid
-                                            this.props.setFieldError('userName', 'Username is already taken')
+                                            // this.props.setFieldError('userName', 'Username is already taken')
+                                            // this.setState({
+                                            //     userNameIsTaken: true
+                                            // })
+                                        } else {
+
                                         }
+                                        debugger;
                                         this.setState({
+                                            userNameIsTaken: userExists,
                                             checkingUsername: false
                                         })
                                     })
+                            } else {
+                                this.setState({
+                                    userNameIsTaken: false,
+                                    checkingUsername: false
+                                })
                             }
                         }}
                         showLoadingIcon={() => {
                             this.setState({
+                                userNameIsTaken: false,
                                 checkingUsername: true
                             })
                         }}
                         loading={this.state.checkingUsername}
                         touched={this.props.touched.userName}
                         value={this.props.values.userName}
-                        errors={this.props.touched.userName && this.props.errors.userName} />
+                        errors={this.props.touched.userName && this.props.errors.userName}
+                        asyncError={{ passing: !this.state.userNameIsTaken, message: 'Username is already taken' }} />
                     <TextInput
                         name='firstName'
                         title='First Name'
@@ -111,7 +127,8 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
                         disabled={
                             Object.keys(this.props.errors).length > 0 ||
                             !this.props.dirty ||
-                            this.state.checkingUsername}
+                            this.state.checkingUsername ||
+                            this.state.userNameIsTaken}
                         style={{ marginTop: 15 }}>
                         <Icon type='Entypo' name='add-user' />
                         <Text>

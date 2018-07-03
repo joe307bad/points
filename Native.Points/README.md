@@ -24,6 +24,13 @@
 - [ ] Achievement search functionality
 - [ ] Some indicator that you have already checked into an achievement
     - Add user checkins to ILoginState
+- [ ] Make user exists endpoint case insensitive
+- [ ] Redo photo gallery
+    - Preview is very tall on android release build
+    - Possibly create thumbnail on upload?
+- [ ] Better align feed bullets
+    - [ ] Why are the bullets not loading automatically?
+- [ ] Add minor padding to leaderboard left numbers
 - [ ] Deploy to Android
 - [ ] Deploy to iOS and Expo
 
