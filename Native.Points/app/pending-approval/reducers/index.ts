@@ -1,7 +1,7 @@
-import { PendingApprovalDto, CheckinDto } from "@points/shared";
+import { PendingApprovalDto } from '@points/shared';
 
 import { IBaseState } from '../../store/index.reducer';
-import { IProcessing } from "../../store/selectors";
+import { IProcessing } from '../../store/selectors';
 
 import * as pendingApprovalActions from '../actions';
 import * as listActions from '../actions/list';
@@ -15,8 +15,8 @@ export interface IUserApproval {
 
 export interface IPendingApprovalState {
   pendingApprovals?: PendingApprovalDto[];
-  userApproval: IUserApproval | null,
-  refreshing?: boolean
+  userApproval: IUserApproval | null;
+  refreshing?: boolean;
 }
 
 export const initialState: IBaseState<IPendingApprovalState> = {
@@ -26,7 +26,7 @@ export const initialState: IBaseState<IPendingApprovalState> = {
     refreshing: false
   },
   processing: false
-}
+};
 
 export const reducer = (state = initialState,
   action: pendingApprovalActions.PendingApprovalAction): IBaseState<IPendingApprovalState> => {
@@ -75,19 +75,19 @@ export const reducer = (state = initialState,
           userApproval: action.payload!.userApproval
         },
         processing: true,
-        message: `Approving "${achievementName}" for ${userName}`
+        message: `Approving '${achievementName}' for ${userName}`
       };
 
     case userApprovalActions.UserApprovalSuccess:
 
-      const userApproval = action.payload!.userApproval;
+      const userApprovalPayload = action.payload!.userApproval;
 
       return {
         ...state,
         condition: {
-          userApproval: userApproval,
+          userApproval: userApprovalPayload,
           pendingApprovals: state.condition!.pendingApprovals!
-            .filter((pendingApproval) => pendingApproval.checkinId !== userApproval!.checkinId)
+            .filter((pendingApproval) => pendingApproval.checkinId !== userApprovalPayload!.checkinId)
         },
         processing: false,
         error: null,
@@ -117,16 +117,16 @@ export const isProcessing =
 export const pendingApprovals = (state: IBaseState<IPendingApprovalState>): PendingApprovalDto[] => {
   const pending = state.condition!.pendingApprovals;
   return pending ? pending : [];
-}
+};
 
 export const userApproval = (state: IBaseState<IPendingApprovalState>): IUserApproval => {
-  const userApproval = state.condition!.userApproval;
-  return userApproval ? userApproval : {} as IUserApproval;
-}
+  const approval = state.condition!.userApproval;
+  return approval ? approval : {} as IUserApproval;
+};
 
 export const successfulApproval = (state: IBaseState<IPendingApprovalState>): boolean => {
-  return state.error === null && !state.processing
-}
+  return state.error === null && !state.processing;
+};
 
 export const completedPendingApprovalListRequest = (state: IBaseState<IPendingApprovalState>): boolean =>
-  !state.processing 
+  !state.processing;

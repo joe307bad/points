@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import { FormikProps } from 'formik';
-import { Content, Form, Button, Icon, Text } from 'native-base';
-import TextInput from '../../../shared/form/components/text-input';
+import { Form, Button, Icon, Text } from 'native-base';
 import { NavigationActions } from 'react-navigation';
+
+import TextInput from '../../../shared/form/components/text-input';
 import { ILoginProps } from '../../containers';
 import { ILoginValues } from './index';
-import { IBaseProps } from '../../../navigation/components';
 import utils from '../../../core/utils';
 
 export class LoginInnerForm extends Component<ILoginProps & FormikProps<ILoginValues>> {
 
-    render(): JSX.Element {
+    public render(): JSX.Element {
         return (
             <Form style={{ width: '100%' }}>
                 <TextInput
                     name='userName'
                     title='Username'
                     onChangeText={(name: string, value: any) => {
-                        this.props.setFieldValue('userName', value)
-                        this.props.setFieldTouched('userName', true)
+                        this.props.setFieldValue('userName', value);
+                        this.props.setFieldTouched('userName', true);
                     }}
                     style={{ marginLeft: 0 }}
                     touched={this.props.touched.userName}
@@ -30,8 +30,8 @@ export class LoginInnerForm extends Component<ILoginProps & FormikProps<ILoginVa
                     title='Password'
                     style={{ marginLeft: 0, marginBottom: 15 }}
                     onChangeText={(name: string, value: any) => {
-                        this.props.setFieldValue('password', value)
-                        this.props.setFieldTouched('password', true)
+                        this.props.setFieldValue('password', value);
+                        this.props.setFieldTouched('password', true);
                     }}
                     touched={this.props.touched.password}
                     value={this.props.values.password}
@@ -56,5 +56,4 @@ export class LoginInnerForm extends Component<ILoginProps & FormikProps<ILoginVa
             </Form>
         );
     }
-
-};
+}

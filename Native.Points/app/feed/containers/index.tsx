@@ -1,8 +1,7 @@
-import { FeedItemDto } from '@points/shared';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { IBaseProps, getBaseProps } from "../../navigation/components";
+import { IBaseProps, getBaseProps } from '../../navigation/components';
 import { Feed } from '../components/index';
 import { feedItemsSelector, ITimelineItem } from '../selectors';
 
@@ -18,7 +17,7 @@ export function mapStateToProps() {
         return Object.assign(getBaseProps(state), {
             feedItems: feedItemsSelector(state.feedReducer)
         });
-    }
+    };
 }
 
 export function mapDispatchToProps(dispatch: Dispatch<feedActions.FeedAction>) {

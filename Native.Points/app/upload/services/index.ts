@@ -28,7 +28,7 @@ export class UploadService implements IUploadService {
 
     private uploadToFormData(upload: UploadDto, photoData: IPhotoData): FormData {
         const form = new FormData();
-        forOwn(upload, function (value, key) {
+        forOwn(upload, (value, key) => {
             form.append(key, value);
         });
         form.append('photo', {

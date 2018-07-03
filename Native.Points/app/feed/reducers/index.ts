@@ -15,7 +15,7 @@ export const initialState: IBaseState<IFeedState> = {
     refreshing: false
   },
   processing: false
-}
+};
 
 export const reducer = (state = initialState,
   action: feedActions.FeedAction): IBaseState<IFeedState> => {
@@ -63,8 +63,8 @@ export const isProcessing =
     ({ processing: state.processing, message: state.message });
 
 export const feedItems = (state: IBaseState<IFeedState>): FeedItemDto[] => {
-  const feedItems = state.condition!.feedItems;
-  return feedItems ? feedItems : [];
-}
+  const items = state.condition!.feedItems;
+  return items ? items : [];
+};
 
 export const completedFeedRequest = (state: IBaseState<IFeedState>): boolean => !state.processing;

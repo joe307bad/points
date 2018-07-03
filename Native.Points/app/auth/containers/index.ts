@@ -1,8 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { NavigationInjectedProps } from 'react-navigation';
 
-import { IAuthState, ICurrentUser } from '../reducers';
+import { ICurrentUser } from '../reducers';
 import Login from '../components/login';
 import { IBaseProps, getBaseProps } from '../../navigation/components';
 

@@ -1,9 +1,8 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { AchievementDto, CategoryDto, NavigationItemDto } from '@points/shared';
+import { AchievementDto, CategoryDto } from '@points/shared';
 
 import { AchievementList } from '../components/list';
-import { navItemsSelector, currentUserSelector } from '../../store/selectors';
 import { IBaseProps, getBaseProps } from '../../navigation/components';
 import { achievementListSelector, categoriesSelector, } from '../selectors';
 

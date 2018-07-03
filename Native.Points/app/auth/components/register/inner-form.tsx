@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { FormikProps } from 'formik';
 import { Content, Form, Button, Text, Icon } from 'native-base';
 
@@ -20,7 +19,7 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
     public state = {
         checkingUsername: false,
         userNameIsTaken: false
-    }
+    };
 
     public render(): JSX.Element {
         return (
@@ -30,28 +29,28 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
                         name='userName'
                         title='Username'
                         onChangeText={(name: string, value: any) => {
-                            this.props.setFieldValue('userName', value)
-                            this.props.setFieldTouched('userName', true)
+                            this.props.setFieldValue('userName', value);
+                            this.props.setFieldTouched('userName', true);
                         }}
                         onPause={(value: any) => {
                             if (value.trim() !== '') {
                                 userService.exists({ userName: value })
-                                    .then(userExists => this.setState({
+                                    .then((userExists) => this.setState({
                                         userNameIsTaken: userExists,
                                         checkingUsername: false
-                                    }))
+                                    }));
                             } else {
                                 this.setState({
                                     userNameIsTaken: false,
                                     checkingUsername: false
-                                })
+                                });
                             }
                         }}
                         showLoadingIcon={() => {
                             this.setState({
                                 userNameIsTaken: false,
                                 checkingUsername: true
-                            })
+                            });
                         }}
                         loading={this.state.checkingUsername}
                         touched={this.props.touched.userName}
@@ -62,8 +61,8 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
                         name='firstName'
                         title='First Name'
                         onChangeText={(name: string, value: any) => {
-                            this.props.setFieldValue('firstName', value)
-                            this.props.setFieldTouched('firstName', true)
+                            this.props.setFieldValue('firstName', value);
+                            this.props.setFieldTouched('firstName', true);
                         }}
                         touched={this.props.touched.firstName}
                         value={this.props.values.firstName}
@@ -72,8 +71,8 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
                         name='lastName'
                         title='Last Name'
                         onChangeText={(name: string, value: any) => {
-                            this.props.setFieldValue('lastName', value)
-                            this.props.setFieldTouched('lastName', true)
+                            this.props.setFieldValue('lastName', value);
+                            this.props.setFieldTouched('lastName', true);
                         }}
                         touched={this.props.touched.lastName}
                         value={this.props.values.lastName}
@@ -83,8 +82,8 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
                         name='password'
                         title='Password'
                         onChangeText={(name: string, value: any) => {
-                            this.props.setFieldValue('password', value)
-                            this.props.setFieldTouched('password', true)
+                            this.props.setFieldValue('password', value);
+                            this.props.setFieldTouched('password', true);
                         }}
                         touched={this.props.touched.password}
                         value={this.props.values.password}
@@ -94,8 +93,8 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
                         name='confirmPassword'
                         title='Confirm Password'
                         onChangeText={(name: string, value: any) => {
-                            this.props.setFieldValue('confirmPassword', value)
-                            this.props.setFieldTouched('confirmPassword', true)
+                            this.props.setFieldValue('confirmPassword', value);
+                            this.props.setFieldTouched('confirmPassword', true);
                         }}
                         touched={this.props.touched.confirmPassword}
                         value={this.props.values.confirmPassword}
@@ -118,5 +117,4 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
             </Content >
         );
     }
-
-};
+}

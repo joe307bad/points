@@ -1,4 +1,4 @@
-import { IUploadState } from "../reducers";
+import { IUploadState } from '../reducers';
 
 export const UploadListRequest = 'UPLOAD_LIST_REQUEST';
 export class UploadListRequestAction {
@@ -20,4 +20,3 @@ export class UploadListFailureAction {
 
     constructor(public payload: IUploadState) { }
 }
-

@@ -1,4 +1,4 @@
-import Modal from "react-native-modalbox";
+import Modal from 'react-native-modalbox';
 
 interface IErrorModal {
     component: any;
@@ -14,15 +14,13 @@ const Error: IErrorModal = {
     instance: {} as Modal,
     message: '',
     unauthorized: false,
-    getMessage: function (): string {
+    getMessage(): string {
         return this.message;
     },
-    openModal: function (message: string) {
-        this.component.setState({
-            message: message
-        });
+    openModal(message: string) {
+        this.component.setState({ message });
         this.instance.open();
     }
-}
+};
 
 export default Error;

@@ -14,10 +14,10 @@ export interface ISideBarState {
 
 class SideBar extends Component<IBaseProps, ISideBarState> {
 
-    isUnauthorizedSubscription?: Subscription;
     public state: ISideBarState = {
         routes: []
     };
+    private isUnauthorizedSubscription?: Subscription;
 
     private navItemsSubscription?: Subscription;
 
@@ -28,15 +28,15 @@ class SideBar extends Component<IBaseProps, ISideBarState> {
             }));
 
         // TODO find better place for this
-        this.isUnauthorizedSubscription = isUnauthorized().subscribe(unauthorized => {
+        this.isUnauthorizedSubscription = isUnauthorized().subscribe((unauthorized) => {
             if (unauthorized) {
                 this.props.navigation.dispatch(
                     NavigationActions.navigate({
                         routeName: 'Home'
                     })
-                )
+                );
             }
-        })
+        });
     }
 
     public componentWillUnmount() {

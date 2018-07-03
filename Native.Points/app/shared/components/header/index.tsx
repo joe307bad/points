@@ -33,9 +33,10 @@ export class Toolbar extends Component<IBaseProps> {
                         </Button>}
                     {this.props.enableBackButton &&
                         <Button transparent>
-                            <Icon name='arrow-with-circle-left' type='Entypo' onPress={() => this.props.navigation.dispatch(
-                                NavigationActions.navigate({ routeName: `Home` })
-                            )} />
+                            <Icon name='arrow-with-circle-left' type='Entypo' onPress={() =>
+                                this.props.navigation.dispatch(
+                                    NavigationActions.navigate({ routeName: `Home` })
+                                )} />
                         </Button>}
                 </Left>
                 <Body>

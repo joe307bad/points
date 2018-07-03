@@ -1,5 +1,5 @@
 // @ts-ignore
-import Timeline from 'react-native-timeline-listview'
+import Timeline from 'react-native-timeline-listview';
 import React, { Component } from 'react';
 import { Container } from 'native-base';
 import { RefreshControl } from 'react-native';
@@ -7,16 +7,16 @@ import { Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
 
 import { IFeedProps } from '../containers';
-import { feedItems, IFeedState, initialState } from '../reducers/index';
+import { IFeedState, initialState } from '../reducers/index';
 import { Toolbar } from '../../shared/components';
-import { completedFeedRequest } from '../selectors/index';
+import { completedFeedRequest } from '../selectors';
 
 export class Feed extends Component<IFeedProps, IFeedState> {
 
-    private completedFeedRequestSubscription?: Subscription;
     public state: IFeedState = initialState.condition
         ? initialState.condition
         : {} as IFeedState;
+    private completedFeedRequestSubscription?: Subscription;
 
     public componentWillMount() {
         if (!this.props.feedItems.length) {
@@ -26,11 +26,9 @@ export class Feed extends Component<IFeedProps, IFeedState> {
         this.completedFeedRequestSubscription =
             completedFeedRequest()
                 .pipe(skip(1))
-                .subscribe(requestCompleted => {
-                    this.setState({
-                        refreshing: !requestCompleted
-                    })
-                });
+                .subscribe((requestCompleted) => this.setState({
+                    refreshing: !requestCompleted
+                }));
     }
 
     public componentWillUnmount() {

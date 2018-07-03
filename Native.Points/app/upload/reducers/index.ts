@@ -35,7 +35,7 @@ export const initialState: IBaseState<IUploadState> = {
     refreshing: false
   },
   processing: false
-}
+};
 
 export const reducer = (state = initialState, action: uploadActions.UploadAction): IBaseState<IUploadState> => {
 
@@ -115,9 +115,9 @@ export const isProcessing =
 export const completedUploadListRequest = (state: IBaseState<IUploadState>): boolean => !state.processing;
 
 export const completedUserUploadRequest = (state: IBaseState<IUploadState>): boolean =>
-  !state.processing && state.condition!.userUpload.photoData.location !== ''
+  !state.processing && state.condition!.userUpload.photoData.location !== '';
 
 export const uploadList = (state: IBaseState<IUploadState>): UploadDto[] => {
   const uploads = state.condition!.uploadList;
   return uploads ? uploads : [];
-}
+};

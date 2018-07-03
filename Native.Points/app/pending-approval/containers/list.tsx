@@ -1,11 +1,10 @@
-import { PendingApprovalDto } from "@points/shared";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
+import { PendingApprovalDto } from '@points/shared';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 
-import { pendingApprovalsSelector } from "../selectors";
-import { IBaseState } from "../../store/index.reducer";
+import { pendingApprovalsSelector } from '../selectors';
 import { PendingApprovalList } from '../components/list';
-import { IBaseProps } from "../../navigation/components";
+import { IBaseProps } from '../../navigation/components';
 import { getBaseProps } from '../../navigation/components';
 import { IUserApproval } from '../reducers';
 
@@ -15,8 +14,8 @@ import * as userApprovalActions from '../actions/user-approval';
 
 export interface IPendingApprovalListProps extends IBaseProps {
     pendingApprovals: PendingApprovalDto[];
-    getPendingApprovals: () => void,
-    approve: (userApproval: IUserApproval) => void
+    getPendingApprovals: () => void;
+    approve: (userApproval: IUserApproval) => void;
 }
 
 export function mapStateToProps() {
@@ -24,7 +23,7 @@ export function mapStateToProps() {
         return Object.assign(getBaseProps(state), {
             pendingApprovals: pendingApprovalsSelector(state.pendingApprovalReducer)
         });
-    }
+    };
 }
 
 export function mapDispatchToProps(

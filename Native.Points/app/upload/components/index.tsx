@@ -1,16 +1,13 @@
 // @ts-ignore
-import ImageBrowser from 'react-native-interactive-image-gallery'
-import ImagePicker from 'react-native-image-picker';
+import ImageBrowser from 'react-native-interactive-image-gallery';
 import React, { Component } from 'react';
-import { Container, Card, CardItem, Left, Body, Text, Button, Icon, View } from 'native-base';
+import { Container, } from 'native-base';
 import Modal from 'react-native-modalbox';
-import { Easing, Image, ScrollView, RefreshControl } from 'react-native';
+import { ScrollView, RefreshControl } from 'react-native';
 import { Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import { UploadDto } from '@points/shared';
-import { } from 'react-native';
 
-import { IBaseProps } from '../../navigation/components';
 import { Toolbar } from '../../shared/components/header';
 import { IUploadState, initialState, IUserUpload } from '../reducers';
 import { IUploadProps } from '../containers';
@@ -20,13 +17,12 @@ import { UploadPreview } from './upload-preview';
 
 export class Upload extends Component<IUploadProps, IUploadState> {
 
-    private uploadPreview?: Modal;
-
-    private completedUploadListRequestSubscription?: Subscription;
-    private completedUserUploadRequestSubscription?: Subscription;
     public state: IUploadState = initialState.condition
         ? initialState.condition
         : {} as IUploadState;
+    private uploadPreview?: Modal;
+    private completedUploadListRequestSubscription?: Subscription;
+    private completedUserUploadRequestSubscription?: Subscription;
 
     public componentWillMount() {
         if (!this.props.uploadList.length) {
@@ -36,27 +32,26 @@ export class Upload extends Component<IUploadProps, IUploadState> {
         this.completedUploadListRequestSubscription =
             completedUploadListRequest()
                 .pipe(skip(1))
-                .subscribe(requestCompleted => {
-                    this.setState({
-                        refreshing: !requestCompleted
-                    })
-                });
+                .subscribe((requestCompleted) => this.setState({
+                    refreshing: !requestCompleted
+                }));
 
         this.completedUserUploadRequestSubscription =
             completedUserUploadRequest()
                 .pipe(skip(1))
-                .subscribe(requestCompleted => {
+                .subscribe((requestCompleted) => {
                     // TODO we should have to set refreshing in this block
                     // TODO seperate reducers for list and user-upload?
                     this.setState({
                         refreshing: !requestCompleted
-                    })
-                    this.uploadPreview!.close()
+                    });
+                    this.uploadPreview!.close();
                 });
     }
 
     public componentWillUnmount() {
         this.completedUploadListRequestSubscription!.unsubscribe();
+        this.completedUserUploadRequestSubscription!.unsubscribe();
     }
 
     public componentDidMount() {
@@ -67,7 +62,7 @@ export class Upload extends Component<IUploadProps, IUploadState> {
     public showPhotoPreview(photoData: IPhotoData) {
 
         const userPhoto: IUserUpload = {
-            photoData: photoData,
+            photoData,
             userName: this.props.currentUser.userName,
             userId: this.props.currentUser.userId!
         };
@@ -89,7 +84,7 @@ export class Upload extends Component<IUploadProps, IUploadState> {
     public render(): JSX.Element {
 
         // TODO stop hardcoding URLs
-        const imageURLs: Array<Object> = this.props.uploadList.map(
+        const imageURLs: object[] = this.props.uploadList.map(
             (img: UploadDto, index: number) => ({
                 URI: 'https://p.jbad.io/uploads/' + img.photo,
                 thumbnail: 'https://p.jbad.io/uploads/' + img.photo,
@@ -97,7 +92,7 @@ export class Upload extends Component<IUploadProps, IUploadState> {
                 title: img.title,
                 description: img.description
             })
-        )
+        );
 
         return (
             <Container>

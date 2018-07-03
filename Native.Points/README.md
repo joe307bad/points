@@ -19,6 +19,7 @@
 - [X] ~~Register user~~
 - [X] ~~Error modal triggered by core Http~~
 - [X] ~~If JWT is invalid/expired, boot back to login screen~~
+- [ ] Fix create user endpoint, creates a user without a role
 - [ ] Remember me functionality
 - [ ] Logout functionality
 - [ ] Achievement search functionality
@@ -47,6 +48,7 @@
 - [ ] Approve all functionality
 - [ ] Checkin details and photo upload
 - [ ] User profile page with personal feed and photo upload capabilities
+- [ ] Look at todos
 - [ ] Implement back button with React Navigation code
     - https://github.com/react-navigation/react-navigation/blob/5e075e1c31d5e6192f2532a815b1737fa27ed65b/src/createNavigationContainer.js#L154
 - [ ] React Navigation transitions

@@ -1,12 +1,11 @@
-import { connect } from "react-redux";
-import { UploadDto } from "@points/shared";
-import { Dispatch } from "redux";
+import { connect } from 'react-redux';
+import { UploadDto } from '@points/shared';
+import { Dispatch } from 'redux';
 
-import { Upload } from "../components";
-import { IBaseProps, getBaseProps } from "../../navigation/components";
-import { UploadAction } from '../actions';
-import { uploadListSelector } from "../selectors";
-import { IUserUpload } from "../reducers";
+import { Upload } from '../components';
+import { IBaseProps, getBaseProps } from '../../navigation/components';
+import { uploadListSelector } from '../selectors';
+import { IUserUpload } from '../reducers';
 
 import * as uploadActions from '../actions';
 import * as userUploadActions from '../actions/user-upload';
@@ -14,8 +13,8 @@ import * as listActions from '../actions/list';
 
 export interface IUploadProps extends IBaseProps {
     uploadList: UploadDto[];
-    getUploadList: () => void,
-    upload: (userUpload: IUserUpload) => void
+    getUploadList: () => void;
+    upload: (userUpload: IUserUpload) => void;
 }
 
 export function mapStateToProps() {
@@ -23,7 +22,7 @@ export function mapStateToProps() {
         return Object.assign(getBaseProps(state), {
             uploadList: uploadListSelector(state.uploadReducer)
         });
-    }
+    };
 }
 
 export function mapDispatchToProps(dispatch: Dispatch<uploadActions.UploadAction>) {

@@ -14,7 +14,7 @@ export const completeUploadListRequestSelector =
     createSelector(fromUpload.completedUploadListRequest, (requestComplete: boolean) => requestComplete);
 
 export const completeUploadListRequestWatch =
-    watch(() => completeUploadListRequestSelector(store.getState().uploadReducer))
+    watch(() => completeUploadListRequestSelector(store.getState().uploadReducer));
 
 export const completedUploadListRequest = () => {
     return new Observable<boolean>((observer) => {
@@ -32,7 +32,7 @@ export const completedUserUploadRequestSelector = createSelector(fromUpload.comp
     (completedUserUpload: boolean) => completedUserUpload);
 
 export const completedUserUploadRequestWatch = watch(() =>
-    completedUserUploadRequestSelector(store.getState().uploadReducer))
+    completedUserUploadRequestSelector(store.getState().uploadReducer));
 
 export const completedUserUploadRequest = () => {
     return new Observable<boolean>((observer) => {

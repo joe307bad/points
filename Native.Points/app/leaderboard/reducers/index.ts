@@ -7,7 +7,7 @@ import { IProcessing } from '../../store/selectors';
 
 export interface ILeaderboardState {
   leaderboard: UserCheckinsDto[];
-  refreshing?: boolean
+  refreshing?: boolean;
 }
 
 export const initialState: IBaseState<ILeaderboardState> = {
@@ -16,7 +16,7 @@ export const initialState: IBaseState<ILeaderboardState> = {
     refreshing: false
   },
   processing: false
-}
+};
 
 export const reducer = (state = initialState,
   action: leaderboardActions.LeaderboardAction): IBaseState<ILeaderboardState> => {
@@ -66,6 +66,6 @@ export const isProcessing =
 export const leaderboard = (state: IBaseState<ILeaderboardState>): UserCheckinsDto[] => {
   const leaderboardItems = state.condition!.leaderboard;
   return leaderboardItems ? leaderboardItems : [];
-}
+};
 
 export const completedLeaderboardRequest = (state: IBaseState<ILeaderboardState>): boolean => !state.processing;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { PendingApprovalDto } from '@points/shared';
-import { Container, ListItem, Left, Body, Text, Right, Button, Icon } from 'native-base';
+import { Container, ListItem, Body, Text, Right, Button } from 'native-base';
 import { FlatList } from 'react-native';
 import { Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
@@ -13,10 +12,10 @@ import { completedPendingApprovalListRequest } from '../selectors';
 
 export class PendingApprovalList extends Component<IPendingApprovalListProps, IPendingApprovalState> {
 
-    private completedPendingApprovalListRequestSubscription?: Subscription;
     public state: IPendingApprovalState = initialState.condition
         ? initialState.condition
         : {} as IPendingApprovalState;
+    private completedPendingApprovalListRequestSubscription?: Subscription;
 
     public componentWillMount() {
         if (!this.props.pendingApprovals.length) {
@@ -26,10 +25,10 @@ export class PendingApprovalList extends Component<IPendingApprovalListProps, IP
         this.completedPendingApprovalListRequestSubscription =
             completedPendingApprovalListRequest()
                 .pipe(skip(1))
-                .subscribe(requestCompleted => {
+                .subscribe((requestCompleted) => {
                     this.setState({
                         refreshing: !requestCompleted
-                    })
+                    });
                 });
     }
 
@@ -53,8 +52,8 @@ export class PendingApprovalList extends Component<IPendingApprovalListProps, IP
                     onRefresh={() => {
                         this.setState({
                             refreshing: true
-                        })
-                        this.props.getPendingApprovals()
+                        });
+                        this.props.getPendingApprovals();
                     }}
                     refreshing={this.state.refreshing}
                     data={pendingApprovals}
@@ -65,7 +64,10 @@ export class PendingApprovalList extends Component<IPendingApprovalListProps, IP
                             <Body style={{ borderColor: 'transparent' }}>
                                 <Text>
                                     {pendingApproval.item.userName}
-                                    <Text note>{` chcecked into ${pendingApproval.item.achievementName} ${date.relativeFormat(pendingApproval.item.checkinDate)}`}</Text>
+                                    <Text note>
+                                        {` chcecked into ${pendingApproval.item.achievementName} `}
+                                        ${date.relativeFormat(pendingApproval.item.checkinDate)}
+                                    </Text>
                                 </Text>
                             </Body>
                             <Right>

@@ -1,4 +1,4 @@
-import { IUploadState } from "../reducers";
+import { IUploadState } from '../reducers';
 
 export const UserUploadRequest = 'UPLOAD_REQUEST';
 export class UserUploadRequestAction {

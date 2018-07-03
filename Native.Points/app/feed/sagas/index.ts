@@ -1,4 +1,3 @@
-import { CheckinDto } from '@points/shared';
 import { take, call, apply, put } from 'redux-saga/effects';
 
 import { checkinService } from '../../checkin/services';
@@ -11,7 +10,7 @@ export function* getFeed() {
         yield put({ type: feedActions.FeedSuccess, payload: { feedItems } });
     }
 
-    if(feedItems.errors){
+    if (feedItems.errors) {
         yield put({ type: feedActions.FeedFailure });
     }
 }
@@ -19,7 +18,7 @@ export function* getFeed() {
 export function* feedRequest() {
 
     while (true) {
-        const request = yield take(feedActions.FeedRequest);
+        yield take(feedActions.FeedRequest);
         yield call(getFeed);
     }
 }

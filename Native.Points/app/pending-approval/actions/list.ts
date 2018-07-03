@@ -1,4 +1,4 @@
-import { IPendingApprovalState } from "../reducers";
+import { IPendingApprovalState } from '../reducers';
 
 export const PendingApprovalListRequest = 'PENDING_APPROVAL_LIST_REQUEST';
 export class PendingApprovalListRequestAction {

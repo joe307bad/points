@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Easing, Image, ScrollView, } from 'react-native';
-import { Card, CardItem, Button, Icon, Body, View, Text, Form, Item, Input, Container, Right, Badge } from 'native-base';
+import { Icon, View, Text, Form, Item, Input, Button } from 'native-base';
 import Modal from 'react-native-modalbox';
 
 import { IPhotoData } from '../../core/camera';
@@ -15,9 +15,9 @@ export class UploadPreview extends Component<{
     public state = {
         imagePreviewWidth: 0,
         scrollViewHeight: 0
-    }
+    };
 
-    render(): JSX.Element {
+    public render(): JSX.Element {
         return (
             <Modal
                 style={{ height: 'auto', maxHeight: '100%', padding: 10, backgroundColor: 'transparent' }}
@@ -30,10 +30,10 @@ export class UploadPreview extends Component<{
                     <View style={{ backgroundColor: 'white', padding: 10 }}>
                         <View
                             onLayout={(event) => {
-                                const { height, width } = event.nativeEvent.layout;
+                                const { width } = event.nativeEvent.layout;
                                 this.setState({
                                     imagePreviewWidth: width
-                                })
+                                });
                             }}
                             style={{
                                 justifyContent: 'center',
@@ -41,7 +41,7 @@ export class UploadPreview extends Component<{
                                 width: '100%'
                             }}>
                             <Image
-                                resizeMode="contain"
+                                resizeMode='contain'
                                 style={{
                                     height: this.props.photo.height,
                                     width: this.state.imagePreviewWidth
@@ -52,10 +52,10 @@ export class UploadPreview extends Component<{
                         <View>
                             <Form>
                                 <Item>
-                                    <Input placeholder="Title" onChange={this.props.updateTitle} />
+                                    <Input placeholder='Title' onChange={this.props.updateTitle} />
                                 </Item>
                                 <Item last>
-                                    <Input placeholder="Description" onChange={this.props.updateDescription} />
+                                    <Input placeholder='Description' onChange={this.props.updateDescription} />
                                 </Item>
                             </Form>
                             <Button

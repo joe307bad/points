@@ -1,10 +1,10 @@
 // @ts-ignore
 import watch from 'redux-watch';
-import { createSelector } from "reselect";
-import { UserCheckinsDto } from "@points/shared";
+import { createSelector } from 'reselect';
+import { UserCheckinsDto } from '@points/shared';
 import { Observable } from 'rxjs';
 
-import store from "../../store";
+import store from '../../store';
 
 import * as fromLeaderboard from '../reducers';
 

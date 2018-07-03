@@ -5,9 +5,7 @@ import jwt_decode from 'jwt-decode';
 import { userService } from '../services';
 import { IAuthState, ICurrentUser, IUserRegister } from '../reducers';
 import { persistentStorage } from '../../core/async-storage';
-import { RegisterRequest } from '../actions/register';
 
-import * as userActions from '../actions';
 import * as loginActions from '../actions/login';
 import * as registerActions from '../actions/register';
 import * as navigationActions from '../../navigation/actions';

@@ -23,7 +23,6 @@ export const feedItemsSelector =
             description: `${item.category} | ${item.achievementDescription}`
         })));
 
-
 export const completedFeedRequestSelector =
     createSelector(fromFeed.completedFeedRequest, (requestCompleted: boolean) =>
         requestCompleted);

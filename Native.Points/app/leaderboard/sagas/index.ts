@@ -3,7 +3,6 @@ import { take, call, apply, put } from 'redux-saga/effects';
 import { checkinService } from '../../checkin/services';
 
 import * as leaderboardActions from '../actions';
-import { LeaderboardSuccess, LeaderboardRequest } from '../actions/index';
 
 export function* getLeaderboard() {
     const leaderboard = yield apply(checkinService, 'getLeaderboard');

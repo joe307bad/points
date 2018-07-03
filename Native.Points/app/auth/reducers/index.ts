@@ -46,7 +46,7 @@ export const reducer = (state = initialState, action: userActions.UserAction): I
   switch (action.type) {
 
     case loginActions.UserLoginRequest:
-     
+
       return {
         ...state,
         processing: true,
@@ -121,7 +121,7 @@ export const isProcessing =
     ({ processing: state.processing, message: state.message });
 
 export const currentUser = (state: IBaseState<IAuthState>): ICurrentUser => {
- 
+
   const loggedIn = state.condition && state.condition.currentUser;
   return loggedIn ? state.condition!.currentUser! : {} as ICurrentUser;
 };

@@ -28,14 +28,13 @@ const Camera = {
 
                 if (response.didCancel) {
                     photoData.didCancel = true;
-                }
-                else if (response.error) {
-                    photoData.error = response.error;
-                }
-                else if (response.customButton) {
 
-                }
-                else {
+                } else if (response.error) {
+                    photoData.error = response.error;
+
+                } else if (response.customButton) {
+
+                } else {
                     photoData.base64 = response.data;
                     photoData.location = response.uri;
                     photoData.height = response.height;
@@ -46,8 +45,8 @@ const Camera = {
 
                 resolve(callBack(photoData));
             });
-        })
+        });
     }
-}
+};
 
 export default Camera;

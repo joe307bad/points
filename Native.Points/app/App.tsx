@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { Container, Text, Card, CardItem, Left, Body, Button, StyleProvider, View } from 'native-base';
+import { Container, Text, Card, CardItem, Body } from 'native-base';
 import { Provider } from 'react-redux';
+import Modal from 'react-native-modalbox';
+import { Easing } from 'react-native';
 
 import Loading from './shared/components/spinner';
 import store from './store';
 import NavigatorService from './navigation/services/navigation-service';
 import Navigation from './navigation/components';
 import Error from './shared/error-modal';
-import Modal from 'react-native-modalbox';
-import { ScrollView } from 'react-native';
-import { onErrorResumeNext } from 'rxjs/operators';
-import { Easing } from 'react-native';
 
 export default class App extends Component<{}> {
 
@@ -29,19 +27,19 @@ export default class App extends Component<{}> {
   }
 }
 
-
+// TODO move to shared/error-modal folder
 export class ErrorModal extends Component<{}> {
+
+  public state = {
+    message: ''
+  };
 
   constructor(props: any) {
     super(props);
     Error.component = this;
   }
 
-  state = {
-    message: ''
-  }
-
-  render(): JSX.Element {
+  public render(): JSX.Element {
     return (
       <Modal
         style={{ height: 'auto', padding: 10, backgroundColor: 'transparent' }}
@@ -55,6 +53,6 @@ export class ErrorModal extends Component<{}> {
             </Body>
           </CardItem>
         </Card>
-      </Modal>)
+      </Modal>);
   }
 }

@@ -1,12 +1,11 @@
-import { apply, take, call, put } from "redux-saga/effects";
+import { apply, take, call, put } from 'redux-saga/effects';
+import { UploadDto } from '@points/shared';
 
 import { IUserUpload } from '../reducers';
-import { uploadService } from "../services";
-import { UploadDto } from '@points/shared';
+import { uploadService } from '../services';
 
 import * as listActions from '../actions/list';
 import * as userUploadActions from '../actions/user-upload';
-import { UserUploadSuccess } from '../actions/user-upload';
 
 export function* getUploadList() {
     const uploadList = yield apply(uploadService, 'getAll');
@@ -50,4 +49,3 @@ export function* userUploadRequest() {
         yield call(uploadUserFile, request.payload.userUpload);
     }
 }
-

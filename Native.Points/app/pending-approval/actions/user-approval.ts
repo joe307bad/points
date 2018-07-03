@@ -1,4 +1,4 @@
-import { IPendingApprovalState } from "../reducers";
+import { IPendingApprovalState } from '../reducers';
 
 export const UserApprovalRequest = 'USER_APPROVAL_REQUEST';
 export class UserApprovalRequestAction {

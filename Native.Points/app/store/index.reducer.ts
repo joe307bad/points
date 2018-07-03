@@ -4,7 +4,7 @@ import authReducer from '../auth/reducers';
 import navigationReducer from '../navigation/reducers';
 import achievementReducer from '../achievement/reducers';
 import checkinReducer from '../checkin/reducers';
-import pendingApprovalReducer from '../pending-approval/reducers'
+import pendingApprovalReducer from '../pending-approval/reducers';
 import feedReducer from '../feed/reducers';
 import leaderboardReducer from '../leaderboard/reducers';
 import uploadReducer from '../upload/reducers';

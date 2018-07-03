@@ -1,9 +1,9 @@
-import axios, { AxiosStatic, AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
+import { ApiError } from '@points/shared';
+
+import Utils from '../utils';
 import { persistentStorage } from '../async-storage';
 import Error from '../../shared/error-modal';
-import Utils from '../utils';
-import { ApiError } from '@points/shared';
-import { TabHeading } from 'native-base';
 
 const API_URL = 'https://p.jbad.io/';
 
@@ -20,7 +20,7 @@ export class Http {
         return axios
             .post(API_URL + url, payload, await this.getConfig(multipart))
             .then((result: any) => check(result.data))
-            .catch(err => check(err));
+            .catch((err) => check(err));
     }
 
     public async get<T>(url: string, payload?: any): Promise<T> {
@@ -31,7 +31,7 @@ export class Http {
                 ...await this.getConfig()
             })
             .then((result: any) => check(result.data))
-            .catch(err => check(err));
+            .catch((err) => check(err));
     }
 
     public async put<T>(url: string, payload?: any): Promise<T> {
@@ -39,12 +39,12 @@ export class Http {
         return axios
             .put(API_URL + url, payload, await this.getConfig())
             .then((result: any) => check(result.data))
-            .catch(err => check(err));
+            .catch((err) => check(err));
     }
 
     private check(data: any, url: string, payload: any) {
         let error = false;
-        let parsedData = JSON.stringify(payload);
+        const parsedData = JSON.stringify(payload);
         let errorMessage = '';
 
         if (Utils.isEmptyObject(data)) {
@@ -59,10 +59,10 @@ export class Http {
             \nEndpoint: ${url}
             \nPayload: ${parsedData}`;
 
-            data.errors.forEach((error: { apiError: ApiError }) => {
+            data.errors.forEach((apiError: { apiError: ApiError }) => {
                 errorMessage = errorMessage + `
-                \nApiError: ${error.apiError.message}`
-            })
+                \nApiError: ${apiError.apiError.message}`;
+            });
 
         } else if (data.response && data.response.data) {
             error = true;
@@ -85,7 +85,7 @@ export class Http {
 
         if (error) {
             Error.openModal(errorMessage);
-            return { errors: [true] }
+            return { errors: [true] };
         } else {
             Error.unauthorized = false;
             return data;
@@ -118,7 +118,7 @@ export class Http {
                         'Content-Type': 'multipart/form-data'
                     }
                 }
-            }
+            };
         }
         return config;
     }

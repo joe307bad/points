@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Image } from 'react-native';
-import { Container, Form, Item, Input, Button, Text, Icon, Card, CardItem, View, Body, Header, Content } from 'native-base';
+import { Image } from 'react-native';
+import { Container, Card, CardItem, Body, Content } from 'native-base';
+import { withFormik } from 'formik';
 
 import { ILoginProps } from '../../containers';
-import { NavigationActions, withNavigation } from 'react-navigation';
-import { withFormik } from 'formik';
 import { LoginSchema } from '../../../shared/schemas/login.schema';
 import { LoginInnerForm } from './inner-form';
-import { IBaseProps } from '../../../navigation/components';
-import { Toolbar } from '../../../shared/components';
 import { ICurrentUser } from '../../reducers';
 
 export interface ILoginValues {
@@ -18,7 +15,7 @@ export interface ILoginValues {
 
 const LoginForm = withFormik<ILoginProps, ILoginValues>({
 
-    mapPropsToValues: props => {
+    mapPropsToValues: (props) => {
         return {
             userName: '',
             password: ''
@@ -31,7 +28,7 @@ const LoginForm = withFormik<ILoginProps, ILoginValues>({
 })(LoginInnerForm);
 
 export default class Login extends Component<ILoginProps> {
-    render(): JSX.Element {
+    public render(): JSX.Element {
         return (
             <Container >
                 <Content
@@ -51,6 +48,6 @@ export default class Login extends Component<ILoginProps> {
                         </CardItem>
                     </Card>
                 </Content>
-            </Container>)
+            </Container>);
     }
-};
+}

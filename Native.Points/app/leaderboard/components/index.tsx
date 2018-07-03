@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { Container, ListItem, Body, Text, Right, Button, Left, View } from 'native-base';
+import React, { Component } from 'react';
+import { Container, ListItem, Body, Text, Right, Left } from 'native-base';
 import { FlatList } from 'react-native';
 import { skip } from 'rxjs/operators';
-import { AchievementDto, UserCheckinDto, UserCheckinsDto } from '@points/shared';
+import { AchievementDto, UserCheckinsDto } from '@points/shared';
 import { Subscription } from 'rxjs';
 
 import { Toolbar } from '../../shared/components';
@@ -13,10 +13,10 @@ import { PointsContainer } from '../../achievement/components/points-container';
 
 export class Leaderboard extends Component<ILeaderBoardProps> {
 
-    private completedLeaderboardRequestSubscription?: Subscription;
     public state: ILeaderboardState = initialState.condition
         ? initialState.condition
         : {} as ILeaderboardState;
+    private completedLeaderboardRequestSubscription?: Subscription;
 
     public componentWillMount() {
         if (!this.props.leaderboard.length) {
@@ -26,11 +26,9 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
         this.completedLeaderboardRequestSubscription =
             completedLeaderboardRequest()
                 .pipe(skip(1))
-                .subscribe(requestCompleted => {
-                    this.setState({
-                        refreshing: !requestCompleted
-                    })
-                });
+                .subscribe((requestCompleted) => this.setState({
+                    refreshing: !requestCompleted
+                }));
     }
 
     public componentWillUnmount() {
@@ -40,10 +38,10 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
     public render(): JSX.Element {
 
         //  TODO find more effecient way to do this
-        const leaderboard = this.props.leaderboard.map((leaderboard, index) => {
+        const leaderboard = this.props.leaderboard.map((item, index) => {
             // @ts-ignore
-            leaderboard.key = index.toString();
-            return leaderboard;
+            item.key = index.toString();
+            return item;
         });
 
         return (
@@ -53,8 +51,8 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                     onRefresh={() => {
                         this.setState({
                             refreshing: true
-                        })
-                        this.props.getLeaderboard()
+                        });
+                        this.props.getLeaderboard();
                     }}
                     refreshing={this.state.refreshing}
                     data={leaderboard}
