@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-export type StorageKey = 'jwt';
+export type StorageKey = 'jwt' | 'user';
 
 export class PersistentStorage {
 

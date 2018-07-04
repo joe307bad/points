@@ -18,10 +18,11 @@ export function* registerUser(userRegister: IUserRegister): any {
 
     if (response.accessToken && !response.errors) {
 
-        const currentUser = storeJwt({
+        const currentUser = storeUserInfo({
             userName: response.userName,
             firstName: response.firstName,
-            password: ''
+            password: '',
+            rememberMe: false
         } as ICurrentUser, response);
 
         yield put({ type: loginActions.UserLoginSuccess, payload: { currentUser } });
@@ -34,10 +35,12 @@ export function* registerUser(userRegister: IUserRegister): any {
 
 export function* authorize(currentUser: ICurrentUser): any {
 
+    // TODO make id nullable in UserDto
+    // @ts-ignore
     const response: JwtResponse & ApiError = yield apply(userService, 'login', [currentUser as UserDto]);
 
     if (response.accessToken && !response.errors) {
-        currentUser = storeJwt(currentUser, response);
+        currentUser = storeUserInfo(currentUser, response);
         yield put({ type: loginActions.UserLoginSuccess, payload: { currentUser } });
     }
 
@@ -46,11 +49,20 @@ export function* authorize(currentUser: ICurrentUser): any {
     }
 }
 
-function storeJwt(currentUser: ICurrentUser, response: JwtResponse): ICurrentUser {
+function storeUserInfo(currentUser: ICurrentUser, response: JwtResponse): ICurrentUser {
     persistentStorage.set('jwt', response.accessToken);
+
+    if (currentUser.rememberMe) {
+        persistentStorage.set('user', JSON.stringify(currentUser));
+    } else {
+        persistentStorage.delete('user');
+    }
+
     const userInfo = jwt_decode<{ id: string }>(response.accessToken);
     currentUser.userId = userInfo.id;
+
     // TODO should we nuke the password here? or keep for relogging in?
+    // TODO keep password but utilize native encrypting methods
     return currentUser;
 }
 
@@ -62,7 +74,8 @@ export function* login() {
 
         yield call(authorize, {
             userName: request.payload.currentUser!.userName,
-            password: request.payload.currentUser!.password
+            password: request.payload.currentUser!.password,
+            rememberMe: request.payload.currentUser!.rememberMe
         });
 
     }

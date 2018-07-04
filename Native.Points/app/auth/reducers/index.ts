@@ -10,6 +10,7 @@ export interface ICurrentUser {
   userId?: string;
   userName: string;
   password: string;
+  rememberMe: boolean;
 }
 
 export interface IUserRegister {
@@ -29,7 +30,8 @@ export const initialState: IBaseState<IAuthState> = {
     currentUser: {
       userId: '',
       userName: '',
-      password: ''
+      password: '',
+      rememberMe: false
     },
     userRegister: {
       userName: '',

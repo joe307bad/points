@@ -29,6 +29,7 @@
 - [ ] Redo photo gallery
     - Preview is very tall on android release build
     - Possibly create thumbnail on upload?
+    - Remove preview functionality
 - [ ] Better align feed bullets
     - Why are the bullets not loading automatically?
 - [ ] Add minor top padding to leaderboard left numbers

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { FormikProps } from 'formik';
-import { Form, Button, Icon, Text } from 'native-base';
+import { Form, Button, Icon, Text, Switch, Item } from 'native-base';
 import { NavigationActions } from 'react-navigation';
+// @ts-ignore
+import FormikObserver from 'formik-observer';
+import { debounce } from 'lodash';
 
 import TextInput from '../../../shared/form/components/text-input';
 import { ILoginProps } from '../../containers';
@@ -9,6 +12,18 @@ import { ILoginValues } from './index';
 import utils from '../../../core/utils';
 
 export class LoginInnerForm extends Component<ILoginProps & FormikProps<ILoginValues>> {
+
+    state = {
+        rememberMe: this.props.rememberMe,
+        dirty: false
+    }
+
+    onChange = debounce((values) => {
+        this.setState({
+            rememberMe: false,
+            dirty: true
+        });
+    }, 100)
 
     public render(): JSX.Element {
         return (
@@ -36,9 +51,18 @@ export class LoginInnerForm extends Component<ILoginProps & FormikProps<ILoginVa
                     touched={this.props.touched.password}
                     value={this.props.values.password}
                     errors={this.props.touched.password && this.props.errors.password} />
+                <Item style={{ marginLeft: -15, marginBottom: 15, borderBottomColor: 'transparent' }}>
+                    <Switch
+                        style={{ paddingRight: 10 }}
+                        onValueChange={(value: boolean) => this.props.setFieldValue('rememberMe', value)}
+                        value={this.props.values.rememberMe} />
+                    <Text>
+                        Remember Me
+                    </Text>
+                </Item>
                 <Button
                     block
-                    disabled={!utils.isEmptyObject(this.props.errors) || !this.props.dirty}
+                    disabled={(!utils.isEmptyObject(this.props.errors) || !this.state.dirty) && !this.state.rememberMe}
                     onPress={() => this.props.login(this.props.values)}>
                     <Icon type='Entypo' name='login' />
                     <Text>
@@ -53,7 +77,10 @@ export class LoginInnerForm extends Component<ILoginProps & FormikProps<ILoginVa
                         Register
                     </Text>
                 </Button>
-            </Form>
+                <FormikObserver
+                    onChange={({ values }: any) => this.onChange(values)}
+                />
+            </Form >
         );
     }
 }
