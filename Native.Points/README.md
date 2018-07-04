@@ -21,8 +21,8 @@
 - [X] ~~If JWT is invalid/expired, boot back to login screen~~
 - [X] ~~Make user exists endpoint case insensitive~~
 - [X] ~~Fix create user endpoint, creates a user without a role~~
-- [ ] Remember me functionality
-- [ ] Logout functionality
+- [X] ~~Remember me functionality~~
+- [X] ~~Logout functionality~~
 - [ ] Achievement search functionality
 - [ ] Some indicator that you have already checked into an achievement
     - Add user checkins to ILoginState
@@ -30,8 +30,6 @@
     - Preview is very tall on android release build
     - Possibly create thumbnail on upload?
     - Remove preview functionality
-- [ ] Better align feed bullets
-    - Why are the bullets not loading automatically?
 - [ ] Add minor top padding to leaderboard left numbers
 - [ ] Deploy to Android
 - [ ] Deploy to iOS and Expo

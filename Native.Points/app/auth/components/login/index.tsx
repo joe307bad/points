@@ -38,6 +38,7 @@ export default class Login extends Component<ILoginProps> {
     }
 
     componentWillMount() {
+        persistentStorage.delete('jwt');
         persistentStorage.get('user').then(userString => {
             if (userString) {
                 this.setState({
