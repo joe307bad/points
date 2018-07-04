@@ -16,7 +16,7 @@ export class UserService implements IUserService {
     private auth: AuthService) { }
 
   async create(userDto: UserDto): Promise<JwtResponse> {
-    userDto = Object.assign(userDto, { userName: userDto.userName.toLowerCase(), roles: [] });
+    userDto = Object.assign(userDto, { userName: userDto.userName.toLowerCase(), roles: undefined });
     const user = new this.userModel(userDto);
     return this.db.save(user).then(newUser => this.auth.createToken(newUser));
   }

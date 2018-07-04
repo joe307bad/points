@@ -20,7 +20,7 @@
 - [X] ~~Error modal triggered by core Http~~
 - [X] ~~If JWT is invalid/expired, boot back to login screen~~
 - [X] ~~Make user exists endpoint case insensitive~~
-- [ ] Fix create user endpoint, creates a user without a role
+- [X] ~~Fix create user endpoint, creates a user without a role~~
 - [ ] Remember me functionality
 - [ ] Logout functionality
 - [ ] Achievement search functionality
