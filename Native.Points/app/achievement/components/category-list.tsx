@@ -6,7 +6,6 @@ import { FlatList } from 'react-native';
 import { PointsContainer } from './';
 
 interface ICategoryListProps {
-    tabLabel: string;
     achievements: AchievementDto[];
     category: CategoryDto;
     key: any;
@@ -14,6 +13,7 @@ interface ICategoryListProps {
 }
 
 // TODO move this to shared and rename AchievementList
+// TODO make this more generic, can we remove category from
 export class CategoryList extends Component<ICategoryListProps> {
 
     public render(): JSX.Element {

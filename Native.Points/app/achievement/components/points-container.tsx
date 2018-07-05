@@ -3,6 +3,7 @@ import { AchievementDto } from '@points/shared';
 import { Text, View, Right, Icon } from 'native-base';
 
 // TODO move into shared folder
+// TODO change the props to only consume points
 export class PointsContainer extends Component<{ achievement: AchievementDto }> {
     public render() {
         return (

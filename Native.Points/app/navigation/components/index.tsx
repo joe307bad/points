@@ -14,6 +14,7 @@ import Leaderboard from '../../leaderboard/containers';
 import Upload from '../../upload/containers';
 import Register from '../../auth/containers/register';
 import Login from '../../auth/containers';
+import Search from '../../search/containers';
 
 export interface IBaseProps extends NavigationInjectedProps {
     disableMenuButton: boolean;
@@ -38,35 +39,39 @@ export function getBaseProps(state: any) {
 }
 
 // TODO can we populate this dynamically?
-const Navigation = createDrawerNavigator({
-    Home: {
-        screen: Login,
-        navigationOptions: () => ({
-            drawerLockMode: 'locked-closed'
-        })
+const Navigation = createDrawerNavigator(
+    {
+        Home: {
+            screen: Login,
+            navigationOptions: () => ({
+                drawerLockMode: 'locked-closed'
+            })
+        },
+        Register: {
+            screen: Register,
+            navigationOptions: () => ({
+                drawerLockMode: 'locked-closed'
+            })
+        },
+        AchievementList: {
+            screen: AchievementList
+        },
+        PendingApprovalList: {
+            screen: PendingApprovalList
+        },
+        Feed: {
+            screen: Feed
+        },
+        Leaderboard: {
+            screen: Leaderboard
+        },
+        UploadList: {
+            screen: Upload
+        },
+        Search: {
+            screen: Search
+        }
     },
-    Register: {
-        screen: Register,
-        navigationOptions: () => ({
-            drawerLockMode: 'locked-closed'
-        })
-    },
-    AchievementList: {
-        screen: AchievementList
-    },
-    PendingApprovalList: {
-        screen: PendingApprovalList
-    },
-    Feed: {
-        screen: Feed
-    },
-    Leaderboard: {
-        screen: Leaderboard
-    },
-    UploadList: {
-        screen: Upload
-    }
-},
     {
         contentComponent: (props: any) => <SideBar {...props} />
     });

@@ -23,14 +23,13 @@
 - [X] ~~Fix create user endpoint, creates a user without a role~~
 - [X] ~~Remember me functionality~~
 - [X] ~~Logout functionality~~
-- [ ] Achievement search functionality
+- [X] ~~Achievement search functionality~~
+- [X] ~~Add minor top padding to leaderboard left numbers~~
 - [ ] Some indicator that you have already checked into an achievement
     - Add user checkins to ILoginState
 - [ ] Redo photo gallery
-    - Preview is very tall on android release build
     - Possibly create thumbnail on upload?
-    - Remove preview functionality
-- [ ] Add minor top padding to leaderboard left numbers
+    - Remove upload preview functionality
 - [ ] Deploy to Android
 - [ ] Deploy to iOS and Expo
 
@@ -47,6 +46,7 @@
 - [ ] Approve all functionality
 - [ ] Checkin details and photo upload
 - [ ] User profile page with personal feed and photo upload capabilities
+- [ ] Favorite achievements and see them in profile page
 - [ ] Look at todos
 - [ ] Implement back button with React Navigation code
     - https://github.com/react-navigation/react-navigation/blob/5e075e1c31d5e6192f2532a815b1737fa27ed65b/src/createNavigationContainer.js#L154

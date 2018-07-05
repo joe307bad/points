@@ -13,17 +13,17 @@ import utils from '../../../core/utils';
 
 export class LoginInnerForm extends Component<ILoginProps & FormikProps<ILoginValues>> {
 
-    state = {
+    public state = {
         rememberMe: this.props.rememberMe,
         dirty: false
-    }
+    };
 
-    onChange = debounce((values) => {
+    public onChange = debounce((values) => {
         this.setState({
             rememberMe: false,
             dirty: true
         });
-    }, 100)
+    }, 100);
 
     public render(): JSX.Element {
         return (
@@ -53,7 +53,7 @@ export class LoginInnerForm extends Component<ILoginProps & FormikProps<ILoginVa
                     errors={this.props.touched.password && this.props.errors.password} />
                 <Item style={{ marginLeft: -15, marginBottom: 15, borderBottomColor: 'transparent' }}>
                     <Switch
-                        style={{ paddingRight: 10 }}
+                        style={{ paddingRight: 10, paddingTop: 10, paddingBottom: 10 }}
                         onValueChange={(value: boolean) => this.props.setFieldValue('rememberMe', value)}
                         value={this.props.values.rememberMe} />
                     <Text>

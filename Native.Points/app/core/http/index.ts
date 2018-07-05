@@ -38,8 +38,7 @@ export class Http {
         const check = (data: any) => this.check(data, url, payload);
         return axios
             .put(API_URL + url, payload, await this.getConfig())
-            .then((result: any) => check(result.data))
-            .catch((err) => check(err));
+            .then((result: any) => check(result.data));
     }
 
     private check(data: any, url: string, payload: any) {

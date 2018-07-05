@@ -66,17 +66,20 @@ export class PendingApprovalList extends Component<IPendingApprovalListProps, IP
                                     {pendingApproval.item.userName}
                                     <Text note>
                                         {` chcecked into ${pendingApproval.item.achievementName} `}
-                                        ${date.relativeFormat(pendingApproval.item.checkinDate)}
+                                        {date.relativeFormat(pendingApproval.item.checkinDate)}
                                     </Text>
                                 </Text>
                             </Body>
-                            <Right>
-                                <Button onPress={() => this.props.approve({
-                                    achievementName: pendingApproval.item.achievementName,
-                                    userName: pendingApproval.item.userName,
-                                    checkinId: pendingApproval.item.checkinId
-                                })}>
-                                    <Text>Approve</Text>
+                            <Right style={{ borderBottomColor: 'transparent' }}>
+                                <Button
+                                    onPress={() => this.props.approve({
+                                        achievementName: pendingApproval.item.achievementName,
+                                        userName: pendingApproval.item.userName,
+                                        checkinId: pendingApproval.item.checkinId
+                                    })}>
+                                    <Text>
+                                        Approve
+                                    </Text>
                                 </Button>
                             </Right>
                         </ListItem>

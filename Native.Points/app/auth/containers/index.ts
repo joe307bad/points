@@ -7,7 +7,6 @@ import { IBaseProps, getBaseProps } from '../../navigation/components';
 
 import * as userActions from '../actions';
 import * as loginActions from '../actions/login';
-import { persistentStorage } from '../../core/async-storage';
 
 export interface ILoginProps extends IBaseProps {
     userName: string;

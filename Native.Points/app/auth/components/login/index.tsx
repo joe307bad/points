@@ -35,11 +35,11 @@ export default class Login extends Component<ILoginProps> {
 
     public state = {
         user: {} as ICurrentUser
-    }
+    };
 
-    componentWillMount() {
+    public componentWillMount() {
         persistentStorage.delete('jwt');
-        persistentStorage.get('user').then(userString => {
+        persistentStorage.get('user').then((userString) => {
             if (userString) {
                 this.setState({
                     user: JSON.parse(userString)

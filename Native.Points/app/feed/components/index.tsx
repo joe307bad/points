@@ -47,16 +47,15 @@ export class Feed extends Component<IFeedProps, IFeedState> {
                         descriptionStyle={{ marginTop: -2 }}
                         style={{ paddingTop: 10, paddingLeft: 10, paddingRight: 10, paddingBottom: 10 }}
                         data={this.props.feedItems}
-                        renderCircle={() => {
-                            return <View style={{
+                        renderCircle={() =>
+                            <View style={{
                                 position: 'absolute',
                                 width: 22,
                                 height: 22,
                                 borderRadius: 50,
                                 backgroundColor: 'blue',
                                 left: 90
-                            }} />
-                        }}
+                            }} />}
                         options={{
                             refreshControl: (
                                 <RefreshControl

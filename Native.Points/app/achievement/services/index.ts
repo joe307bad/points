@@ -4,6 +4,7 @@ import { http } from '../../core/http';
 
 const ACHIEVEMENT_API_URL = 'achievement/';
 
+// TODO consider moving all services into shared since they are used across different domains
 export class AchievementService implements IAchievementService {
 
     private static instance: AchievementService;
@@ -31,7 +32,7 @@ export class AchievementService implements IAchievementService {
     }
 
     public search(search: { term: string; }): Promise<AchievementDto[]> {
-        throw new Error('Method not implemented.');
+        return http.post(ACHIEVEMENT_API_URL + 'search/', search);
     }
 
 }

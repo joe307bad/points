@@ -67,7 +67,8 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                                         height: 24,
                                         width: 24,
                                         fontWeight: 'bold',
-                                        textAlign: 'center'
+                                        textAlign: 'center',
+                                        paddingTop: 1
                                     }}>
                                     {leaderboardItem.index + 1}
                                 </Text>
@@ -83,7 +84,7 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                                     </Text>
                                 </Text>
                             </Body>
-                            <Right>
+                            <Right style={{ borderBottomColor: 'transparent' }}>
                                 <PointsContainer achievement={{
                                     points: leaderboardItem.item.totalPoints
                                 } as AchievementDto} />

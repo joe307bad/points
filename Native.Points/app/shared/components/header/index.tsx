@@ -26,7 +26,7 @@ export class Toolbar extends Component<IBaseProps> {
     public render(): JSX.Element {
         return (
             <Header>
-                <Left>
+                <Left style={{ flex: 0, paddingLeft: 6, width: 60 }}>
                     {!this.props.disableMenuButton &&
                         <Button transparent>
                             <Icon name='menu' onPress={() => this.props.navigation.openDrawer()} />

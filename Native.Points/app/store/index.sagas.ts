@@ -8,7 +8,9 @@ import { pendingApprovalListRequest, userApprovalRequest } from '../pending-appr
 import { feedRequest } from '../feed/sagas';
 import { leaderboardRequest } from '../leaderboard/sagas';
 import { getUploadListRequest, userUploadRequest } from '../upload/sagas';
+import { searchRequest } from '../search/sagas';
 
+// TODO is this the correct way to do this? with 12 trillion forks?
 export default function* root() {
     yield all([
         fork(login),
@@ -23,6 +25,7 @@ export default function* root() {
         fork(leaderboardRequest),
         fork(getUploadListRequest),
         fork(userUploadRequest),
-        fork(userRegisterRequest)
+        fork(userRegisterRequest),
+        fork(searchRequest)
     ]);
 }
