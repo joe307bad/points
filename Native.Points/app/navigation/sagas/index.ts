@@ -9,6 +9,7 @@ import * as navigationActions from '../actions';
 export function* loadNavigation(): any {
 
     const response: SettingsDto & ApiError = yield apply(settingsService, 'get');
+    debugger;
 
     if (response && !response.errors) {
         yield put({ type: navigationActions.NavigationSuccess, payload: response });
@@ -32,6 +33,6 @@ export function* navigationSuccess() {
 
         // TODO make this into a class like userService so we can use apply
         // TODO find some way to not have to hard code screen routeNames
-        NavigationService.navigate('AchievementList');
+        //NavigationService.navigate('AchievementList');
     }
 }

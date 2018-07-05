@@ -1,10 +1,13 @@
-import { IBaseState } from '../../store/index.reducer';
+import { UserCheckinsDto } from '@points/shared';
 
 import { IProcessing } from '../../store/selectors';
+import { IBaseState } from '../../store/index.reducer';
 
+// TODO may want to consider changing this entire domain from `auth` to `user`
 import * as userActions from '../actions';
 import * as loginActions from '../actions/login';
 import * as registerActions from '../actions/register';
+import * as userDataActions from '../actions/userData';
 
 export interface ICurrentUser {
   userId?: string;
@@ -23,6 +26,7 @@ export interface IUserRegister {
 export interface IAuthState {
   currentUser?: ICurrentUser;
   userRegister?: IUserRegister;
+  userData?: UserCheckinsDto;
 }
 
 export const initialState: IBaseState<IAuthState> = {
@@ -108,7 +112,39 @@ export const reducer = (state = initialState, action: userActions.UserAction): I
         ...state,
         processing: false,
         error: true,
-        message: 'Error registering user ' + state.condition!.currentUser!.userName
+        message: 'Error registering user ' + action.payload!.userRegister!.userName
+      };
+
+    case userDataActions.UserDataRequest:
+
+      return {
+        ...state,
+        processing: true,
+        message: 'Loading user data for ' + state.condition!.currentUser!.userName
+      };
+
+    case userDataActions.UserDataSuccess:
+
+      // TODO consider replacing all spread operator instances with clone deep so `condition: {...state.condition`
+      // would be unecessary
+      return {
+        ...state,
+        condition: {
+          ...state.condition,
+          userData: action.payload!.userData
+        },
+        processing: false,
+        error: null,
+        message: 'Successfully loaded user data for ' + state.condition!.currentUser!.userName
+      };
+
+    case userDataActions.UserDataFailure:
+
+      return {
+        ...state,
+        processing: false,
+        error: true,
+        message: 'Error loading user data for ' + state.condition!.currentUser!.userName
       };
 
     default:
@@ -123,7 +159,6 @@ export const isProcessing =
     ({ processing: state.processing, message: state.message });
 
 export const currentUser = (state: IBaseState<IAuthState>): ICurrentUser => {
-
   const loggedIn = state.condition && state.condition.currentUser;
   return loggedIn ? state.condition!.currentUser! : {} as ICurrentUser;
 };

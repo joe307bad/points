@@ -19,7 +19,7 @@ export class CheckinService implements ICheckinService {
     }
 
     public getForUser(params: { userId: string; }): Promise<UserCheckinsDto> {
-        throw new Error('Method not implemented.');
+        return http.get(CHECKIN_API_URL + 'user/' + params.userId);
     }
 
     public getAll(): Promise<UserCheckinsDto[]> {

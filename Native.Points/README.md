@@ -54,6 +54,7 @@
     - https://www.npmjs.com/package/react-navigation-transitions
 
 ### Advanced ToDos:	
+- [ ] since all reducers are called for every action, we can consolidate all the success/failure actions into a single Result/Response reducer instead of having a Success/Failure action for every domain action. This would make isProcessing much more simple
 - [ ] Integrate [Redux Persist](https://github.com/rt2zz/redux-persist)	
 - [ ] Submit HTTP call with [MessagePack](https://msgpack.org/index.html)	
     - https://www.npmjs.com/package/body-parser-with-msgpack

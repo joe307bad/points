@@ -10,7 +10,10 @@ import TextInput from '../../../shared/form/components/text-input';
 import { ILoginProps } from '../../containers';
 import { ILoginValues } from './index';
 import utils from '../../../core/utils';
+import { initialState } from '../../../checkin/reducers/index';
 
+// TODO this can be done better because sometimes the login button is breifly disabled even though
+// the user has rememberMe data saved in AsyncStorage
 export class LoginInnerForm extends Component<ILoginProps & FormikProps<ILoginValues>> {
 
     public state = {
@@ -62,7 +65,8 @@ export class LoginInnerForm extends Component<ILoginProps & FormikProps<ILoginVa
                 </Item>
                 <Button
                     block
-                    disabled={(!utils.isEmptyObject(this.props.errors) || !this.state.dirty) && !this.state.rememberMe}
+                    disabled={(!utils.isEmptyObject(this.props.errors) || !this.state.dirty)
+                        && !this.state.rememberMe}
                     onPress={() => this.props.login(this.props.values)}>
                     <Icon type='Entypo' name='login' />
                     <Text>

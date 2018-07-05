@@ -1,14 +1,19 @@
-import { take, call, put, apply } from 'redux-saga/effects';
-import { JwtResponse, UserDto, ApiError } from '@points/shared';
+import { take, call, put, apply, all, select } from 'redux-saga/effects';
+import { effects } from 'redux-saga';
+import { JwtResponse, UserDto, ApiError, UserCheckinsDto } from '@points/shared';
 import jwt_decode from 'jwt-decode';
 
 import { userService } from '../services';
-import { IAuthState, ICurrentUser, IUserRegister } from '../reducers';
+import { checkinService } from '../../checkin/services';
+import { IAuthState, ICurrentUser, IUserRegister, currentUser } from '../reducers';
 import { persistentStorage } from '../../core/async-storage';
+import NavigationService from '../../navigation/services/navigation-service';
+import { currentUserSelector } from '../../store/selectors/currentUser.selector';
 
 import * as loginActions from '../actions/login';
 import * as registerActions from '../actions/register';
 import * as navigationActions from '../../navigation/actions';
+import * as userDataActions from '../actions/userData';
 
 export function* registerUser(userRegister: IUserRegister): any {
 
@@ -49,6 +54,23 @@ export function* authorize(currentUser: ICurrentUser): any {
     }
 }
 
+export function* getUserData() {
+    const user: ICurrentUser = yield select((state: any) => currentUserSelector(state.authReducer));
+
+    const userData: UserCheckinsDto & ApiError =
+        yield apply(checkinService, 'getForUser', [{ userId: user.userId! }]);
+
+    debugger;
+    if (userData && !userData.errors) {
+        yield put({ type: userDataActions.UserDataSuccess, payload: { userData } });
+    }
+
+    if (userData.errors) {
+        yield put({ type: userDataActions.UserDataFailure });
+    }
+
+}
+
 function storeUserInfo(currentUser: ICurrentUser, response: JwtResponse): ICurrentUser {
     persistentStorage.set('jwt', response.accessToken);
 
@@ -81,11 +103,35 @@ export function* login() {
     }
 }
 
+
 export function* loginSuccess() {
 
     while (true) {
         yield take(loginActions.UserLoginSuccess);
-        yield put({ type: navigationActions.NavigationRequest });
+        //yield put({ type: navigationActions.NavigationRequest });
+
+        yield all([
+            put({ type: navigationActions.NavigationRequest }),
+            put({ type: userDataActions.UserDataRequest })
+        ]);
+
+        // const results =
+        //     yield combineLatest(['navigationActions.NavigationRequest', 'userDataActions.UserDataRequest'])
+
+        debugger;
+
+        if (results) {
+            NavigationService.navigate('AchievementList');
+        }
+
+    }
+}
+
+export function* userDataRequest() {
+
+    while (true) {
+        yield take(userDataActions.UserDataRequest);
+        yield call(getUserData);
     }
 }
 
