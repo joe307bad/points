@@ -35,8 +35,8 @@ export class RegisterInnerForm extends Component<IRegisterProps & FormikProps<IR
                         onPause={(value: any) => {
                             if (value.trim() !== '') {
                                 userService.exists({ userName: value })
-                                    .then((userExists) => this.setState({
-                                        userNameIsTaken: userExists,
+                                    .then((response) => this.setState({
+                                        userNameIsTaken: response.userExists,
                                         checkingUsername: false
                                     }));
                             } else {

@@ -1,4 +1,4 @@
-import { IUserService, UserDto, JwtResponse, ApiError } from '@points/shared';
+import { IUserService, UserDto, JwtResponse, ApiError, UserExistsDto } from '@points/shared';
 
 import { http } from '../../core/http';
 
@@ -28,7 +28,7 @@ export class UserService implements IUserService {
         throw new Error('Method not implemented.');
     }
 
-    public exists(user: { userName: any; }): Promise<boolean> {
+    public exists(user: { userName: any; }): Promise<UserExistsDto> {
         return http.get(USERS_API_URL + 'exists/' + user.userName);
     }
 }

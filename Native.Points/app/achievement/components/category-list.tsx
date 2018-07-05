@@ -13,6 +13,7 @@ interface ICategoryListProps {
     selectAchievement: (achievement: AchievementDto) => void;
 }
 
+// TODO move this to shared and rename AchievementList
 export class CategoryList extends Component<ICategoryListProps> {
 
     public render(): JSX.Element {
