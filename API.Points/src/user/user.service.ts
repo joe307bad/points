@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { UserDto, JwtResponse, ApiError, IUserService } from '@points/shared';
+import { UserDto, JwtResponse, ApiError, IUserService, UserExistsDto } from '@points/shared';
 
 import { User } from '../shared/interfaces';
 import { DatabaseService } from '../core/mongo/';
@@ -30,9 +30,9 @@ export class UserService implements IUserService {
         : Promise.reject(new ApiError('Incorrect password')));
   }
 
-  async exists(user: { userName: string }): Promise<boolean> {
+  async exists(user: { userName: string }): Promise<UserExistsDto> {
     return this.userModel.count({ userName: user.userName.toLowerCase() })
-      .then(numberOfUsers => numberOfUsers > 0);
+      .then(numberOfUsers => ({ userExists: numberOfUsers > 0 }));
   }
 
   private async findByUserName(userName: string): Promise<UserDto> {

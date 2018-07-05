@@ -1,6 +1,6 @@
 import { Controller, Post, Body, UseGuards, Put, Param, UploadedFile, FileInterceptor, UseInterceptors, Get } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { UserDto, IUserService, JwtResponse, ApiError } from '@points/shared';
+import { UserDto, IUserService, JwtResponse, ApiError, UserExistsDto } from '@points/shared';
 
 import { UserService } from './user.service';
 import {
@@ -33,7 +33,7 @@ export class UserController implements IUserService {
   }
 
   @Get('exists/:userName')
-  async exists(@Param() user: { userName: string }) {
+  async exists(@Param() user: { userName: string }): Promise<UserExistsDto> {
     return await this.user.exists(user).catch(err => err);
   }
 

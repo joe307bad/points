@@ -16,3 +16,4 @@ export * from './api.error';
 export * from './jwt.response';
 export * from './feed-item.dto';
 export * from './jwt.payload';
+export * from './user-exists.dto';

@@ -20,3 +20,4 @@ __export(require("./pending-approval.dto"));
 __export(require("./api.error"));
 __export(require("./feed-item.dto"));
 __export(require("./jwt.payload"));
+__export(require("./user-exists.dto"));
