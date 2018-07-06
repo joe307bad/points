@@ -14,6 +14,7 @@ import * as loginActions from '../actions/login';
 import * as registerActions from '../actions/register';
 import * as navigationActions from '../../navigation/actions';
 import * as userDataActions from '../actions/userData';
+import { loadNavigation } from '../../navigation/sagas';
 
 export function* registerUser(userRegister: IUserRegister): any {
 
@@ -63,6 +64,7 @@ export function* getUserData() {
     debugger;
     if (userData && !userData.errors) {
         yield put({ type: userDataActions.UserDataSuccess, payload: { userData } });
+        return userData;
     }
 
     if (userData.errors) {
@@ -108,22 +110,7 @@ export function* loginSuccess() {
 
     while (true) {
         yield take(loginActions.UserLoginSuccess);
-        //yield put({ type: navigationActions.NavigationRequest });
-
-        yield all([
-            put({ type: navigationActions.NavigationRequest }),
-            put({ type: userDataActions.UserDataRequest })
-        ]);
-
-        // const results =
-        //     yield combineLatest(['navigationActions.NavigationRequest', 'userDataActions.UserDataRequest'])
-
-        debugger;
-
-        if (results) {
-            NavigationService.navigate('AchievementList');
-        }
-
+        yield put({ type: userDataActions.UserDataRequest });
     }
 }
 
@@ -131,7 +118,17 @@ export function* userDataRequest() {
 
     while (true) {
         yield take(userDataActions.UserDataRequest);
-        yield call(getUserData);
+
+        const response = yield all([
+            call(getUserData),
+            call(loadNavigation)
+        ]);
+
+        debugger;
+
+        if (response) {
+            NavigationService.navigate('AchievementList');
+        }
     }
 }
 

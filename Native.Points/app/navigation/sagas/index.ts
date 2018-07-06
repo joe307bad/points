@@ -13,6 +13,7 @@ export function* loadNavigation(): any {
 
     if (response && !response.errors) {
         yield put({ type: navigationActions.NavigationSuccess, payload: response });
+        return response;
     }
 
     if (response.errors) {
