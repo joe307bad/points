@@ -10,6 +10,9 @@ import leaderboardReducer from '../leaderboard/reducers';
 import uploadReducer from '../upload/reducers';
 import searchReducer from '../search/reducers';
 
+import * as authActions from '../auth/actions'
+import * as userDataActions from '../auth/actions/userData';
+
 // TODO error interface
 export interface IBaseState<T> {
   condition?: T;
@@ -18,7 +21,33 @@ export interface IBaseState<T> {
   message?: string;
 }
 
+export interface ISharedState {
+  userCheckins?: string[];
+}
+
+const initialState = {
+  condition: {
+    userCheckins: []
+  }
+}
+
+export const sharedReducer = (state = initialState,
+  action: authActions.UserAction): any => {
+  switch (action.type) {
+
+    case userDataActions.UserDataSuccess:
+      return {
+        ...state,
+        userCheckins: action.payload.userData!.checkins!.map((userCheckin) => userCheckin.achievementId)
+      };
+
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
+  sharedReducer,
   authReducer,
   navigationReducer,
   achievementReducer,

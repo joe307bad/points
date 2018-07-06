@@ -26,10 +26,11 @@
 - [X] ~~Achievement search functionality~~
 - [X] ~~Add minor top padding to leaderboard left numbers~~
 - [X] ~~Some indicator that you have already checked into an achievement~~
-- [ ] Style checkin indicator, move user checkins to base state, apply checkin indicator to search results
+- [X] ~~Style checkin indicator, move user checkins to base state, apply checkin indicator to search results~~
 - [ ] Redo photo gallery
     - Possibly create thumbnail on upload?
     - Remove upload preview functionality
+- [ ] Sort achievements by amount of points
 - [ ] Deploy to Android
 - [ ] Deploy to iOS and Expo
 

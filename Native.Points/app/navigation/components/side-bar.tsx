@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { NavigationActions, withNavigation } from 'react-navigation';
 import { navItems } from '../../store/selectors';
 import { IBaseProps } from './';
-import { isUnauthorized } from '../../store/selectors/isUnauthorized';
+import { isUnauthorized } from '../../store/selectors/is-unauthorized';
 
 export interface ISideBarState {
     routes: NavigationItemDto[];

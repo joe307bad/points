@@ -9,7 +9,7 @@ import { checkinService } from '../../checkin/services';
 import { IAuthState, ICurrentUser, IUserRegister, currentUser } from '../reducers';
 import { persistentStorage } from '../../core/async-storage';
 import NavigationService from '../../navigation/services/navigation-service';
-import { currentUserSelector } from '../../store/selectors/currentUser.selector';
+import { currentUserSelector } from '../../store/selectors/current-user.selector';
 import { loadNavigation } from '../../navigation/sagas';
 
 import * as loginActions from '../actions/login';

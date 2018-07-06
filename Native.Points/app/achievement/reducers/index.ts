@@ -8,19 +8,18 @@ import * as userDataActions from '../../auth/actions/userData';
 
 export interface IAchievementState {
   achievements?: AchievementDto[];
-  userCheckins?: string[];
 }
 
 export const initialState: IBaseState<IAchievementState> = {
   condition: {
-    achievements: [],
-    userCheckins: []
+    achievements: []
   },
   processing: false
 };
 
 export const reducer = (state = initialState,
-  action: achievementListActions.AchievementListAction & userDataActions.UserDataRequestAction): IBaseState<IAchievementState> => {
+  action: achievementListActions.AchievementListAction & userDataActions.UserDataRequestAction):
+  IBaseState<IAchievementState> => {
 
   switch (action.type) {
 
@@ -54,19 +53,6 @@ export const reducer = (state = initialState,
         message: 'Error loading achievement list'
       };
 
-    case userDataActions.UserDataSuccess:
-
-      return {
-        ...state,
-        condition: {
-          ...state.condition,
-          userCheckins: action.payload.userData!.checkins!.map((userCheckin) => userCheckin.achievementId)
-        },
-        processing: false,
-        error: true,
-        message: 'Error loading achievement list'
-      };
-
     default:
       return state;
   }
@@ -83,8 +69,3 @@ export const achievements =
     const achievementList = state.condition!.achievements;
     return achievementList ? achievementList : [];
   };
-
-export const userCheckins = (state: IBaseState<IAchievementState>): string[] => {
-  const ids = state.condition!.userCheckins!;
-  return ids ? ids : [];
-}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AchievementDto, CategoryDto } from '@points/shared';
-import { Container, ListItem, Left, Thumbnail, Text, Body } from 'native-base';
+import { Container, ListItem, Left, Thumbnail, Text, Body, Right } from 'native-base';
 import { FlatList } from 'react-native';
 
 import { PointsContainer } from './';
@@ -36,11 +36,18 @@ export class CategoryList extends Component<ICategoryListProps> {
                     renderItem={(achievement) =>
                         <ListItem
                             onPress={() => this.props.selectAchievement(achievement.item)}
-                            style={{ marginLeft: 0, paddingLeft: 10 }}
+                            style={{
+                                marginLeft: 0,
+                                display: 'flex'
+                            }}
                             avatar>
-                            <Left>
+                            <Left style={{ borderColor: 'transparent' }}>
                                 <Thumbnail
-                                    style={{ marginTop: 10, marginBottom: 10 }}
+                                    style={{
+                                        marginLeft: 10,
+                                        marginTop: 10,
+                                        marginBottom: 10
+                                    }}
                                     source={{
                                         // TODO store URL somewhere
                                         uri: achievement.item.photo
@@ -51,7 +58,9 @@ export class CategoryList extends Component<ICategoryListProps> {
                             <Body style={{ borderColor: 'transparent' }}>
                                 <Text>{achievement.item.name}</Text>
                             </Body>
-                            <PointsContainer achievement={achievement.item} />
+                            <Right style={{ borderColor: 'transparent', justifyContent: 'center' }}>
+                                <PointsContainer achievement={achievement.item} />
+                            </Right>
                         </ListItem>
                     }
                 />
