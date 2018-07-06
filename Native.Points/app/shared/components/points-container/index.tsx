@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { AchievementDto } from '@points/shared';
 import { Text, View, Right, Icon, Body } from 'native-base';
 
-// TODO move into shared folder
-export class PointsContainer extends Component<{ achievement: AchievementDto }> {
+export default class PointsContainer extends Component<{ achievement: AchievementDto }> {
     public render() {
         return (
             <View style={{
@@ -35,8 +34,14 @@ export class PointsContainer extends Component<{ achievement: AchievementDto }> 
                     marginTop: 3
                 }} type='Entypo' name='circle-with-plus' />
                 <Text style={{ textAlign: 'right' }}>
-                    {this.props.achievement.points}
+                    {formatNumberWithCommas(this.props.achievement.points)}
                 </Text>
             </View>);
     }
+}
+
+function formatNumberWithCommas(number: number) {
+    var parts = number.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
 }

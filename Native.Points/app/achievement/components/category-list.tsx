@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { AchievementDto, CategoryDto } from '@points/shared';
+import { AchievementDto, CategoryDto, UserCheckinDto } from '@points/shared';
 import { Container, ListItem, Left, Thumbnail, Text, Body, Right } from 'native-base';
 import { FlatList } from 'react-native';
 
-import { PointsContainer } from './';
+import PointsContainer from '../../shared/components/points-container';
+import AchievementItem from './achievement-item';
 
 interface ICategoryListProps {
     achievements: AchievementDto[];
@@ -15,6 +16,8 @@ interface ICategoryListProps {
 // TODO move this to shared and rename AchievementList
 // TODO make this more generic, can we remove category from
 export class CategoryList extends Component<ICategoryListProps> {
+
+
 
     public render(): JSX.Element {
 
@@ -33,35 +36,11 @@ export class CategoryList extends Component<ICategoryListProps> {
             <Container>
                 <FlatList
                     data={achievements}
+                    extraData={this.props.achievements}
                     renderItem={(achievement) =>
-                        <ListItem
-                            onPress={() => this.props.selectAchievement(achievement.item)}
-                            style={{
-                                marginLeft: 0,
-                                display: 'flex'
-                            }}
-                            avatar>
-                            <Left style={{ borderColor: 'transparent' }}>
-                                <Thumbnail
-                                    style={{
-                                        marginLeft: 10,
-                                        marginTop: 10,
-                                        marginBottom: 10
-                                    }}
-                                    source={{
-                                        // TODO store URL somewhere
-                                        uri: achievement.item.photo
-                                            ? 'https://p.jbad.io/uploads/' + achievement.item.photo
-                                            : 'https://www.iconsdb.com/icons/preview/gray/circle-xxl.png'
-                                    }} size={5} />
-                            </Left>
-                            <Body style={{ borderColor: 'transparent' }}>
-                                <Text>{achievement.item.name}</Text>
-                            </Body>
-                            <Right style={{ borderColor: 'transparent', justifyContent: 'center' }}>
-                                <PointsContainer achievement={achievement.item} />
-                            </Right>
-                        </ListItem>
+                        <AchievementItem
+                            selectAchievement={this.props.selectAchievement}
+                            achievement={achievement.item} />
                     }
                 />
             </Container>

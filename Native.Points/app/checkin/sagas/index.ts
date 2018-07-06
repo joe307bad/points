@@ -8,7 +8,7 @@ import * as checkinActions from '../actions';
 export function* checkinAchievementForUser(userCheckin: CheckinDto): any {
     const response = yield apply(checkinService, 'create', [userCheckin]);
     if (response && !response.errors) {
-        yield put({ type: checkinActions.CheckinSuccess });
+        yield put({ type: checkinActions.CheckinSuccess, payload: { userCheckin } });
     }
 
     if (response.errors) {

@@ -9,7 +9,7 @@ import { Toolbar } from '../../shared/components';
 import { ILeaderBoardProps } from '../containers';
 import { ILeaderboardState, initialState } from '../reducers';
 import { completedLeaderboardRequest } from '../selectors';
-import { PointsContainer } from '../../achievement/components/points-container';
+import PointsContainer from '../../shared/components/points-container';
 
 export class Leaderboard extends Component<ILeaderBoardProps> {
 
@@ -84,7 +84,7 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                                     </Text>
                                 </Text>
                             </Body>
-                            <Right style={{ borderBottomColor: 'transparent' }}>
+                            <Right style={{ borderBottomColor: 'transparent', justifyContent: 'center' }}>
                                 <PointsContainer achievement={{
                                     points: leaderboardItem.item.totalPoints
                                 } as AchievementDto} />

@@ -12,6 +12,7 @@ import searchReducer from '../search/reducers';
 
 import * as authActions from '../auth/actions'
 import * as userDataActions from '../auth/actions/userData';
+import * as checkinActions from '../checkin/actions';
 
 // TODO error interface
 export interface IBaseState<T> {
@@ -26,14 +27,20 @@ export interface ISharedState {
 }
 
 const initialState = {
-  condition: {
-    userCheckins: []
-  }
+  userCheckins: []
 }
 
 export const sharedReducer = (state = initialState,
-  action: authActions.UserAction): any => {
+  action: authActions.UserAction & checkinActions.CheckinAction): any => {
   switch (action.type) {
+
+    case checkinActions.CheckinSuccess:
+
+      return {
+        ...state,
+        userCheckins: [...state.userCheckins, action.payload!.userCheckin!.achievementId]
+      };
+
 
     case userDataActions.UserDataSuccess:
       return {

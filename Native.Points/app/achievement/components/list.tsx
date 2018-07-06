@@ -9,19 +9,30 @@ import { IAchievementProps } from '../containers';
 import { TabView } from './';
 import { successfulCheckin } from '../../checkin/selectors';
 import AchievementPreview from '../../shared/components/achievement-preview';
+import { userCheckins } from '../selectors';
+
+export interface ISelectedAchievement {
+    achievement: AchievementDto;
+    increment: () => void;
+}
 
 interface IAchievementListState {
-    selectedAchievement: AchievementDto;
+    selectedAchievement: ISelectedAchievement;
+    achievements: AchievementDto[];
 }
 
 export class AchievementList extends Component<IAchievementProps, IAchievementListState> {
 
     public state: IAchievementListState = {
-        selectedAchievement: {} as AchievementDto
+        selectedAchievement: {
+            achievement: {} as AchievementDto
+        } as ISelectedAchievement,
+        achievements: this.props.achievementList
     };
 
     private achievementPreview?: Modal;
     private successfulCheckinSubscription?: Subscription;
+    private userCheckinSubscription?: Subscription;
 
     public componentDidMount() {
         // @ts-ignore
@@ -36,8 +47,16 @@ export class AchievementList extends Component<IAchievementProps, IAchievementLi
         this.successfulCheckinSubscription = successfulCheckin().subscribe((isSuccessful) => {
             if (isSuccessful) {
                 this.achievementPreview!.close();
+                this.state.selectedAchievement!.increment();
             }
         });
+
+        this.userCheckinSubscription = userCheckins()
+            .subscribe((achievementsWithUserCheckins: AchievementDto[]) => {
+                this.setState({
+                    achievements: achievementsWithUserCheckins
+                })
+            });
 
     }
 
@@ -48,7 +67,8 @@ export class AchievementList extends Component<IAchievementProps, IAchievementLi
     public render(): JSX.Element {
 
         const props: IAchievementProps = Object.assign({
-            selectAchievement: this.selectAchievement.bind(this)
+            selectAchievement: this.selectAchievement.bind(this),
+            achievementList: this.state.achievements
         }, this.props);
 
         return (
@@ -57,16 +77,19 @@ export class AchievementList extends Component<IAchievementProps, IAchievementLi
                 {this.props.categories.length && <TabView {...props} />}
                 <AchievementPreview
                     ref='achievementPreview'
-                    selectedAchievement={this.state.selectedAchievement}
+                    selectedAchievement={this.state.selectedAchievement.achievement}
                     checkin={this.props.checkin}
                     currentUser={this.props.currentUser} />
             </Container>
         );
     }
 
-    private selectAchievement(achievement: AchievementDto) {
+    private selectAchievement(achievement: AchievementDto, increment: () => void) {
         this.setState({
-            selectedAchievement: achievement
+            selectedAchievement: {
+                achievement: achievement,
+                increment: increment
+            }
         });
         this.achievementPreview!.open();
     }

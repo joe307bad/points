@@ -6,7 +6,7 @@ import Modal from 'react-native-modalbox';
 
 import { IUserCheckin } from '../../../checkin/reducers';
 import { ICurrentUser } from '../../../auth/reducers';
-import { PointsContainer } from '../../../achievement/components';
+import PointsContainer from '../../../shared/components/points-container';
 
 interface IAchievementPreviewProps {
     selectedAchievement: AchievementDto;
@@ -44,7 +44,9 @@ export default class AchievementPreview extends Component<IAchievementPreviewPro
                                         : 'https://www.iconsdb.com/icons/preview/gray/circle-xxl.png'
                                 }} size={5} />
 
-                            <Text style={{ paddingLeft: 10, flex: 1 }}>{this.props.selectedAchievement.name}</Text>
+                            <Text style={{ paddingLeft: 10, paddingTop: 10, flex: 1 }}>
+                                {this.props.selectedAchievement.name}
+                            </Text>
                         </Body>
                         <Right style={{ borderColor: 'transparent', justifyContent: 'center', flex: 0 }}>
                             <PointsContainer achievement={this.props.selectedAchievement} />

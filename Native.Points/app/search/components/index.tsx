@@ -10,19 +10,27 @@ import { CategoryList } from '../../achievement/components';
 import { successfulCheckin } from '../../checkin/selectors';
 import AchievementPreview from '../../shared/components/achievement-preview';
 
+interface ISelectedAchievement {
+    achievement: AchievementDto;
+    increment: () => void;
+}
+
 interface ISearchListState {
-    selectedAchievement: AchievementDto;
+    selectedAchievement: ISelectedAchievement;
 }
 
 type SearchComponentState = ISearchState & ISearchListState;
 
 export class Search extends Component<ISearchProps, SearchComponentState> {
 
+    // TODO i dont think we need the spread operator her, state does not get passed in
     public state: SearchComponentState = {
         ...this.state,
         ...{
             searchTerm: this.props.searchTerm,
-            selectedAchievement: {} as AchievementDto
+            selectedAchievement: {
+                achievement: {} as AchievementDto
+            } as ISelectedAchievement
         }
     };
     private achievementPreview?: Modal;
@@ -38,6 +46,7 @@ export class Search extends Component<ISearchProps, SearchComponentState> {
         this.successfulCheckinSubscription = successfulCheckin().subscribe((isSuccessful) => {
             if (isSuccessful) {
                 this.achievementPreview!.close();
+                this.state.selectedAchievement.increment();
             }
         });
 
@@ -82,7 +91,7 @@ export class Search extends Component<ISearchProps, SearchComponentState> {
                     key={''} />
                 <AchievementPreview
                     ref='achievementPreview'
-                    selectedAchievement={this.state.selectedAchievement}
+                    selectedAchievement={this.state.selectedAchievement.achievement}
                     checkin={this.props.checkin}
                     currentUser={this.props.currentUser} />
             </Container>
@@ -95,9 +104,12 @@ export class Search extends Component<ISearchProps, SearchComponentState> {
         });
     }
 
-    private selectAchievement(achievement: AchievementDto) {
+    private selectAchievement(achievement: AchievementDto, increment: () => void) {
         this.setState({
-            selectedAchievement: achievement
+            selectedAchievement: {
+                achievement: achievement,
+                increment: increment
+            }
         });
         this.achievementPreview!.open();
     }

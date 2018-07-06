@@ -6,6 +6,7 @@ import { CategoryList } from './';
 
 export class TabView extends Component<IAchievementProps> {
     public render(): JSX.Element {
+        
         return (
             <ScrollableTabView
                 style={{ marginTop: 10, }}

@@ -45,6 +45,10 @@ export const reducer = (state = initialState, action: checkinActions.CheckinActi
 
       return {
         ...state,
+        condition: {
+          ...state.condition,
+          userCheckin: action.payload!.userCheckin
+        },
         processing: false,
         error: null,
         message: 'Checked in achievement successfully'
