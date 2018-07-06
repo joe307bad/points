@@ -9,7 +9,6 @@ import * as navigationActions from '../actions';
 export function* loadNavigation(): any {
 
     const response: SettingsDto & ApiError = yield apply(settingsService, 'get');
-    debugger;
 
     if (response && !response.errors) {
         yield put({ type: navigationActions.NavigationSuccess, payload: response });

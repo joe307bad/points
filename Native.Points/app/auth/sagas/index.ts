@@ -2,6 +2,7 @@ import { take, call, put, apply, all, select } from 'redux-saga/effects';
 import { effects } from 'redux-saga';
 import { JwtResponse, UserDto, ApiError, UserCheckinsDto } from '@points/shared';
 import jwt_decode from 'jwt-decode';
+import { some, isEmpty } from 'lodash';
 
 import { userService } from '../services';
 import { checkinService } from '../../checkin/services';
@@ -9,12 +10,12 @@ import { IAuthState, ICurrentUser, IUserRegister, currentUser } from '../reducer
 import { persistentStorage } from '../../core/async-storage';
 import NavigationService from '../../navigation/services/navigation-service';
 import { currentUserSelector } from '../../store/selectors/currentUser.selector';
+import { loadNavigation } from '../../navigation/sagas';
 
 import * as loginActions from '../actions/login';
 import * as registerActions from '../actions/register';
 import * as navigationActions from '../../navigation/actions';
 import * as userDataActions from '../actions/userData';
-import { loadNavigation } from '../../navigation/sagas';
 
 export function* registerUser(userRegister: IUserRegister): any {
 
@@ -61,7 +62,6 @@ export function* getUserData() {
     const userData: UserCheckinsDto & ApiError =
         yield apply(checkinService, 'getForUser', [{ userId: user.userId! }]);
 
-    debugger;
     if (userData && !userData.errors) {
         yield put({ type: userDataActions.UserDataSuccess, payload: { userData } });
         return userData;
@@ -124,9 +124,7 @@ export function* userDataRequest() {
             call(loadNavigation)
         ]);
 
-        debugger;
-
-        if (response) {
+        if (!some(response, isEmpty)) {
             NavigationService.navigate('AchievementList');
         }
     }
