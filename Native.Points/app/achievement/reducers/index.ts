@@ -1,23 +1,26 @@
-import { AchievementDto } from '@points/shared';
+import { AchievementDto, UserCheckinsDto } from '@points/shared';
 
 import { IBaseState } from '../../store/index.reducer';
 import { IProcessing } from '../../store/selectors';
 
 import * as achievementListActions from '../actions';
+import * as userDataActions from '../../auth/actions/userData';
 
 export interface IAchievementState {
-  achievements: AchievementDto[];
+  achievements?: AchievementDto[];
+  userCheckins?: string[];
 }
 
 export const initialState: IBaseState<IAchievementState> = {
   condition: {
-    achievements: []
+    achievements: [],
+    userCheckins: []
   },
   processing: false
 };
 
 export const reducer = (state = initialState,
-  action: achievementListActions.AchievementListAction): IBaseState<IAchievementState> => {
+  action: achievementListActions.AchievementListAction & userDataActions.UserDataRequestAction): IBaseState<IAchievementState> => {
 
   switch (action.type) {
 
@@ -34,6 +37,7 @@ export const reducer = (state = initialState,
       return {
         ...state,
         condition: {
+          ...state.condition,
           achievements: action.payload!.achievements
         },
         processing: false,
@@ -45,6 +49,19 @@ export const reducer = (state = initialState,
 
       return {
         ...state,
+        processing: false,
+        error: true,
+        message: 'Error loading achievement list'
+      };
+
+    case userDataActions.UserDataSuccess:
+
+      return {
+        ...state,
+        condition: {
+          ...state.condition,
+          userCheckins: action.payload.userData!.checkins!.map((userCheckin) => userCheckin.achievementId)
+        },
         processing: false,
         error: true,
         message: 'Error loading achievement list'
@@ -66,3 +83,8 @@ export const achievements =
     const achievementList = state.condition!.achievements;
     return achievementList ? achievementList : [];
   };
+
+export const userCheckins = (state: IBaseState<IAchievementState>): string[] => {
+  const ids = state.condition!.userCheckins!;
+  return ids ? ids : [];
+}

@@ -25,8 +25,8 @@
 - [X] ~~Logout functionality~~
 - [X] ~~Achievement search functionality~~
 - [X] ~~Add minor top padding to leaderboard left numbers~~
-- [ ] Some indicator that you have already checked into an achievement
-    - Add user checkins to ILoginState
+- [X] ~~Some indicator that you have already checked into an achievement~~
+- [ ] Style checkin indicator, move user checkins to base state, apply checkin indicator to search results
 - [ ] Redo photo gallery
     - Possibly create thumbnail on upload?
     - Remove upload preview functionality

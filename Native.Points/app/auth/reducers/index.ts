@@ -1,4 +1,4 @@
-import { UserCheckinsDto } from '@points/shared';
+import { UserCheckinsDto, AchievementCheckinDto } from '@points/shared';
 
 import { IProcessing } from '../../store/selectors';
 import { IBaseState } from '../../store/index.reducer';
@@ -42,7 +42,8 @@ export const initialState: IBaseState<IAuthState> = {
       firstName: '',
       lastName: '',
       password: ''
-    }
+    },
+    userData: {} as UserCheckinsDto
   },
   processing: false
 };
@@ -161,4 +162,9 @@ export const isProcessing =
 export const currentUser = (state: IBaseState<IAuthState>): ICurrentUser => {
   const loggedIn = state.condition && state.condition.currentUser;
   return loggedIn ? state.condition!.currentUser! : {} as ICurrentUser;
+};
+
+export const userCheckins = (state: IBaseState<IAuthState>): AchievementCheckinDto[] => {
+  const checkins = state.condition!.userData!.checkins!;
+  return checkins ? checkins : [];
 };

@@ -22,6 +22,9 @@ export class PointsContainer extends Component<{ achievement: AchievementDto }> 
                             marginTop: 3
                         }} type='Entypo' name='circle-with-plus' />
                         <Text>
+                            {`${this.props.achievement && this.props.achievement!.checkins && this.props.achievement!.checkins!.length} `}
+                        </Text>
+                        <Text>
                             {this.props.achievement.points}
                         </Text>
                     </View>
