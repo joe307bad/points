@@ -21,7 +21,7 @@ export default class AchievementItem extends Component<IAchievementItemProps, an
 
     componentWillReceiveProps(nextProps: any) {
         const userCheckins =
-            achievementCheckinSelector(store.getState().sharedReducer)(nextProps.achievement.achievementId);
+            achievementCheckinSelector(nextProps.achievement.achievementId)(store.getState().sharedReducer);
         const props = { ...nextProps, ...{ checkins: userCheckins } };
         this.setState(props);
     };
