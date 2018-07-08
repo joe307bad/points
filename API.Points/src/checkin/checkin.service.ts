@@ -102,7 +102,7 @@ export class CheckinService implements ICheckinService {
                 'checkinDate': '$$ROOT.createdAt'
             }
         }
-    ];
+        ];
 
         return this.checkinModel.aggregate(pipeline).exec();
 
@@ -158,10 +158,7 @@ export class CheckinService implements ICheckinService {
                 '_id': '$_id',
                 'userId': { '$first': '$_id' },
                 'userName': { '$first': '$userName' },
-                'firstName': { '$first': '$firstName' },
-                'totalCheckins': { '$sum': 1 },
-                'totalPoints': { '$sum': '$achievements.approvedPoints' },
-                'pendingPoints': { '$sum': '$achievements.pendingPoints' },
+                'firstName': { '$first': '$firstName' }
             }
         };
 
@@ -186,7 +183,12 @@ export class CheckinService implements ICheckinService {
                 'as': 'checkins'
             }
         },
-        { '$unwind': '$checkins' },
+        {
+            '$unwind': {
+                'path': '$checkins',
+                "preserveNullAndEmptyArrays": true
+            }
+        },
         {
             '$lookup': {
                 'from': this.achievementModel.collection.name,
@@ -195,29 +197,14 @@ export class CheckinService implements ICheckinService {
                 'as': 'achievements'
             }
         },
-        { '$unwind': '$achievements' },
         {
-            '$addFields': {
-                'achievements.approvedPoints': {
-                    $cond: {
-                        if: {
-                            $eq: ['$checkins.approved', true]
-                        },
-                        then: '$achievements.points',
-                        else: 0
-                    }
-                },
-                'achievements.pendingPoints': {
-                    $cond: {
-                        if: {
-                            $eq: ['$checkins.approved', false]
-                        },
-                        then: '$achievements.points',
-                        else: 0
-                    }
-                }
+            '$unwind': {
+                'path': '$achievements',
+                "preserveNullAndEmptyArrays": true
             }
-        }];
+        }
+
+        ];
 
         // add achievement data
         if (withAchievements) {
@@ -236,9 +223,89 @@ export class CheckinService implements ICheckinService {
 
         }
 
-        // add final $group
-        pipeline = [...pipeline, grouping, { '$sort' : { 'totalPoints': -1 } }];
 
+        const project = {
+            "$project": {
+                'userId': '$_id',
+                'userName': '$userName',
+                'firstName': '$firstName',
+                'totalCheckins': {
+                    $cond: [{ $eq: ["$checkins", [{}]] }, 0, { '$size': '$checkins' }]
+                },
+                totalPoints: {
+                    "$sum": {
+                        "$map": {
+                            "input": "$checkins",
+                            "as": "item",
+                            "in": {
+                                "$cond": [
+                                    { "$eq": ["$$item.approved", true] },
+                                    "$$item.points",
+                                    0
+                                ]
+                            }
+                        }
+                    }
+                },
+                pendingPoints: {
+                    "$sum": {
+                        "$map": {
+                            "input": "$checkins",
+                            "as": "item",
+                            "in": {
+                                "$cond": [
+                                    { "$eq": ["$$item.approved", false] },
+                                    "$$item.points",
+                                    0
+                                ]
+                            }
+                        }
+                    }
+                },
+                'checkins': {
+                    $cond: [{ $eq: ["$checkins", [{}]] }, [],
+                    {
+                        $map:
+                            {
+                                input: "$checkins",
+                                as: "checkinMap",
+                                in: {
+                                    achievementId: "$$checkinMap.achievementId",
+                                    checkinId: "$$checkinMap.checkinId",
+                                    checkinDate: "$$checkinMap.checkinDate",
+                                    name: "$$checkinMap.name",
+                                    description: "$$checkinMap.description",
+                                    //category: "$$checkins.category",
+                                    photo: "$$checkinMap.photo",
+                                    points: "$$checkinMap.points",
+                                    approved: "$$checkinMap.approved",
+                                    pendingPoints: {
+                                        $cond: {
+                                            if: {
+                                                $eq: ['$$checkinMap.approved', false]
+                                            },
+                                            then: '$$checkinMap.points',
+                                            else: 0
+                                        }
+                                    },
+                                    approvedPoints: {
+                                        $cond: {
+                                            if: {
+                                                $eq: ['$$checkinMap.approved', true]
+                                            },
+                                            then: '$$checkinMap.points',
+                                            else: 0
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                    ]
+                },
+            }
+        }
+
+        pipeline = [...pipeline, grouping, { '$sort': { 'totalPoints': -1 } }, project];
         return this.userModel.aggregate(pipeline).exec();
     }
 
