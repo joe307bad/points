@@ -80,6 +80,12 @@ export class Http {
             errorMessage = `Error: ${data.message}
             \nEndpoint: ${url}
             \nPayload: ${parsedData}`;
+            
+        } else if (!data) {
+            error = true;
+            errorMessage = `Error: API returned falsey value (probably empty string)
+            \nEndpoint: ${url}
+            \nPayload: ${parsedData}`;
         }
 
         if (error) {

@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { AchievementDto, CategoryDto } from '@points/shared';
 
-import { AchievementList } from '../components/list';
+import AchievementList1 from '../components';
 import { IBaseProps, getBaseProps } from '../../navigation/components';
 import { achievementListSelector, categoriesSelector, } from '../selectors';
 
@@ -39,4 +39,4 @@ export function mapDispatchToProps(
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AchievementList);
+export default connect(mapStateToProps, mapDispatchToProps)(AchievementList1);

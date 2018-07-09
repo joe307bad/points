@@ -61,7 +61,7 @@ export function* getUserData() {
 
     const userData: UserCheckinsDto & ApiError =
         yield apply(checkinService, 'getForUser', [{ userId: user.userId! }]);
-
+        
     if (userData && !userData.errors) {
         yield put({ type: userDataActions.UserDataSuccess, payload: { userData } });
         return userData;
