@@ -7,25 +7,16 @@ import { FlatList } from 'react-native';
 import { AchievementDto, CategoryDto } from '@points/shared';
 import { IAchievementProps } from '../containers';
 import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 interface IAchievementListState {
     achievements: AchievementDto[];
-    refresh: boolean;
 }
 
 export default class AchievementList1 extends Component<IAchievementProps, IAchievementListState> {
 
     state = {
-        achievements: this.props.achievementList,
-        refresh: false
-    }
-
-    constructor(props: any) {
-        super(props);
-        // this.state = {
-        //     achievements: this.props.achievementList,
-        //     refresh: false
-        // };
+        achievements: this.props.achievementList
     }
 
     componentWillMount() {
@@ -43,33 +34,21 @@ export default class AchievementList1 extends Component<IAchievementProps, IAchi
     }
 
     addToPoints() {
-        const achievements = [...this.state.achievements].map(a => {
-            // @ts-ignore
-            a.points++;
-            return a;
-        });
+
+        const achievements = cloneDeep(this.state.achievements);
         // @ts-ignore
         achievements[0].points++;
 
         this.setState((prevState: IAchievementListState) => ({
-            achievements: achievements,
-            //refresh: !prevState.refresh
+            achievements: achievements
         }));
     }
 
     render(): JSX.Element {
 
-        //  TODO find more effecient way to do this
-        // const achievements = this.state.achievements.map((achievement, index) => {
-        //     // @ts-ignore
-        //     achievement.key = index.toString();
-        //     return achievement;
-        // });
-
         return (
             <Container>
                 <FlatList
-                    //extraData={this.state.refresh}
                     data={this.state.achievements}
                     keyExtractor={(item: any) => item.achievementId}
                     renderItem={(achievement) =>
@@ -96,22 +75,16 @@ class AchievementItem extends Component<
         achievement: this.props.achievement
     }
 
+    shouldComponentUpdate(nextProps: { achievement: AchievementDto }, prevProps: { achievement: AchievementDto }) {
 
-    componentWillReceiveProps(nextProps: { achievement: AchievementDto }) {
-        this.setState({
-            achievement: nextProps.achievement
-        });
-    }
-
-    shouldComponentUpdate(nextProps: { achievement: AchievementDto }) {
-        return true;
+        return nextProps.achievement.points !== prevProps.achievement.points;
     }
 
     render(): JSX.Element {
         return (
             <View>
-                <Text>{this.state.achievement.name}</Text>
-                <Text>{this.state.achievement.points}</Text>
+                <Text>{this.props.achievement.name}</Text>
+                <Text>{this.props.achievement.points}</Text>
             </View>
         );
     }
