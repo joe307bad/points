@@ -16,8 +16,9 @@ export const achievementListSelector =
 export const categoriesSelector =
     createSelector(
         fromAchievement.achievements,
+        fromAchievement.checkinProcessing,
         (achievements: AchievementDto[]): CategoryDto[] => {
-
+            
             const categories = [{
                 name: 'All'
             } as CategoryDto];

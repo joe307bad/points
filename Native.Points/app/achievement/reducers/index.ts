@@ -4,21 +4,23 @@ import { IBaseState } from '../../store/index.reducer';
 import { IProcessing } from '../../store/selectors';
 
 import * as achievementListActions from '../actions';
-import * as userDataActions from '../../auth/actions/userData';
+import * as userCheckinActions from '../../checkin/actions';
 
 export interface IAchievementState {
   achievements?: AchievementDto[];
+  checkinProcessing?: boolean;
 }
 
 export const initialState: IBaseState<IAchievementState> = {
   condition: {
-    achievements: []
+    achievements: [],
+    checkinProcessing: false
   },
   processing: false
 };
 
 export const reducer = (state = initialState,
-  action: achievementListActions.AchievementListAction & userDataActions.UserDataRequestAction):
+  action: achievementListActions.AchievementListAction & userCheckinActions.CheckinAction):
   IBaseState<IAchievementState> => {
 
   switch (action.type) {
@@ -53,6 +55,26 @@ export const reducer = (state = initialState,
         message: 'Error loading achievement list'
       };
 
+    case userCheckinActions.CheckinRequest:
+
+      return {
+        ...state,
+        condition: {
+          ...state.condition,
+          checkinProcessing: true
+        }
+      };
+
+    case userCheckinActions.CheckinSuccess:
+
+      return {
+        ...state,
+        condition: {
+          ...state.condition,
+          checkinProcessing: false
+        }
+      };
+
     default:
       return state;
   }
@@ -69,3 +91,6 @@ export const achievements =
     const achievementList = state.condition!.achievements;
     return achievementList ? achievementList : [];
   };
+
+export const checkinProcessing =
+  (state: IBaseState<IAchievementState>): boolean => state.condition!.checkinProcessing!;

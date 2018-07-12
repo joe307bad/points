@@ -65,8 +65,8 @@ export class LoginInnerForm extends Component<ILoginProps & FormikProps<ILoginVa
                 </Item>
                 <Button
                     block
-                    disabled={(!utils.isEmptyObject(this.props.errors) || !this.state.dirty)
-                        && !this.state.rememberMe}
+                    // disabled={(!utils.isEmptyObject(this.props.errors) || !this.state.dirty)
+                    //     && !this.state.rememberMe}
                     onPress={() => this.props.login(this.props.values)}>
                     <Icon type='Entypo' name='login' />
                     <Text>

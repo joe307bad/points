@@ -26,22 +26,26 @@ export default class AchievementList1 extends Component<IAchievementProps, IAchi
     }
 
     componentWillReceiveProps(nextProps: IAchievementProps) {
-        if (!isArrayEqual(nextProps.achievementList, this.state.achievements)) {
-            this.setState((prevState: IAchievementListState) => ({
-                achievements: nextProps.achievementList
-            }));
-        }
+        this.setState((prevState: IAchievementListState) => ({
+            achievements: cloneDeep(nextProps.achievementList)
+        }));
     }
 
     addToPoints() {
 
-        const achievements = cloneDeep(this.state.achievements);
-        // @ts-ignore
-        achievements[0].points++;
+        // const achievements = cloneDeep(this.state.achievements);
+        // // @ts-ignore
+        // achievements[0].points++;
 
-        this.setState((prevState: IAchievementListState) => ({
-            achievements: achievements
-        }));
+        // this.setState((prevState: IAchievementListState) => ({
+        //     achievements: achievements
+        // }));
+        this.props.checkin({
+            achievementId: '5b43df65ad0b28001b17ec50',
+            userId: '5b0ec065f1c0a5001b69ff22',
+            userName: 'joe307bad',
+            achievementName: 'Achievement'
+        })
     }
 
     render(): JSX.Element {
@@ -49,6 +53,7 @@ export default class AchievementList1 extends Component<IAchievementProps, IAchi
         return (
             <Container>
                 <FlatList
+                    // extraData={this.state.refresh}
                     data={this.state.achievements}
                     keyExtractor={(item: any) => item.achievementId}
                     renderItem={(achievement) =>
@@ -75,9 +80,10 @@ class AchievementItem extends Component<
         achievement: this.props.achievement
     }
 
-    shouldComponentUpdate(nextProps: { achievement: AchievementDto }, prevProps: { achievement: AchievementDto }) {
-
-        return nextProps.achievement.points !== prevProps.achievement.points;
+    shouldComponentUpdate(
+        nextProps: { achievement: AchievementDto },
+        prevProps: { achievement: AchievementDto }) {
+        return nextProps.achievement.checkins! && nextProps.achievement.checkins!.length !== prevProps.achievement.checkins!.length;
     }
 
     render(): JSX.Element {
@@ -85,6 +91,7 @@ class AchievementItem extends Component<
             <View>
                 <Text>{this.props.achievement.name}</Text>
                 <Text>{this.props.achievement.points}</Text>
+                <Text>{this.props.achievement.checkins && this.props.achievement.checkins!.length}</Text>
             </View>
         );
     }
