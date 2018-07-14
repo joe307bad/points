@@ -3,6 +3,7 @@ import { ApplicationModule } from './app.module';
 import * as mongoose from 'mongoose';
 import * as validator from 'mongoose-unique-validator';
 import * as express from 'express';
+import { publicDir } from './app.settings';
 // import * as helmet from 'helmet';
 
 async function bootstrap() {
@@ -14,7 +15,7 @@ async function bootstrap() {
 
   // TODO move to middleware
   // https://github.com/wbhob/nest-middlewares
-  app.use(express.static(__dirname + '/public'));
+  app.use(express.static(publicDir));
   // app.use(helmet());
 
   await app.listen(3000);
