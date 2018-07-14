@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
-import { AchievementDto, UserCheckinDto } from '@points/shared';
+import { AchievementDto } from '@points/shared';
 import { ListItem, Left, Thumbnail, Body, Text, Right } from 'native-base';
 
 import PointsContainer from '../../shared/components/points-container';
-import { userCheckinsSelector } from '../../store/selectors/user-checkins.selector';
-import { store } from '../../store';
 import { API_URL } from '../../App';
 
 interface IAchievementItemProps {
-    selectAchievement: (achievement: AchievementDto) => void
-    achievement: AchievementDto
+    selectAchievement: (achievement: AchievementDto) => void;
+    achievement: AchievementDto;
 }
 
-export default class AchievementItem extends Component<IAchievementItemProps, { achievement: AchievementDto }>{
+export default class AchievementItem extends Component<IAchievementItemProps, { achievement: AchievementDto }> {
 
-    state = {
+    public state = {
         achievement: this.props.achievement
-    }
+    };
 
-    shouldComponentUpdate(
+    public shouldComponentUpdate(
         nextProps: { achievement: AchievementDto },
         prevProps: { achievement: AchievementDto }) {
-        return nextProps.achievement.checkins! && nextProps.achievement.checkins!.length !== prevProps.achievement.checkins!.length;
+        return nextProps.achievement.checkins! &&
+            nextProps.achievement.checkins!.length !== prevProps.achievement.checkins!.length;
     }
 
-    render(): JSX.Element {
+    public render(): JSX.Element {
         return (<ListItem
             onPress={() => this.props.selectAchievement(this.props.achievement)}
             style={{

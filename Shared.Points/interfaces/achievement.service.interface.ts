@@ -1,4 +1,4 @@
-import { AchievementDto } from "../dtos";
+import { AchievementDto } from '../dtos';
 
 export interface IAchievementService {
     create(achievement: AchievementDto, photo: any): Promise<AchievementDto>;

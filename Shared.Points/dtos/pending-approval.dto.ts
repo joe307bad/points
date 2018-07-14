@@ -1,7 +1,7 @@
-import { BaseDto } from "./base.dto";
+import { BaseDto } from './base.dto';
 
 // TODO combine this with FeedItemDto
-export class PendingApprovalDto extends BaseDto{
+export class PendingApprovalDto extends BaseDto {
     readonly checkinId: string = '';
     readonly userName: string = '';
     readonly achievementName: string = '';

@@ -9,10 +9,7 @@ import { IAchievementProps } from '../containers';
 import { TabView } from './tab-view';
 import { successfulCheckin } from '../../checkin/selectors';
 import AchievementPreview from '../../shared/components/achievement-preview';
-import { userCheckinsSelector, mapAchievementsToUserCheckins } from '../../store/selectors';
-import store from '../../store';
-import { cloneDeep } from 'lodash';
-
+import { mapAchievementsToUserCheckins } from '../../store/selectors';
 
 interface IAchievementListState {
     selectedAchievement: AchievementDto;
@@ -28,7 +25,6 @@ export default class AchievementList extends Component<IAchievementProps, IAchie
 
     private achievementPreview?: Modal;
     private successfulCheckinSubscription?: Subscription;
-    private userCheckinSubscription?: Subscription;
 
     public componentDidMount() {
         // @ts-ignore
@@ -43,13 +39,9 @@ export default class AchievementList extends Component<IAchievementProps, IAchie
         this.successfulCheckinSubscription = successfulCheckin().subscribe((isSuccessful) => {
             if (isSuccessful) {
                 this.achievementPreview!.close();
-
-                const userCheckins = userCheckinsSelector(store.getState().sharedReducer);
-                const b = cloneDeep(mapAchievementsToUserCheckins(this.state.achievements!, userCheckins));
-                
                 this.setState({
-                    achievements: cloneDeep(mapAchievementsToUserCheckins(this.state.achievements!, userCheckins))
-                })
+                    achievements: mapAchievementsToUserCheckins(this.state.achievements!)
+                });
             }
         });
     }

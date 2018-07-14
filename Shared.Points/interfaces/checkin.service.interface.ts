@@ -1,4 +1,4 @@
-import { CheckinDto, UserCheckinDto, UserCheckinsDto, PendingApprovalDto } from "../dtos";
+import { CheckinDto, UserCheckinsDto, PendingApprovalDto } from '../dtos';
 import { FeedItemDto } from '../dtos/feed-item.dto';
 
 export interface ICheckinService {

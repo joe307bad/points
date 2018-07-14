@@ -2,7 +2,6 @@ import { take, call, put, apply } from 'redux-saga/effects';
 import { SettingsDto, ApiError } from '@points/shared';
 
 import { settingsService } from '../services';
-import NavigationService from '../../navigation/services/navigation-service';
 
 import * as navigationActions from '../actions';
 
@@ -33,6 +32,6 @@ export function* navigationSuccess() {
 
         // TODO make this into a class like userService so we can use apply
         // TODO find some way to not have to hard code screen routeNames
-        //NavigationService.navigate('AchievementList');
+        // NavigationService.navigate('AchievementList');
     }
 }

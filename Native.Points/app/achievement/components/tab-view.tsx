@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
-
-import { IAchievementProps } from '../containers';
-import AchievementList1 from './index';
 import { AchievementDto } from '@points/shared';
 import { cloneDeep } from 'lodash';
 
+import { IAchievementProps } from '../containers';
+import AchievementList from './index';
+
 export class TabView extends Component<IAchievementProps, { achievementList: AchievementDto[] }> {
 
-    state = {
+    public state = {
         achievementList: this.props.achievementList
-    }
+    };
 
-    componentWillReceiveProps(props: IAchievementProps) {
-        
-       this.setState({
-           achievementList: cloneDeep(props.achievementList)
-       })
+    public componentWillReceiveProps(props: IAchievementProps) {
+        this.setState({
+            achievementList: cloneDeep(props.achievementList)
+        });
     }
 
     public render(): JSX.Element {
@@ -27,7 +26,7 @@ export class TabView extends Component<IAchievementProps, { achievementList: Ach
                 renderTabBar={() => <DefaultTabBar />}
             >
                 {this.props.categories.map((category, index) =>
-                    <AchievementList1 {...{
+                    <AchievementList {...{
                         tabLabel: category.name,
                         achievements: this.state.achievementList,
                         category,

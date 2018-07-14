@@ -1,4 +1,4 @@
-import { AchievementDto, UserCheckinsDto } from '@points/shared';
+import { AchievementDto } from '@points/shared';
 
 import { IBaseState } from '../../store/index.reducer';
 import { IProcessing } from '../../store/selectors';

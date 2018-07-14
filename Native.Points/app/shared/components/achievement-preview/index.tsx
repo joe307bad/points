@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AchievementDto } from '@points/shared';
 import { Easing } from 'react-native';
-import { Card, CardItem, Left, Thumbnail, Text, Body, Button, Icon, View, Right } from 'native-base';
+import { Card, CardItem, Thumbnail, Text, Body, Button, Icon, Right } from 'native-base';
 import Modal from 'react-native-modalbox';
 
 import { IUserCheckin } from '../../../checkin/reducers';

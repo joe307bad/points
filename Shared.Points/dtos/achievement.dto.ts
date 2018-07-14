@@ -2,7 +2,6 @@ import { IsString, IsInt, MaxLength, IsNotEmpty } from 'class-validator';
 
 import { BaseDto } from './base.dto';
 import { UserCheckinDto } from './user-checkin.dto';
-import { CategoryDto } from './category.dto';
 
 export class AchievementDto extends BaseDto {
     readonly id: string = '';

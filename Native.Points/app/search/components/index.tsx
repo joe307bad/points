@@ -3,15 +3,14 @@ import { Container, Header, Item, Icon, Input, Button, Text, Left } from 'native
 import { CategoryDto, AchievementDto } from '@points/shared';
 import Modal from 'react-native-modalbox';
 import { Subscription } from 'rxjs';
+import { cloneDeep } from 'lodash';
 
 import { ISearchState } from '../reducers';
 import { ISearchProps } from '../containers';
-import { CategoryList } from '../../achievement/components/category-list';
 import { successfulCheckin } from '../../checkin/selectors';
 import AchievementPreview from '../../shared/components/achievement-preview';
-import { userCheckinsSelector, mapAchievementsToUserCheckins } from '../../store/selectors';
-import store from '../../store';
-import { cloneDeep } from 'lodash';
+import { mapAchievementsToUserCheckins } from '../../store/selectors';
+import AchievementList from '../../achievement/components';
 
 interface ISearchListState {
     selectedAchievement: AchievementDto;
@@ -41,20 +40,16 @@ export class Search extends Component<ISearchProps, SearchComponentState> {
         this.successfulCheckinSubscription = successfulCheckin().subscribe((isSuccessful) => {
             if (isSuccessful) {
                 this.achievementPreview!.close();
-                const userCheckins = userCheckinsSelector(store.getState().sharedReducer);
-
                 this.setState({
-                    searchResults: cloneDeep(mapAchievementsToUserCheckins(this.state.searchResults!, userCheckins))
-                })
+                    searchResults: mapAchievementsToUserCheckins(this.state.searchResults!)
+                });
             }
         });
 
         if (this.state.searchResults) {
-            const userCheckins = userCheckinsSelector(store.getState().sharedReducer);
-            
             this.setState({
-                searchResults: cloneDeep(mapAchievementsToUserCheckins(this.state.searchResults!, userCheckins))
-            })
+                searchResults: mapAchievementsToUserCheckins(this.state.searchResults!)
+            });
         }
 
     }
@@ -66,7 +61,7 @@ export class Search extends Component<ISearchProps, SearchComponentState> {
     public componentWillReceiveProps(nextProps: ISearchProps) {
         this.setState({
             searchResults: cloneDeep(nextProps.searchResults)
-        })
+        });
     }
 
     public render(): JSX.Element {
@@ -97,7 +92,7 @@ export class Search extends Component<ISearchProps, SearchComponentState> {
                         <Text>Search</Text>
                     </Button>
                 </Header>
-                <CategoryList
+                <AchievementList
                     selectAchievement={this.selectAchievement.bind(this)}
                     achievements={this.state.searchResults}
                     category={{ name: 'All' } as CategoryDto}

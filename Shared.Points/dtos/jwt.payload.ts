@@ -1,6 +1,5 @@
 export class JwtPayload {
-    username: string = '';
-    id: string = '';
-    roles: string[] = [];
-  }
-  
+  username: string = '';
+  id: string = '';
+  roles: string[] = [];
+}

@@ -1,4 +1,4 @@
-import { CategoryDto } from "../dtos";
+import { CategoryDto } from '../dtos';
 
 export interface ICategoryService {
     create(category: CategoryDto): Promise<CategoryDto>;

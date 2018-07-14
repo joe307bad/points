@@ -1,3 +1,3 @@
-export class UserExistsDto{
+export class UserExistsDto {
     readonly userExists: boolean = false;
 }

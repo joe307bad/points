@@ -9,8 +9,6 @@ import { debounce } from 'lodash';
 import TextInput from '../../../shared/form/components/text-input';
 import { ILoginProps } from '../../containers';
 import { ILoginValues } from './index';
-import utils from '../../../core/utils';
-import { initialState } from '../../../checkin/reducers/index';
 
 // TODO this can be done better because sometimes the login button is breifly disabled even though
 // the user has rememberMe data saved in AsyncStorage

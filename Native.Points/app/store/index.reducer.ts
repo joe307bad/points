@@ -10,7 +10,7 @@ import leaderboardReducer from '../leaderboard/reducers';
 import uploadReducer from '../upload/reducers';
 import searchReducer from '../search/reducers';
 
-import * as authActions from '../auth/actions'
+import * as authActions from '../auth/actions';
 import * as userDataActions from '../auth/actions/userData';
 import * as checkinActions from '../checkin/actions';
 
@@ -28,19 +28,18 @@ export interface ISharedState {
 
 const initialState = {
   userCheckins: []
-}
+};
 
 export const sharedReducer = (state = initialState,
   action: authActions.UserAction & checkinActions.CheckinAction): any => {
   switch (action.type) {
 
     case checkinActions.CheckinSuccess:
-    
+
       return {
         ...state,
         userCheckins: [...state.userCheckins, action.payload!.userCheckin!.achievementId]
       };
-
 
     case userDataActions.UserDataSuccess:
       return {

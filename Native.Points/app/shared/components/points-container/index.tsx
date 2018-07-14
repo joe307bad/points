@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AchievementDto } from '@points/shared';
-import { Text, View, Right, Icon, Body } from 'native-base';
+import { Text, View, Icon } from 'native-base';
 
 export default class PointsContainer extends Component<{ achievement: AchievementDto }> {
     public render() {
@@ -40,8 +40,8 @@ export default class PointsContainer extends Component<{ achievement: Achievemen
     }
 }
 
-function formatNumberWithCommas(number: number) {
-    var parts = number.toString().split(".");
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return parts.join(".");
+function formatNumberWithCommas(text: number) {
+    const parts = text.toString().split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
 }
