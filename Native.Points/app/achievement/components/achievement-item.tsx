@@ -2,42 +2,31 @@ import React, { Component } from 'react';
 import { AchievementDto, UserCheckinDto } from '@points/shared';
 import { ListItem, Left, Thumbnail, Body, Text, Right } from 'native-base';
 
-import { ISelectedAchievement } from './list';
 import PointsContainer from '../../shared/components/points-container';
-import { userCheckinsSelector, achievementCheckinSelector } from '../../store/selectors/user-checkins.selector';
+import { userCheckinsSelector } from '../../store/selectors/user-checkins.selector';
 import { store } from '../../store';
+import { API_URL } from '../../App';
 
 interface IAchievementItemProps {
-    selectAchievement: (achievement: AchievementDto, increment: () => void) => void
+    selectAchievement: (achievement: AchievementDto) => void
     achievement: AchievementDto
 }
 
-export default class AchievementItem extends Component<IAchievementItemProps, any>{
+export default class AchievementItem extends Component<IAchievementItemProps, { achievement: AchievementDto }>{
 
-    componentWillMount() {
-        const props = this.props
-        this.setState(props);
+    state = {
+        achievement: this.props.achievement
     }
 
-    componentWillReceiveProps(nextProps: any) {
-        const userCheckins =
-            achievementCheckinSelector(nextProps.achievement.achievementId)(store.getState().sharedReducer);
-        const props = { ...nextProps, ...{ checkins: userCheckins } };
-        this.setState(props);
-    };
-
-    // shouldComponentUpdate(nextProps: any, nextState: any) {
-    //     debugger;
-    //     return this.state.achievement.checkins.length !== nextState.achievement.checkins.length;
-    // }
+    shouldComponentUpdate(
+        nextProps: { achievement: AchievementDto },
+        prevProps: { achievement: AchievementDto }) {
+        return nextProps.achievement.checkins! && nextProps.achievement.checkins!.length !== prevProps.achievement.checkins!.length;
+    }
 
     render(): JSX.Element {
         return (<ListItem
-            onPress={() => this.props.selectAchievement(this.props.achievement, () =>
-                this.props.achievement.checkins =
-                this.props.achievement!.checkins
-                    ? [...(this.props.achievement.checkins as any), {} as UserCheckinDto]
-                    : [{} as UserCheckinDto])}
+            onPress={() => this.props.selectAchievement(this.props.achievement)}
             style={{
                 marginLeft: 0,
                 display: 'flex'
@@ -53,7 +42,7 @@ export default class AchievementItem extends Component<IAchievementItemProps, an
                     source={{
                         // TODO store URL somewhere
                         uri: this.props.achievement.photo
-                            ? 'https://p.jbad.io/uploads/' + this.props.achievement.photo
+                            ? API_URL + 'uploads/' + this.props.achievement.photo
                             : 'https://www.iconsdb.com/icons/preview/gray/circle-xxl.png'
                     }} size={5} />
             </Left>

@@ -18,7 +18,7 @@ export const categoriesSelector =
         fromAchievement.achievements,
         fromAchievement.checkinProcessing,
         (achievements: AchievementDto[]): CategoryDto[] => {
-            
+
             const categories = [{
                 name: 'All'
             } as CategoryDto];
@@ -29,18 +29,3 @@ export const categoriesSelector =
                     name: achievement.category
                 } as CategoryDto))];
         });
-
-
-export const categoriesWatch = watch(() => categoriesSelector(store.getState().achievementReducer));
-
-export const userCheckins = () => {
-    return new Observable<AchievementDto[]>((observer) => {
-        observer.next([]);
-
-        const unsubscribe = store.subscribe(categoriesWatch((achievements: AchievementDto[]) => {
-            observer.next(achievements);
-        }));
-
-        return unsubscribe;
-    });
-};

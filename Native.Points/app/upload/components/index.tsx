@@ -14,6 +14,7 @@ import { IUploadProps } from '../containers';
 import { completedUploadListRequest, completedUserUploadRequest } from '../selectors';
 import { IPhotoData } from '../../core/camera';
 import { UploadPreview } from './upload-preview';
+import { API_URL } from '../../App';
 
 export class Upload extends Component<IUploadProps, IUploadState> {
 
@@ -86,8 +87,8 @@ export class Upload extends Component<IUploadProps, IUploadState> {
         // TODO stop hardcoding URLs
         const imageURLs: object[] = this.props.uploadList.map(
             (img: UploadDto, index: number) => ({
-                URI: 'https://p.jbad.io/uploads/' + img.photo,
-                thumbnail: 'https://p.jbad.io/uploads/' + img.photo,
+                URI: API_URL + 'uploads/' + img.photo,
+                thumbnail: API_URL + 'uploads/' + img.photo,
                 id: String(index),
                 title: img.title,
                 description: img.description

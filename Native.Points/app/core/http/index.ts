@@ -4,8 +4,7 @@ import { ApiError } from '@points/shared';
 import Utils from '../utils';
 import { persistentStorage } from '../async-storage';
 import Error from '../../shared/error-modal';
-
-const API_URL = 'https://p.jbad.io/';
+import { API_URL } from '../../App';
 
 export class Http {
 
@@ -17,6 +16,7 @@ export class Http {
 
     public async post<T>(url: string, payload: any, multipart: boolean = false): Promise<T> {
         const check = (data: any) => this.check(data, url, payload);
+
         return axios
             .post(API_URL + url, payload, await this.getConfig(multipart))
             .then((result: any) => check(result.data))

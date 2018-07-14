@@ -7,6 +7,7 @@ import Modal from 'react-native-modalbox';
 import { IUserCheckin } from '../../../checkin/reducers';
 import { ICurrentUser } from '../../../auth/reducers';
 import PointsContainer from '../../../shared/components/points-container';
+import { API_URL } from '../../../App';
 
 interface IAchievementPreviewProps {
     selectedAchievement: AchievementDto;
@@ -40,7 +41,7 @@ export default class AchievementPreview extends Component<IAchievementPreviewPro
                                 source={{
                                     // TODO store URL somewhere
                                     uri: this.props.selectedAchievement.photo
-                                        ? 'https://p.jbad.io/uploads/' + this.props.selectedAchievement.photo
+                                        ? API_URL + '/uploads/' + this.props.selectedAchievement.photo
                                         : 'https://www.iconsdb.com/icons/preview/gray/circle-xxl.png'
                                 }} size={5} />
 

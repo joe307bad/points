@@ -11,17 +11,16 @@ export const userCheckins = (sharedReducer: ISharedState): string[] =>
         : [];
 
 export const userCheckinsSelector =
-    createSelector(userCheckins, (checkins: string[]): { [key: string]: string[] } => {
-        debugger;
-        return groupBy(checkins)
-    });
-
-export const achievementCheckinSelector = (achievementId: string) =>
-    createSelector(userCheckinsSelector, (checkins: { [key: string]: string[] }) => checkins[achievementId]);
+    createSelector(userCheckins, (checkins: string[]): { [key: string]: string[] } => groupBy(checkins));
 
 export const mapAchievementsToUserCheckins = (achievements: AchievementDto[], userCheckins?: { [key: string]: string[] }) => {
 
     const checkins: { [key: string]: string[] } = userCheckins ? userCheckins : userCheckinsSelector(store.getState().sharedReducer);
+    const b = achievements.map((achievement) =>
+    Object.assign(achievement, {
+        checkins: checkins[achievement.achievementId]
+    }));
+    
 
     return achievements.map((achievement) =>
         Object.assign(achievement, {

@@ -6,27 +6,23 @@ import Modal from 'react-native-modalbox';
 
 import { Toolbar } from '../../shared/components';
 import { IAchievementProps } from '../containers';
-import { TabView } from './';
+import { TabView } from './tab-view';
 import { successfulCheckin } from '../../checkin/selectors';
 import AchievementPreview from '../../shared/components/achievement-preview';
-import { userCheckins } from '../selectors';
+import { userCheckinsSelector, mapAchievementsToUserCheckins } from '../../store/selectors';
+import store from '../../store';
+import { cloneDeep } from 'lodash';
 
-export interface ISelectedAchievement {
-    achievement: AchievementDto;
-    increment: () => void;
-}
 
 interface IAchievementListState {
-    selectedAchievement: ISelectedAchievement;
+    selectedAchievement: AchievementDto;
     achievements: AchievementDto[];
 }
 
-export class AchievementList extends Component<IAchievementProps, IAchievementListState> {
+export default class AchievementList extends Component<IAchievementProps, IAchievementListState> {
 
     public state: IAchievementListState = {
-        selectedAchievement: {
-            achievement: {} as AchievementDto
-        } as ISelectedAchievement,
+        selectedAchievement: {} as AchievementDto,
         achievements: this.props.achievementList
     };
 
@@ -47,17 +43,15 @@ export class AchievementList extends Component<IAchievementProps, IAchievementLi
         this.successfulCheckinSubscription = successfulCheckin().subscribe((isSuccessful) => {
             if (isSuccessful) {
                 this.achievementPreview!.close();
-                this.state.selectedAchievement!.increment();
+
+                const userCheckins = userCheckinsSelector(store.getState().sharedReducer);
+                const b = cloneDeep(mapAchievementsToUserCheckins(this.state.achievements!, userCheckins));
+                
+                this.setState({
+                    achievements: cloneDeep(mapAchievementsToUserCheckins(this.state.achievements!, userCheckins))
+                })
             }
         });
-
-        this.userCheckinSubscription = userCheckins()
-            .subscribe((achievementsWithUserCheckins: AchievementDto[]) => {
-                this.setState({
-                    achievements: achievementsWithUserCheckins
-                })
-            });
-
     }
 
     public componentWillUnmount() {
@@ -74,22 +68,19 @@ export class AchievementList extends Component<IAchievementProps, IAchievementLi
         return (
             <Container>
                 <Toolbar {...this.props} />
-                {this.props.categories.length && <TabView {...props} />}
+                {this.props.categories.length && <TabView achievementList={this.state.achievements} {...props} />}
                 <AchievementPreview
                     ref='achievementPreview'
-                    selectedAchievement={this.state.selectedAchievement.achievement}
+                    selectedAchievement={this.state.selectedAchievement}
                     checkin={this.props.checkin}
                     currentUser={this.props.currentUser} />
             </Container>
         );
     }
 
-    private selectAchievement(achievement: AchievementDto, increment: () => void) {
+    private selectAchievement(achievement: AchievementDto) {
         this.setState({
-            selectedAchievement: {
-                achievement: achievement,
-                increment: increment
-            }
+            selectedAchievement: achievement
         });
         this.achievementPreview!.open();
     }

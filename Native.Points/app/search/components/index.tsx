@@ -9,14 +9,13 @@ import { ISearchProps } from '../containers';
 import { CategoryList } from '../../achievement/components/category-list';
 import { successfulCheckin } from '../../checkin/selectors';
 import AchievementPreview from '../../shared/components/achievement-preview';
-
-interface ISelectedAchievement {
-    achievement: AchievementDto;
-    increment: () => void;
-}
+import { userCheckinsSelector, mapAchievementsToUserCheckins } from '../../store/selectors';
+import store from '../../store';
+import { cloneDeep } from 'lodash';
 
 interface ISearchListState {
-    selectedAchievement: ISelectedAchievement;
+    selectedAchievement: AchievementDto;
+    searchResults: AchievementDto[];
 }
 
 type SearchComponentState = ISearchState & ISearchListState;
@@ -25,13 +24,9 @@ export class Search extends Component<ISearchProps, SearchComponentState> {
 
     // TODO i dont think we need the spread operator her, state does not get passed in
     public state: SearchComponentState = {
-        ...this.state,
-        ...{
-            searchTerm: this.props.searchTerm,
-            selectedAchievement: {
-                achievement: {} as AchievementDto
-            } as ISelectedAchievement
-        }
+        searchTerm: this.props.searchTerm,
+        selectedAchievement: {} as AchievementDto,
+        searchResults: this.props.searchResults
     };
     private achievementPreview?: Modal;
     private successfulCheckinSubscription?: Subscription;
@@ -46,14 +41,32 @@ export class Search extends Component<ISearchProps, SearchComponentState> {
         this.successfulCheckinSubscription = successfulCheckin().subscribe((isSuccessful) => {
             if (isSuccessful) {
                 this.achievementPreview!.close();
-                this.state.selectedAchievement.increment();
+                const userCheckins = userCheckinsSelector(store.getState().sharedReducer);
+
+                this.setState({
+                    searchResults: cloneDeep(mapAchievementsToUserCheckins(this.state.searchResults!, userCheckins))
+                })
             }
         });
+
+        if (this.state.searchResults) {
+            const userCheckins = userCheckinsSelector(store.getState().sharedReducer);
+            
+            this.setState({
+                searchResults: cloneDeep(mapAchievementsToUserCheckins(this.state.searchResults!, userCheckins))
+            })
+        }
 
     }
 
     public componentWillUnmount() {
         this.successfulCheckinSubscription!.unsubscribe();
+    }
+
+    public componentWillReceiveProps(nextProps: ISearchProps) {
+        this.setState({
+            searchResults: cloneDeep(nextProps.searchResults)
+        })
     }
 
     public render(): JSX.Element {
@@ -86,12 +99,12 @@ export class Search extends Component<ISearchProps, SearchComponentState> {
                 </Header>
                 <CategoryList
                     selectAchievement={this.selectAchievement.bind(this)}
-                    achievements={this.props.searchResults}
+                    achievements={this.state.searchResults}
                     category={{ name: 'All' } as CategoryDto}
                     key={''} />
                 <AchievementPreview
                     ref='achievementPreview'
-                    selectedAchievement={this.state.selectedAchievement.achievement}
+                    selectedAchievement={this.state.selectedAchievement}
                     checkin={this.props.checkin}
                     currentUser={this.props.currentUser} />
             </Container>
@@ -104,12 +117,9 @@ export class Search extends Component<ISearchProps, SearchComponentState> {
         });
     }
 
-    private selectAchievement(achievement: AchievementDto, increment: () => void) {
+    private selectAchievement(achievement: AchievementDto) {
         this.setState({
-            selectedAchievement: {
-                achievement: achievement,
-                increment: increment
-            }
+            selectedAchievement: achievement
         });
         this.achievementPreview!.open();
     }
