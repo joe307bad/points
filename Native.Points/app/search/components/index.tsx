@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 
 import { ISearchState } from '../reducers';
 import { ISearchProps } from '../containers';
-import { CategoryList } from '../../achievement/components';
+import { CategoryList } from '../../achievement/components/category-list';
 import { successfulCheckin } from '../../checkin/selectors';
 import AchievementPreview from '../../shared/components/achievement-preview';
 

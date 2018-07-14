@@ -35,7 +35,7 @@ export const sharedReducer = (state = initialState,
   switch (action.type) {
 
     case checkinActions.CheckinSuccess:
-
+      debugger;
       return {
         ...state,
         userCheckins: [...state.userCheckins, action.payload!.userCheckin!.achievementId]

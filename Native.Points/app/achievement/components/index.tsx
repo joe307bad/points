@@ -8,6 +8,9 @@ import { AchievementDto, CategoryDto } from '@points/shared';
 import { IAchievementProps } from '../containers';
 import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
+import store from '../../store';
+import { achievementListSelector, categoriesSelector } from '../selectors';
+import { userCheckinsSelector, mapAchievementsToUserCheckins } from '../../store/selectors';
 
 interface IAchievementListState {
     achievements: AchievementDto[];
@@ -22,6 +25,12 @@ export default class AchievementList1 extends Component<IAchievementProps, IAchi
     componentWillMount() {
         if (!this.state.achievements.length) {
             this.props.getAchievementList();
+        } else {
+            const userCheckins = userCheckinsSelector(store.getState().sharedReducer);
+
+            this.setState({
+                achievements: mapAchievementsToUserCheckins(this.state.achievements, userCheckins)
+            })
         }
     }
 
@@ -32,14 +41,6 @@ export default class AchievementList1 extends Component<IAchievementProps, IAchi
     }
 
     addToPoints() {
-
-        // const achievements = cloneDeep(this.state.achievements);
-        // // @ts-ignore
-        // achievements[0].points++;
-
-        // this.setState((prevState: IAchievementListState) => ({
-        //     achievements: achievements
-        // }));
         this.props.checkin({
             achievementId: '5b43df65ad0b28001b17ec50',
             userId: '5b0ec065f1c0a5001b69ff22',
@@ -53,7 +54,6 @@ export default class AchievementList1 extends Component<IAchievementProps, IAchi
         return (
             <Container>
                 <FlatList
-                    // extraData={this.state.refresh}
                     data={this.state.achievements}
                     keyExtractor={(item: any) => item.achievementId}
                     renderItem={(achievement) =>
@@ -83,6 +83,7 @@ class AchievementItem extends Component<
     shouldComponentUpdate(
         nextProps: { achievement: AchievementDto },
         prevProps: { achievement: AchievementDto }) {
+        debugger;
         return nextProps.achievement.checkins! && nextProps.achievement.checkins!.length !== prevProps.achievement.checkins!.length;
     }
 
@@ -96,7 +97,3 @@ class AchievementItem extends Component<
         );
     }
 }
-
-const isArrayEqual = function (x: any, y: any) {
-    return _(x).xorWith(y, _.isEqual).isEmpty();
-};
