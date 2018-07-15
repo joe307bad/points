@@ -28,15 +28,15 @@ export class Toolbar extends Component<IBaseProps> {
             <Header>
                 <Left style={{ flex: 0, paddingLeft: 6, width: 60 }}>
                     {!this.props.disableMenuButton &&
-                        <Button transparent>
-                            <Icon name='menu' onPress={() => this.props.navigation.openDrawer()} />
+                        <Button transparent onPress={this.props.navigation.openDrawer}>
+                            <Icon name='menu' />
                         </Button>}
                     {this.props.enableBackButton &&
-                        <Button transparent>
-                            <Icon name='arrow-with-circle-left' type='Entypo' onPress={() =>
-                                this.props.navigation.dispatch(
-                                    NavigationActions.navigate({ routeName: `Home` })
-                                )} />
+                        <Button transparent onPress={() =>
+                            this.props.navigation.dispatch(
+                                NavigationActions.navigate({ routeName: `Home` })
+                            )}>
+                            <Icon name='arrow-with-circle-left' type='Entypo' />
                         </Button>}
                 </Left>
                 <Body>

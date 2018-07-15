@@ -34,7 +34,6 @@ export default class AchievementList extends Component<ICategoryListProps, IAchi
     }
 
     public componentWillReceiveProps(nextProps: ICategoryListProps) {
-
         this.setState((prevState: IAchievementListState) => ({
             achievements: cloneDeep(nextProps.achievements)
         }));

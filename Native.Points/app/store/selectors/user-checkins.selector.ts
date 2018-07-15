@@ -22,3 +22,9 @@ export const mapAchievementsToUserCheckins = (achievements: AchievementDto[]) =>
             checkins: checkins[achievement.achievementId]
         })));
 };
+
+// TODO this function may alleviate the need to keeep track of updating achievements via component lifecycle functions
+export const getNumberOfCheckins = (achievementId: string): number => {
+    const checkins = userCheckinsSelector(store.getState().sharedReducer)[achievementId];
+    return checkins ? checkins.length : 0;
+}

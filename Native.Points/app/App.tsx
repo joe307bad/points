@@ -10,7 +10,7 @@ import NavigatorService from './navigation/services/navigation-service';
 import Navigation from './navigation/components';
 import Error from './shared/error-modal';
 
-export const API_URL = 'http://10.0.3.2:3000/'; // https://p.jbad.io/
+export const API_URL = 'https://p.jbad.io/'; // http://10.0.3.2:3000/
 
 export default class App extends Component<{}> {
 

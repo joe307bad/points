@@ -13,23 +13,6 @@
 * [Formik](https://github.com/jaredpalmer/formik) and [Yup](https://github.com/jquense/yup) for easy form construction and validation
 ---
 ### MVP ToDos:
-- [X] ~~Upload list pull to refresh~~
-- [X] ~~Create upload action~~
-- [X] ~~Sort uploads by created date~~
-- [X] ~~Register user~~
-- [X] ~~Error modal triggered by core Http~~
-- [X] ~~If JWT is invalid/expired, boot back to login screen~~
-- [X] ~~Make user exists endpoint case insensitive~~
-- [X] ~~Fix create user endpoint, creates a user without a role~~
-- [X] ~~Remember me functionality~~
-- [X] ~~Logout functionality~~
-- [X] ~~Achievement search functionality~~
-- [X] ~~Add minor top padding to leaderboard left numbers~~
-- [X] ~~Some indicator that you have already checked into an achievement~~
-- [X] ~~Style checkin indicator, move user checkins to base state, apply checkin indicator to search results~~
-- [ ] Redo photo gallery
-    - Possibly create thumbnail on upload?
-    - Remove upload preview functionality
 - [ ] Sort achievements by amount of points
 - [ ] Deploy to Android
 - [ ] Deploy to iOS and Expo

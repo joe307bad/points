@@ -22,13 +22,14 @@ export class UploadPreview extends Component<{
             <Modal
                 style={{ height: 'auto', maxHeight: '100%', padding: 10, backgroundColor: 'transparent' }}
                 easing={Easing.elastic(0)}
-                coverScreen={true}
+                //coverScreen={true}
+                position='bottom'
                 swipeToClose={false}
                 ref='uploadPreviewModal'>
 
                 <ScrollView>
                     <View style={{ backgroundColor: 'white', padding: 10 }}>
-                        <View
+                        {/* <View
                             onLayout={(event) => {
                                 const { width } = event.nativeEvent.layout;
                                 this.setState({
@@ -48,7 +49,7 @@ export class UploadPreview extends Component<{
                                 }}
                                 source={{ uri: this.props.photo.location }}
                             />
-                        </View>
+                        </View> */}
                         <View>
                             <Form>
                                 <Item>

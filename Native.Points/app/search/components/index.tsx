@@ -114,7 +114,7 @@ export class Search extends Component<ISearchProps, SearchComponentState> {
 
     private selectAchievement(achievement: AchievementDto) {
         this.setState({
-            selectedAchievement: achievement
+            selectedAchievement: achievement!
         });
         this.achievementPreview!.open();
     }

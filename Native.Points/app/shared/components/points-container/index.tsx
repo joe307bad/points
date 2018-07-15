@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { AchievementDto } from '@points/shared';
 import { Text, View, Icon } from 'native-base';
 
+import { getNumberOfCheckins } from '../../../store/selectors';
+
 export default class PointsContainer extends Component<{ achievement: AchievementDto }> {
     public render() {
         return (
@@ -25,7 +27,7 @@ export default class PointsContainer extends Component<{ achievement: Achievemen
                         textAlign: 'center',
                         marginLeft: 15
                     }}>
-                        {this.props.achievement!.checkins!.length}
+                        {getNumberOfCheckins(this.props.achievement.achievementId)}
                     </Text>}
                 <Icon style={{
                     fontSize: 15,

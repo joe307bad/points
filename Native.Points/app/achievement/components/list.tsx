@@ -60,7 +60,7 @@ export default class AchievementList extends Component<IAchievementProps, IAchie
         return (
             <Container>
                 <Toolbar {...this.props} />
-                {this.props.categories.length && <TabView achievementList={this.state.achievements} {...props} />}
+                {this.props.categories.length && <TabView {...props} />}
                 <AchievementPreview
                     ref='achievementPreview'
                     selectedAchievement={this.state.selectedAchievement}
