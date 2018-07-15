@@ -295,7 +295,7 @@ export class CheckinService implements ICheckinService {
             }
         }
 
-        pipeline = [...pipeline, grouping, { '$sort': { 'totalPoints': -1 } }, project];
+        pipeline = [...pipeline, grouping, project, { '$sort': { 'totalPoints': -1 } }];
         return this.userModel.aggregate(pipeline).exec();
     }
 
