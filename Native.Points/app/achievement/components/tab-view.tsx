@@ -28,7 +28,14 @@ export class TabView extends Component<IAchievementProps, { achievementList: Ach
                 {this.props.categories.map((category, index) =>
                     <AchievementList {...{
                         tabLabel: category.name,
-                        achievements: this.state.achievementList,
+                        achievements: this.state.achievementList
+                            .filter(achievement => {
+                                if (category.name !== 'All') {
+                                    return achievement.category === category.name
+                                } else {
+                                    return true;
+                                }
+                            }),
                         category,
                         key: index,
                         selectAchievement: this.props.selectAchievement
