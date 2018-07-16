@@ -150,7 +150,7 @@ export class AchievementService implements IAchievementService {
         }
         ];
 
-        pipeline = [...pipeline, grouping];
+        pipeline = [...pipeline, grouping, { $sort: { 'points': -1 } }];
 
         return this.achievementModel.aggregate(pipeline).exec();
     }
