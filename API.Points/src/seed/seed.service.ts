@@ -2,6 +2,7 @@ import { Injectable, Inject } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CategoryDto, AchievementDto, UserDto } from "@points/shared";
+import * as bcrypt from 'bcrypt';
 
 import { User, Achievement, Category } from "../shared/interfaces";
 import { SeedResults } from "./seed.controller";
@@ -116,7 +117,11 @@ export class SeedService {
             }));
 
         const userAudit: SeedAudit<UserDto> = {
-            missing: missingUsers,
+            missing: missingUsers.map(user => {
+                const userWithPassword =
+                    Object.assign(user, { password: bcrypt.hashSync(user.password, 10) });
+                return userWithPassword;
+            }),
             existing: existingUsers
         };
 
