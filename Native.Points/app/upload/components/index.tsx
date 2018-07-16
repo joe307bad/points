@@ -1,9 +1,9 @@
 // @ts-ignore
 import ImageBrowser from 'react-native-interactive-image-gallery';
 import React, { Component } from 'react';
-import { Container, View, } from 'native-base';
+import { Container } from 'native-base';
 import Modal from 'react-native-modalbox';
-import { ScrollView, RefreshControl } from 'react-native';
+import { ScrollView, RefreshControl, View } from 'react-native';
 import { Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import { UploadDto } from '@points/shared';
@@ -89,14 +89,9 @@ export class Upload extends Component<IUploadProps, IUploadState> {
         // TODO stop hardcoding URLs
         const imageURLs: object[] = this.props.uploadList.map(
             (img: UploadDto, index: number) => ({
-                id: index,
+                id: img.photo,
                 image: { uri: API_URL + 'uploads/' + img.photo },
                 thumb: { uri: API_URL + 'uploads/thumb/' + img.photo }
-                // URI: API_URL + 'uploads/' + img.photo,
-                // thumbnail: API_URL + 'uploads/thumb/' + img.photo,
-                // id: String(index),
-                // title: img.title,
-                // description: img.description
             })
         );
 
@@ -109,9 +104,21 @@ export class Upload extends Component<IUploadProps, IUploadState> {
                     camera
                     cameraHandler={(photoData: IPhotoData) =>
                         this.showPhotoPreview(photoData)} />
-                <Container style={{ height: '100%', width: '100%' }}>
-                    <Gallery data={imageURLs} />
-                </Container>
+                <View
+                    onLayout={() => {
+                        this.forceUpdate();
+                    }}
+                    style={{
+                        height: '100%',
+                        width: '100%',
+                        position: 'absolute',
+                        'top': 0,
+                        'zIndex': -1
+                    }}>
+                    <Gallery data={imageURLs && imageURLs.length
+                        ? imageURLs
+                        : [{ id: 'loading', image: { uri: 'http://www.1x1px.me/FFFFFF-1.png' } }]} />
+                </View>
                 <UploadPreview
                     ref='uploadPreview'
                     updateDescription={((event: any) => this.updateDescription(event.nativeEvent.text))}
