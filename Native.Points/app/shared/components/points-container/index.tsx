@@ -25,7 +25,8 @@ export default class PointsContainer extends Component<{ achievement: Achievemen
                         marginRight: 5,
                         marginTop: 1,
                         textAlign: 'center',
-                        marginLeft: 15
+                        marginLeft: 15,
+                        overflow: 'hidden'
                     }}>
                         {getNumberOfCheckins(this.props.achievement.achievementId)}
                     </Text>}
