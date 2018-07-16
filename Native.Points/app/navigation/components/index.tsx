@@ -23,6 +23,8 @@ export interface IBaseProps extends NavigationInjectedProps {
     currentUser: ICurrentUser;
     camera?: boolean;
     cameraHandler?: (photoData: IPhotoData) => void;
+    refresh?: boolean;
+    refreshHandler?: () => void;
 }
 
 // TODO is there a way to stringly type this `state` argument?

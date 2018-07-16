@@ -1,12 +1,14 @@
 // @ts-ignore
 import ImageBrowser from 'react-native-interactive-image-gallery';
 import React, { Component } from 'react';
-import { Container, } from 'native-base';
+import { Container, View, } from 'native-base';
 import Modal from 'react-native-modalbox';
 import { ScrollView, RefreshControl } from 'react-native';
 import { Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import { UploadDto } from '@points/shared';
+// @ts-ignore
+import Gallery from 'react-native-photo-gallery';
 
 import { Toolbar } from '../../shared/components/header';
 import { IUploadState, initialState, IUserUpload } from '../reducers';
@@ -87,11 +89,14 @@ export class Upload extends Component<IUploadProps, IUploadState> {
         // TODO stop hardcoding URLs
         const imageURLs: object[] = this.props.uploadList.map(
             (img: UploadDto, index: number) => ({
-                URI: API_URL + 'uploads/' + img.photo,
-                thumbnail: API_URL + 'uploads/thumb/' + img.photo,
-                id: String(index),
-                title: img.title,
-                description: img.description
+                id: index,
+                image: { uri: API_URL + 'uploads/' + img.photo },
+                thumb: { uri: API_URL + 'uploads/thumb/' + img.photo }
+                // URI: API_URL + 'uploads/' + img.photo,
+                // thumbnail: API_URL + 'uploads/thumb/' + img.photo,
+                // id: String(index),
+                // title: img.title,
+                // description: img.description
             })
         );
 
@@ -99,24 +104,14 @@ export class Upload extends Component<IUploadProps, IUploadState> {
             <Container>
                 <Toolbar
                     {...this.props}
+                    refresh
+                    refreshHandler={this.props.getUploadList}
                     camera
                     cameraHandler={(photoData: IPhotoData) =>
                         this.showPhotoPreview(photoData)} />
-                <ScrollView
-                    style={{ width: '100%' }}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={this.state.refreshing!}
-                            onRefresh={() => {
-                                this.setState({
-                                    refreshing: true
-                                });
-                                this.props.getUploadList();
-                            }}
-                        />
-                    }>
-                    <ImageBrowser style={{ width: '100%' }} images={imageURLs} />
-                </ScrollView>
+                <Container style={{ height: '100%', width: '100%' }}>
+                    <Gallery data={imageURLs} />
+                </Container>
                 <UploadPreview
                     ref='uploadPreview'
                     updateDescription={((event: any) => this.updateDescription(event.nativeEvent.text))}

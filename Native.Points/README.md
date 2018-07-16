@@ -12,10 +12,6 @@
 * [NativeBase](https://github.com/GeekyAnts/NativeBase) UI toolkit
 * [Formik](https://github.com/jaredpalmer/formik) and [Yup](https://github.com/jquense/yup) for easy form construction and validation
 ---
-### MVP ToDos:
-- [ ] Sort achievements by amount of points
-- [ ] Deploy to Android
-- [ ] Deploy to iOS and Expo
 
 ### Post Beta ToDos:
 - [ ] Why does upload endpoint return empty object when no uploads are present

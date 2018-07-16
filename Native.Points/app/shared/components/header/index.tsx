@@ -42,15 +42,18 @@ export class Toolbar extends Component<IBaseProps> {
                 <Body>
                     <Title>{this.state.title}</Title>
                 </Body>
-                {this.props.camera &&
-                    <Right>
-                        <Button transparent
-                            onPress={() =>
-                                this.props.cameraHandler &&
-                                camera.takePhoto((photoData) => this.props.cameraHandler!(photoData))}>
-                            <Icon name='camera' type='Entypo' />
-                        </Button>
-                    </Right>}
+                <Right>
+                    {this.props.refresh && <Button transparent
+                        onPress={() => this.props.refreshHandler && this.props.refreshHandler()}>
+                        <Icon name='refresh' />
+                    </Button>}
+                    {this.props.camera && <Button transparent
+                        onPress={() =>
+                            this.props.cameraHandler &&
+                            camera.takePhoto((photoData) => this.props.cameraHandler!(photoData))}>
+                        <Icon name='camera' type='Entypo' />
+                    </Button>}
+                </Right>
             </Header>
         );
     }
