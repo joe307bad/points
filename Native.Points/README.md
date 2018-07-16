@@ -15,10 +15,6 @@
 
 ### Post Beta ToDos:
 - [ ] Why does upload endpoint return empty object when no uploads are present
-- [ ] Seed endpoint accessible by admins to check for existing achievements and add if necessary
-    - Download photos and save to jbhs-scripts projects
-    - Transcribe all achievements on bachlr to json file
-    - Alter points playbook to copy up json file and photos and run endpoint
 - [ ] If use is booted back to login screen, return them to previous screen once they log back in
 - [ ] Flow to approve users instead of automatially granting access
 - [ ] Manage Categories
