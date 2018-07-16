@@ -25,6 +25,7 @@ export class AchievementDto extends BaseDto {
 
     totalCheckins?: number;
     checkins?: UserCheckinDto[];
+    categoryId?: string;
 
     photo: string = '';
 }

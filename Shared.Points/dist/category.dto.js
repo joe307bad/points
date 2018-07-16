@@ -4,6 +4,7 @@ const base_dto_1 = require("./base.dto");
 class CategoryDto extends base_dto_1.BaseDto {
     constructor() {
         super(...arguments);
+        this.id = '';
         this.name = '';
     }
 }

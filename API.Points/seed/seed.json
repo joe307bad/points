@@ -1,0 +1,49 @@
+{
+    "categories": [
+        {
+            "name": "Beer"
+        },
+        {
+            "name": "Negative"
+        },
+        {
+            "name": "INGIYLI"
+        }
+    ],
+    "achievements": [
+        {
+            "name": "Beer Achievement",
+            "description": "Drink exactly 13 trillion beers. And then attempt to swim 50 quintillion laps around Dab Lake",
+            "points": 50,
+            "category": "Beer"
+        },
+        {
+            "name": "Negative Point Achievement",
+            "description": "Drown. Thats not cool.",
+            "points": -249859,
+            "category": "Negative"
+        },
+        {
+            "name": "Drink 70 billion beers",
+            "description": "Take these 80 million cases of keystone light and shotgun all of them.",
+            "points": 456,
+            "category": "Beer"
+        }
+    ],
+    "admins": [
+        {
+            "userName": "joe307bad",
+            "firstName": "Joe",
+            "lastName": "Badaczewski",
+            "password": "P@ssw0rd",
+            "roles": ["admin"]
+        },
+        {
+            "userName": "tcain89",
+            "firstName": "Tyler",
+            "lastName": "Cain",
+            "password": "P@ssw0rd",
+            "roles": ["admin"]
+        }
+    ]
+}

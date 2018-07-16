@@ -10,6 +10,7 @@ import { UploadModule } from './upload';
 import { CategoryModule } from './category';
 import { AuthMiddleware } from './core/middleware';
 import { SettingsModule } from './settings';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { SettingsModule } from './settings';
     CheckinModule,
     UploadModule,
     SettingsModule,
-    CategoryModule
+    CategoryModule,
+    SeedModule
   ],
 })
 export class ApplicationModule {
