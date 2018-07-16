@@ -22,15 +22,15 @@ export function* registerUser(userRegister: IUserRegister): any {
     const response = yield apply(userService, 'create', [userRegister as UserDto]);
 
     if (response.accessToken && !response.errors) {
-
+        
         const user = storeUserInfo({
-            userName: response.userName,
-            firstName: response.firstName,
+            userName: userRegister.userName,
+            firstName: userRegister.firstName,
             password: '',
             rememberMe: false
         } as ICurrentUser, response);
-
-        yield put({ type: loginActions.UserLoginSuccess, payload: { user } });
+        
+        yield put({ type: loginActions.UserLoginSuccess, payload: { currentUser: user } });
     }
 
     if (response.errors) {

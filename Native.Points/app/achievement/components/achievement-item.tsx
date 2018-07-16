@@ -19,8 +19,9 @@ export default class AchievementItem extends Component<IAchievementItemProps, { 
     public shouldComponentUpdate(
         nextProps: { achievement: AchievementDto },
         prevProps: { achievement: AchievementDto }) {
-        return nextProps.achievement.checkins! &&
-            nextProps.achievement.checkins!.length !== prevProps.achievement.checkins!.length;
+        const nextCheckins = nextProps.achievement.checkins! && nextProps.achievement.checkins!.length;
+        const prevCheckins = prevProps.achievement.checkins! && prevProps.achievement.checkins!.length;
+        return nextCheckins !== prevCheckins;
     }
 
     public render(): JSX.Element {
