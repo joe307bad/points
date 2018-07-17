@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/main.ts --env=NODE_ENV",
-    "build:prod": "tsc --sourceMap false && gulp && gulp copyEnvProd && gulp zip",
+    "build:prod": "gulp cleanDist && tsc --sourceMap false && gulp && gulp copyEnvProd && gulp zip",
     "prestart:prod": "tsc",
     "prod": "npm install --only=production && node -r dotenv/config main.js dotenv_config_path=./.env",
     "test": "jest --config=jest.json",
@@ -28,6 +28,7 @@
     "bcrypt": "^2.0.1",
     "class-transformer": "^0.1.7",
     "class-validator": "^0.8.1",
+    "del": "^3.0.0",
     "dotenv": "^6.0.0",
     "gm": "^1.23.1",
     "helmet": "^3.12.1",

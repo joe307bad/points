@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var install = require('gulp-install');
 var zip = require('gulp-zip');
 var rename = require('gulp-rename');
+var del = require('del');
 
 const PROD_DEST = './dist';
 
@@ -16,8 +17,15 @@ gulp.task('copyEnvProd', function () {
         .pipe(gulp.dest(PROD_DEST));
 });
 
+gulp.task('cleanDist', function () {
+    return del([PROD_DEST + '/'])
+})
+
 gulp.task('zip', () =>
-    gulp.src(PROD_DEST + '/**/**')
+    gulp.src([
+        PROD_DEST + '/**/**',
+        PROD_DEST + '/.*'
+    ])
         .pipe(zip('dist.zip'))
         .pipe(gulp.dest('./'))
 );
