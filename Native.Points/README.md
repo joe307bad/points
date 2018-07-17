@@ -42,3 +42,9 @@
 - [ ] Integrate [Redux Persist](https://github.com/rt2zz/redux-persist)	
 - [ ] Submit HTTP call with [MessagePack](https://msgpack.org/index.html)	
     - https://www.npmjs.com/package/body-parser-with-msgpack
+
+### Consideratons for next React project:
+* Use immutable.js utilities (like fromJS) inside the reducers
+* use action creators
+* avoid using componentWillUpdate
+* be more vigalant with using stateless/pure components
