@@ -7,7 +7,7 @@
     "start": "ts-node src/main.ts --env=NODE_ENV",
     "build:prod": "tsc --sourceMap false && gulp && gulp copyEnvProd && gulp zip",
     "prestart:prod": "tsc",
-    "prod": "npm install --only=production && node main.js --env=NODE_ENV",
+    "prod": "npm install --only=production && node -r dotenv/config main.js dotenv_config_path=./.env",
     "test": "jest --config=jest.json",
     "test:watch": "jest --watch --config=jest.json",
     "test:coverage": "jest --config=jest.json --coverage --coverageDirectory=coverage",
