@@ -8,28 +8,31 @@ import { getNumberOfCheckins } from '../../../store/selectors';
 export default class PointsContainer extends Component<{ achievement: AchievementDto }> {
     public render() {
 
-        let styles = {
+        const styles = {
             userCheckin: {
-                fontSize: 14,
                 backgroundColor: 'blue',
                 borderRadius: 20,
                 height: 25,
                 width: 25,
-                color: 'white',
                 marginRight: 5,
                 marginTop: -1,
-                textAlign: 'center',
                 marginLeft: 15,
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center'
+            },
+            userCheckinText: {
+                fontSize: 14,
+                color: 'white',
+                overflow: 'hidden',
+                textAlign: 'center'
             }
         };
 
         if (Platform.OS === 'ios') {
             styles.userCheckin = {
                 ...styles.userCheckin
-            }
+            };
         }
 
         // @ts-ignore
@@ -45,11 +48,7 @@ export default class PointsContainer extends Component<{ achievement: Achievemen
                     this.props.achievement!.checkins &&
                     this.props.achievement!.checkins!.length &&
                     <View style={styleSheet.userCheckin}>
-                        <Text style={{
-                            color: 'white',
-                            overflow: 'hidden',
-                            textAlign: 'center'
-                        }}>
+                        <Text style={styleSheet.userCheckinText}>
                             {getNumberOfCheckins(this.props.achievement.achievementId)}
                         </Text>
                     </View>}

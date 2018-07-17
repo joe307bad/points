@@ -1,14 +1,12 @@
 // @ts-ignore
-import ImageBrowser from 'react-native-interactive-image-gallery';
+import Gallery from 'react-native-photo-gallery';
 import React, { Component } from 'react';
 import { Container } from 'native-base';
 import Modal from 'react-native-modalbox';
-import { ScrollView, RefreshControl, View } from 'react-native';
+import { View } from 'react-native';
 import { Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import { UploadDto } from '@points/shared';
-// @ts-ignore
-import Gallery from 'react-native-photo-gallery';
 
 import { Toolbar } from '../../shared/components/header';
 import { IUploadState, initialState, IUserUpload } from '../reducers';
@@ -112,8 +110,8 @@ export class Upload extends Component<IUploadProps, IUploadState> {
                         height: '100%',
                         width: '100%',
                         position: 'absolute',
-                        'top': 0,
-                        'zIndex': -1
+                        top: 0,
+                        zIndex: -1
                     }}>
                     <Gallery data={imageURLs && imageURLs.length
                         ? imageURLs

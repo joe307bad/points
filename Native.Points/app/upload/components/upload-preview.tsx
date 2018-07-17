@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Easing, Image, ScrollView, } from 'react-native';
+import { Easing, ScrollView, } from 'react-native';
 import { Icon, View, Text, Form, Item, Input, Button } from 'native-base';
 import Modal from 'react-native-modalbox';
 
@@ -22,7 +22,6 @@ export class UploadPreview extends Component<{
             <Modal
                 style={{ height: 'auto', maxHeight: '100%', padding: 10, backgroundColor: 'transparent' }}
                 easing={Easing.elastic(0)}
-                //coverScreen={true}
                 position='bottom'
                 swipeToClose={false}
                 ref='uploadPreviewModal'>

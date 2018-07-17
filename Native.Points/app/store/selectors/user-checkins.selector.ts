@@ -27,4 +27,4 @@ export const mapAchievementsToUserCheckins = (achievements: AchievementDto[]) =>
 export const getNumberOfCheckins = (achievementId: string): number => {
     const checkins = userCheckinsSelector(store.getState().sharedReducer)[achievementId];
     return checkins ? checkins.length : 0;
-}
+};

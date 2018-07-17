@@ -11,6 +11,14 @@
 * [Typescript](https://www.typescriptlang.org/) for a high level of structure and strong typing
 * [NativeBase](https://github.com/GeekyAnts/NativeBase) UI toolkit
 * [Formik](https://github.com/jaredpalmer/formik) and [Yup](https://github.com/jquense/yup) for easy form construction and validation
+
+#### Other Credits:
+* [react-community/react-native-image-picker](https://github.com/react-community/react-native-image-picker)
+* [FidMe/react-native-photo-gallery](https://github.com/FidMe/react-native-photo-gallery)
+* [maxs15/react-native-modalbox](https://github.com/maxs15/react-native-modalbox)
+* [skv-headless/react-native-scrollable-tab-view](https://github.com/skv-headless/react-native-scrollable-tab-view)
+* [thegamenicorus/react-native-timeline-listview](https://github.com/thegamenicorus/react-native-timeline-listview0)
+
 ---
 
 ### Post Beta ToDos:

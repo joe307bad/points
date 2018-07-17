@@ -4,7 +4,6 @@ import { FlatList } from 'react-native';
 import { AchievementDto, CategoryDto } from '@points/shared';
 import cloneDeep from 'lodash/cloneDeep';
 
-import { achievementListSelector, categoriesSelector } from '../selectors';
 import { mapAchievementsToUserCheckins } from '../../store/selectors';
 import AchievementItem from './achievement-item';
 
