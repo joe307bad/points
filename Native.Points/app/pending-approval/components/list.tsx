@@ -65,7 +65,7 @@ export class PendingApprovalList extends Component<IPendingApprovalListProps, IP
                                 <Text>
                                     {pendingApproval.item.userName}
                                     <Text note>
-                                        {` chcecked into ${pendingApproval.item.achievementName} `}
+                                        {` checked into ${pendingApproval.item.achievementName} `}
                                         {date.relativeFormat(pendingApproval.item.checkinDate)}
                                     </Text>
                                 </Text>
