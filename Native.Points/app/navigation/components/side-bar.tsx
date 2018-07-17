@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Content, Text, List, ListItem } from 'native-base';
 import { NavigationItemDto } from '@points/shared';
 import { Subscription } from 'rxjs';
+import { Platform, StyleSheet } from 'react-native';
 
 import { NavigationActions, withNavigation } from 'react-navigation';
 import { navItems } from '../../store/selectors';
@@ -45,10 +46,25 @@ class SideBar extends Component<IBaseProps, ISideBarState> {
     }
 
     public render(): JSX.Element {
+
+        let styles = {
+            sidebarList: {}
+         };
+
+        if(Platform.OS === 'ios'){
+            styles.sidebarList = {
+                ...styles.sidebarList,
+                paddingTop: 20
+            }
+        }
+
+        const styleSheet = StyleSheet.create(styles);
+
         return (
             <Container>
                 <Content>
                     <List
+                        style={styleSheet.sidebarList}
                         dataArray={this.state.routes}
                         renderRow={(data: NavigationItemDto) => {
                             return (

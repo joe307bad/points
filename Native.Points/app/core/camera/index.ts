@@ -14,8 +14,9 @@ export interface IPhotoData {
 const CameraOptions = {
     title: 'Upload a photo',
     storageOptions: {
+        cameraRoll: true,
         skipBackup: true,
-        path: 'images'
+        waitUntilSaved:true
     }
 };
 
