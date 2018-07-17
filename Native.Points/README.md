@@ -12,7 +12,7 @@
 * [NativeBase](https://github.com/GeekyAnts/NativeBase) UI toolkit
 * [Formik](https://github.com/jaredpalmer/formik) and [Yup](https://github.com/jquense/yup) for easy form construction and validation
 
-#### Other Credits:
+##### Other Credits:
 * [react-community/react-native-image-picker](https://github.com/react-community/react-native-image-picker)
 * [FidMe/react-native-photo-gallery](https://github.com/FidMe/react-native-photo-gallery)
 * [maxs15/react-native-modalbox](https://github.com/maxs15/react-native-modalbox)
