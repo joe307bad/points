@@ -9,8 +9,6 @@
 ---
 ### ToDos
 - [ ] Implement flow for approving users and not automatically granting a token
-- [ ] Set up environment variables
-    - https://www.npmjs.com/package/gulp-env
 - [ ] Generate documentation
     - https://stackoverflow.com/questions/18626191/node-js-or-express-js-rest-api-document-generator
 - [ ] Gulp task to update shared project (delete folder in node modules, build shared project, npm install Shared)
