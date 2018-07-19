@@ -25,8 +25,9 @@ export default class Loading extends Component<ISpinnerProps, ISpinnerState> {
     };
   }
 
-  public componentDidMount() {
-    this.processingSubscription = isProcessing().subscribe((state: IProcessing) =>
+  // this seems like it may be failing on load user data
+  public componentWillMount() {
+    this.processingSubscription = isProcessing().subscribe((state: IProcessing) => 
       this.setState({
         visible: state.processing,
         message: state.message

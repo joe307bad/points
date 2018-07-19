@@ -22,12 +22,11 @@
 ---
 
 ### Beta Bugs:
-- [ ] Continually loading new user data (I think just on iOS)
-- [ ] Set a default title for photo upload
-- [ ] Destroy navigation items before loading new ones
-- [ ] First attempt to upload photo on iOS fails
-- [ ] Round corners on leaderboard
-- [ ] Loading icon appears in upload slider behind photo
+- [X] Continually loading new user data (I think just on iOS)
+- [X] Destroy navigation items before loading new ones
+- [X] First attempt to upload photo on iOS fails
+- [X] Round corners on leaderboard
+- [X] Loading icon appears in upload slider behind photo
 
 ### Post Beta ToDos:
 - [ ] Why does upload endpoint return empty object when no uploads are present

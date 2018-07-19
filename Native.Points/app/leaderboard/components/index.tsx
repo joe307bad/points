@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, ListItem, Body, Text, Right, Left } from 'native-base';
+import { Container, ListItem, Body, Text, Right, Left, View } from 'native-base';
 import { FlatList } from 'react-native';
 import { skip } from 'rxjs/operators';
 import { AchievementDto, UserCheckinsDto } from '@points/shared';
@@ -59,19 +59,25 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                     renderItem={(leaderboardItem: { item: UserCheckinsDto, index: number }) =>
                         <ListItem style={{ marginLeft: 0, paddingLeft: 10 }} avatar>
                             <Left>
-                                <Text
-                                    style={{
-                                        color: 'white',
-                                        backgroundColor: 'green',
-                                        borderRadius: 12,
-                                        height: 24,
-                                        width: 24,
-                                        fontWeight: 'bold',
-                                        textAlign: 'center',
-                                        paddingTop: 1
-                                    }}>
-                                    {leaderboardItem.index + 1}
-                                </Text>
+                                <View style={{
+                                    backgroundColor: 'green',
+                                    borderRadius: 12,
+                                    height: 24,
+                                    width: 24,
+                                    alignContent: 'center',
+                                    alignItems: 'center',
+                                    display: 'flex',
+                                }}>
+                                    <Text
+                                        style={{
+                                            color: 'white',
+                                            fontWeight: 'bold',
+                                            textAlign: 'center',
+                                            paddingTop: 1
+                                        }}>
+                                        {leaderboardItem.index + 1}
+                                    </Text>
+                                </View>
                             </Left>
                             <Body style={{ borderColor: 'transparent', paddingLeft: 10 }}>
                                 <Text>

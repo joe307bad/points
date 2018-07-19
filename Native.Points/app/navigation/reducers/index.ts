@@ -26,6 +26,13 @@ export const reducer = (state = initialState, action: navigationActions.UserActi
 
       return {
         ...state,
+        condition: {
+          navigation: {
+            enabled: true,
+            items: [],
+            controlPanel: []
+          }
+        },
         processing: true,
         message: 'Loading navigation'
       };

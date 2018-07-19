@@ -7,6 +7,7 @@ import { View } from 'react-native';
 import { Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import { UploadDto } from '@points/shared';
+import Permissions from 'react-native-permissions'
 
 import { Toolbar } from '../../shared/components/header';
 import { IUploadState, initialState, IUserUpload } from '../reducers';
@@ -26,6 +27,7 @@ export class Upload extends Component<IUploadProps, IUploadState> {
     private completedUserUploadRequestSubscription?: Subscription;
 
     public componentWillMount() {
+
         if (!this.props.uploadList.length) {
             this.props.getUploadList();
         }
@@ -58,6 +60,9 @@ export class Upload extends Component<IUploadProps, IUploadState> {
     public componentDidMount() {
         // @ts-ignore
         this.uploadPreview = this.refs.uploadPreview.refs.uploadPreviewModal;
+
+        Permissions.request('camera');
+        Permissions.request('photo');
     }
 
     public showPhotoPreview(photoData: IPhotoData) {
