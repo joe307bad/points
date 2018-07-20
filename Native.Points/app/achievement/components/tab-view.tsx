@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
+import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
 import { AchievementDto } from '@points/shared';
 import { cloneDeep } from 'lodash';
 
@@ -23,7 +23,7 @@ export class TabView extends Component<IAchievementProps, { achievementList: Ach
         return (
             <ScrollableTabView
                 style={{ marginTop: 10, }}
-                renderTabBar={() => <DefaultTabBar />}
+                renderTabBar={() => <ScrollableTabBar />}
             >
                 {this.props.categories.map((category, index) =>
                     <AchievementList {...{
