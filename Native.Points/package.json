@@ -27,6 +27,7 @@
     "react-native-permissions": "^1.1.1",
     "react-native-photo-gallery": "^0.1.10",
     "react-native-scrollable-tab-view": "^0.8.0",
+    "react-native-swipeable": "^0.6.0",
     "react-native-timeline-listview": "^0.2.3",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.3.1",
