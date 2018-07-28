@@ -22,6 +22,9 @@
 ---
 
 ### Beta Bugs:
+- [ ] Navigation list is still not clearing out when logging out as user and logging in as admin
+- [ ] scrollable toolbar for achievements in iOS
+- [ ] confirm sentry works on android and iOS
 - [X] Continually loading new user data (I think just on iOS)
 - [X] Destroy navigation items before loading new ones
 - [X] First attempt to upload photo on iOS fails
