@@ -22,7 +22,9 @@
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-  // jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
+  //jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+
+RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"points"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];

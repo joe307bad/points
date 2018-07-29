@@ -22,11 +22,13 @@ class SideBar extends Component<IBaseProps, ISideBarState> {
 
     private navItemsSubscription?: Subscription;
 
-    public componentDidMount() {
+    public componentWillMount() {
         this.navItemsSubscription = navItems().subscribe((items: NavigationItemDto[]) =>
-            this.setState({
-                routes: items
-            }));
+            {
+                this.setState({
+                    routes: items
+                });
+            })
 
         // TODO find better place for this
         this.isUnauthorizedSubscription = isUnauthorized().subscribe((unauthorized) => {
