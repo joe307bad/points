@@ -23,7 +23,7 @@ export class TabView extends Component<IAchievementProps, { achievementList: Ach
         return (
             <ScrollableTabView
                 style={{ marginTop: 10, }}
-                renderTabBar={() => <ScrollableTabBar />}
+                renderTabBar={() => <ScrollableTabBar key={this.state.achievementList.length > 0 ? '1' : '0'} />}
             >
                 {this.props.categories.map((category, index) =>
                     <AchievementList {...{
