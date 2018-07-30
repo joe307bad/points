@@ -22,15 +22,11 @@
 ---
 
 ### Beta Bugs:
-- [X] Navigation list is still not clearing out when logging out as user and logging in as admin
-- [X] scrollable toolbar for achievements in iOS
-- [X] confirm sentry works on android and iOS
-- [X] Continually loading new user data (I think just on iOS)
-- [X] Destroy navigation items before loading new ones
-- [X] First attempt to upload photo on iOS fails
-- [X] Round corners on leaderboard
-- [X] Loading icon appears in upload slider behind photo
-
+- [ ] Fix issue with dynamic scrollable tab bar categories
+    - https://github.com/happypancake/react-native-scrollable-tab-view/issues/292
+- [ ] Downgrade photo quality as to reduce data usage
+- [ ] Determine why some achievement thumbnails arent showing and why the thumbnail is not showing in the preview
+ 
 ### Post Beta ToDos:
 - [ ] Why does upload endpoint return empty object when no uploads are present
 - [ ] If use is booted back to login screen, return them to previous screen once they log back in
