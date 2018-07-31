@@ -1,5 +1,5 @@
 // @ts-ignore
-import Gallery from 'react-native-photo-gallery';
+import Gallery from '../../shared/custom/react-native-photo-gallery';
 import React, { Component } from 'react';
 import { Container } from 'native-base';
 import Modal from 'react-native-modalbox';
