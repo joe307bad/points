@@ -93,7 +93,7 @@ export class Upload extends Component<IUploadProps, IUploadState> {
         const imageURLs: object[] = this.props.uploadList.map(
             (img: UploadDto, index: number) => ({
                 id: img.photo,
-                image: { uri: API_URL + 'uploads/' + img.photo },
+                image: { uri: API_URL + 'uploads/medium/' + img.photo },
                 thumb: { uri: API_URL + 'uploads/thumb/' + img.photo }
             })
         );

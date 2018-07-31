@@ -46,7 +46,7 @@ export class UploadController implements IUploadService {
             .crop(300, 300, dimensions.width / 2 - 150, dimensions.height / 2 - 150)
             .resize(100, 100)
             .gravity("Center")
-            .quality(75)
+            .quality(10)
             .noProfile()
             .write(thumbnail, function (err) {
 
