@@ -24,6 +24,7 @@ export class UploadController implements IUploadService {
         if (!!photo) {
             upload.photo = photo.filename;
             this.generateThumbnail(upload.photo);
+            this.generateMedium(upload.photo);
             return res.send(await this.upload.create(upload).catch(err => err));
         } else {
             return res.status(404).send('Not found');
@@ -46,6 +47,18 @@ export class UploadController implements IUploadService {
             .resize(100, 100)
             .gravity("Center")
             .quality(75)
+            .noProfile()
+            .write(thumbnail, function (err) {
+
+            });
+    }
+
+    private generateMedium(fileName: string) {
+        const fileLocation = uploadDir + '/' + fileName;
+        const thumbnail = uploadDir + '/medium/' + fileName;
+        
+        gm(fileLocation)
+            .quality(25)
             .noProfile()
             .write(thumbnail, function (err) {
 
