@@ -59,7 +59,6 @@ export class UploadController implements IUploadService {
         
         gm(fileLocation)
             .quality(25)
-            .noProfile()
             .write(thumbnail, function (err) {
 
             });
