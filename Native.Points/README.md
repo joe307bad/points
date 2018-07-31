@@ -22,9 +22,7 @@
 ---
 
 ### Beta Bugs:
-- [x] Fix issue with dynamic scrollable tab bar categories
-    - https://github.com/happypancake/react-native-scrollable-tab-view/issues/292
-- [ ] Downgrade photo quality as to reduce data usage
+- [ ] Uploads are getting cut off and rotated
 - [ ] Determine why some achievement thumbnails arent showing and why the thumbnail is not showing in the preview
  
 ### Post Beta ToDos:
