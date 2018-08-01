@@ -21,9 +21,9 @@
 
 ---
 
-### Beta Bugs:
-- [ ] Uploads are getting cut off and rotated
-- [ ] Determine why some achievement thumbnails arent showing and why the thumbnail is not showing in the preview
+### Bugs
+- App crashes when zooming out on android upload picture
+    - https://github.com/alwx/react-native-photo-view/issues/15
  
 ### Post Beta ToDos:
 - [ ] Why does upload endpoint return empty object when no uploads are present
