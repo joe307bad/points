@@ -13,19 +13,19 @@
     "achievements": [
         {
             "name": "Beer Achievement",
-            "description": "Drink exactly 13 trillion beers. And then attempt to swim 50 quintillion laps around Dab Lake",
+            "description": "Drink 1 beer",
             "points": 50,
             "category": "Beer"
         },
         {
             "name": "Negative Point Achievement",
-            "description": "Drown. Thats not cool.",
+            "description": "Dont do something stupid",
             "points": -249859,
             "category": "Negative"
         },
         {
             "name": "Drink 70 billion beers",
-            "description": "Take these 80 million cases of keystone light and shotgun all of them.",
+            "description": "Drink two beers",
             "points": 456,
             "category": "Beer"
         }
