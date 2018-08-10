@@ -8,6 +8,7 @@
 * [Passport](http://www.passportjs.org/) and [JWT](https://jwt.io/) for token authentication
 ---
 ### ToDos
+- [ ] Add "check" endpoint for pingdom monitoring
 - [ ] Implement flow for approving users and not automatically granting a token
 - [ ] Generate documentation
     - https://stackoverflow.com/questions/18626191/node-js-or-express-js-rest-api-document-generator
