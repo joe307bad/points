@@ -21,6 +21,7 @@
     "react": "16.3.1",
     "react-addons-update": "^15.6.2",
     "react-native": "0.55.4",
+    "react-native-config": "^0.11.5",
     "react-native-image-picker": "^0.26.7",
     "react-native-loading-spinner-overlay": "^0.5.2",
     "react-native-modalbox": "^1.5.0",

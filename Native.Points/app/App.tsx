@@ -3,6 +3,7 @@ import { Container, Text, Card, CardItem, Body } from 'native-base';
 import { Provider } from 'react-redux';
 import Modal from 'react-native-modalbox';
 import { Easing } from 'react-native';
+import Config from 'react-native-config'
 
 import Loading from './shared/components/spinner';
 import store from './store';
@@ -10,7 +11,7 @@ import NavigatorService from './navigation/services/navigation-service';
 import Navigation from './navigation/components';
 import Error from './shared/error-modal';
 
-export const API_URL = 'https://p.jbad.io/'; // http://10.0.3.2:3000/
+export const API_URL = Config.API_URL;
 
 export default class App extends Component<{}> {
 
