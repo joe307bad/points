@@ -26,9 +26,12 @@
     - https://github.com/alwx/react-native-photo-view/issues/15
  
 ### Post Beta ToDos:
+- [ ] Ability to see other people's achievements
 - [ ] Return search results as you type
 - [ ] Admin ability to checkin as users (mainly for negative achievements)
 - [ ] Admin ability to remove pending approvals (delete checkins)
+- [ ] Implement back button with React Navigation code
+    - https://github.com/react-navigation/react-navigation/blob/5e075e1c31d5e6192f2532a815b1737fa27ed65b/src/createNavigationContainer.js#L154
 - [ ] Why does upload endpoint return empty object when no uploads are present
 - [ ] If use is booted back to login screen, return them to previous screen once they log back in
 - [ ] Flow to approve users instead of automatially granting access
@@ -39,8 +42,6 @@
 - [ ] User profile page with personal feed and photo upload capabilities
 - [ ] Favorite achievements and see them in profile page
 - [ ] Look at todos
-- [ ] Implement back button with React Navigation code
-    - https://github.com/react-navigation/react-navigation/blob/5e075e1c31d5e6192f2532a815b1737fa27ed65b/src/createNavigationContainer.js#L154
 - [ ] React Navigation transitions
     - https://www.npmjs.com/package/react-navigation-transitions
 
