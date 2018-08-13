@@ -26,6 +26,9 @@
     - https://github.com/alwx/react-native-photo-view/issues/15
  
 ### Post Beta ToDos:
+- [ ] Return search results as you type
+- [ ] Admin ability to checkin as users (mainly for negative achievements)
+- [ ] Admin ability to remove pending approvals (delete checkins)
 - [ ] Why does upload endpoint return empty object when no uploads are present
 - [ ] If use is booted back to login screen, return them to previous screen once they log back in
 - [ ] Flow to approve users instead of automatially granting access
