@@ -30,6 +30,7 @@
 - [ ] Return search results as you type
 - [ ] Admin ability to checkin as users (mainly for negative achievements)
 - [ ] Admin ability to remove pending approvals (delete checkins)
+- [ ] User profile page with personal feed, photo upload capabilities, and leaderboard avatars
 - [ ] Implement back button with React Navigation code
     - https://github.com/react-navigation/react-navigation/blob/5e075e1c31d5e6192f2532a815b1737fa27ed65b/src/createNavigationContainer.js#L154
 - [ ] Why does upload endpoint return empty object when no uploads are present
@@ -39,7 +40,6 @@
 - [ ] Manage Achievements
 - [ ] Approve all functionality
 - [ ] Checkin details and photo upload
-- [ ] User profile page with personal feed and photo upload capabilities
 - [ ] Favorite achievements and see them in profile page
 - [ ] Look at todos
 - [ ] React Navigation transitions
