@@ -25,3 +25,4 @@
 - [ ] Decouple endpoints from photo uploads
     - The reason for this is that the permissions gaurd is unable to parse the req.body of a multipart form request
     - the req.body is important because this determines if entity is owned by the user
+- [ ] Dynamic permissions and roles using some cacheing mechanism
