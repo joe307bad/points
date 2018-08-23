@@ -8,6 +8,9 @@
     "lint": "tslint --project tsconfig.json"
   },
   "dependencies": {
+    "@babel/core": "^7.0.0-rc.1",
+    "@babel/preset-env": "^7.0.0-rc.1",
+    "@babel/preset-react": "^7.0.0-rc.1",
     "@points/shared": "file:../Shared.Points",
     "axios": "^0.18.0",
     "class-validator": "^0.8.5",
@@ -20,13 +23,13 @@
     "native-base": "^2.7",
     "react": "^16.4.1",
     "react-addons-update": "^15.6.2",
-    "react-native": "^0.56.0",
+    "react-native": "0.57.0-rc.2",
     "react-native-image-picker": "^0.26.7",
     "react-native-loading-spinner-overlay": "^0.5.2",
     "react-native-modalbox": "^1.5.0",
     "react-native-permissions": "^1.1.1",
     "react-native-photo-view": "^1.5.2",
-    "react-native-scrollable-tab-view": "^0.8.0",
+    "react-native-scrollable-tab-view": "git+https://github.com/happypancake/react-native-scrollable-tab-view.git",
     "react-native-sentry": "^0.38.2",
     "react-native-timeline-listview": "^0.2.3",
     "react-native-vector-icons": "^4.6.0",
@@ -40,6 +43,7 @@
     "yup": "^0.25.1"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.0.0-rc.2",
     "@types/axios": "^0.14.0",
     "@types/jest": "^22.2.3",
     "@types/jwt-decode": "^2.2.1",
@@ -61,13 +65,16 @@
     "@types/reselect": "^2.2.0",
     "@types/yup": "^0.24.7",
     "babel-jest": "23.0.1",
-    "babel-preset-react-native": "^5",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react-native": "^5.0.2",
+    "babel-preset-react-native-typescript": "^1.0.0-rc.1",
+    "babel-preset-typescript": "^7.0.0-alpha.19",
     "jest": "23.1.0",
     "metro": "^0.43.4",
     "react-native-config": "^0.11.5",
     "react-native-typescript-transformer": "^1.2.10",
     "react-test-renderer": "16.3.1",
-    "typescript": "^3.0.1"
+    "typescript": "^2.9.1"
   },
   "jest": {
     "preset": "react-native"
