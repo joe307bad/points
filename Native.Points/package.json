@@ -8,9 +8,6 @@
     "lint": "tslint --project tsconfig.json"
   },
   "dependencies": {
-    "@babel/core": "^7.0.0-rc.1",
-    "@babel/preset-env": "^7.0.0-rc.1",
-    "@babel/preset-react": "^7.0.0-rc.1",
     "@points/shared": "file:../Shared.Points",
     "axios": "^0.18.0",
     "class-validator": "^0.8.5",
@@ -43,16 +40,12 @@
     "yup": "^0.25.1"
   },
   "devDependencies": {
-    "@babel/preset-typescript": "^7.0.0-rc.2",
     "@types/axios": "^0.14.0",
-    "@types/jest": "^22.2.3",
     "@types/jwt-decode": "^2.2.1",
     "@types/lodash": "^4.14.109",
     "@types/moment": "^2.13.0",
     "@types/moment-timezone": "^0.5.6",
-    "@types/react": "^16.3.14",
     "@types/react-addons-update": "^0.14.19",
-    "@types/react-native": "^0.55.16",
     "@types/react-native-loading-spinner-overlay": "^0.5.0",
     "@types/react-native-modalbox": "^1.4.6",
     "@types/react-native-permissions": "^1.1.1",
@@ -60,21 +53,21 @@
     "@types/react-navigation": "^2.0.6",
     "@types/react-redux": "^6.0.1",
     "@types/react-router": "^4.0.26",
-    "@types/react-test-renderer": "^16.0.1",
     "@types/redux-saga": "^0.10.5",
     "@types/reselect": "^2.2.0",
     "@types/yup": "^0.24.7",
-    "babel-jest": "23.0.1",
-    "babel-preset-flow": "^6.23.0",
-    "babel-preset-react-native": "^5.0.2",
-    "babel-preset-react-native-typescript": "^1.0.0-rc.1",
-    "babel-preset-typescript": "^7.0.0-alpha.19",
-    "jest": "23.1.0",
-    "metro": "^0.43.4",
     "react-native-config": "^0.11.5",
+    "@types/jest": "^23.3.1",
+    "@types/react": "^16.4.11",
+    "@types/react-native": "^0.56.11",
+    "@types/react-test-renderer": "^16.0.2",
+    "babel-jest": "23.4.2",
+    "babel-preset-react-native": "5",
+    "jest": "23.5.0",
     "react-native-typescript-transformer": "^1.2.10",
-    "react-test-renderer": "16.3.1",
-    "typescript": "^2.9.1"
+    "react-test-renderer": "16.4.1",
+    "ts-jest": "^23.1.4",
+    "typescript": "^3.0.1"
   },
   "jest": {
     "preset": "react-native"
