@@ -9,11 +9,6 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#if __has_include(<React/RNSentry.h>)
-#import <React/RNSentry.h> // This is used for versions of react >= 0.40
-#else
-#import "RNSentry.h" // This is used for versions of react < 0.40
-#endif
 
 @implementation AppDelegate
 
@@ -21,18 +16,12 @@
 {
   NSURL *jsCodeLocation;
 
-  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-  //jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
-RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"points"
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
+                                                      moduleName:@"Points"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-
-
-
-  [RNSentry installWithRootView:rootView];
-
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

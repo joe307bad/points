@@ -9,4 +9,4 @@ Sentry.config('https://85099796d541450596ddf73f69808c95@sentry.io/1247865', {
     // disableNativeIntegration: Platform.OS === 'android',
 }).install();
 
-AppRegistry.registerComponent('points', () => App);
+AppRegistry.registerComponent('Points', () => App);
