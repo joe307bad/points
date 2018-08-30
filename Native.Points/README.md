@@ -20,6 +20,10 @@
 * [thegamenicorus/react-native-timeline-listview](https://github.com/thegamenicorus/react-native-timeline-listview0)
 
 ---
+```bash
+$env:ENVFILE=".env.dev"; react-native run-android
+```
+---
 
 ### Bugs
 - App crashes when zooming out on android upload picture
