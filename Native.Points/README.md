@@ -19,15 +19,34 @@
 * [skv-headless/react-native-scrollable-tab-view](https://github.com/skv-headless/react-native-scrollable-tab-view)
 * [thegamenicorus/react-native-timeline-listview](https://github.com/thegamenicorus/react-native-timeline-listview0)
 
----
+### How to start in Android emulator on Windows
+1. Install dependencies
 ```bash
-$env:ENVFILE=".env.dev"; react-native run-android
+npm install
 ```
----
+2. Clean Android project
+```bash
+cd android
+./gradlew clean
+```
+3. Link react-native libraries
+```bash
+cd ..
+react-native link
+```
+_Note: This may walk you through linking your project with Sentry_
 
-### Bugs
-- App crashes when zooming out on android upload picture
-    - https://github.com/alwx/react-native-photo-view/issues/15
+4. Boot up emulator (I use Genymotion)
+
+6. Set environment file (for powershell)
+```bash
+$env:ENVFILE=".env"
+```
+
+7. Run React Native project
+```bash
+react-native run-android
+```
  
 ### Post Beta ToDos:
 - [ ] Ability to see other people's achievements
