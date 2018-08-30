@@ -15,7 +15,7 @@ export class Http {
     }
 
     public async post<T>(url: string, payload: any, multipart: boolean = false): Promise<T> {
-        
+        debugger;
         const check = (data: any) => this.check(data, url, payload);
 
         return axios

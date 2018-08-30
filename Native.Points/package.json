@@ -26,7 +26,7 @@
     "react-native-permissions": "^1.1.1",
     "react-native-photo-view": "^1.5.2",
     "react-native-scrollable-tab-view": "git+https://github.com/happypancake/react-native-scrollable-tab-view.git",
-    "react-native-sentry": "^0.38.2",
+    "react-native-sentry": "^0.39.0",
     "react-native-timeline-listview": "^0.2.3",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.3.1",
