@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Container, ListItem, Body, Text, Right, Left, View } from 'native-base';
-import { FlatList } from 'react-native';
+import { Container, ListItem, Body, Text, Right, Left, View, Card, CardItem } from 'native-base';
+import { FlatList, Easing } from 'react-native';
 import { skip } from 'rxjs/operators';
 import { AchievementDto, UserCheckinsDto } from '@points/shared';
 import { Subscription } from 'rxjs';
@@ -10,6 +10,7 @@ import { ILeaderBoardProps } from '../containers';
 import { ILeaderboardState, initialState } from '../reducers';
 import { completedLeaderboardRequest } from '../selectors';
 import PointsContainer from '../../shared/components/points-container';
+import Modal from 'react-native-modalbox';
 
 export class Leaderboard extends Component<ILeaderBoardProps> {
 
@@ -17,6 +18,12 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
         ? initialState.condition
         : {} as ILeaderboardState;
     private completedLeaderboardRequestSubscription?: Subscription;
+    private userAchievementsModal?: Modal;
+
+    public componentDidMount() {
+        // @ts-ignore
+        this.userAchievementsModal = this.refs.userAchievements.refs.userAchievementsModal;
+    }
 
     public componentWillMount() {
         if (!this.props.leaderboard.length) {
@@ -57,7 +64,10 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                     refreshing={this.state.refreshing}
                     data={leaderboard}
                     renderItem={(leaderboardItem: { item: UserCheckinsDto, index: number }) =>
-                        <ListItem style={{ marginLeft: 0, paddingLeft: 10 }} avatar>
+                        <ListItem
+                            onPress={() => this.userAchievementsModal.open()}
+                            style={{ marginLeft: 0, paddingLeft: 10 }}
+                            avatar>
                             <Left>
                                 <View style={{
                                     backgroundColor: 'green',
@@ -98,7 +108,62 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                         </ListItem>
                     }
                 />
+                <UserAchievements
+                    ref="userAchievements"
+                />
             </Container>
+        );
+    }
+}
+
+export default class UserAchievements extends Component<{ref: string}> {
+
+    public render(): JSX.Element {
+
+        var test: { title: string, id: number }[] = [
+            { id: 1, title: "hey" },
+            { id: 2, title: "hey" },
+            { id: 3, title: "hey" },
+            { id: 4, title: "hey" },
+            { id: 5, title: "hey" },
+            { id: 6, title: "hey" },
+        ]
+
+        var _keyExtractor = (item: any, index: any) => item.id;
+
+        return (
+            <Modal
+                style={{ padding: 10, backgroundColor: 'transparent' }}
+                easing={Easing.elastic(0)}
+                position={'bottom'}
+                coverScreen={true}
+                ref='userAchievementsModal'>
+                <Card style={{ flex: 0 }}>
+                    <CardItem header bordered style={{ paddingTop: 0, paddingBottom: 0 }}>
+                        <Body style={{
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            borderBottomColor: 'transparent',
+                            alignItems: 'center',
+                            flex: 1
+                        }}>
+                            <FlatList<{ title: string }>
+                                data={test}
+                                keyExtractor={_keyExtractor}
+                                renderItem={(stuff: {item: { title: string }, index: number}) =>
+                                    <ListItem >
+                                        <Body style={{ borderColor: 'transparent', paddingLeft: 10 }}>
+                                            <Text>
+                                                {stuff.item.title}
+                                            </Text>
+                                        </Body>
+                                    </ListItem>
+                                }
+                            />
+                        </Body>
+                    </CardItem>
+                </Card>
+            </Modal>
         );
     }
 }
