@@ -21,7 +21,31 @@ export class LeaderboardFailureAction {
     constructor(public payload: ILeaderboardState) { }
 }
 
+export const UserAchievementRequest = 'USER_ACHIEVEMENT_REQUEST';
+export class UserAchievementRequestAction {
+    public type: string = UserAchievementRequest;
+
+    constructor(public payload?: ILeaderboardState) { }
+}
+
+export const UserAchievementSuccess = 'USER_ACHIEVEMENT_SUCCESS';
+export class UserAchievementSuccessAction {
+    public type: string = UserAchievementSuccess;
+
+    constructor(public payload: ILeaderboardState) { }
+}
+
+export const UserAchievementFailure = 'USER_ACHIEVEMENT_REQUEST_FAILURE';
+export class UserAchievementFailureAction {
+    public type: string = UserAchievementFailure;
+
+    constructor(public payload: ILeaderboardState) { }
+}
+
 export type LeaderboardAction =
     LeaderboardRequestAction |
     LeaderboardSuccessAction |
-    LeaderboardFailureAction;
+    LeaderboardFailureAction |
+    UserAchievementRequestAction |
+    UserAchievementRequestSuccess |
+    UserAchievementRequestFailure

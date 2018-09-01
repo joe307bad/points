@@ -1,7 +1,7 @@
 // @ts-ignore
 import watch from 'redux-watch';
 import { createSelector } from 'reselect';
-import { UserCheckinsDto } from '@points/shared';
+import { UserCheckinsDto, AchievementDto } from '@points/shared';
 import { Observable } from 'rxjs';
 
 import store from '../../store';
@@ -29,3 +29,20 @@ export const completedLeaderboardRequest = () => {
         return unsubscribe;
     });
 };
+
+export const userAchievementsSelector = 
+    createSelector(fromLeaderboard.userAchievements, (userAchievements: AchievementDto[], userId: string): AchievementDto[] => {
+        return [
+            {
+                name: "Achievement",
+                points: 1000,
+                achievementId: "123",
+                category: "123",
+                createdAt: new Date(),
+                description: "hey there",
+                id: "123",
+                photo: "123",
+                updatedAt: new Date()
+            }
+        ]
+    })

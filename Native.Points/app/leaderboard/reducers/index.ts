@@ -1,4 +1,4 @@
-import { UserCheckinsDto } from '@points/shared';
+import { UserCheckinsDto, AchievementDto } from '@points/shared';
 
 import { IBaseState } from '../../store/index.reducer';
 
@@ -6,14 +6,17 @@ import * as leaderboardActions from '../actions';
 import { IProcessing } from '../../store/selectors';
 
 export interface ILeaderboardState {
-  leaderboard: UserCheckinsDto[];
+  leaderboard?: UserCheckinsDto[];
   refreshing?: boolean;
+  userId?: string;
+  userAchievements?: AchievementDto[]
 }
 
 export const initialState: IBaseState<ILeaderboardState> = {
   condition: {
     leaderboard: [],
-    refreshing: false
+    refreshing: false,
+    userId: ''
   },
   processing: false
 };
@@ -49,6 +52,37 @@ export const reducer = (state = initialState,
         processing: false,
         error: true,
         message: 'Error loading Leaderboard'
+      };
+
+    case leaderboardActions.UserAchievementRequest:
+
+      return {
+        ...state,
+        condition: {
+          userId: action.payload!.userId
+        },
+        processing: true,
+        message: `Loading user achievements`
+      };
+
+    case leaderboardActions.UserAchievementSuccessAction:
+      return {
+        ...state,
+        condition: {
+          userAchievements: action.payload!.userAchievements
+        },
+        processing: false,
+        error: null,
+        message: 'User achievements loaded successfully'
+      };
+
+    case leaderboardActions.UserAchievementFailureAction:
+
+      return {
+        ...state,
+        processing: false,
+        error: true,
+        message: 'Error loading user achievements'
       };
 
     default:
