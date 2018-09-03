@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Container, ListItem, Body, Text, Right, Left, View, Card, CardItem, Thumbnail, Item } from 'native-base';
 import { FlatList, Easing, ScrollView } from 'react-native';
 import { skip } from 'rxjs/operators';
-import { AchievementDto, UserCheckinsDto } from '@points/shared';
+import { AchievementDto, UserCheckinsDto, AchievementCheckinDto, CheckinDto } from '@points/shared';
 import { Subscription } from 'rxjs';
 
 import { Toolbar } from '../../shared/components';
 import { ILeaderBoardProps } from '../containers';
-import { ILeaderboardState, initialState } from '../reducers';
-import { completedLeaderboardRequest } from '../selectors';
+import { ILeaderboardState, initialState, Checkins, UserCheckinAudit } from '../reducers';
+import { completedLeaderboardRequest, userCheckins, mapCheckins, filterUserCheckins } from '../selectors';
 import PointsContainer from '../../shared/components/points-container';
 import Modal from 'react-native-modalbox';
 import AchievementListItem from '../../shared/components/achievement-list-item/achievement-list-item';
@@ -19,11 +19,12 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
         ? initialState.condition
         : {} as ILeaderboardState;
     private completedLeaderboardRequestSubscription?: Subscription;
-    private userAchievementsModal?: Modal;
+    private userCheckinsSubscriptions?: Subscription;
+    private userCheckinsModal?: Modal;
 
     public componentDidMount() {
         // @ts-ignore
-        this.userAchievementsModal = this.refs.userAchievements.refs.userAchievementsModal;
+        this.userCheckinsModal = this.refs.userCheckins.refs.userCheckinsModal;
     }
 
     public componentWillMount() {
@@ -37,6 +38,12 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                 .subscribe((requestCompleted) => this.setState({
                     refreshing: !requestCompleted
                 }));
+
+        this.userCheckinsSubscriptions =
+            userCheckins().subscribe((userCheckins: Map<string, UserCheckinsDto>) => this.setState({
+
+                userCheckins: userCheckins
+            }))
     }
 
     public componentWillUnmount() {
@@ -66,7 +73,14 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                     data={leaderboard}
                     renderItem={(leaderboardItem: { item: UserCheckinsDto, index: number }) =>
                         <ListItem
-                            onPress={() => this.userAchievementsModal.open()}
+                            onPress={() => {
+                                var userId = leaderboardItem.item.userId;
+                                this.props.getUserCheckins(userId);
+                                this.setState({
+                                    userId: userId
+                                });
+                                this.userCheckinsModal.open();
+                            }}
                             style={{ marginLeft: 0, paddingLeft: 10 }}
                             avatar>
                             <Left>
@@ -109,33 +123,27 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                         </ListItem>
                     }
                 />
-                <UserAchievements
-                    ref="userAchievements"
+                <UserCheckins
+                    ref="userCheckins"
+                    checkins={this.state.userCheckins}
+                    userId={this.state.userId}
                 />
             </Container>
         );
     }
 }
 
-export default class UserAchievements extends Component<{ ref: string }> {
+export default class UserCheckins extends Component<{ checkins: Map<string, UserCheckinsDto>, userId: string }> {
 
     public render(): JSX.Element {
+        var userCheckins = {} as UserCheckinAudit;
+        if (this.props.userId && this.props.checkins) {
+            var userCheckins = filterUserCheckins(this.props.checkins.get(this.props.userId));
+        }
 
-        var achievements: AchievementDto[] = [
-            {
-                name: "Achievement",
-                points: 1000,
-                achievementId: "123",
-                category: "123",
-                createdAt: new Date(),
-                description: "hey there",
-                id: "123",
-                photo: "123",
-                updatedAt: new Date()
-            }
-        ]
-
-        var _keyExtractor = (item: any, index: any) => item.id;
+        var _keyExtractor = (item: any, index: any) => {
+            return item.checkin.achievementId;
+        };
 
         return (
             <Modal
@@ -146,7 +154,7 @@ export default class UserAchievements extends Component<{ ref: string }> {
                 easing={Easing.elastic(0)}
                 position={'bottom'}
                 coverScreen={true}
-                ref='userAchievementsModal'>
+                ref='userCheckinsModal'>
                 <Card style={{
                     flex: 0,
                     borderTopWidth: 0,
@@ -180,8 +188,8 @@ export default class UserAchievements extends Component<{ ref: string }> {
                                     }} size={5} />
 
                                 <Text style={{ paddingLeft: 10, paddingTop: 10, flex: 1, color: "white" }}>
-                                    joe307bad
-                            </Text>
+                                    {userCheckins.userName}
+                                </Text>
                             </Body>
                         </CardItem>
                     </View>
@@ -203,7 +211,7 @@ export default class UserAchievements extends Component<{ ref: string }> {
                                 {/* <Text>
                             Hey
                         </Text> */}
-                                <FlatList<AchievementDto>
+                                <FlatList<Checkins>
                                     style={{
                                         marginLeft: 0,
                                         paddingTop: 0,
@@ -211,10 +219,16 @@ export default class UserAchievements extends Component<{ ref: string }> {
                                         paddingLeft: 0,
                                         paddingRight: 0
                                     }}
-                                    data={achievements}
+                                    data={userCheckins.approvedCheckins}
                                     keyExtractor={_keyExtractor}
-                                    renderItem={(achievement: { item: AchievementDto, index: number }) =>
-                                        <AchievementListItem achievement={achievement.item} />
+                                    renderItem={(achievement: { item: Checkins, index: number }) =>
+                                        <AchievementListItem achievement={{
+                                            achievementId: achievement.item.checkin.achievementId,
+                                            name: achievement.item.checkin.name,
+                                            points: achievement.item.totalPoints,
+                                            photo: achievement.item.checkin.photo,
+                                            checkins: [{}]
+                                        } as AchievementDto} />
                                     }
                                 />
                             </Body>

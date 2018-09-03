@@ -6,7 +6,7 @@ import { achievementListRequest } from '../achievement/sagas';
 import { userCheckinRequest } from '../checkin/sagas';
 import { pendingApprovalListRequest, userApprovalRequest } from '../pending-approval/sagas';
 import { feedRequest } from '../feed/sagas';
-import { leaderboardRequest } from '../leaderboard/sagas';
+import { leaderboardRequest, getUserCheckinsRequest } from '../leaderboard/sagas';
 import { getUploadListRequest, userUploadRequest } from '../upload/sagas';
 import { searchRequest } from '../search/sagas';
 
@@ -28,6 +28,7 @@ export default function* root() {
         fork(userUploadRequest),
         fork(userRegisterRequest),
         fork(searchRequest),
-        fork(userDataRequest)
+        fork(userDataRequest),
+        fork(getUserCheckinsRequest)
     ]);
 }

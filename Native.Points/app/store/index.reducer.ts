@@ -26,7 +26,7 @@ export interface ISharedState {
   userCheckins?: string[];
 }
 
-const initialState = {
+const initialState: any = {
   userCheckins: []
 };
 

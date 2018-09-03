@@ -47,7 +47,14 @@ $env:ENVFILE=".env"
 ```bash
 react-native run-android
 ```
- 
+### User Checkins feature todos:
+- [ ] Wire up pending checkings within scrollable tab view
+- [ ] Show first name and last name
+- [ ] Show total checkins/total points next to username and change when switching tab views
+- [ ] Access loaded user checkins if checkins had already been loaded
+- [ ] Add refresh button to modal to manually load checkins
+- [ ] Add exit button to modal
+
 ### Post Beta ToDos:
 - [ ] Ability to see other people's achievements
 - [ ] Return search results as you type

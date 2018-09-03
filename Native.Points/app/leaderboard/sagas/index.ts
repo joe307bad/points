@@ -15,10 +15,31 @@ export function* getLeaderboard() {
     }
 }
 
+export function* getUserCheckins(userId: string) {
+    const userCheckins = yield apply(checkinService, 'getForUser', [{ userId }]);
+    
+    if (userCheckins && !userCheckins.errors) {
+        yield put({ type: leaderboardActions.UserCheckinSuccess, payload: { loadedUserCheckins: userCheckins } });
+    }
+
+    if (userCheckins.errors) {
+        yield put({ type: leaderboardActions.UserCheckinFailure });
+    }
+}
+
 export function* leaderboardRequest() {
 
     while (true) {
         yield take(leaderboardActions.LeaderboardRequest);
         yield call(getLeaderboard);
+    }
+}
+
+export function* getUserCheckinsRequest() {
+
+    while (true) {
+        var request: { payload: { userId: string } } = yield take(leaderboardActions.UserCheckinRequest);
+        
+        yield call(getUserCheckins, request.payload.userId);
     }
 }

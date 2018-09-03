@@ -21,23 +21,23 @@ export class LeaderboardFailureAction {
     constructor(public payload: ILeaderboardState) { }
 }
 
-export const UserAchievementRequest = 'USER_ACHIEVEMENT_REQUEST';
-export class UserAchievementRequestAction {
-    public type: string = UserAchievementRequest;
+export const UserCheckinRequest = 'USER_ACHIEVEMENT_REQUEST';
+export class UserCheckinRequestAction {
+    public type: string = UserCheckinRequest;
 
     constructor(public payload?: ILeaderboardState) { }
 }
 
-export const UserAchievementSuccess = 'USER_ACHIEVEMENT_SUCCESS';
-export class UserAchievementSuccessAction {
-    public type: string = UserAchievementSuccess;
+export const UserCheckinSuccess = 'USER_ACHIEVEMENT_SUCCESS';
+export class UserCheckinSuccessAction {
+    public type: string = UserCheckinSuccess;
 
     constructor(public payload: ILeaderboardState) { }
 }
 
-export const UserAchievementFailure = 'USER_ACHIEVEMENT_REQUEST_FAILURE';
-export class UserAchievementFailureAction {
-    public type: string = UserAchievementFailure;
+export const UserCheckinFailure = 'USER_ACHIEVEMENT_REQUEST_FAILURE';
+export class UserCheckinFailureAction {
+    public type: string = UserCheckinFailure;
 
     constructor(public payload: ILeaderboardState) { }
 }
@@ -46,6 +46,6 @@ export type LeaderboardAction =
     LeaderboardRequestAction |
     LeaderboardSuccessAction |
     LeaderboardFailureAction |
-    UserAchievementRequestAction |
-    UserAchievementRequestSuccess |
-    UserAchievementRequestFailure
+    UserCheckinRequestAction |
+    UserCheckinSuccessAction |
+    UserCheckinFailureAction
