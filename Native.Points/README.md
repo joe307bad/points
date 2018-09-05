@@ -38,12 +38,12 @@ _Note: This may walk you through linking your project with Sentry_
 
 4. Boot up emulator (I use Genymotion)
 
-6. Set environment file (for powershell)
+5. Set environment file (for powershell)
 ```bash
 $env:ENVFILE=".env"
 ```
 
-7. Run React Native project
+6. Run React Native project
 ```bash
 react-native run-android
 ```

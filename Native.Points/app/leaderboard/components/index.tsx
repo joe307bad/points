@@ -12,6 +12,7 @@ import { completedLeaderboardRequest, userCheckins, mapCheckins, filterUserCheck
 import PointsContainer from '../../shared/components/points-container';
 import Modal from 'react-native-modalbox';
 import AchievementListItem from '../../shared/components/achievement-list-item/achievement-list-item';
+import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
 
 export class Leaderboard extends Component<ILeaderBoardProps> {
 
@@ -40,10 +41,12 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                 }));
 
         this.userCheckinsSubscriptions =
-            userCheckins().subscribe((userCheckins: Map<string, UserCheckinsDto>) => this.setState({
-
-                userCheckins: userCheckins
-            }))
+            userCheckins().subscribe((userCheckins: Map<string, UserCheckinsDto>) => {
+                debugger;
+                this.setState({
+                    userCheckins: userCheckins
+                });
+            })
     }
 
     public componentWillUnmount() {
@@ -133,17 +136,39 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
     }
 }
 
-export default class UserCheckins extends Component<{ checkins: Map<string, UserCheckinsDto>, userId: string }> {
+export interface IUserCheckinsProps {
+    checkins: Map<string, UserCheckinsDto>;
+    userId: string;
+}
+
+export default class UserCheckins extends Component<IUserCheckinsProps> {
+
+    state: { checkins: Map<string, UserCheckinsDto>, userId: string } = {
+        checkins: this.props.checkins,
+        userId: this.props.userId
+    }
+
+    public componentWillReceiveProps(
+        nextProps: IUserCheckinsProps,
+        prevProps: IUserCheckinsProps) {
+        // return nextProps.checkins !== nextProps.checkins;
+        this.setState({
+            checkins: this.props.checkins,
+            userId: this.props.userId
+        })
+        return true;
+    }
 
     public render(): JSX.Element {
         var userCheckins = {} as UserCheckinAudit;
-        if (this.props.userId && this.props.checkins) {
-            var userCheckins = filterUserCheckins(this.props.checkins.get(this.props.userId));
+
+        if (this.state.userId && this.state.checkins) {
+            var loadedCheckins = this.state.checkins.get(this.state.userId);
+            if (loadedCheckins) {
+                userCheckins = filterUserCheckins(loadedCheckins);
+            }
         }
 
-        var _keyExtractor = (item: any, index: any) => {
-            return item.checkin.achievementId;
-        };
 
         return (
             <Modal
@@ -208,34 +233,60 @@ export default class UserCheckins extends Component<{ checkins: Map<string, User
                                 borderBottomColor: 'transparent',
                                 alignItems: 'center'
                             }}>
-                                {/* <Text>
-                            Hey
-                        </Text> */}
-                                <FlatList<Checkins>
-                                    style={{
-                                        marginLeft: 0,
-                                        paddingTop: 0,
-                                        paddingBottom: 0,
-                                        paddingLeft: 0,
-                                        paddingRight: 0
+                                <ScrollableTabView
+                                    style={{ marginTop: 10, }}
+                                    renderTabBar={() => <ScrollableTabBar />}
+                                >
+                                    <UserCheckinList {...{
+                                        tabLabel: "Approved Checkins",
+                                        checkins: userCheckins.approvedCheckins ? userCheckins.approvedCheckins : [],
+                                        key: 0
                                     }}
-                                    data={userCheckins.approvedCheckins}
-                                    keyExtractor={_keyExtractor}
-                                    renderItem={(achievement: { item: Checkins, index: number }) =>
-                                        <AchievementListItem achievement={{
-                                            achievementId: achievement.item.checkin.achievementId,
-                                            name: achievement.item.checkin.name,
-                                            points: achievement.item.totalPoints,
-                                            photo: achievement.item.checkin.photo,
-                                            checkins: [{}]
-                                        } as AchievementDto} />
-                                    }
-                                />
+                                    />
+                                    <UserCheckinList {...{
+                                        tabLabel: "Pending Checkins",
+                                        checkins: userCheckins.pendingCheckins ? userCheckins.pendingCheckins : [],
+                                        key: 1
+                                    }}
+                                    />
+                                </ScrollableTabView>
                             </Body>
                         </CardItem>
                     </ScrollView>
                 </Card>
             </Modal>
         );
+    }
+}
+
+export class UserCheckinList extends Component<{ checkins: Checkins[] }>{
+    render(): JSX.Element {
+        var _keyExtractor = (item: any, index: any) => {
+            return item.checkin.achievementId;
+        };
+        return (
+            <Container>
+                {this.props.checkins.length ? <FlatList<Checkins>
+                    style={{
+                        height: 200,
+                        marginLeft: 0,
+                        paddingTop: 0,
+                        paddingBottom: 0,
+                        paddingLeft: 0,
+                        paddingRight: 0
+                    }}
+                    data={this.props.checkins}
+                    keyExtractor={_keyExtractor}
+                    renderItem={(achievement: { item: Checkins, index: number }) =>
+                        <AchievementListItem achievement={{
+                            achievementId: achievement.item.checkin.achievementId,
+                            name: achievement.item.checkin.name,
+                            points: achievement.item.totalPoints,
+                            photo: achievement.item.checkin.photo,
+                            checkins: [{}]
+                        } as AchievementDto} />
+                    }
+                /> : <Text></Text>}
+            </Container>)
     }
 }

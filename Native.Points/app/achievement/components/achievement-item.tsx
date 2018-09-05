@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { AchievementDto } from '@points/shared';
-import { ListItem, Left, Thumbnail, Body, Text, Right } from 'native-base';
 
-import PointsContainer from '../../shared/components/points-container';
-import { API_URL } from '../../App';
 import AchievementListItem from '../../shared/components/achievement-list-item/achievement-list-item';
 
 interface IAchievementItemProps {
