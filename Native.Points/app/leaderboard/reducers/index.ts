@@ -25,6 +25,7 @@ export interface ILeaderboardState {
   leaderboard?: UserCheckinsDto[];
   refreshing?: boolean;
   loadedUserCheckins?: UserCheckinsDto;
+  selectedUserCheckins?: AchievementCheckinDto[];
   userCheckins?: Map<string, UserCheckinsDto>;
   userId?: string
 }
@@ -74,12 +75,12 @@ export const reducer = (state = initialState,
       };
 
     case leaderboardActions.UserCheckinRequest:
-
+      
       return {
         ...state,
         condition: {
-          userId: action.payload!.userId,
-          ...state.condition
+          ...state.condition,
+          userId: action.payload!.userId
         },
         processing: true,
         message: `Loading user checkins`
@@ -88,18 +89,20 @@ export const reducer = (state = initialState,
     case leaderboardActions.UserCheckinSuccess:
     
       // TODO this shouldnt be necessary
-      if(!state.condition.userCheckins){
-        state.condition.userCheckins =  new Map<string, UserCheckinsDto>();
-      }
+      //if(!state.condition.userCheckins){
+        var userCheckinsMap = new Map<string, UserCheckinsDto>(state.condition.userCheckins);
+      //}
       
-      state.condition.userCheckins.set(
+      
+      userCheckinsMap.set(
         state.condition.userId,
         action.payload!.loadedUserCheckins);
       
       return {
         ...state,
         condition: {
-          ...state.condition
+          ...state.condition,
+          userCheckins: userCheckinsMap
         },
         processing: false,
         error: null,

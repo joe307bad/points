@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 
 import { IBaseProps, getBaseProps } from '../../navigation/components';
 import { Leaderboard } from '../components';
-import { leaderboardItemsSelector } from '../selectors';
+import { leaderboardItemsSelector, userCheckinsSelector } from '../selectors';
 
 import * as leaderboardActions from '../actions';
 
@@ -19,7 +19,7 @@ export function mapStateToProps() {
     return (state: any, props: any) => {
         return Object.assign(getBaseProps(state), {
             leaderboard: leaderboardItemsSelector(state.leaderboardReducer),
-            userCheckins: state.leaderboardReducer.userCheckins
+            userCheckins: userCheckinsSelector(state.leaderboardReducer)
         });
     };
 }

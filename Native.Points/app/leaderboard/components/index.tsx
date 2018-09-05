@@ -13,6 +13,7 @@ import PointsContainer from '../../shared/components/points-container';
 import Modal from 'react-native-modalbox';
 import AchievementListItem from '../../shared/components/achievement-list-item/achievement-list-item';
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
+import { uniqBy } from 'lodash';
 
 export class Leaderboard extends Component<ILeaderBoardProps> {
 
@@ -25,7 +26,7 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
 
     public componentDidMount() {
         // @ts-ignore
-        this.userCheckinsModal = this.refs.userCheckins.refs.userCheckinsModal;
+        this.userCheckinsModal = this.refs.userCheckinsModal;
     }
 
     public componentWillMount() {
@@ -42,15 +43,20 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
 
         this.userCheckinsSubscriptions =
             userCheckins().subscribe((userCheckins: Map<string, UserCheckinsDto>) => {
-                debugger;
-                this.setState({
-                    userCheckins: userCheckins
-                });
+                if (userCheckins && userCheckins.size > 0) {
+                    debugger;
+                    this.setState({
+                        selectedUserCheckins: uniqBy(userCheckins.get(this.state.userId).checkins, "achievementId")
+                    })
+                    //console.log(this.state.userId)
+                    //console.log(userCheckins)
+                }
             })
     }
 
     public componentWillUnmount() {
         this.completedLeaderboardRequestSubscription!.unsubscribe();
+        this.userCheckinsSubscriptions!.unsubscribe();
     }
 
     public render(): JSX.Element {
@@ -62,6 +68,9 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
             return item;
         });
 
+        var _keyExtractor = (item: any, index: any) => {
+            return item.achievementId;
+        };
         return (
             <Container>
                 <Toolbar {...this.props} />
@@ -78,6 +87,7 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                         <ListItem
                             onPress={() => {
                                 var userId = leaderboardItem.item.userId;
+                                
                                 this.props.getUserCheckins(userId);
                                 this.setState({
                                     userId: userId
@@ -126,167 +136,39 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                         </ListItem>
                     }
                 />
-                <UserCheckins
-                    ref="userCheckins"
-                    checkins={this.state.userCheckins}
-                    userId={this.state.userId}
-                />
-            </Container>
-        );
-    }
-}
-
-export interface IUserCheckinsProps {
-    checkins: Map<string, UserCheckinsDto>;
-    userId: string;
-}
-
-export default class UserCheckins extends Component<IUserCheckinsProps> {
-
-    state: { checkins: Map<string, UserCheckinsDto>, userId: string } = {
-        checkins: this.props.checkins,
-        userId: this.props.userId
-    }
-
-    public componentWillReceiveProps(
-        nextProps: IUserCheckinsProps,
-        prevProps: IUserCheckinsProps) {
-        // return nextProps.checkins !== nextProps.checkins;
-        this.setState({
-            checkins: this.props.checkins,
-            userId: this.props.userId
-        })
-        return true;
-    }
-
-    public render(): JSX.Element {
-        var userCheckins = {} as UserCheckinAudit;
-
-        if (this.state.userId && this.state.checkins) {
-            var loadedCheckins = this.state.checkins.get(this.state.userId);
-            if (loadedCheckins) {
-                userCheckins = filterUserCheckins(loadedCheckins);
-            }
-        }
-
-
-        return (
-            <Modal
-                style={{
-                    padding: 10,
-                    backgroundColor: 'transparent'
-                }}
-                easing={Easing.elastic(0)}
-                position={'bottom'}
-                coverScreen={true}
-                ref='userCheckinsModal'>
-                <Card style={{
-                    flex: 0,
-                    borderTopWidth: 0,
-                    maxHeight: "100%",
-                    overflow: "hidden"
-                }}>
-                    <View>
-
-                        <CardItem header style={{
-                            paddingTop: 0,
-                            paddingBottom: 12,
-                            borderTopWidth: 0,
-                            backgroundColor: "#3F51B5",
-                            borderBottomRightRadius: 0,
-                            borderBottomLeftRadius: 0
-                        }}>
-                            <Body style={{
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                borderBottomColor: 'transparent',
-                                alignItems: 'center',
-                                flex: 1
-                            }}>
-                                <Thumbnail
-                                    style={{
-                                        marginTop: 10,
-                                    }}
-                                    source={{
-                                        // TODO store URL somewhere
-                                        uri: 'https://www.iconsdb.com/icons/preview/gray/circle-xxl.png'
-                                    }} size={5} />
-
-                                <Text style={{ paddingLeft: 10, paddingTop: 10, flex: 1, color: "white" }}>
-                                    {userCheckins.userName}
-                                </Text>
-                            </Body>
-                        </CardItem>
-                    </View>
-
-                    <ScrollView>
-                        <CardItem header bordered style={{
+                <Modal
+                    style={{
+                        padding: 10,
+                        backgroundColor: 'white'
+                    }}
+                    easing={Easing.elastic(0)}
+                    position={'bottom'}
+                    coverScreen={true}
+                    ref='userCheckinsModal'>
+                    <FlatList<AchievementCheckinDto>
+                        style={{
+                            height: 200,
+                            marginLeft: 0,
                             paddingTop: 0,
                             paddingBottom: 0,
                             paddingLeft: 0,
-                            paddingRight: 0,
-                            overflow: "hidden"
-                        }}>
-                            <Body style={{
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                borderBottomColor: 'transparent',
-                                alignItems: 'center'
-                            }}>
-                                <ScrollableTabView
-                                    style={{ marginTop: 10, }}
-                                    renderTabBar={() => <ScrollableTabBar />}
-                                >
-                                    <UserCheckinList {...{
-                                        tabLabel: "Approved Checkins",
-                                        checkins: userCheckins.approvedCheckins ? userCheckins.approvedCheckins : [],
-                                        key: 0
-                                    }}
-                                    />
-                                    <UserCheckinList {...{
-                                        tabLabel: "Pending Checkins",
-                                        checkins: userCheckins.pendingCheckins ? userCheckins.pendingCheckins : [],
-                                        key: 1
-                                    }}
-                                    />
-                                </ScrollableTabView>
-                            </Body>
-                        </CardItem>
-                    </ScrollView>
-                </Card>
-            </Modal>
+                            paddingRight: 0
+                        }}
+                        data={this.state.selectedUserCheckins}
+                        keyExtractor={_keyExtractor}
+                        renderItem={(achievement: { item: AchievementCheckinDto, index: number }) =>
+                            <ListItem>
+                                <Text>{achievement.item.name}</Text>
+                            </ListItem>
+                        }
+                    />
+                </Modal>
+                {/* <UserCheckins
+                    ref="userCheckins"
+                    checkins={this.state.userCheckins}
+                    userId={this.state.userId}
+                /> */}
+            </Container>
         );
-    }
-}
-
-export class UserCheckinList extends Component<{ checkins: Checkins[] }>{
-    render(): JSX.Element {
-        var _keyExtractor = (item: any, index: any) => {
-            return item.checkin.achievementId;
-        };
-        return (
-            <Container>
-                {this.props.checkins.length ? <FlatList<Checkins>
-                    style={{
-                        height: 200,
-                        marginLeft: 0,
-                        paddingTop: 0,
-                        paddingBottom: 0,
-                        paddingLeft: 0,
-                        paddingRight: 0
-                    }}
-                    data={this.props.checkins}
-                    keyExtractor={_keyExtractor}
-                    renderItem={(achievement: { item: Checkins, index: number }) =>
-                        <AchievementListItem achievement={{
-                            achievementId: achievement.item.checkin.achievementId,
-                            name: achievement.item.checkin.name,
-                            points: achievement.item.totalPoints,
-                            photo: achievement.item.checkin.photo,
-                            checkins: [{}]
-                        } as AchievementDto} />
-                    }
-                /> : <Text></Text>}
-            </Container>)
     }
 }

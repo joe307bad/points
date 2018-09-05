@@ -19,12 +19,24 @@ export class LoginInnerForm extends Component<ILoginProps & FormikProps<ILoginVa
         dirty: false
     };
 
+    private _ismounted: boolean = false;
+
     public onChange = debounce((values) => {
-        this.setState({
-            rememberMe: false,
-            dirty: true
-        });
+        if (this._ismounted) {
+            this.setState({
+                rememberMe: false,
+                dirty: true
+            });
+        }
     }, 100);
+
+    componentDidMount() {
+        this._ismounted = true;
+    }
+
+    componentWillUnmount() {
+        this._ismounted = false;
+    }
 
     public render(): JSX.Element {
         return (
