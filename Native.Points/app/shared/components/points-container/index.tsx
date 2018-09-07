@@ -5,7 +5,9 @@ import { StyleSheet, Platform } from 'react-native';
 
 import { getNumberOfCheckins } from '../../../store/selectors';
 
-export default class PointsContainer extends Component<{ achievement: AchievementDto }> {
+export default class PointsContainer extends Component<{ 
+    useDtoForCheckinCount?: boolean;
+    achievement: AchievementDto; }> {
     public render() {
 
         const styles = {
@@ -49,7 +51,10 @@ export default class PointsContainer extends Component<{ achievement: Achievemen
                     this.props.achievement!.checkins!.length &&
                     <View style={styleSheet.userCheckin}>
                         <Text style={styleSheet.userCheckinText}>
-                            {getNumberOfCheckins(this.props.achievement.achievementId)}
+                            {!this.props.useDtoForCheckinCount 
+                                ? getNumberOfCheckins(this.props.achievement.achievementId)
+                                : this.props.achievement.totalCheckins
+                            }
                         </Text>
                     </View>}
                 <Icon style={{

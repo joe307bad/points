@@ -8,6 +8,7 @@ import { API_URL } from '../../../App';
 interface IAchievementItemProps {
     selectAchievement?: (achievement: AchievementDto) => void;
     achievement: AchievementDto;
+    useDtoForCheckinCount?: boolean | undefined;
 }
 
 export default class AchievementListItem extends Component<IAchievementItemProps, { achievement: AchievementDto }> {
@@ -28,7 +29,7 @@ export default class AchievementListItem extends Component<IAchievementItemProps
         return (<ListItem
             onPress={() => this.props.selectAchievement
                 ? this.props.selectAchievement(this.props.achievement)
-                : () => {}}
+                : () => { }}
             style={{
                 marginLeft: 0,
                 display: 'flex'
@@ -52,7 +53,9 @@ export default class AchievementListItem extends Component<IAchievementItemProps
                 <Text>{this.props.achievement.name}</Text>
             </Body>
             <Right style={{ borderColor: 'transparent', justifyContent: 'center' }}>
-                <PointsContainer achievement={this.props.achievement} />
+                <PointsContainer
+                    useDtoForCheckinCount={this.props.useDtoForCheckinCount}
+                    achievement={this.props.achievement} />
             </Right>
         </ListItem>);
     }

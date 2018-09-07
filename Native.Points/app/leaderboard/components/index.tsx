@@ -12,14 +12,14 @@ import { completedLeaderboardRequest, userCheckins, mapCheckins, filterUserCheck
 import PointsContainer from '../../shared/components/points-container';
 import Modal from 'react-native-modalbox';
 import AchievementListItem from '../../shared/components/achievement-list-item/achievement-list-item';
-import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
+import ScrollableTabView, { ScrollableTabBar, DefaultTabBar } from 'react-native-scrollable-tab-view';
 import { uniqBy } from 'lodash';
 
 export class Leaderboard extends Component<ILeaderBoardProps> {
 
     public state: ILeaderboardState = initialState.condition
         ? initialState.condition
-        : {} as ILeaderboardState;
+        : { selectedUserCheckins: {} } as ILeaderboardState;
     private completedLeaderboardRequestSubscription?: Subscription;
     private userCheckinsSubscriptions?: Subscription;
     private userCheckinsModal?: Modal;
@@ -44,9 +44,9 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
         this.userCheckinsSubscriptions =
             userCheckins().subscribe((userCheckins: Map<string, UserCheckinsDto>) => {
                 if (userCheckins && userCheckins.size > 0) {
-                    debugger;
+
                     this.setState({
-                        selectedUserCheckins: uniqBy(userCheckins.get(this.state.userId).checkins, "achievementId")
+                        selectedUserCheckins: filterUserCheckins(userCheckins.get(this.state.userId))
                     })
                     //console.log(this.state.userId)
                     //console.log(userCheckins)
@@ -68,8 +68,8 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
             return item;
         });
 
-        var _keyExtractor = (item: any, index: any) => {
-            return item.achievementId;
+        var _keyExtractor = (item: Checkins, index: any) => {
+            return item.checkin.achievementId;
         };
         return (
             <Container>
@@ -87,7 +87,7 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                         <ListItem
                             onPress={() => {
                                 var userId = leaderboardItem.item.userId;
-                                
+
                                 this.props.getUserCheckins(userId);
                                 this.setState({
                                     userId: userId
@@ -139,35 +139,118 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                 <Modal
                     style={{
                         padding: 10,
-                        backgroundColor: 'white'
+                        backgroundColor: 'transparent'
                     }}
                     easing={Easing.elastic(0)}
                     position={'bottom'}
                     coverScreen={true}
                     ref='userCheckinsModal'>
-                    <FlatList<AchievementCheckinDto>
-                        style={{
-                            height: 200,
-                            marginLeft: 0,
-                            paddingTop: 0,
-                            paddingBottom: 0,
-                            paddingLeft: 0,
-                            paddingRight: 0
-                        }}
-                        data={this.state.selectedUserCheckins}
-                        keyExtractor={_keyExtractor}
-                        renderItem={(achievement: { item: AchievementCheckinDto, index: number }) =>
-                            <ListItem>
-                                <Text>{achievement.item.name}</Text>
-                            </ListItem>
-                        }
-                    />
+                    <Container style={{
+                        paddingTop: 0,
+                        paddingBottom: 0,
+                        paddingLeft: 0,
+                        paddingRight: 0,
+                        overflow: "hidden"
+                    }}>
+
+                        <View>
+
+                            <CardItem header style={{
+                                paddingTop: 0,
+                                paddingBottom: 12,
+                                borderTopWidth: 0,
+                                backgroundColor: "#3F51B5",
+                                borderBottomRightRadius: 0,
+                                borderBottomLeftRadius: 0
+                            }}>
+                                <Body style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                    borderBottomColor: 'transparent',
+                                    alignItems: 'center',
+                                    flex: 1
+                                }}>
+                                    <Thumbnail
+                                        style={{
+                                            marginTop: 10,
+                                        }}
+                                        source={{
+                                            // TODO store URL somewhere
+                                            uri: 'https://www.iconsdb.com/icons/preview/gray/circle-xxl.png'
+                                        }} size={5} />
+
+                                    <Text style={{ paddingLeft: 10, paddingTop: 10, flex: 1, color: "white" }}>
+                                        {this.state.selectedUserCheckins.userName}
+                                    </Text>
+                                </Body>
+                            </CardItem>
+                        </View>
+                        <Body style={{
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            borderBottomColor: 'transparent',
+                            alignItems: 'center'
+                        }}>
+                            <ScrollableTabView
+                                style={{ marginTop: 10, }}
+                                renderTabBar={() => <DefaultTabBar />}
+                            >
+                                <FlatList<Checkins>
+                                    {...{
+                                        tabLabel: "Appoved Checkins",
+                                        key: 0,
+                                        style: {
+                                            height: 200,
+                                            marginLeft: 0,
+                                            paddingTop: 0,
+                                            paddingBottom: 0,
+                                            paddingLeft: 0,
+                                            paddingRight: 0
+                                        },
+                                        data: this.state.selectedUserCheckins.approvedCheckins,
+                                        keyExtractor: _keyExtractor,
+                                        renderItem: (achievement: { item: Checkins, index: number }) =>
+                                            <AchievementListItem
+                                                useDtoForCheckinCount={true}
+                                                achievement={{
+                                                    achievementId: achievement.item.checkin.achievementId,
+                                                    name: achievement.item.checkin.name,
+                                                    points: achievement.item.totalPoints,
+                                                    photo: achievement.item.checkin.photo,
+                                                    totalCheckins: achievement.item.totalCheckins,
+                                                    checkins: [{}]
+                                                } as AchievementDto} />
+                                    }} />
+                                <FlatList<Checkins>
+                                    {...{
+                                        tabLabel: "Pending Checkins",
+                                        key: 1,
+                                        style: {
+                                            height: 200,
+                                            marginLeft: 0,
+                                            paddingTop: 0,
+                                            paddingBottom: 0,
+                                            paddingLeft: 0,
+                                            paddingRight: 0
+                                        },
+                                        data: this.state.selectedUserCheckins.pendingCheckins,
+                                        keyExtractor: _keyExtractor,
+                                        renderItem: (achievement: { item: Checkins, index: number }) =>
+                                            <AchievementListItem
+                                                useDtoForCheckinCount={true}
+                                                achievement={{
+                                                    achievementId: achievement.item.checkin.achievementId,
+                                                    name: achievement.item.checkin.name,
+                                                    points: achievement.item.totalPoints,
+                                                    photo: achievement.item.checkin.photo,
+                                                    totalCheckins: achievement.item.totalCheckins,
+                                                    checkins: [{}]
+                                                } as AchievementDto} />
+                                    }} />
+                            </ScrollableTabView>
+                        </Body>
+                    </Container>
                 </Modal>
-                {/* <UserCheckins
-                    ref="userCheckins"
-                    checkins={this.state.userCheckins}
-                    userId={this.state.userId}
-                /> */}
             </Container>
         );
     }

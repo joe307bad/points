@@ -49,20 +49,27 @@ export const userCheckins = () => {
 
 export const filterUserCheckins = (userCheckins: UserCheckinsDto): fromLeaderboard.UserCheckinAudit => {
 
-    
     var result = {} as fromLeaderboard.UserCheckinAudit;
 
     var groupedCheckins = groupBy(userCheckins.checkins, "approved");
-    var approvedCheckins = groupBy(groupedCheckins['true'], "achievementId");
-    var pendingCheckins = groupBy(groupedCheckins['false'], "achievementId");
 
-    result.approvedCheckins = map(approvedCheckins, mapCheckins);
-    result.pendingCheckins = map(pendingCheckins, mapCheckins);
+    var approvedCheckins = groupedCheckins['true'];
+    var pendingCheckins = groupedCheckins['false'];
+
+    var uniqueApprovedCheckins = groupBy(approvedCheckins, "achievementId");
+    var uniquePendingCheckins = groupBy(pendingCheckins, "achievementId");
+
+    result.approvedCheckins = map(uniqueApprovedCheckins, mapCheckins);
+    result.pendingCheckins = map(uniquePendingCheckins, mapCheckins);
 
     result.totalPendingPoints = userCheckins.pendingPoints;
-    result.totalPendingCheckins = groupedCheckins['false'].length;
+    result.totalPendingCheckins = pendingCheckins
+        ? pendingCheckins.length
+        : 0;
 
-    result.totalApprovedCheckins = groupedCheckins['true'].length;
+    result.totalApprovedCheckins = approvedCheckins
+        ? approvedCheckins.length
+        : 0;
 
     result = Object.assign(result, {
         userName: userCheckins.userName,

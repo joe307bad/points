@@ -25,7 +25,7 @@ export interface ILeaderboardState {
   leaderboard?: UserCheckinsDto[];
   refreshing?: boolean;
   loadedUserCheckins?: UserCheckinsDto;
-  selectedUserCheckins?: AchievementCheckinDto[];
+  selectedUserCheckins?: UserCheckinAudit;
   userCheckins?: Map<string, UserCheckinsDto>;
   userId?: string
 }
@@ -36,6 +36,7 @@ export const initialState: IBaseState<ILeaderboardState> = {
     leaderboard: [],
     refreshing: false,
     userCheckins: new Map<string, UserCheckinsDto>(),
+    selectedUserCheckins: {} as UserCheckinAudit,
     userId: null
   },
   processing: false
