@@ -48,7 +48,7 @@ $env:ENVFILE=".env"
 react-native run-android
 ```
 ### User Checkins feature todos:
-- [X] ~~Wire up pending checkings within scrollable tab view~~
+- [X] ~~Wire up pending checkins within scrollable tab view~~
 - [ ] Split up components for user checkins into seperate file 
 - [ ] Show first name and last name
 - [ ] Show total checkins/total points next to username and change when switching tab views
