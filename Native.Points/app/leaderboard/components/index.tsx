@@ -14,6 +14,8 @@ import Modal from 'react-native-modalbox';
 import AchievementListItem from '../../shared/components/achievement-list-item/achievement-list-item';
 import ScrollableTabView, { ScrollableTabBar, DefaultTabBar } from 'react-native-scrollable-tab-view';
 import { uniqBy } from 'lodash';
+import { UserCheckinList } from './user-checkin-list';
+import UserCheckins from './user-checkins';
 
 export class Leaderboard extends Component<ILeaderBoardProps> {
 
@@ -26,7 +28,7 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
 
     public componentDidMount() {
         // @ts-ignore
-        this.userCheckinsModal = this.refs.userCheckinsModal;
+        this.userCheckinsModal = this.refs.userCheckins.refs.userCheckinsModal;
     }
 
     public componentWillMount() {
@@ -45,6 +47,7 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
             userCheckins().subscribe((userCheckins: Map<string, UserCheckinsDto>) => {
                 if (userCheckins && userCheckins.size > 0) {
 
+                    debugger;
                     this.setState({
                         selectedUserCheckins: filterUserCheckins(userCheckins.get(this.state.userId))
                     })
@@ -136,121 +139,9 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                         </ListItem>
                     }
                 />
-                <Modal
-                    style={{
-                        padding: 10,
-                        backgroundColor: 'transparent'
-                    }}
-                    easing={Easing.elastic(0)}
-                    position={'bottom'}
-                    coverScreen={true}
-                    ref='userCheckinsModal'>
-                    <Container style={{
-                        paddingTop: 0,
-                        paddingBottom: 0,
-                        paddingLeft: 0,
-                        paddingRight: 0,
-                        overflow: "hidden"
-                    }}>
-
-                        <View>
-
-                            <CardItem header style={{
-                                paddingTop: 0,
-                                paddingBottom: 12,
-                                borderTopWidth: 0,
-                                backgroundColor: "#3F51B5",
-                                borderBottomRightRadius: 0,
-                                borderBottomLeftRadius: 0
-                            }}>
-                                <Body style={{
-                                    flexDirection: 'row',
-                                    justifyContent: 'center',
-                                    borderBottomColor: 'transparent',
-                                    alignItems: 'center',
-                                    flex: 1
-                                }}>
-                                    <Thumbnail
-                                        style={{
-                                            marginTop: 10,
-                                        }}
-                                        source={{
-                                            // TODO store URL somewhere
-                                            uri: 'https://www.iconsdb.com/icons/preview/gray/circle-xxl.png'
-                                        }} size={5} />
-
-                                    <Text style={{ paddingLeft: 10, paddingTop: 10, flex: 1, color: "white" }}>
-                                        {this.state.selectedUserCheckins.userName}
-                                    </Text>
-                                </Body>
-                            </CardItem>
-                        </View>
-                        <Body style={{
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            borderBottomColor: 'transparent',
-                            alignItems: 'center'
-                        }}>
-                            <ScrollableTabView
-                                style={{ marginTop: 10, }}
-                                renderTabBar={() => <DefaultTabBar />}
-                            >
-                                <FlatList<Checkins>
-                                    {...{
-                                        tabLabel: "Appoved Checkins",
-                                        key: 0,
-                                        style: {
-                                            height: 200,
-                                            marginLeft: 0,
-                                            paddingTop: 0,
-                                            paddingBottom: 0,
-                                            paddingLeft: 0,
-                                            paddingRight: 0
-                                        },
-                                        data: this.state.selectedUserCheckins.approvedCheckins,
-                                        keyExtractor: _keyExtractor,
-                                        renderItem: (achievement: { item: Checkins, index: number }) =>
-                                            <AchievementListItem
-                                                useDtoForCheckinCount={true}
-                                                achievement={{
-                                                    achievementId: achievement.item.checkin.achievementId,
-                                                    name: achievement.item.checkin.name,
-                                                    points: achievement.item.totalPoints,
-                                                    photo: achievement.item.checkin.photo,
-                                                    totalCheckins: achievement.item.totalCheckins,
-                                                    checkins: [{}]
-                                                } as AchievementDto} />
-                                    }} />
-                                <FlatList<Checkins>
-                                    {...{
-                                        tabLabel: "Pending Checkins",
-                                        key: 1,
-                                        style: {
-                                            height: 200,
-                                            marginLeft: 0,
-                                            paddingTop: 0,
-                                            paddingBottom: 0,
-                                            paddingLeft: 0,
-                                            paddingRight: 0
-                                        },
-                                        data: this.state.selectedUserCheckins.pendingCheckins,
-                                        keyExtractor: _keyExtractor,
-                                        renderItem: (achievement: { item: Checkins, index: number }) =>
-                                            <AchievementListItem
-                                                useDtoForCheckinCount={true}
-                                                achievement={{
-                                                    achievementId: achievement.item.checkin.achievementId,
-                                                    name: achievement.item.checkin.name,
-                                                    points: achievement.item.totalPoints,
-                                                    photo: achievement.item.checkin.photo,
-                                                    totalCheckins: achievement.item.totalCheckins,
-                                                    checkins: [{}]
-                                                } as AchievementDto} />
-                                    }} />
-                            </ScrollableTabView>
-                        </Body>
-                    </Container>
-                </Modal>
+                <UserCheckins
+                    ref="userCheckins"
+                    selectedUserCheckins={this.state.selectedUserCheckins} />
             </Container>
         );
     }

@@ -75,7 +75,7 @@ export const filterUserCheckins = (userCheckins: UserCheckinsDto): fromLeaderboa
         userName: userCheckins.userName,
         firstName: userCheckins.firstName,
         lastName: '',
-        totalPoints: userCheckins.totalPoints
+        totalPoints: userCheckins.totalPoints,
     });
     return result;
 }

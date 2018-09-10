@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Container, Text } from 'native-base';
 import { FlatList } from 'react-native';
 import { Checkins } from '../reducers';
@@ -12,28 +12,30 @@ export class UserCheckinList extends Component<{ checkins: Checkins[] }>{
             return item.checkin.achievementId;
         };
         return (
-            <Container>
-                {this.props.checkins.length ? <FlatList<Checkins>
-                    style={{
+            <FlatList<Checkins>
+                {...{
+                    key: 0,
+                    style: {
                         height: 200,
                         marginLeft: 0,
                         paddingTop: 0,
                         paddingBottom: 0,
                         paddingLeft: 0,
                         paddingRight: 0
-                    }}
-                    data={this.props.checkins}
-                    keyExtractor={_keyExtractor}
-                    renderItem={(achievement: { item: Checkins, index: number }) =>
-                        <AchievementListItem achievement={{
-                            achievementId: achievement.item.checkin.achievementId,
-                            name: achievement.item.checkin.name,
-                            points: achievement.item.totalPoints,
-                            photo: achievement.item.checkin.photo,
-                            checkins: [{}]
-                        } as AchievementDto} />
-                    }
-                /> : <Text></Text>}
-            </Container>)
+                    },
+                    data: this.props.checkins,
+                    keyExtractor: _keyExtractor,
+                    renderItem: (achievement: { item: Checkins, index: number }) =>
+                        <AchievementListItem
+                            useDtoForCheckinCount={true}
+                            achievement={{
+                                achievementId: achievement.item.checkin.achievementId,
+                                name: achievement.item.checkin.name,
+                                points: achievement.item.totalPoints,
+                                photo: achievement.item.checkin.photo,
+                                totalCheckins: achievement.item.totalCheckins,
+                                checkins: [{}]
+                            } as AchievementDto} />
+                }} />)
     }
 }
