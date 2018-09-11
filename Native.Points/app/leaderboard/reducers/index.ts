@@ -26,6 +26,7 @@ export interface ILeaderboardState {
   refreshing?: boolean;
   loadedUserCheckins?: UserCheckinsDto;
   selectedUserCheckins?: UserCheckinAudit;
+  requestingUserCheckins?: boolean;
   userCheckins?: Map<string, UserCheckinsDto>;
   userId?: string
 }
@@ -37,6 +38,7 @@ export const initialState: IBaseState<ILeaderboardState> = {
     refreshing: false,
     userCheckins: new Map<string, UserCheckinsDto>(),
     selectedUserCheckins: {} as UserCheckinAudit,
+    requestingUserCheckins: false,
     userId: null
   },
   processing: false

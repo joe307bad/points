@@ -49,9 +49,8 @@ export default class UserCheckins extends Component<IUserCheckinProps, IUserChec
                     backgroundColor: 'transparent'
                 }}
                 easing={Easing.elastic(0)}
-                animationDuration={0}
                 swipeToClose={false}
-                position={'bottom'}
+                position={'top'}
                 coverScreen={true}
                 ref='userCheckinsModal'>
                 <Container style={{

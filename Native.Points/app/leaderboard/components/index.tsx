@@ -45,13 +45,13 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
 
         this.userCheckinsSubscriptions =
             userCheckins().subscribe((userCheckins: Map<string, UserCheckinsDto>) => {
-                if (userCheckins && userCheckins.size > 0) {
+                if (userCheckins && userCheckins.size > 0 && this.state.requestingUserCheckins) {
 
                     this.setState({
-                        selectedUserCheckins: filterUserCheckins(userCheckins.get(this.state.userId))
+                        selectedUserCheckins: filterUserCheckins(userCheckins.get(this.state.userId)),
+                        requestingUserCheckins: false
                     })
-                    //console.log(this.state.userId)
-                    //console.log(userCheckins)
+                    this.userCheckinsModal.open();
                 }
             })
     }
@@ -70,9 +70,6 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
             return item;
         });
 
-        var _keyExtractor = (item: Checkins, index: any) => {
-            return item.checkin.achievementId;
-        };
         return (
             <Container>
                 <Toolbar {...this.props} />
@@ -89,12 +86,11 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
                         <ListItem
                             onPress={() => {
                                 var userId = leaderboardItem.item.userId;
-
                                 this.props.getUserCheckins(userId);
                                 this.setState({
-                                    userId: userId
+                                    userId: userId,
+                                    requestingUserCheckins: true
                                 });
-                                this.userCheckinsModal.open();
                             }}
                             style={{ marginLeft: 0, paddingLeft: 10 }}
                             avatar>
