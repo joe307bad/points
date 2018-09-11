@@ -52,15 +52,14 @@ react-native run-android
 - [X] ~~Split up components for user checkins into seperate file~~
 - [X] ~~Show first name~~
 - [X] ~~Show total checkins/total points above scrollable tab view~~
-- [ ] Add last name to api result and add to UI
-- [ ] Switch to pending checkin totals (and back to approved) when switch tabs
+- [X] ~~Add last name to api result and add to UI~~
+- [X] ~~Switch to pending checkin totals (and back to approved) when switch tabs~~
 - [ ] Access loaded user checkins if checkins had already been loaded
 - [ ] Add refresh button to modal to manually load checkins
-- [ ] Add exit button to modal
-- [ ] Ensure that list expands correctly and user can scroll and see all achievements
+- [X] ~~Add exit button to modal~~
+- [X] ~~Ensure that list expands correctly and user can scroll and see all achievements~~
  
 ### Post Beta ToDos:
-- [ ] Ability to see other people's achievements
 - [ ] Return search results as you type
 - [ ] Admin ability to checkin as users (mainly for negative achievements)
 - [ ] Admin ability to remove pending approvals (delete checkins)

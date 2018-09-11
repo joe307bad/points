@@ -74,7 +74,7 @@ export const filterUserCheckins = (userCheckins: UserCheckinsDto): fromLeaderboa
     result = Object.assign(result, {
         userName: userCheckins.userName,
         firstName: userCheckins.firstName,
-        lastName: '',
+        lastName: userCheckins.lastName,
         totalPoints: userCheckins.totalPoints,
     });
     return result;

@@ -47,7 +47,6 @@ export class Leaderboard extends Component<ILeaderBoardProps> {
             userCheckins().subscribe((userCheckins: Map<string, UserCheckinsDto>) => {
                 if (userCheckins && userCheckins.size > 0) {
 
-                    debugger;
                     this.setState({
                         selectedUserCheckins: filterUserCheckins(userCheckins.get(this.state.userId))
                     })

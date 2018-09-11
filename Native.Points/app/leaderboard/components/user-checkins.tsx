@@ -1,19 +1,44 @@
 import { UserCheckinsDto, AchievementDto } from '@points/shared';
 import React, { Component } from 'react';
 import { filterUserCheckins } from '../selectors';
-import { Thumbnail, Body, View, CardItem, Card, Text, Container } from 'native-base';
+import { Thumbnail, Body, View, CardItem, Card, Text, Container, Right, Icon } from 'native-base';
 import { UserCheckinAudit } from '../reducers';
 import { Easing, ScrollView } from 'react-native';
-import ScrollableTabView, { ScrollableTabBar, DefaultTabBar } from 'react-native-scrollable-tab-view';
+import ScrollableTabView, { ScrollableTabBar, DefaultTabBar, ChangeTabProperties } from 'react-native-scrollable-tab-view';
 import Modal from 'react-native-modalbox';
 import { UserCheckinList } from './user-checkin-list';
 import PointsContainer from '../../shared/components/points-container';
 
 export interface IUserCheckinProps {
-    selectedUserCheckins?: UserCheckinAudit
+    selectedUserCheckins?: UserCheckinAudit;
 }
 
-export default class UserCheckins extends Component<IUserCheckinProps> {
+export interface IUserCheckinState {
+    points: number;
+    totalCheckins: number;
+}
+
+export default class UserCheckins extends Component<IUserCheckinProps, IUserCheckinState> {
+
+    state: IUserCheckinState = {
+        points: this.props.selectedUserCheckins!.totalPoints! ? this.props.selectedUserCheckins!.totalPoints : 0,
+        totalCheckins: 0 //this.props.selectedUserCheckins!.totalCheckins! ? this.props.selectedUserCheckins!.totalCheckins! : 0
+    }
+
+    changeTotals(value: ChangeTabProperties) {
+        var points = value.ref.props.id === "pending"
+            ? this.props.selectedUserCheckins.totalPendingPoints
+            : this.props.selectedUserCheckins.totalPoints;
+
+        var totalCheckins = value.ref.props.id === "pending"
+            ? this.props.selectedUserCheckins.totalPendingCheckins
+            : this.props.selectedUserCheckins.totalApprovedCheckins
+
+        this.setState({
+            points: points,
+            totalCheckins: totalCheckins
+        })
+    }
 
     public render(): JSX.Element {
 
@@ -67,21 +92,25 @@ export default class UserCheckins extends Component<IUserCheckinProps> {
                                     {'\n'}
                                     {this.props.selectedUserCheckins.firstName} {this.props.selectedUserCheckins.lastName}
                                 </Text>
+                                <Right style={{ borderColor: 'transparent', justifyContent: 'center' }}>
+                                    <Icon type='Entypo' style={{ color: 'white' }} name='cross' onPress={() => this.refs.userCheckinsModal.close()} />
+                                </Right>
                             </Body>
                         </CardItem>
                     </View>
                     <View>
                         <View style={{
+                            paddingTop: 20,
                             padding: 10,
                             justifyContent: 'center',
                             borderBottomColor: 'transparent',
                             alignItems: 'center'
                         }}>
-                            {this.props.selectedUserCheckins.totalPoints && <PointsContainer
+                            {<PointsContainer
                                 useDtoForCheckinCount={true}
                                 achievement={{
-                                    points: this.props.selectedUserCheckins.totalPoints,
-                                    totalCheckins: this.props.selectedUserCheckins.totalApprovedCheckins,
+                                    points: this.state.points,
+                                    totalCheckins: this.state.totalCheckins,
                                     checkins: [{}]
                                 } as AchievementDto} />}
                         </View>
@@ -94,15 +123,18 @@ export default class UserCheckins extends Component<IUserCheckinProps> {
                     }}>
                         <ScrollableTabView
                             style={{ marginTop: 10 }}
+                            onChangeTab={(value: ChangeTabProperties) => this.changeTotals(value)}
                             renderTabBar={() => <DefaultTabBar />}
                         >
                             <UserCheckinList
                                 {...{
+                                    id: "approved",
                                     tabLabel: "Approved Checkins",
                                     checkins: this.props.selectedUserCheckins.approvedCheckins
                                 }} />
                             <UserCheckinList
                                 {...{
+                                    id: "pending",
                                     tabLabel: "Pending Checkins",
                                     checkins: this.props.selectedUserCheckins.pendingCheckins
                                 }} />

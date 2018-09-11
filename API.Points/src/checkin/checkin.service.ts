@@ -63,9 +63,9 @@ export class CheckinService implements ICheckinService {
         pipeline = [...pipeline,
         {
             '$match':
-                {
-                    'approved': true
-                }
+            {
+                'approved': true
+            }
         }, {
             '$lookup': {
                 'from': this.achievementModel.collection.name,
@@ -115,9 +115,9 @@ export class CheckinService implements ICheckinService {
         pipeline = [...pipeline,
         {
             '$match':
-                {
-                    'approved': false
-                }
+            {
+                'approved': false
+            }
         }, {
             '$lookup': {
                 'from': this.achievementModel.collection.name,
@@ -158,7 +158,8 @@ export class CheckinService implements ICheckinService {
                 '_id': '$_id',
                 'userId': { '$first': '$_id' },
                 'userName': { '$first': '$userName' },
-                'firstName': { '$first': '$firstName' }
+                'firstName': { '$first': '$firstName' },
+                'lastName': { '$first': '$lastName' }
             }
         };
 
@@ -167,9 +168,9 @@ export class CheckinService implements ICheckinService {
             pipeline = [...pipeline,
             {
                 '$match':
-                    {
-                        '_id': new ObjectId(userId)
-                    }
+                {
+                    '_id': new ObjectId(userId)
+                }
             }];
         }
 
@@ -224,21 +225,21 @@ export class CheckinService implements ICheckinService {
             $cond: [{ $eq: ["$checkins", [{}]] }, [],
             {
                 $map:
-                    {
-                        input: "$checkins",
-                        as: "checkinMap",
-                        in: {
-                            achievementId: "$$checkinMap.achievementId",
-                            checkinId: "$$checkinMap.checkinId",
-                            checkinDate: "$$checkinMap.checkinDate",
-                            name: "$$checkinMap.name",
-                            description: "$$checkinMap.description",
-                            //category: "$$checkins.category",
-                            photo: "$$checkinMap.photo",
-                            points: "$$checkinMap.points",
-                            approved: "$$checkinMap.approved"
-                        }
+                {
+                    input: "$checkins",
+                    as: "checkinMap",
+                    in: {
+                        achievementId: "$$checkinMap.achievementId",
+                        checkinId: "$$checkinMap.checkinId",
+                        checkinDate: "$$checkinMap.checkinDate",
+                        name: "$$checkinMap.name",
+                        description: "$$checkinMap.description",
+                        //category: "$$checkins.category",
+                        photo: "$$checkinMap.photo",
+                        points: "$$checkinMap.points",
+                        approved: "$$checkinMap.approved"
                     }
+                }
             }
             ]
         };
@@ -248,6 +249,7 @@ export class CheckinService implements ICheckinService {
                 userId: '$_id',
                 userName: '$userName',
                 firstName: '$firstName',
+                lastName: '$lastName',
                 totalCheckins: {
                     $cond: [{
                         $or: [
