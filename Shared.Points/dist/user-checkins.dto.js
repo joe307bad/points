@@ -5,6 +5,7 @@ class UserCheckinsDto {
         this.userId = '';
         this.userName = '';
         this.firstName = '';
+        this.lastName = '';
         this.totalPoints = 0;
         this.pendingPoints = 0;
         this.totalCheckins = 0;
