@@ -11,13 +11,14 @@
 * [Typescript](https://www.typescriptlang.org/) for a high level of structure and strong typing
 * [NativeBase](https://github.com/GeekyAnts/NativeBase) UI toolkit
 * [Formik](https://github.com/jaredpalmer/formik) and [Yup](https://github.com/jquense/yup) for easy form construction and validation
+* [Sentry](https://github.com/getsentry/react-native-sentry) for crash reporting
 
 ##### Other Credits:
 * [react-community/react-native-image-picker](https://github.com/react-community/react-native-image-picker)
 * [FidMe/react-native-photo-gallery](https://github.com/FidMe/react-native-photo-gallery)
 * [maxs15/react-native-modalbox](https://github.com/maxs15/react-native-modalbox)
 * [skv-headless/react-native-scrollable-tab-view](https://github.com/skv-headless/react-native-scrollable-tab-view)
-* [thegamenicorus/react-native-timeline-listview](https://github.com/thegamenicorus/react-native-timeline-listview0)
+* [thegamenicorus/react-native-timeline-listview](https://github.com/thegamenicorus/react-native-timeline-listview)
 
 ### How to start in Android emulator on Windows
 1. Install dependencies
@@ -47,21 +48,19 @@ $env:ENVFILE=".env"
 ```bash
 react-native run-android
 ```
+
+### Admin check in for other users feature todos:
+- [X] ~~Add GetAllUsers API endpoint~~
+- [ ] Wire up GetAllUsers endpoint to picker
+- [ ] Allow all admin checkins to be automatically approved
+- [X] ~~Make sure checkins for other users do not add to current user checkin total~~
+
 ### User Checkins feature todos:
-- [X] ~~Wire up pending checkins within scrollable tab view~~
-- [X] ~~Split up components for user checkins into seperate file~~
-- [X] ~~Show first name~~
-- [X] ~~Show total checkins/total points above scrollable tab view~~
-- [X] ~~Add last name to api result and add to UI~~
-- [X] ~~Switch to pending checkin totals (and back to approved) when switch tabs~~
 - [ ] Access loaded user checkins if checkins had already been loaded
 - [ ] Add refresh button to modal to manually load checkins
-- [X] ~~Add exit button to modal~~
-- [X] ~~Ensure that list expands correctly and user can scroll and see all achievements~~
  
 ### Post Beta ToDos:
 - [ ] Return search results as you type
-- [ ] Admin ability to checkin as users (mainly for negative achievements)
 - [ ] Admin ability to remove pending approvals (delete checkins)
 - [ ] User profile page with personal feed, photo upload capabilities, and leaderboard avatars
 - [ ] Implement back button with React Navigation code
