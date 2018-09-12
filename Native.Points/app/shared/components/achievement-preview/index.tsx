@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AchievementDto } from '@points/shared';
-import { Easing } from 'react-native';
-import { Card, CardItem, Thumbnail, Text, Body, Button, Icon, Right } from 'native-base';
+import { Easing, View } from 'react-native';
+import { Card, CardItem, Thumbnail, Text, Body, Button, Icon, Right, Picker, Container, Content, Item, Label } from 'native-base';
 import Modal from 'react-native-modalbox';
 
 import { IUserCheckin } from '../../../checkin/reducers';
@@ -15,8 +15,22 @@ interface IAchievementPreviewProps {
     currentUser: ICurrentUser;
 }
 
+interface IAchievementPreviewState {
+    checkinAs?: string;
+}
+
 // TODO make this stateless
-export default class AchievementPreview extends Component<IAchievementPreviewProps> {
+export default class AchievementPreview extends Component<IAchievementPreviewProps, IAchievementPreviewState> {
+
+    state: IAchievementPreviewState = {
+        checkinAs: this.props.currentUser.userId
+    }
+
+    selectUser(userId: string) {
+        this.setState({
+            checkinAs: userId
+        });
+      }
 
     public render() {
         return (
@@ -37,6 +51,7 @@ export default class AchievementPreview extends Component<IAchievementPreviewPro
                             <Thumbnail
                                 style={{
                                     marginTop: 10,
+                                    marginBottom: 10
                                 }}
                                 source={{
                                     // TODO store URL somewhere
@@ -54,13 +69,46 @@ export default class AchievementPreview extends Component<IAchievementPreviewPro
                         </Right>
                     </CardItem>
                     <CardItem>
-                        <Body>
-                            <Text>{this.props.selectedAchievement.description}</Text>
+                        <View>
+                            <Text style={{ padding: 10 }}>{this.props.selectedAchievement.description}</Text>
+                            {this.props.currentUser.isAdmin &&
+                                <Card>
+                                    <CardItem
+                                        style={{
+                                            paddingLeft: 10,
+                                            paddingRight: 0,
+                                            paddingTop: 0,
+                                            paddingBottom: 0
+                                        }}>
+                                        <Body style={{
+                                            flexDirection: 'row',
+                                            justifyContent: 'center',
+                                            borderBottomColor: 'transparent',
+                                            alignItems: 'center',
+                                            flex: 1,
+                                            padding: 0
+                                        }}>
+                                            <Text>Check in as:</Text>
+                                            <Picker
+                                                iosHeader="Checkin as"
+                                                placeholder="User"
+                                                style={{ flex: 1 }}
+                                                mode="dropdown"
+                                                selectedValue={this.state.checkinAs}
+                                                onValueChange={this.selectUser.bind(this)}
+                                            >
+                                                <Picker.Item label="Joe" value="5b6df16949393c002a958c33" />
+                                                <Picker.Item label="Nick" value="5b97d206ea34d1001be09308" />
+                                                <Picker.Item label="Tyler" value="5b6df16949393c002a958c34" />
+                                            </Picker>
+                                        </Body>
+                                    </CardItem>
+                                </Card>}
                             <Button
                                 onPress={() => this.props.checkin({
                                     achievementId: this.props.selectedAchievement.achievementId,
                                     achievementName: this.props.selectedAchievement.name,
-                                    userId: this.props.currentUser.userId,
+                                    userId: this.props.currentUser.isAdmin ? this.state.checkinAs : this.props.currentUser.userId,
                                     userName: this.props.currentUser.userName
                                 } as IUserCheckin)}
                                 style={{ marginTop: 15 }} full>
@@ -69,7 +117,7 @@ export default class AchievementPreview extends Component<IAchievementPreviewPro
                                     color: 'white'
                                 }}>{'Check In'.toUpperCase()}</Text>
                             </Button>
-                        </Body>
+                        </View>
                     </CardItem>
                 </Card>
             </Modal>

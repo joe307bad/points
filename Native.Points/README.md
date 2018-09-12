@@ -47,21 +47,18 @@ $env:ENVFILE=".env"
 ```bash
 react-native run-android
 ```
+
+### Admin check in for other users feature todos:
+- [ ] Add GetAllUsers API endpoint and wire up to picker
+- [ ] Allow all admin checkins to be automatically approved
+- [ ] Make sure checkins for other users do not add to current user checkin total 
+
 ### User Checkins feature todos:
-- [X] ~~Wire up pending checkins within scrollable tab view~~
-- [X] ~~Split up components for user checkins into seperate file~~
-- [X] ~~Show first name~~
-- [X] ~~Show total checkins/total points above scrollable tab view~~
-- [X] ~~Add last name to api result and add to UI~~
-- [X] ~~Switch to pending checkin totals (and back to approved) when switch tabs~~
 - [ ] Access loaded user checkins if checkins had already been loaded
 - [ ] Add refresh button to modal to manually load checkins
-- [X] ~~Add exit button to modal~~
-- [X] ~~Ensure that list expands correctly and user can scroll and see all achievements~~
  
 ### Post Beta ToDos:
 - [ ] Return search results as you type
-- [ ] Admin ability to checkin as users (mainly for negative achievements)
 - [ ] Admin ability to remove pending approvals (delete checkins)
 - [ ] User profile page with personal feed, photo upload capabilities, and leaderboard avatars
 - [ ] Implement back button with React Navigation code

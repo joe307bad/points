@@ -26,6 +26,7 @@ export function* registerUser(userRegister: IUserRegister): any {
         const user = storeUserInfo({
             userName: userRegister.userName,
             firstName: userRegister.firstName,
+            isAdmin: false,
             password: '',
             rememberMe: false
         } as ICurrentUser, response);
@@ -80,8 +81,9 @@ function storeUserInfo(currentUser: ICurrentUser, response: JwtResponse): ICurre
         persistentStorage.delete('user');
     }
 
-    const userInfo = jwt_decode<{ id: string }>(response.accessToken);
+    const userInfo = jwt_decode<{ id: string, roles: string[] }>(response.accessToken);
     currentUser.userId = userInfo.id;
+    currentUser.isAdmin = userInfo.roles.some(role => role === "admin");
 
     // TODO should we nuke the password here? or keep for relogging in?
     // TODO keep password but utilize native encrypting methods

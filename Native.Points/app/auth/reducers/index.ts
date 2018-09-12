@@ -13,6 +13,7 @@ export interface ICurrentUser {
   userId?: string;
   userName: string;
   password: string;
+  isAdmin: boolean;
   rememberMe: boolean;
 }
 
@@ -35,6 +36,7 @@ export const initialState: IBaseState<IAuthState> = {
       userId: '',
       userName: '',
       password: '',
+      isAdmin: false,
       rememberMe: false
     },
     userRegister: {

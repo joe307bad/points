@@ -36,9 +36,13 @@ export const sharedReducer = (state = initialState,
 
     case checkinActions.CheckinSuccess:
 
+      var newCheckins = action.payload!.userCheckin!.userId === state.currentUser.userId
+        ? [...state.userCheckins, action.payload!.userCheckin!.achievementId]
+        : state.userCheckins;
+
       return {
         ...state,
-        userCheckins: [...state.userCheckins, action.payload!.userCheckin!.achievementId]
+        userCheckins: newCheckins
       };
 
     case userDataActions.UserDataSuccess:
