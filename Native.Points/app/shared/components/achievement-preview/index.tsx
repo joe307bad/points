@@ -108,8 +108,9 @@ export default class AchievementPreview extends Component<IAchievementPreviewPro
                                 onPress={() => this.props.checkin({
                                     achievementId: this.props.selectedAchievement.achievementId,
                                     achievementName: this.props.selectedAchievement.name,
-                                    userId: this.props.currentUser.isAdmin ? this.state.checkinAs : this.props.currentUser.userId,
-                                    userName: this.props.currentUser.userName
+                                    userId: this.state.checkinAs,
+                                    userName: this.props.currentUser.userName,
+                                    currentUserId: this.props.currentUser.userId
                                 } as IUserCheckin)}
                                 style={{ marginTop: 15 }} full>
                                 <Icon type='Entypo' name='check' />
