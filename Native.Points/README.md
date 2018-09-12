@@ -18,7 +18,7 @@
 * [FidMe/react-native-photo-gallery](https://github.com/FidMe/react-native-photo-gallery)
 * [maxs15/react-native-modalbox](https://github.com/maxs15/react-native-modalbox)
 * [skv-headless/react-native-scrollable-tab-view](https://github.com/skv-headless/react-native-scrollable-tab-view)
-* [thegamenicorus/react-native-timeline-listview](https://github.com/thegamenicorus/react-native-timeline-listview0)
+* [thegamenicorus/react-native-timeline-listview](https://github.com/thegamenicorus/react-native-timeline-listview)
 
 ### How to start in Android emulator on Windows
 1. Install dependencies
