@@ -37,6 +37,12 @@ export class UserController implements IUserService {
     return await this.user.exists(user).catch(err => err);
   }
 
+  @Get()
+  @HasPermission(to('update'))
+  async getAll(): Promise<UserDto[]> {
+    return await this.user.getAll().catch(err => err);
+  }
+
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   @HasPermission(to('update'))

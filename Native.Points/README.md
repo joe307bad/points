@@ -50,7 +50,8 @@ react-native run-android
 ```
 
 ### Admin check in for other users feature todos:
-- [ ] Add GetAllUsers API endpoint and wire up to picker
+- [X] ~~Add GetAllUsers API endpoint~~
+- [ ] Wire up GetAllUsers endpoint to picker
 - [ ] Allow all admin checkins to be automatically approved
 - [X] ~~Make sure checkins for other users do not add to current user checkin total~~
 
