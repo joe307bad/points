@@ -11,6 +11,7 @@
 * [Typescript](https://www.typescriptlang.org/) for a high level of structure and strong typing
 * [NativeBase](https://github.com/GeekyAnts/NativeBase) UI toolkit
 * [Formik](https://github.com/jaredpalmer/formik) and [Yup](https://github.com/jquense/yup) for easy form construction and validation
+* [Sentry](https://github.com/getsentry/react-native-sentry) for crash reporting
 
 ##### Other Credits:
 * [react-community/react-native-image-picker](https://github.com/react-community/react-native-image-picker)
@@ -51,7 +52,7 @@ react-native run-android
 ### Admin check in for other users feature todos:
 - [ ] Add GetAllUsers API endpoint and wire up to picker
 - [ ] Allow all admin checkins to be automatically approved
-- [ ] Make sure checkins for other users do not add to current user checkin total 
+- [X] ~~Make sure checkins for other users do not add to current user checkin total~~
 
 ### User Checkins feature todos:
 - [ ] Access loaded user checkins if checkins had already been loaded
