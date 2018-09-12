@@ -98,7 +98,8 @@ function* getAllUsers() {
         : [];
 
     if (allUsers && !allUsers.errors) {
-        yield put({ type: userDataActions.GetAllUsersSuccess, payload: { allUsers } });
+
+        yield put({ type: userDataActions.GetAllUsersSuccess, payload: { users: allUsers } });
         return allUsers;
     }
 
