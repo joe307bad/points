@@ -76,6 +76,8 @@ react-native run-android
 - [ ] Look at todos
 - [ ] React Navigation transitions
     - https://www.npmjs.com/package/react-navigation-transitions
+- [ ] Split out components/styles into seperate files
+- [ ] Split sagas into different files (for watchers and utility funcs)
 
 ### Advanced ToDos:	
 - [ ] since all reducers are called for every action, we can consolidate all the success/failure actions into a single Result/Response reducer instead of having a Success/Failure action for every domain action. This would make isProcessing much more simple

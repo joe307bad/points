@@ -31,6 +31,10 @@ export class UserService implements IUserService {
     public exists(user: { userName: any; }): Promise<UserExistsDto> {
         return http.get(USERS_API_URL + 'exists/' + user.userName);
     }
+
+    public getAll(): Promise<UserDto[]> {
+        return http.get(USERS_API_URL);
+    }
 }
 
 export const userService = UserService.Instance;
