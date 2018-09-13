@@ -48,11 +48,6 @@ $env:ENVFILE=".env"
 react-native run-android
 ```
 
-### Admin check in for other users feature todos:
-- [ ] Add GetAllUsers API endpoint and wire up to picker
-- [ ] Allow all admin checkins to be automatically approved
-- [ ] Make sure checkins for other users do not add to current user checkin total 
-
 ### User Checkins feature todos:
 - [ ] Access loaded user checkins if checkins had already been loaded
 - [ ] Add refresh button to modal to manually load checkins
