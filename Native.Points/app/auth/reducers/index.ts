@@ -1,4 +1,4 @@
-import { UserCheckinsDto, AchievementCheckinDto } from '@points/shared';
+import { UserCheckinsDto, AchievementCheckinDto, UserDto } from '@points/shared';
 
 import { IProcessing } from '../../store/selectors';
 import { IBaseState } from '../../store/index.reducer';
@@ -25,6 +25,7 @@ export interface IUserRegister {
 }
 
 export interface IAuthState {
+  users?: UserDto[];
   currentUser?: ICurrentUser;
   userRegister?: IUserRegister;
   userData?: UserCheckinsDto;
@@ -32,6 +33,7 @@ export interface IAuthState {
 
 export const initialState: IBaseState<IAuthState> = {
   condition: {
+    users: [],
     currentUser: {
       userId: '',
       userName: '',
@@ -150,6 +152,26 @@ export const reducer = (state = initialState, action: userActions.UserAction): I
         message: 'Error loading user data for ' + state.condition!.currentUser!.userName
       };
 
+    case userDataActions.GetAllUsersSuccess:
+
+      return {
+        ...state,
+        condition: {
+          ...state.condition,
+          users: action.payload!.users
+        },
+        processing: false,
+        message: 'Successfully loaded all users'
+      }
+
+    case userDataActions.GetAllUsersFailure:
+
+      return {
+        ...state,
+        processing: false,
+        message: 'Error loading all users'
+      }
+
     default:
       return state;
   }
@@ -169,4 +191,9 @@ export const currentUser = (state: IBaseState<IAuthState>): ICurrentUser => {
 export const userCheckins = (state: IBaseState<IAuthState>): AchievementCheckinDto[] => {
   const checkins = state.condition!.userData!.checkins!;
   return checkins ? checkins : [];
+};
+
+export const allUsers = (state: IBaseState<IAuthState>): UserDto[] => {
+  const users = state.condition!.users!;
+  return users ? users : [];
 };

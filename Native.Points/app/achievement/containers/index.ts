@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { AchievementDto, CategoryDto } from '@points/shared';
+import { AchievementDto, CategoryDto, UserDto } from '@points/shared';
 
 import AchievementList from '../components/list';
 import { IBaseProps, getBaseProps } from '../../navigation/components';
@@ -9,6 +9,7 @@ import { achievementListSelector, categoriesSelector, } from '../selectors';
 import * as achievementActions from '../actions';
 import * as checkinActions from '../../checkin/actions';
 import { IUserCheckin } from '../../checkin/reducers';
+import { allUsersSelector } from '../../store/selectors';
 
 export interface IAchievementProps extends IBaseProps {
     getAchievementList: () => void;
@@ -16,6 +17,7 @@ export interface IAchievementProps extends IBaseProps {
     selectAchievement: (achievement: AchievementDto) => void;
     achievementList: AchievementDto[];
     categories: CategoryDto[];
+    allUsers: UserDto[];
 }
 
 export function mapStateToProps() {
@@ -23,6 +25,7 @@ export function mapStateToProps() {
         return Object.assign(getBaseProps(state), {
             achievementList: achievementListSelector(state.achievementReducer),
             categories: categoriesSelector(state.achievementReducer),
+            allUsers: allUsersSelector(state.authReducer)
         });
     };
 }

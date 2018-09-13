@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'native-base';
-import { AchievementDto } from '@points/shared';
+import { AchievementDto, UserDto } from '@points/shared';
 import { Subscription } from 'rxjs';
 import Modal from 'react-native-modalbox';
 
@@ -65,6 +65,7 @@ export default class AchievementList extends Component<IAchievementProps, IAchie
                     ref='achievementPreview'
                     selectedAchievement={this.state.selectedAchievement}
                     checkin={this.props.checkin}
+                    allUsers={this.props.allUsers}
                     currentUser={this.props.currentUser} />
             </Container>
         );

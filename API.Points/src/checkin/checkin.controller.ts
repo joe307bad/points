@@ -1,10 +1,11 @@
-import { Controller, UseGuards, Post, Body, Get, Param, UseInterceptors, FileInterceptor, UploadedFile, Put, Delete } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Get, Param, UseInterceptors, FileInterceptor, UploadedFile, Put, Delete, Req } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CheckinDto, UserCheckinsDto, PendingApprovalDto, ICheckinService, FeedItemDto } from '@points/shared';
 
 import { CheckinService } from './checkin.service';
-import { PermissionGaurd, ApiPermission, ApiAction, HasPermission } from '../core/acl';
+import { PermissionGaurd, ApiPermission, ApiAction, HasPermission, decodeToken } from '../core/acl';
 import { UploadFileSettings } from '../app.settings';
+import { isAdmin } from '../core/acl/helpers/isAdmin.helper';
 
 const resource = 'checkin';
 export const to = (action: ApiAction) =>
@@ -18,9 +19,12 @@ export class CheckinController implements ICheckinService {
     @Post()
     @HasPermission(to('create'))
     @UseInterceptors(FileInterceptor('photo', UploadFileSettings))
-    async create(@Body() checkin: CheckinDto, @UploadedFile() photo): Promise<CheckinDto> {
+    async create(@Body() checkin: CheckinDto, @UploadedFile() photo, @Req() request): Promise<CheckinDto> {
         checkin.photo = photo ? photo.filename : null;
-        return await this.checkin.create(checkin).catch(err => err);
+        
+        return await this.checkin.create(Object.assign(checkin, {
+            approved: isAdmin(request) ? true : false
+        })).catch(err => err);
     }
 
     @Get('user/:userId')

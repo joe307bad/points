@@ -90,6 +90,24 @@ function storeUserInfo(currentUser: ICurrentUser, response: JwtResponse): ICurre
     return currentUser;
 }
 
+function* getAllUsers() {
+    const user: ICurrentUser = yield select((state: any) => currentUserSelector(state.authReducer));
+
+    const allUsers: UserDto[] & ApiError = user.isAdmin
+        ? yield apply(userService, 'getAll')
+        : [];
+
+    if (allUsers && !allUsers.errors) {
+
+        yield put({ type: userDataActions.GetAllUsersSuccess, payload: { users: allUsers } });
+        return allUsers;
+    }
+
+    if (allUsers.errors) {
+        yield put({ type: userDataActions.GetAllUsersFailure });
+    }
+}
+
 export function* login() {
 
     while (true) {
@@ -120,7 +138,8 @@ export function* userDataRequest() {
 
         const response = yield all([
             call(getUserData),
-            call(loadNavigation)
+            call(loadNavigation),
+            call(getAllUsers)
         ]);
 
         if (!some(response, isEmpty)) {
