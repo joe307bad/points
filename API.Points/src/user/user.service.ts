@@ -35,6 +35,14 @@ export class UserService implements IUserService {
       .then(numberOfUsers => ({ userExists: numberOfUsers > 0 }));
   }
 
+  async getAll(): Promise<UserDto[]> {
+    return await this.userModel.find().then(users => users.map(user => ({
+      firstName: user.firstName,
+      id: user._id,
+      lastName: user.lastName
+    } as UserDto)));
+  }
+
   private async findByUserName(userName: string): Promise<UserDto> {
     return await this.userModel.findOne({ userName }).select('+password') as UserDto;
   }

@@ -11,4 +11,6 @@ export type UserAction =
     register.RegisterFailureAction |
     userData.UserDataRequestAction |
     userData.UserDataSuccessAction |
-    userData.UserDataFailureAction;
+    userData.UserDataFailureAction |
+    userData.GetAllUsersSuccessAction|
+    userData.GetAllUsersFailureAction;

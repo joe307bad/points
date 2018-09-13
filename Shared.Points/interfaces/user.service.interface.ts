@@ -5,4 +5,5 @@ export interface IUserService {
     login(user: UserDto): Promise<JwtResponse | ApiError>;
     update(user: UserDto, params?: { id: string }): Promise<UserDto | ApiError>;
     exists({ userName: string }): Promise<UserExistsDto>;
+    getAll(): Promise<UserDto[]>;
 }

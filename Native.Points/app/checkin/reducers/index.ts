@@ -8,6 +8,7 @@ export interface IUserCheckin {
   achievementId: string;
   achievementName: string;
   userName: string;
+  currentUserId?: string;
 }
 
 export interface ICheckinState {

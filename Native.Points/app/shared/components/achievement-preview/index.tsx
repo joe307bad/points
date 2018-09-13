@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AchievementDto } from '@points/shared';
+import { AchievementDto, UserDto } from '@points/shared';
 import { Easing, View } from 'react-native';
 import { Card, CardItem, Thumbnail, Text, Body, Button, Icon, Right, Picker, Container, Content, Item, Label } from 'native-base';
 import Modal from 'react-native-modalbox';
@@ -13,6 +13,7 @@ interface IAchievementPreviewProps {
     selectedAchievement: AchievementDto;
     checkin: (userCheckin: IUserCheckin) => void;
     currentUser: ICurrentUser;
+    allUsers?: UserDto[];
 }
 
 interface IAchievementPreviewState {
@@ -30,7 +31,7 @@ export default class AchievementPreview extends Component<IAchievementPreviewPro
         this.setState({
             checkinAs: userId
         });
-      }
+    }
 
     public render() {
         return (
@@ -97,9 +98,12 @@ export default class AchievementPreview extends Component<IAchievementPreviewPro
                                                 selectedValue={this.state.checkinAs}
                                                 onValueChange={this.selectUser.bind(this)}
                                             >
-                                                <Picker.Item label="Joe" value="5b6df16949393c002a958c33" />
-                                                <Picker.Item label="Nick" value="5b97d206ea34d1001be09308" />
-                                                <Picker.Item label="Tyler" value="5b6df16949393c002a958c34" />
+                                                {this.props.allUsers.map((user) =>
+                                                    <Picker.Item {...{
+                                                        label: user.firstName + " " + user.lastName,
+                                                        value: user.id
+                                                    }} />
+                                                )}
                                             </Picker>
                                         </Body>
                                     </CardItem>
@@ -108,8 +112,9 @@ export default class AchievementPreview extends Component<IAchievementPreviewPro
                                 onPress={() => this.props.checkin({
                                     achievementId: this.props.selectedAchievement.achievementId,
                                     achievementName: this.props.selectedAchievement.name,
-                                    userId: this.props.currentUser.isAdmin ? this.state.checkinAs : this.props.currentUser.userId,
-                                    userName: this.props.currentUser.userName
+                                    userId: this.state.checkinAs,
+                                    userName: this.props.currentUser.userName,
+                                    currentUserId: this.props.currentUser.userId
                                 } as IUserCheckin)}
                                 style={{ marginTop: 15 }} full>
                                 <Icon type='Entypo' name='check' />
