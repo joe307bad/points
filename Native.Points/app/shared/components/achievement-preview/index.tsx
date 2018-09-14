@@ -18,13 +18,15 @@ interface IAchievementPreviewProps {
 
 interface IAchievementPreviewState {
     checkinAs?: string;
+    allUsers?: UserDto[]
 }
 
 // TODO make this stateless
 export default class AchievementPreview extends Component<IAchievementPreviewProps, IAchievementPreviewState> {
 
     state: IAchievementPreviewState = {
-        checkinAs: this.props.currentUser.userId
+        checkinAs: this.props.currentUser.userId,
+        allUsers: this.props.allUsers
     }
 
     selectUser(userId: string) {
@@ -70,7 +72,7 @@ export default class AchievementPreview extends Component<IAchievementPreviewPro
                         </Right>
                     </CardItem>
                     <CardItem>
-                        <View>
+                        <View style={{ width: '100%' }}>
                             <Text style={{ padding: 10 }}>{this.props.selectedAchievement.description}</Text>
                             {this.props.currentUser.isAdmin &&
                                 <Card>
@@ -79,27 +81,28 @@ export default class AchievementPreview extends Component<IAchievementPreviewPro
                                             paddingLeft: 10,
                                             paddingRight: 0,
                                             paddingTop: 0,
-                                            paddingBottom: 0
+                                            paddingBottom: 0,
                                         }}>
                                         <Body style={{
                                             flexDirection: 'row',
                                             justifyContent: 'center',
                                             borderBottomColor: 'transparent',
                                             alignItems: 'center',
-                                            flex: 1,
+
                                             padding: 0
                                         }}>
                                             <Text>Check in as:</Text>
                                             <Picker
                                                 iosHeader="Checkin as"
                                                 placeholder="User"
-                                                style={{ flex: 1 }}
+                                                style={{ flex: 1, width: '100%' }}
                                                 mode="dropdown"
                                                 selectedValue={this.state.checkinAs}
                                                 onValueChange={this.selectUser.bind(this)}
                                             >
-                                                {this.props.allUsers.map((user) =>
+                                                {this.state.allUsers.map((user) =>
                                                     <Picker.Item {...{
+                                                        key: user.id,
                                                         label: user.firstName + " " + user.lastName,
                                                         value: user.id
                                                     }} />

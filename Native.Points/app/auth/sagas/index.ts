@@ -90,15 +90,17 @@ function storeUserInfo(currentUser: ICurrentUser, response: JwtResponse): ICurre
     return currentUser;
 }
 
-function* getAllUsers() {
+function* getAllUsers(): any {
+
     const user: ICurrentUser = yield select((state: any) => currentUserSelector(state.authReducer));
 
-    const allUsers: UserDto[] & ApiError = user.isAdmin
-        ? yield apply(userService, 'getAll')
-        : [];
+    const allUsers: UserDto[] & ApiError = yield apply(userService, 'getAll');
 
+    if(!user.isAdmin){
+        return yield [{}];
+    }
+    
     if (allUsers && !allUsers.errors) {
-
         yield put({ type: userDataActions.GetAllUsersSuccess, payload: { users: allUsers } });
         return allUsers;
     }
@@ -136,12 +138,14 @@ export function* userDataRequest() {
     while (true) {
         yield take(userDataActions.UserDataRequest);
 
-        const response = yield all([
+        var userDataCalls = [
             call(getUserData),
             call(loadNavigation),
             call(getAllUsers)
-        ]);
+        ];
 
+        const response = yield all(userDataCalls);
+        debugger;
         if (!some(response, isEmpty)) {
             NavigationService.navigate('AchievementList');
         }

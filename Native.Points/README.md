@@ -53,6 +53,7 @@ react-native run-android
 - [ ] Add refresh button to modal to manually load checkins
  
 ### Post Beta ToDos:
+- [ ] Wizard for bulk checking in achievments (give these 3 people, this achievements, this many times)
 - [ ] Return search results as you type
 - [ ] Admin ability to remove pending approvals (delete checkins)
 - [ ] User profile page with personal feed, photo upload capabilities, and leaderboard avatars

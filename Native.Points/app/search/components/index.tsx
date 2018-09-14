@@ -100,6 +100,7 @@ export class Search extends Component<ISearchProps, SearchComponentState> {
                 <AchievementPreview
                     ref='achievementPreview'
                     selectedAchievement={this.state.selectedAchievement}
+                    allUsers={this.props.allUsers}
                     checkin={this.props.checkin}
                     currentUser={this.props.currentUser} />
             </Container>

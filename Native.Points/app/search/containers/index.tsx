@@ -1,4 +1,4 @@
-import { AchievementDto } from '@points/shared';
+import { AchievementDto, UserDto } from '@points/shared';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
@@ -9,19 +9,22 @@ import { searchResultsSelector, searchTermSelector } from '../selectors';
 import * as searchActions from '../actions';
 import * as checkinActions from '../../checkin/actions';
 import { IUserCheckin } from '../../checkin/reducers';
+import { allUsersSelector } from '../../store/selectors';
 
 export interface ISearchProps extends IBaseProps {
     searchResults: AchievementDto[];
     searchTerm: string;
     search: (searchTerm: string) => void;
     checkin: (achievement: IUserCheckin) => void;
+    allUsers: UserDto[];
 }
 
 export function mapStateToProps() {
     return (state: any, props: any) => {
         return Object.assign(getBaseProps(state), {
             searchTerm: searchTermSelector(state.searchReducer),
-            searchResults: searchResultsSelector(state.searchReducer)
+            searchResults: searchResultsSelector(state.searchReducer),
+            allUsers: allUsersSelector(state.authReducer)
         });
     };
 }
