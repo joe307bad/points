@@ -61,7 +61,7 @@ react-native run-android
     - https://github.com/react-navigation/react-navigation/blob/5e075e1c31d5e6192f2532a815b1737fa27ed65b/src/createNavigationContainer.js#L154
 - [ ] Why does upload endpoint return empty object when no uploads are present
 - [ ] If use is booted back to login screen, return them to previous screen once they log back in
-- [ ] Flow to approve users instead of automatially granting access
+- [ ] Flow to approve users instead of automatically granting access
 - [ ] Manage Categories
 - [ ] Manage Achievements
 - [ ] Approve all functionality
@@ -70,6 +70,9 @@ react-native run-android
 - [ ] Look at todos
 - [ ] React Navigation transitions
     - https://www.npmjs.com/package/react-navigation-transitions
+- [ ] Metrics/graphs for checkins
+- [ ] Delete your own checkin
+- [ ] Admin ability to delete checkins 
 
 ### Advanced ToDos:	
 - [ ] since all reducers are called for every action, we can consolidate all the success/failure actions into a single Result/Response reducer instead of having a Success/Failure action for every domain action. This would make isProcessing much more simple
