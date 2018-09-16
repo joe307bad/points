@@ -53,6 +53,7 @@ react-native run-android
 - [ ] Add refresh button to modal to manually load checkins
  
 ### Post Beta ToDos:
+- [ ] Backup data and archive checkins
 - [ ] Wizard for bulk checking in achievments (give these 3 people, this achievements, this many times)
 - [ ] Return search results as you type
 - [ ] Admin ability to remove pending approvals (delete checkins)
@@ -73,6 +74,8 @@ react-native run-android
 - [ ] Metrics/graphs for checkins
 - [ ] Delete your own checkin
 - [ ] Admin ability to delete checkins 
+- [ ] Restrict some checkins to only allow one checkin per user
+- [ ] Checkin multiplier? 
 
 ### Advanced ToDos:	
 - [ ] since all reducers are called for every action, we can consolidate all the success/failure actions into a single Result/Response reducer instead of having a Success/Failure action for every domain action. This would make isProcessing much more simple
