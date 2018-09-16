@@ -76,6 +76,8 @@ react-native run-android
 - [ ] Admin ability to delete checkins 
 - [ ] Restrict some checkins to only allow one checkin per user
 - [ ] Checkin multiplier? 
+- [ ] Push notifications (checkin approved, this user took the lead, etc.)
+- [ ] Limited time checkins (do this achievement in this time frame)
 
 ### Advanced ToDos:	
 - [ ] since all reducers are called for every action, we can consolidate all the success/failure actions into a single Result/Response reducer instead of having a Success/Failure action for every domain action. This would make isProcessing much more simple
