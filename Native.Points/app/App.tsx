@@ -47,7 +47,7 @@ export class ErrorModal extends Component<{}> {
     return (
       <Modal
         style={{ height: 'auto', padding: 10, backgroundColor: 'transparent' }}
-        easing={Easing.elastic(0)}
+        // easing={Easing.elastic(0)}
         position={'bottom'}
         ref={(ref: Modal) => Error.instance = ref}>
         <Card style={{ flex: 0 }}>

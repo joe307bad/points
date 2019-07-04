@@ -1,5 +1,5 @@
 import React from 'react';
-import { createDrawerNavigator, NavigationInjectedProps } from 'react-navigation';
+import { createDrawerNavigator, NavigationInjectedProps, createAppContainer } from 'react-navigation';
 import { NavigationItemDto } from '@points/shared';
 
 import { ICurrentUser } from '../../auth/reducers';
@@ -27,7 +27,7 @@ export interface IBaseProps extends NavigationInjectedProps {
     refreshHandler?: () => void;
 }
 
-// TODO is there a way to stringly type this `state` argument?
+// TODO is there a way to strongly type this `state` argument?
 export function getBaseProps(state: any) {
 
     return {
@@ -78,4 +78,4 @@ const Navigation = createDrawerNavigator(
         contentComponent: (props: any) => <SideBar {...props} />
     });
 
-export default Navigation;
+export default createAppContainer(Navigation);
