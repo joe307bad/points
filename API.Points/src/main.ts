@@ -3,8 +3,6 @@ import { ApplicationModule } from './app.module';
 import * as mongoose from 'mongoose';
 import * as validator from 'mongoose-unique-validator';
 import * as express from 'express';
-import * as dotenv from 'dotenv';
-dotenv.config();
 
 import { publicDir } from './app.settings';
 // import * as helmet from 'helmet';

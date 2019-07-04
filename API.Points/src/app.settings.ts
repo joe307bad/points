@@ -1,6 +1,7 @@
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import * as gm from 'gm';
+import * as dotenv from 'dotenv';
+dotenv.config({ path: __dirname + '/../.env'});
 
 interface IEnvironment {
     DB_URL: string;
@@ -12,7 +13,7 @@ interface IEnvironment {
 }
 declare let process: { env: IEnvironment };
 
-export const dbUrl = process.env.DB_URL; 
+export const dbUrl = process.env.DB_URL;
 export const uploadDir = process.env.UPLOAD_DIR;
 export const publicDir =  __dirname + process.env.PUBLIC_DIR;
 export const secret = process.env.SECRET;

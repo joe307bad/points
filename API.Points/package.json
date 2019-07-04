@@ -4,7 +4,7 @@
   "description": "Nest TypeScript starter repository",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/main.ts --env=NODE_ENV",
+    "start": "ts-node src/main.ts",
     "build:prod": "gulp cleanDist && tsc --sourceMap false && gulp && gulp copyEnvProd && gulp zip",
     "prestart:prod": "tsc",
     "prod": "npm install --only=production && node -r dotenv/config main.js dotenv_config_path=./.env",
