@@ -8,8 +8,6 @@
   },
   "dependencies": {
     "@points/shared": "file:../Shared.Points",
-    "react": "16.4.1",
-    "react-native": "0.57.0-rc.3",
     "axios": "^0.18.0",
     "class-validator": "^0.8.5",
     "formik": "^0.11.11",
@@ -19,7 +17,10 @@
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
     "native-base": "^2.7",
+    "react": "16.8.3",
     "react-addons-update": "^15.6.2",
+    "react-native": "0.59.1",
+    "react-native-config": "^0.11.7",
     "react-native-image-picker": "^0.26.7",
     "react-native-loading-spinner-overlay": "^0.5.2",
     "react-native-modalbox": "^1.5.0",
@@ -40,6 +41,8 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@babel/core": "^7.4.3",
+    "@babel/runtime": "^7.4.3",
     "@types/jest": "^23.3.1",
     "@types/jwt-decode": "^2.2.1",
     "@types/lodash": "^4.14.109",
@@ -59,13 +62,12 @@
     "@types/redux-saga": "^0.10.5",
     "@types/reselect": "^2.2.0",
     "@types/yup": "^0.24.7",
-    "babel-jest": "23.4.2",
-    "jest": "23.5.0",
-    "metro-react-native-babel-preset": "0.43.5",
-    "react-native-config": "^0.11.5",
-    "react-test-renderer": "16.4.1",
     "ts-jest": "^23.1.4",
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.1",
+    "babel-jest": "^24.7.1",
+    "jest": "^24.7.1",
+    "metro-react-native-babel-preset": "^0.53.1",
+    "react-test-renderer": "16.8.3"
   },
   "jest": {
     "preset": "react-native",
