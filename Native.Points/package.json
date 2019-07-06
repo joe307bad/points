@@ -26,7 +26,7 @@
     "react-native-loading-spinner-overlay": "^0.5.2",
     "react-native-modalbox": "^1.7.1",
     "react-native-permissions": "^1.1.1",
-    "react-native-photo-view": "^1.5.2",
+    "react-native-photo-view": "git+https://github.com/tomtom94/react-native-photo-view.git",
     "react-native-scrollable-tab-view": "git+https://github.com/happypancake/react-native-scrollable-tab-view.git",
     "react-native-sentry": "^0.39.0",
     "react-native-timeline-listview": "^0.2.3",
