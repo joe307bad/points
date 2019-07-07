@@ -6,10 +6,11 @@ import {
   Put,
   Param,
   UploadedFile,
-  FileInterceptor,
   UseInterceptors,
   Get
 } from '@nestjs/common';
+
+import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
 import {
   UserDto,

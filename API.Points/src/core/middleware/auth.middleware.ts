@@ -1,4 +1,4 @@
-import { Injectable, NestMiddleware, MiddlewareFunction } from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
 import * as tamper from 'tamper';
 import { AccessControl, Permission } from 'accesscontrol';
 import { decodeToken } from '../acl';
@@ -10,7 +10,7 @@ export class AuthMiddleware implements NestMiddleware {
 
     constructor(private readonly access: AccessControl) { }
 
-    resolve(...args: any[]): MiddlewareFunction {
+    use(requ: Request, resp: Response, next: Function) {
         const context = this;
         return tamper(function (req, res) {
             // only tamper with json responses

@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, MaxLength } from 'class-validator';
+import { IsString, IsNotEmpty, MaxLength, IsBoolean } from 'class-validator';
 
 export class UserDto {
     readonly id: string = '';
@@ -22,6 +22,9 @@ export class UserDto {
     @IsNotEmpty()
     @MaxLength(200, { message: '200 character max' })
     readonly password: string = '';
+
+    @IsBoolean()
+    readonly approved: boolean = false;
 
     readonly roles: string [] = [];
     photo: string = '';

@@ -1,4 +1,5 @@
-import { Controller, UseGuards, Post, Body, Get, Put, Param, UseInterceptors, FileInterceptor, UploadedFile } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Get, Put, Param, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { AchievementDto, IAchievementService } from '@points/shared';
 import { AuthGuard } from '@nestjs/passport';
 

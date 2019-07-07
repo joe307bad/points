@@ -56,7 +56,8 @@ export class UserService implements IUserService {
           ({
             firstName: user.firstName,
             id: user._id,
-            lastName: user.lastName
+            lastName: user.lastName,
+            approved: user.approved
           } as UserDto)
       )
     );

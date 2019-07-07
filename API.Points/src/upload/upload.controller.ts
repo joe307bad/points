@@ -1,4 +1,5 @@
-import { Controller, UseGuards, Get, Post, Body, UseInterceptors, FileInterceptor, UploadedFile, Res } from '@nestjs/common';
+import { Controller, UseGuards, Get, Post, Body, UseInterceptors, UploadedFile, Res } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
 import { UploadDto, IUploadService } from '@points/shared';
 const gm = require('gm').subClass({ imageMagick: true });
