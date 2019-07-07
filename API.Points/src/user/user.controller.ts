@@ -1,6 +1,23 @@
-import { Controller, Post, Body, UseGuards, Put, Param, UploadedFile, FileInterceptor, UseInterceptors, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Put,
+  Param,
+  UploadedFile,
+  FileInterceptor,
+  UseInterceptors,
+  Get
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { UserDto, IUserService, JwtResponse, ApiError, UserExistsDto } from '@points/shared';
+import {
+  UserDto,
+  IUserService,
+  JwtResponse,
+  ApiError,
+  UserExistsDto
+} from '@points/shared';
 
 import { UserService } from './user.service';
 import {
@@ -12,17 +29,21 @@ import {
 import { UploadFileSettings } from '../app.settings';
 
 const resource = 'user';
-const to = (action: ApiAction) => new ApiPermission(action, resource, 'id', 'objectId');
+const to = (action: ApiAction) =>
+  new ApiPermission(action, resource, 'id', 'objectId');
 // resource specific action like 'login-as' or 'approve-achievement-for'
 
 @Controller(resource)
 @UseGuards(PermissionGaurd)
 export class UserController implements IUserService {
-  constructor(private readonly user: UserService) { }
+  constructor(private readonly user: UserService) {}
 
   @Post()
   @UseInterceptors(FileInterceptor('photo', UploadFileSettings))
-  async create(@Body() user: UserDto, @UploadedFile() photo): Promise<JwtResponse> {
+  async create(
+    @Body() user: UserDto,
+    @UploadedFile() photo
+  ): Promise<JwtResponse> {
     user.photo = photo ? photo.filename : null;
     return await this.user.create(user).catch(err => err);
   }
@@ -46,8 +67,10 @@ export class UserController implements IUserService {
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   @HasPermission(to('update'))
-  async update(@Body() user: UserDto, @Param() params: { id: string }): Promise<UserDto | ApiError> {
-    return Promise.resolve(new ApiError('Not Implemented'));
+  async update(
+    @Body() user: UserDto,
+    @Param() params: { id: string }
+  ): Promise<UserDto | ApiError> {
+    return await this.user.update(user, { id: params.id }).catch(err => err);
   }
-
 }
