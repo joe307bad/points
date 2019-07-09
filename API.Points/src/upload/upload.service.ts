@@ -15,7 +15,7 @@ export class UploadService {
     private db = DatabaseService;
 
     constructor(
-        @Inject('User') private readonly userModel: Model<User>,
+        @InjectModel('User') private readonly userModel: Model<User>,
         @InjectModel('Upload') private readonly uploadModel: Model<Upload>) { }
 
     async create(uploadDto: UploadDto): Promise<Upload> {

@@ -4,9 +4,10 @@ import * as ac from 'accesscontrol';
 
 import { User } from '../../shared/interfaces';
 import { BaseSchema } from '../../shared/schemas';
+import { MongooseModuleAsyncOptions } from '@nestjs/mongoose';
 
-export const UserSchemaProvider = {
-  provide: 'User',
+export const UserSchemaProvider: MongooseModuleAsyncOptions = {
+  connectionName: 'User',
   useFactory: (access: ac.AccessControl): mongoose.Model<User> => {
     const roles = access.getRoles();
 
@@ -47,3 +48,17 @@ export const UserSchemaProvider = {
   },
   inject: ['AccessControl']
 };
+
+export const UserSchema = BaseSchema({
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  userName: { type: String, unique: true, required: true },
+  password: { type: String, required: true, select: false },
+  roles: {
+    type: [{ type: String, enum: [] }],
+    default: 'user',
+    required: true
+  },
+  approved: { type: Boolean, required: true, default: false },
+  photo: { type: String }
+});

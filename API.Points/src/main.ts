@@ -10,13 +10,13 @@ import { publicDir } from './app.settings';
 async function bootstrap() {
 
   // TODO can this be moved to middleware?
-  mongoose.plugin(validator);
+  // mongoose.plugin(validator);
 
   const app = await NestFactory.create(ApplicationModule);
 
   // TODO move to middleware
   // https://github.com/wbhob/nest-middlewares
-  app.use(express.static(publicDir));
+  // app.use(express.static(publicDir));
   // app.use(helmet());
 
   await app.listen(3000);

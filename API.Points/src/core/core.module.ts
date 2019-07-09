@@ -1,11 +1,16 @@
 import { Module, Global } from '@nestjs/common';
 
 import { AcProvider } from './acl/ac.provider';
-import { UserSchemaProvider } from '../user';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UserSchemaProvider, UserSchema } from '../user';
 
 @Global()
 @Module({
-    providers: [AcProvider, UserSchemaProvider],
-    exports: [AcProvider, UserSchemaProvider],
+  imports: [MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])],
+  providers: [AcProvider],
+  exports: [
+      AcProvider,
+      MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])
+    ]
 })
-export class CoreModule { }
+export class CoreModule {}

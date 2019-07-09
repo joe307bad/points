@@ -14,6 +14,7 @@ class UserDto {
         this.lastName = '';
         this.userName = '';
         this.password = '';
+        this.approved = false;
         this.roles = [];
         this.photo = '';
     }
@@ -38,4 +39,7 @@ __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.MaxLength(200, { message: '200 character max' })
 ], UserDto.prototype, "password", void 0);
+__decorate([
+    class_validator_1.IsBoolean()
+], UserDto.prototype, "approved", void 0);
 exports.UserDto = UserDto;

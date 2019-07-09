@@ -22,7 +22,7 @@ interface SeedAudit<T> {
 export class SeedService {
 
     constructor(
-        @Inject('User') private readonly userModel: Model<User>,
+        @InjectModel('User') private readonly userModel: Model<User>,
         @InjectModel('Achievement') private readonly achievementModel: Model<Achievement>,
         @InjectModel('Category') private readonly categoryModel: Model<Category>,
     ) { }

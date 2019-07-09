@@ -7,42 +7,36 @@ import { decodeToken } from '../acl';
 // it may be better to just append a filter method to every controller result
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
+  constructor(private readonly access: AccessControl) {}
 
-    constructor(private readonly access: AccessControl) { }
+  async use(req: Request, res: Response, next: Function) {
 
-    use(requ: Request, resp: Response, next: Function) {
-        const context = this;
-        return tamper(function (req, res) {
-            // only tamper with json responses
-            if (res.getHeader('Content-Type') !== 'application/json; charset=utf-8') {
-                return;
-            }
-
-            return function (body) {
-                const user = decodeToken(req);
-                let intent = res.getHeader('X-Api-Intent');
-                let owned = res.getHeader('X-Owns-Resource');
-
-                if (intent && user && user.roles) {
-                    intent = JSON.parse(intent);
-                    const roles = user.roles;
-                    owned = owned === 'true';
-
-                    const permission: Permission =
-                        (context.access.can(roles))[intent.action + (owned ? 'Own' : '')](intent.resource);
-
-                    if (!permission.granted) {
-                        return body;
-                    }
-
-                    body = JSON.parse(body);
-                    body = permission.filter(body);
-                    body = JSON.stringify(body);
-                }
-
-                return body;
-            };
-
-        });
+    const auth = req.headers['authorization'];
+    if(!auth) {
+      next();
+      // return;
     }
+    // const user = decodeToken(auth);
+    // let intent = res.headers['X-Api-Intent'];
+    // let owned = res.headers['X-Owns-Resource'];
+
+    // if (intent && user && user.roles) {
+    //   intent = JSON.parse(intent);
+    //   const roles = user.roles;
+    //   owned = owned === 'true';
+
+    //   const permission: Permission = this.access
+    //     .can(roles)
+    //     [intent.action + (owned ? 'Own' : '')](intent.resource);
+
+    //   if (permission.granted) {
+    //     next();
+    //   }
+
+    //   let body = JSON.parse(await req.json());
+    //   body = permission.filter(body);
+    //   body = JSON.stringify(body);
+    // }
+    // next();
+  }
 }
