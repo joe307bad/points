@@ -13,7 +13,7 @@ export class AchievementService implements IAchievementService {
     private db = DatabaseService;
 
     constructor(
-        @InjectModel('User') private readonly userModel: Model<User>,
+        @Inject('User') private readonly userModel: Model<User>,
         @InjectModel('Category') private readonly categoryModel: Model<Category>,
         @InjectModel('Checkin') private readonly checkinModel: Model<Checkin>,
         @InjectModel('Achievement') private readonly achievementModel: Model<Achievement>) { }

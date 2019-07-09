@@ -51,13 +51,7 @@ export class UserController implements IUserService {
 
   @Post('login')
   async login(@Body() user: UserDto): Promise<JwtResponse | ApiError> {
-    return await this.user.login(user)
-    .then(d => {
-      return d
-    })
-    .catch(err => {
-      return err;
-    });
+    return await this.user.login(user).catch(err => err);
   }
 
   @Get('exists/:userName')

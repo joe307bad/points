@@ -12,15 +12,13 @@ import {
 import { User } from '../shared/interfaces';
 import { DatabaseService } from '../core/mongo/';
 import { AuthService } from '../auth';
-import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class UserService implements IUserService {
   private db = DatabaseService;
 
   constructor(
-    @Inject('UserProvider') private readonly userProvider: Model<User>,
-    @InjectModel('User') private readonly userModel: Model<User>,
+    @Inject('User') private readonly userModel: Model<User>,
     private auth: AuthService
   ) {}
 
@@ -34,12 +32,7 @@ export class UserService implements IUserService {
   }
 
   async login(userDto: UserDto): Promise<JwtResponse | ApiError> {
-    let userData;
-    try{
-       userData = await this.findByUserName(userDto.userName);
-    }catch(e) {
-      console.log(e)
-    }
+    const userData = await this.findByUserName(userDto.userName);
 
     return bcrypt
       .compare(userDto.password, userData.password)
@@ -71,7 +64,7 @@ export class UserService implements IUserService {
   }
 
   private async findByUserName(userName: string): Promise<UserDto> {
-    return (await this.userProvider
+    return (await this.userModel
       .findOne({ userName })
       .select('+password')
       ) as UserDto;
