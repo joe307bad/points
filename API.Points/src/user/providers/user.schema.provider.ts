@@ -5,10 +5,11 @@ import * as ac from 'accesscontrol';
 import { User } from '../../shared/interfaces';
 import { BaseSchema } from '../../shared/schemas';
 import { MongooseModuleAsyncOptions } from '@nestjs/mongoose';
+import { AccessControl } from 'accesscontrol';
 
-export const UserSchemaProvider: MongooseModuleAsyncOptions = {
-  connectionName: 'User',
-  useFactory: (access: ac.AccessControl): mongoose.Model<User> => {
+export const UserSchemaProvider = {
+  provide: 'UserProvider',
+  useFactory: (connection: mongoose.Connection, access: AccessControl): mongoose.Model<User> => {
     const roles = access.getRoles();
 
     const UserSchema = BaseSchema({
@@ -24,6 +25,7 @@ export const UserSchemaProvider: MongooseModuleAsyncOptions = {
       approved: { type: Boolean, required: true, default: false },
       photo: { type: String }
     });
+
 
     UserSchema.virtual('checkins', {
       ref: 'Checkin',
@@ -44,9 +46,9 @@ export const UserSchemaProvider: MongooseModuleAsyncOptions = {
       }
     });
 
-    return mongoose.model('User', UserSchema);
+    return connection.model('User', UserSchema);
   },
-  inject: ['AccessControl']
+  inject: ['DBConnection', 'AccessControl']
 };
 
 export const UserSchema = BaseSchema({

@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import {
   UserDto,
@@ -19,6 +19,7 @@ export class UserService implements IUserService {
   private db = DatabaseService;
 
   constructor(
+    @Inject('UserProvider') private readonly userProvider: Model<User>,
     @InjectModel('User') private readonly userModel: Model<User>,
     private auth: AuthService
   ) {}
@@ -70,7 +71,7 @@ export class UserService implements IUserService {
   }
 
   private async findByUserName(userName: string): Promise<UserDto> {
-    return (await this.userModel
+    return (await this.userProvider
       .findOne({ userName })
       .select('+password')
       ) as UserDto;

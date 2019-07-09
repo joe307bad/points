@@ -4,12 +4,13 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { AuthService } from '../auth';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema } from './providers/user.schema.provider';
+import { UserSchema, UserSchemaProvider } from './providers/user.schema.provider';
 
 // TODO figure out how to user UserSchemaProvider here
 @Module({
+  imports: [],
   controllers: [UserController],
-  providers: [UserService, AuthService],
+  providers: [UserService, AuthService, UserSchemaProvider],
 })
 export class UserModule {
 }
