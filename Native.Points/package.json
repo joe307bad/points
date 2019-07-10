@@ -13,7 +13,7 @@
     "formik": "1.5.7",
     "formik-observer": "^1.0.1",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
     "native-base": "^2.7",
