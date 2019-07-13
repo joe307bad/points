@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
+    "start:debug": "nodemon --config nodemon-debug.json",
     "build:prod": "gulp cleanDist && tsc --sourceMap false && gulp && gulp copyEnvProd && gulp zip",
     "prestart:prod": "tsc",
     "prod": "npm install --only=production && node -r dotenv/config main.js dotenv_config_path=./.env",
@@ -45,9 +46,18 @@
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.4.0",
+    "rxjs-compat": "^6.5.2",
     "tamper": "^1.0.0",
     "typescript": "^3.3.1"
   },
+  "lib": [
+    "dom",
+    "es2015",
+    "es2016",
+    "es2017",
+    "es2018",
+    "esnext"
+  ],
   "devDependencies": {
     "@types/dotenv": "^4.0.3",
     "@types/gm": "^1.18.0",

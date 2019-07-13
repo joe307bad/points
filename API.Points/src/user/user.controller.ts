@@ -28,6 +28,7 @@ import {
   ApiPermission
 } from '../core/acl';
 import { UploadFileSettings } from '../app.settings';
+import {OnlyApprovedUsers} from '../auth/guards/approved.guard';
 
 const resource = 'user';
 const to = (action: ApiAction) =>
@@ -50,6 +51,7 @@ export class UserController implements IUserService {
   }
 
   @Post('login')
+  @UseGuards(OnlyApprovedUsers)
   async login(@Body() user: UserDto): Promise<JwtResponse | ApiError> {
     return await this.user.login(user).catch(err => err);
   }
