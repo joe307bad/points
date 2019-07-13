@@ -8,12 +8,13 @@ import * as sizeOf from 'image-size';
 import { ApiAction, ApiPermission, PermissionGaurd, HasPermission } from '../core/acl';
 import { UploadService } from './upload.service';
 import { UploadFileSettings, uploadDir } from '../app.settings';
+import {OnlyApprovedUsers} from '../auth/guards/approved.guard';
 
 const resource = 'upload';
 export const to = (action: ApiAction) => new ApiPermission(action, resource, 'userId', 'objectId');
 
 @Controller(resource)
-@UseGuards(AuthGuard('jwt'), PermissionGaurd)
+@UseGuards(AuthGuard('jwt'), PermissionGaurd, OnlyApprovedUsers)
 export class UploadController implements IUploadService {
     constructor(private readonly upload: UploadService) { }
 

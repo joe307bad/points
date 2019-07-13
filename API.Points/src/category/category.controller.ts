@@ -4,12 +4,13 @@ import { CategoryDto, ICategoryService } from '@points/shared';
 
 import { PermissionGaurd, ApiAction, ApiPermission, HasPermission } from '../core/acl';
 import { CategoryService } from './category.service';
+import {OnlyApprovedUsers} from '../auth/guards/approved.guard';
 
 const resource = 'category';
 export const to = (action: ApiAction) => new ApiPermission(action, resource);
 
 @Controller(resource)
-@UseGuards(AuthGuard('jwt'), PermissionGaurd)
+@UseGuards(AuthGuard('jwt'), PermissionGaurd, OnlyApprovedUsers)
 export class CategoryController implements ICategoryService {
     constructor(private readonly category: CategoryService) { }
 

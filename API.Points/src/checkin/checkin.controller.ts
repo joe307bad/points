@@ -7,13 +7,14 @@ import { CheckinService } from './checkin.service';
 import { PermissionGaurd, ApiPermission, ApiAction, HasPermission, decodeToken } from '../core/acl';
 import { UploadFileSettings } from '../app.settings';
 import { isAdmin } from '../core/acl/helpers/isAdmin.helper';
+import {OnlyApprovedUsers} from '../auth/guards/approved.guard';
 
 const resource = 'checkin';
 export const to = (action: ApiAction) =>
     new ApiPermission(action, resource, 'userId', 'objectId');
 
 @Controller(resource)
-@UseGuards(AuthGuard('jwt'), PermissionGaurd)
+@UseGuards(AuthGuard('jwt'), PermissionGaurd, OnlyApprovedUsers)
 export class CheckinController implements ICheckinService {
     constructor(private readonly checkin: CheckinService) { }
 

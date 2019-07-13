@@ -6,12 +6,13 @@ import { AuthGuard } from '@nestjs/passport';
 import { HasPermission, ApiAction, ApiPermission, PermissionGaurd } from '../core/acl';
 import { AchievementService } from './achievement.service';
 import { UploadFileSettings } from '../app.settings';
+import {OnlyApprovedUsers} from '../auth/guards/approved.guard';
 
 const resource = 'achievement';
 export const to = (action: ApiAction) => new ApiPermission(action, resource);
 
 @Controller(resource)
-@UseGuards(AuthGuard('jwt'), PermissionGaurd)
+@UseGuards(AuthGuard('jwt'), PermissionGaurd, OnlyApprovedUsers)
 export class AchievementController implements IAchievementService {
     constructor(private readonly achievement: AchievementService) { }
 
