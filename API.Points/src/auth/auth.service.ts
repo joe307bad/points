@@ -13,7 +13,8 @@ export class AuthService {
       {
         username: user.userName,
         id: user.id,
-        roles: user.roles
+        roles: user.roles,
+        approved: user.approved
       } as JwtPayload,
        secret,
       { expiresIn });

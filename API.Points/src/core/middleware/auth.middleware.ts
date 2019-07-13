@@ -37,6 +37,6 @@ export class AuthMiddleware implements NestMiddleware {
     //   body = permission.filter(body);
     //   body = JSON.stringify(body);
     // }
-    // next();
+    next();
   }
 }

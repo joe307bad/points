@@ -5,6 +5,7 @@ class JwtPayload {
         this.username = '';
         this.id = '';
         this.roles = [];
+        this.approved = false;
     }
 }
 exports.JwtPayload = JwtPayload;

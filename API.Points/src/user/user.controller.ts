@@ -51,7 +51,6 @@ export class UserController implements IUserService {
   }
 
   @Post('login')
-  @UseGuards(OnlyApprovedUsers)
   async login(@Body() user: UserDto): Promise<JwtResponse | ApiError> {
     return await this.user.login(user).catch(err => err);
   }
@@ -62,13 +61,14 @@ export class UserController implements IUserService {
   }
 
   @Get()
+  @UseGuards(OnlyApprovedUsers)
   @HasPermission(to('update'))
   async getAll(): Promise<UserDto[]> {
     return await this.user.getAll().catch(err => err);
   }
 
   @Put(':id')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), OnlyApprovedUsers)
   @HasPermission(to('update'))
   async update(
     @Body() user: UserDto,

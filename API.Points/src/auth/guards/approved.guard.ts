@@ -1,5 +1,6 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs/Observable';
+import {decodeToken} from '../../core/acl/helpers';
 
 @Injectable()
 export class OnlyApprovedUsers implements CanActivate {
@@ -7,7 +8,7 @@ export class OnlyApprovedUsers implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
-    // return validateRequest(request);
-    return true;
+    const user = decodeToken(request);
+    return user.approved;
   }
 }
