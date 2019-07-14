@@ -187,7 +187,7 @@ export class CheckinService implements ICheckinService {
         {
             '$unwind': {
                 'path': '$checkins',
-                "preserveNullAndEmptyArrays": true
+                'preserveNullAndEmptyArrays': true
             }
         },
         {
@@ -201,7 +201,7 @@ export class CheckinService implements ICheckinService {
         {
             '$unwind': {
                 'path': '$achievements',
-                "preserveNullAndEmptyArrays": true
+                'preserveNullAndEmptyArrays': true
             }
         }
 
@@ -222,22 +222,22 @@ export class CheckinService implements ICheckinService {
         grouping['$group']['checkins'] = { '$push': '$achievements' };
 
         const checkinsProject = {
-            $cond: [{ $eq: ["$checkins", [{}]] }, [],
+            $cond: [{ $eq: ['$checkins', [{}]] }, [],
             {
                 $map:
                 {
-                    input: "$checkins",
-                    as: "checkinMap",
+                    input: '$checkins',
+                    as: 'checkinMap',
                     in: {
-                        achievementId: "$$checkinMap.achievementId",
-                        checkinId: "$$checkinMap.checkinId",
-                        checkinDate: "$$checkinMap.checkinDate",
-                        name: "$$checkinMap.name",
-                        description: "$$checkinMap.description",
-                        //category: "$$checkins.category",
-                        photo: "$$checkinMap.photo",
-                        points: "$$checkinMap.points",
-                        approved: "$$checkinMap.approved"
+                        achievementId: '$$checkinMap.achievementId',
+                        checkinId: '$$checkinMap.checkinId',
+                        checkinDate: '$$checkinMap.checkinDate',
+                        name: '$$checkinMap.name',
+                        description: '$$checkinMap.description',
+                        // category: "$$checkins.category",
+                        photo: '$$checkinMap.photo',
+                        points: '$$checkinMap.points',
+                        approved: '$$checkinMap.approved'
                     }
                 }
             }
@@ -245,7 +245,7 @@ export class CheckinService implements ICheckinService {
         };
 
         const project = {
-            "$project": {
+            '$project': {
                 userId: '$_id',
                 userName: '$userName',
                 firstName: '$firstName',
@@ -254,24 +254,24 @@ export class CheckinService implements ICheckinService {
                     $cond: [{
                         $or: [
                             {
-                                $eq: ["$checkins", [{}]]
+                                $eq: ['$checkins', [{}]]
                             },
                             {
-                                $gt: ["$checkins", false]
+                                $gt: ['$checkins', false]
                             },
                         ]
                     }, 0,
                     { '$size': '$checkins' }]
                 },
                 totalPoints: {
-                    "$sum": {
-                        "$map": {
-                            "input": "$checkins",
-                            "as": "item",
-                            "in": {
-                                "$cond": [
-                                    { "$eq": ["$$item.approved", true] },
-                                    "$$item.points",
+                    '$sum': {
+                        '$map': {
+                            'input': '$checkins',
+                            'as': 'item',
+                            'in': {
+                                '$cond': [
+                                    { '$eq': ['$$item.approved', true] },
+                                    '$$item.points',
                                     0
                                 ]
                             }
@@ -279,14 +279,14 @@ export class CheckinService implements ICheckinService {
                     }
                 },
                 pendingPoints: {
-                    "$sum": {
-                        "$map": {
-                            "input": "$checkins",
-                            "as": "item",
-                            "in": {
-                                "$cond": [
-                                    { "$eq": ["$$item.approved", false] },
-                                    "$$item.points",
+                    '$sum': {
+                        '$map': {
+                            'input': '$checkins',
+                            'as': 'item',
+                            'in': {
+                                '$cond': [
+                                    { '$eq': ['$$item.approved', false] },
+                                    '$$item.points',
                                     0
                                 ]
                             }
@@ -295,7 +295,7 @@ export class CheckinService implements ICheckinService {
                 },
                 checkins: withAchievements ? checkinsProject : [],
             }
-        }
+        };
 
         pipeline = [...pipeline, grouping, project, { '$sort': { 'totalPoints': -1 } }];
         return this.userModel.aggregate(pipeline).exec();

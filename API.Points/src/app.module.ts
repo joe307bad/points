@@ -28,8 +28,4 @@ import { MongooseModule } from '@nestjs/mongoose';
     SeedModule
   ],
 })
-export class ApplicationModule {
-  // configure(consumer: MiddlewareConsumer) {
-  //   consumer.apply(AuthMiddleware).forRoutes('*');
-  // }
-}
+export class ApplicationModule { }

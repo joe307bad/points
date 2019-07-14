@@ -25,7 +25,7 @@ export class CheckinController implements ICheckinService {
         checkin.photo = photo ? photo.filename : null;
         
         return await this.checkin.create(Object.assign(checkin, {
-            approved: isAdmin(request) ? true : false
+            approved: isAdmin(request)
         })).catch(err => err);
     }
 
