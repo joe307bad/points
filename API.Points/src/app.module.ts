@@ -8,7 +8,6 @@ import { AchievementModule } from './achievement';
 import { CheckinModule } from './checkin';
 import { UploadModule } from './upload';
 import { CategoryModule } from './category';
-import { AuthMiddleware } from './core/middleware';
 import { SettingsModule } from './settings';
 import { SeedModule } from './seed/seed.module';
 import { MongooseModule } from '@nestjs/mongoose';

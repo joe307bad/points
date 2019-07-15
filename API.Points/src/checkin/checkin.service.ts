@@ -7,6 +7,7 @@ import { ObjectId } from 'mongodb';
 import { DatabaseService } from '../core/mongo';
 import { Checkin, User, Achievement } from '../shared/interfaces';
 import { Category } from '../shared/interfaces/category.interface';
+import { GlobalYearFilter } from '../app.settings';
 
 @Injectable()
 export class CheckinService implements ICheckinService {
@@ -31,10 +32,6 @@ export class CheckinService implements ICheckinService {
             .then(userCheckins => userCheckins[0]);
     }
 
-    async getAll(): Promise<UserCheckinsDto[]> {
-        return this.buildUserCheckinAggregate(true);
-    }
-
     async getFeed(): Promise<FeedItemDto[]> {
         return this.buildFeedAggregate();
     }
@@ -56,6 +53,12 @@ export class CheckinService implements ICheckinService {
         return this.checkinModel.deleteOne({ _id: checkinDto.id });
     }
 
+    private applyGlobalDateFilter() {
+        return {
+            'createdAt': { $gte: new Date(GlobalYearFilter)}
+        }
+    }
+
     private buildFeedAggregate() {
 
         let pipeline = [];
@@ -64,7 +67,8 @@ export class CheckinService implements ICheckinService {
         {
             '$match':
             {
-                'approved': true
+                'approved': true,
+                ...this.applyGlobalDateFilter()
             }
         }, {
             '$lookup': {
@@ -116,7 +120,8 @@ export class CheckinService implements ICheckinService {
         {
             '$match':
             {
-                'approved': false
+                'approved': false,
+                ...this.applyGlobalDateFilter()
             }
         }, {
             '$lookup': {
@@ -181,6 +186,9 @@ export class CheckinService implements ICheckinService {
                 'from': this.checkinModel.collection.name,
                 'localField': '_id',
                 'foreignField': 'userId',
+                'pipeline': [
+                  { '$match': this.applyGlobalDateFilter() }
+                ],
                 'as': 'checkins'
             }
         },
@@ -297,7 +305,14 @@ export class CheckinService implements ICheckinService {
             }
         };
 
-        pipeline = [...pipeline, grouping, project, { '$sort': { 'totalPoints': -1 } }];
+        pipeline = [
+            ...pipeline,
+            grouping,
+            project,
+            {
+                '$sort': { 'totalPoints': -1 }
+            }
+            ];
         return this.userModel.aggregate(pipeline).exec();
     }
 

@@ -23,7 +23,6 @@ export class CheckinController implements ICheckinService {
     @UseInterceptors(FileInterceptor('photo', UploadFileSettings))
     async create(@Body() checkin: CheckinDto, @UploadedFile() photo, @Req() request): Promise<CheckinDto> {
         checkin.photo = photo ? photo.filename : null;
-        
         return await this.checkin.create(Object.assign(checkin, {
             approved: isAdmin(request)
         })).catch(err => err);
@@ -38,7 +37,7 @@ export class CheckinController implements ICheckinService {
     @Get()
     @HasPermission(to('read'))
     async getAll(): Promise<UserCheckinsDto[]> {
-        return await this.checkin.getAll().catch(err => err);
+        throw Error('Not implemented');
     }
 
     @Get('feed')

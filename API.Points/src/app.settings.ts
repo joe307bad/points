@@ -10,6 +10,7 @@ interface IEnvironment {
     SECRET: string;
     API_INTENT_HEADER: string;
     OWNS_HEADER: string;
+    GLOBAL_YEAR_FILTER: string;
 }
 declare let process: { env: IEnvironment };
 
@@ -19,6 +20,7 @@ export const publicDir =  __dirname + process.env.PUBLIC_DIR;
 export const secret = process.env.SECRET;
 export const ApiIntentHeader = process.env.API_INTENT_HEADER;
 export const OwnsHeader = process.env.OWNS_HEADER;
+export const GlobalYearFilter = process.env.GLOBAL_YEAR_FILTER;
 
 // TODO pre save file that runs mongoose.validate
 export const UploadFileSettings = {
