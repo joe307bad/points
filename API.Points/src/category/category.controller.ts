@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, Body, Get } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Get, Put } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CategoryDto, ICategoryService } from '@points/shared';
 
@@ -24,5 +24,11 @@ export class CategoryController implements ICategoryService {
     @HasPermission(to('read'))
     async getAll(): Promise<CategoryDto[]> {
         return await this.category.getAll().catch(err => err);
+    }
+
+    @Put()
+    @HasPermission(to('update'))
+    async update(@Body() category: CategoryDto): Promise<CategoryDto> {
+        return await this.category.update(category).catch(err => err);
     }
 }

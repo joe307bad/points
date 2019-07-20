@@ -8,18 +8,22 @@ import { Category } from '../shared/interfaces';
 
 @Injectable()
 export class CategoryService implements ICategoryService {
+  private db = DatabaseService;
 
-    private db = DatabaseService;
+  constructor(
+    @InjectModel('Category') private readonly categoryModel: Model<Category>
+  ) {}
 
-    constructor(
-        @InjectModel('Category') private readonly categoryModel: Model<Category>) { }
+  async create(categoryDto: CategoryDto): Promise<CategoryDto> {
+    const category = new this.categoryModel(categoryDto);
+    return await this.db.save(category);
+  }
 
-    async create(categoryDto: CategoryDto): Promise<CategoryDto> {
-        const category = new this.categoryModel(categoryDto);
-        return await this.db.save(category);
-    }
+  async getAll(): Promise<any[]> {
+    return await this.categoryModel.find({});
+  }
 
-    async getAll(): Promise<any[]> {
-        return await this.categoryModel.find({});
-    }
+  async update(category: CategoryDto): Promise<CategoryDto> {
+    return await this.categoryModel.update({ _id: category.id }, category);
+  }
 }
