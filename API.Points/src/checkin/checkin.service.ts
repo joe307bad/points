@@ -104,6 +104,11 @@ export class CheckinService implements ICheckinService {
           as: 'categories'
         }
       },
+      {
+        $match: {
+          'categories.disabled': { $ne: true }
+        }
+      },
       { $sort: { createdAt: -1 } },
       {
         $project: {
