@@ -16,6 +16,7 @@ export const UserSchemaProvider = {
       lastName: { type: String, required: true },
       userName: { type: String, unique: true, required: true },
       password: { type: String, required: true, select: false },
+      passwordReset: { type: Boolean, default: true },
       roles: {
         type: [{ type: String, enum: roles }],
         default: 'user',
@@ -42,6 +43,29 @@ export const UserSchemaProvider = {
           user.password = hash;
           next();
         });
+      }
+    });
+
+    UserSchema.pre<User>('findOneAndUpdate', function(next) {
+      const context = this;
+      let password = this.getUpdate().password;
+      let passwordReset = this.getUpdate().passwordReset;
+      if (password) {
+        bcrypt.hash(password, 10, function(err, hash) {
+          if (err) {
+            return next(err);
+          }
+          password = hash;
+          if(passwordReset === true) {
+            context._update.passwordReset = true;
+          } else {
+            context._update.passwordReset = false;
+          }
+          context._update.password = password;
+          next();
+        });
+      } else {
+        next();
       }
     });
 

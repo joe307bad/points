@@ -75,7 +75,7 @@ export class UserService implements IUserService {
     params?: { id: string }
   ): Promise<UserDto | ApiError> {
     return (await this.userModel.findOneAndUpdate({ _id: params.id }, user, {
-      new: true
+      new: true,
     })) as UserDto;
   }
 }
