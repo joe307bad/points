@@ -20,7 +20,9 @@ export class CategoryService implements ICategoryService {
   }
 
   async getAll(): Promise<any[]> {
-    return await this.categoryModel.find({});
+    return await this.categoryModel
+      .find({})
+      .then(categories => categories.filter(category => !category.disabled));
   }
 
   async update(category: CategoryDto): Promise<CategoryDto> {
