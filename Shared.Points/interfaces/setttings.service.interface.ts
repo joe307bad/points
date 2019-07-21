@@ -1,5 +1,5 @@
 import { SettingsDto } from '../dtos';
 
 export interface ISettingsService {
-    get(): Promise<SettingsDto>;
+    get(request: any): Promise<SettingsDto>;
 }
