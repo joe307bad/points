@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Container, Text } from 'native-base';
 import { FlatList } from 'react-native';
 import { Checkins } from '../reducers';
 import AchievementListItem from '../../shared/components/achievement-list-item/achievement-list-item';

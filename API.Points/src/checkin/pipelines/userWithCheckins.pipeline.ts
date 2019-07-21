@@ -1,7 +1,7 @@
 import { GlobalYearFilter } from '../../app.settings';
 import { ObjectId } from 'mongodb';
 
-export function userWithCheckinsPipeline(userId: string)  {
+export function userWithCheckinsPipeline(userId: string) {
   return [
     {
       $match: {
@@ -62,14 +62,23 @@ export function userWithCheckinsPipeline(userId: string)  {
     },
     {
       $match: {
-        $and: [
+        $or: [
           {
-            'categories.disabled': false
+            checkins: {
+              $eq: {}
+            }
           },
           {
-            'checkins.createdAt': {
-              $gte: new Date(GlobalYearFilter)
-            }
+            $and: [
+              {
+                'categories.disabled': false
+              },
+              {
+                'checkins.createdAt': {
+                  $gte: new Date(GlobalYearFilter)
+                }
+              }
+            ]
           }
         ]
       }
@@ -141,4 +150,4 @@ export function userWithCheckinsPipeline(userId: string)  {
       }
     }
   ];
-};
+}

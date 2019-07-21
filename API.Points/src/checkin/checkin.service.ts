@@ -31,7 +31,7 @@ export class CheckinService implements ICheckinService {
   }
 
   async getForUser(user: { userId: string }): Promise<UserCheckinsDto> {
-    return this.userModel.aggregate(userWithCheckinsPipeline(user.userId)).exec();
+    return this.userModel.aggregate(userWithCheckinsPipeline(user.userId)).exec().then(users => users[0]);
   }
 
   async getFeed(): Promise<FeedItemDto[]> {

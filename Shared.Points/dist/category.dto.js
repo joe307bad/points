@@ -6,6 +6,7 @@ class CategoryDto extends base_dto_1.BaseDto {
         super(...arguments);
         this.id = '';
         this.name = '';
+        this.disabled = false;
     }
 }
 exports.CategoryDto = CategoryDto;
