@@ -197,3 +197,6 @@ export const allUsers = (state: IBaseState<IAuthState>): UserDto[] => {
   const users = state.condition!.users!;
   return users ? users : [];
 };
+
+export const promptPasswordReset = (state: IBaseState<IAuthState>) => 
+  state.condition!.userData.passwordReset

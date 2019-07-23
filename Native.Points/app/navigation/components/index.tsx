@@ -15,6 +15,7 @@ import Upload from '../../upload/containers';
 import Register from '../../auth/containers/register';
 import Login from '../../auth/containers';
 import Search from '../../search/containers';
+import PasswordReset from '../../auth/containers/password-reset';
 
 export interface IBaseProps extends NavigationInjectedProps {
     disableMenuButton: boolean;
@@ -72,6 +73,9 @@ const Navigation = createDrawerNavigator(
         },
         Search: {
             screen: Search
+        },
+        PasswordReset: {
+            screen: PasswordReset
         }
     },
     {

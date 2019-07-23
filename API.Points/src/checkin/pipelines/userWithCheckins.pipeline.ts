@@ -98,6 +98,9 @@ export function userWithCheckinsPipeline(userId: string) {
         lastName: {
           $first: '$lastName'
         },
+        passwordReset: {
+          $first: '$passwordReset'
+        },
         checkins: {
           $push: '$achievements'
         }
