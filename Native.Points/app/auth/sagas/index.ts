@@ -20,9 +20,29 @@ import * as loginActions from '../actions/login';
 import * as registerActions from '../actions/register';
 import * as userDataActions from '../actions/userData';
 import * as passwordResetActions from '../actions/password-reset';
+import * as approveUserActions from '../actions/approve-user';
+
+export function* approveUser(approveUserId: string) {
+  
+  const response = yield apply(userService, 'update', [
+    { approved: true },
+    { id: approveUserId }
+  ]);
+
+  if (!response.errors) {
+    yield put({
+      type: approveUserActions.ApproveUserSuccess
+    });
+  }
+
+  if (response.errors) {
+    yield put({
+      type: approveUserActions.ApproveUserFailure
+    });
+  }
+}
 
 export function* resetPassword(newPassword: string) {
-  debugger;
   const currentUser = yield select((state: any) =>
     currentUserSelector(state.authReducer)
   );
@@ -224,5 +244,15 @@ export function* passwordResetRequest() {
       passwordResetActions.PasswordResetRequest
     );
     yield call(resetPassword, request.payload.newPassword);
+  }
+}
+
+
+export function* approveUserRequest() {
+  while (true) {
+    const request: { payload: IAuthState } = yield take(
+      approveUserActions.ApproveUserRequest
+    );
+    yield call(approveUser, request.payload.approveUserId);
   }
 }

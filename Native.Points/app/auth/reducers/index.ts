@@ -13,6 +13,7 @@ import * as loginActions from '../actions/login';
 import * as registerActions from '../actions/register';
 import * as userDataActions from '../actions/userData';
 import * as passwordResetActions from '../actions/password-reset';
+import * as approveUserActions from '../actions/approve-user';
 
 export interface ICurrentUser {
   userId?: string;
@@ -35,6 +36,7 @@ export interface IAuthState {
   userRegister?: IUserRegister;
   userData?: UserCheckinsDto;
   newPassword?: string;
+  approveUserId?: string;
 }
 
 export const initialState: IBaseState<IAuthState> = {
@@ -176,34 +178,63 @@ export const reducer = (
         message: 'Error loading all users'
       };
 
-    case passwordResetActions.PasswordResetRequest:
-      return {
-        ...state,
-        condition: {
-          ...state.condition,
-          newPassword: action.payload.newPassword
-        },
-        processing: true,
-        message: 'Resetting password'
-      };
+      case passwordResetActions.PasswordResetRequest:
+        return {
+          ...state,
+          condition: {
+            ...state.condition,
+            newPassword: action.payload.newPassword
+          },
+          processing: true,
+          message: 'Resetting password'
+        };
+  
+      case passwordResetActions.PasswordResetSuccess:
+        return {
+          ...state,
+          condition: {
+            ...state.condition,
+            newPassword: ''
+          },
+          processing: false,
+          message: 'Successfully reset password'
+        };
+  
+      case passwordResetActions.PasswordResetFailure:
+        return {
+          ...state,
+          processing: false,
+          message: 'Failed resetting password'
+        };
 
-    case passwordResetActions.PasswordResetSuccess:
-      return {
-        ...state,
-        condition: {
-          ...state.condition,
-          newPassword: ''
-        },
-        processing: false,
-        message: 'Successfully reset password'
-      };
-
-    case passwordResetActions.PasswordResetFailure:
-      return {
-        ...state,
-        processing: false,
-        message: 'Failed resetting password'
-      };
+        case approveUserActions.ApproveUserRequest:
+          return {
+            ...state,
+            condition: {
+              ...state.condition,
+              approveUserId: action.payload.approveUserId
+            },
+            processing: true,
+            message: 'Approving User'
+          };
+    
+        case approveUserActions.ApproveUserSuccess:
+          return {
+            ...state,
+            condition: {
+              ...state.condition,
+              approveUserId: ''
+            },
+            processing: false,
+            message: 'Successfully approved user'
+          };
+    
+        case approveUserActions.ApproveUserFailure:
+          return {
+            ...state,
+            processing: false,
+            message: 'Failed to approve user'
+          };
 
     default:
       return state;
@@ -234,5 +265,4 @@ export const allUsers = (state: IBaseState<IAuthState>): UserDto[] => {
   return users ? users : [];
 };
 
-export const promptPasswordReset = (state: IBaseState<IAuthState>) =>
-  state.condition!.userData.passwordReset;
+export const approveUserId = (state: IBaseState<IAuthState>): string => state.condition.approveUserId;

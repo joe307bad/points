@@ -25,7 +25,6 @@ export class UserService implements IUserService {
     }
 
     public update(user: UserDto, params?: { id: string; } | undefined): Promise<UserDto | ApiError> {
-        debugger;
        const url = USERS_API_URL + params.id;
         return http.put<UserDto | ApiError>(url, user);
     }

@@ -19,14 +19,12 @@ export function mapDispatchToProps(
   dispatch: Dispatch<authActions.UserAction>
 ): IPasswordResetProps {
   return {
-    resetPassword: (newPassword: string) => {
-      debugger;
+    resetPassword: (newPassword: string) => 
       dispatch({
         type: paswordResetActions.PasswordResetRequest,
         payload: { newPassword }
-      });
+      })
     }
-  };
 }
 
 export default connect(

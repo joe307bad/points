@@ -48,6 +48,10 @@ export class SettingsService implements ISettingsService {
                     {
                         name: 'Manage Achievements',
                         route: 'ManageAchievements'
+                    },
+                    {
+                        name: 'Approve Users',
+                        route: 'ApproveUsers'
                     }
                 ]
             }
