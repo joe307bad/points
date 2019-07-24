@@ -1,4 +1,8 @@
-import { UserCheckinsDto, AchievementCheckinDto, UserDto } from '@points/shared';
+import {
+  UserCheckinsDto,
+  AchievementCheckinDto,
+  UserDto
+} from '@points/shared';
 
 import { IProcessing } from '../../store/selectors';
 import { IBaseState } from '../../store/index.reducer';
@@ -8,6 +12,7 @@ import * as userActions from '../actions';
 import * as loginActions from '../actions/login';
 import * as registerActions from '../actions/register';
 import * as userDataActions from '../actions/userData';
+import * as passwordResetActions from '../actions/password-reset';
 
 export interface ICurrentUser {
   userId?: string;
@@ -29,6 +34,7 @@ export interface IAuthState {
   currentUser?: ICurrentUser;
   userRegister?: IUserRegister;
   userData?: UserCheckinsDto;
+  newPassword?: string;
 }
 
 export const initialState: IBaseState<IAuthState> = {
@@ -52,12 +58,12 @@ export const initialState: IBaseState<IAuthState> = {
   processing: false
 };
 
-export const reducer = (state = initialState, action: userActions.UserAction): IBaseState<IAuthState> => {
-
+export const reducer = (
+  state = initialState,
+  action: userActions.UserAction
+): IBaseState<IAuthState> => {
   switch (action.type) {
-
     case loginActions.UserLoginRequest:
-
       return {
         ...state,
         processing: true,
@@ -69,7 +75,6 @@ export const reducer = (state = initialState, action: userActions.UserAction): I
       };
 
     case loginActions.UserLoginSuccess:
-
       return {
         ...state,
         condition: {
@@ -82,7 +87,6 @@ export const reducer = (state = initialState, action: userActions.UserAction): I
       };
 
     case loginActions.UserLoginFailure:
-
       return {
         ...state,
         processing: false,
@@ -91,7 +95,6 @@ export const reducer = (state = initialState, action: userActions.UserAction): I
       };
 
     case registerActions.RegisterRequest:
-
       return {
         ...state,
         condition: {
@@ -103,33 +106,33 @@ export const reducer = (state = initialState, action: userActions.UserAction): I
       };
 
     case registerActions.RegisterSuccess:
-
       return {
         ...state,
         processing: false,
         error: null,
-        message: 'Successfully registered user ' + action.payload!.userRegister!.userName
+        message:
+          'Successfully registered user ' +
+          action.payload!.userRegister!.userName
       };
 
     case registerActions.RegisterFailure:
-
       return {
         ...state,
         processing: false,
         error: true,
-        message: 'Error registering user ' + action.payload!.userRegister!.userName
+        message:
+          'Error registering user ' + action.payload!.userRegister!.userName
       };
 
     case userDataActions.UserDataRequest:
-
       return {
         ...state,
         processing: true,
-        message: 'Loading user data for ' + state.condition!.currentUser!.userName
+        message:
+          'Loading user data for ' + state.condition!.currentUser!.userName
       };
 
     case userDataActions.UserDataSuccess:
-
       // TODO consider replacing all spread operator instances with clone deep so `condition: {...state.condition`
       // would be unecessary
       return {
@@ -140,20 +143,22 @@ export const reducer = (state = initialState, action: userActions.UserAction): I
         },
         processing: false,
         error: null,
-        message: 'Successfully loaded user data for ' + state.condition!.currentUser!.userName
+        message:
+          'Successfully loaded user data for ' +
+          state.condition!.currentUser!.userName
       };
 
     case userDataActions.UserDataFailure:
-
       return {
         ...state,
         processing: false,
         error: true,
-        message: 'Error loading user data for ' + state.condition!.currentUser!.userName
+        message:
+          'Error loading user data for ' +
+          state.condition!.currentUser!.userName
       };
 
     case userDataActions.GetAllUsersSuccess:
-
       return {
         ...state,
         condition: {
@@ -162,15 +167,43 @@ export const reducer = (state = initialState, action: userActions.UserAction): I
         },
         processing: false,
         message: 'Successfully loaded all users'
-      }
+      };
 
     case userDataActions.GetAllUsersFailure:
-
       return {
         ...state,
         processing: false,
         message: 'Error loading all users'
-      }
+      };
+
+    case passwordResetActions.PasswordResetRequest:
+      return {
+        ...state,
+        condition: {
+          ...state.condition,
+          newPassword: action.payload.newPassword
+        },
+        processing: true,
+        message: 'Resetting password'
+      };
+
+    case passwordResetActions.PasswordResetSuccess:
+      return {
+        ...state,
+        condition: {
+          ...state.condition,
+          newPassword: ''
+        },
+        processing: false,
+        message: 'Successfully reset password'
+      };
+
+    case passwordResetActions.PasswordResetFailure:
+      return {
+        ...state,
+        processing: false,
+        message: 'Failed resetting password'
+      };
 
     default:
       return state;
@@ -179,16 +212,19 @@ export const reducer = (state = initialState, action: userActions.UserAction): I
 
 export default reducer;
 
-export const isProcessing =
-  (state: IBaseState<any>): IProcessing =>
-    ({ processing: state.processing, message: state.message });
+export const isProcessing = (state: IBaseState<any>): IProcessing => ({
+  processing: state.processing,
+  message: state.message
+});
 
 export const currentUser = (state: IBaseState<IAuthState>): ICurrentUser => {
   const loggedIn = state.condition && state.condition.currentUser;
-  return loggedIn ? state.condition!.currentUser! : {} as ICurrentUser;
+  return loggedIn ? state.condition!.currentUser! : ({} as ICurrentUser);
 };
 
-export const userCheckins = (state: IBaseState<IAuthState>): AchievementCheckinDto[] => {
+export const userCheckins = (
+  state: IBaseState<IAuthState>
+): AchievementCheckinDto[] => {
   const checkins = state.condition!.userData!.checkins!;
   return checkins ? checkins : [];
 };
@@ -198,5 +234,5 @@ export const allUsers = (state: IBaseState<IAuthState>): UserDto[] => {
   return users ? users : [];
 };
 
-export const promptPasswordReset = (state: IBaseState<IAuthState>) => 
-  state.condition!.userData.passwordReset
+export const promptPasswordReset = (state: IBaseState<IAuthState>) =>
+  state.condition!.userData.passwordReset;

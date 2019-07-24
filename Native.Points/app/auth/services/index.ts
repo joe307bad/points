@@ -25,7 +25,9 @@ export class UserService implements IUserService {
     }
 
     public update(user: UserDto, params?: { id: string; } | undefined): Promise<UserDto | ApiError> {
-        throw new Error('Method not implemented.');
+        debugger;
+       const url = USERS_API_URL + params.id;
+        return http.put<UserDto | ApiError>(url, user);
     }
 
     public exists(user: { userName: any; }): Promise<UserExistsDto> {

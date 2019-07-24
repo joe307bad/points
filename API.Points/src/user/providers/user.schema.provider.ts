@@ -26,7 +26,6 @@ export const UserSchemaProvider = {
       photo: { type: String }
     });
 
-
     UserSchema.virtual('checkins', {
       ref: 'Checkin',
       localField: '_id',

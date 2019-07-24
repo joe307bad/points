@@ -1,6 +1,6 @@
 import { all, fork } from 'redux-saga/effects';
 
-import { login, loginSuccess, userRegisterRequest, userDataRequest } from '../auth/sagas';
+import { login, loginSuccess, userRegisterRequest, userDataRequest, passwordResetRequest } from '../auth/sagas';
 import { navigation, navigationSuccess } from '../navigation/sagas';
 import { achievementListRequest } from '../achievement/sagas';
 import { userCheckinRequest } from '../checkin/sagas';
@@ -29,6 +29,7 @@ export default function* root() {
         fork(userRegisterRequest),
         fork(searchRequest),
         fork(userDataRequest),
-        fork(getUserCheckinsRequest)
+        fork(getUserCheckinsRequest),
+        fork(passwordResetRequest)
     ]);
 }

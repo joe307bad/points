@@ -23,11 +23,11 @@ export class UserService implements IUserService {
   ) {}
 
   async create(userDto: UserDto): Promise<JwtResponse> {
-    userDto = Object.assign(userDto, {
-      userName: userDto.userName.toLowerCase(),
-      roles: undefined
+    const user = new this.userModel({
+      passwordReset: false,
+      roles: undefined,
+      ...userDto
     });
-    const user = new this.userModel(userDto);
     return this.db.save(user).then(newUser => this.auth.createToken(newUser));
   }
 

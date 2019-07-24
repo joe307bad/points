@@ -7,6 +7,7 @@ import { IBaseProps } from "../../../navigation/components";
 import { Container } from "native-base";
 import { Toolbar } from "../../../shared/components";
 import { PasswordResetInnerForm } from "./inner-form";
+import { resetPassword } from '../../sagas';
 
 
 export interface IPasswordResetValues {
@@ -33,7 +34,7 @@ export default class PasswordReset extends Component<IPasswordResetProps & IBase
       return (
           <Container>
               <Toolbar {...{ ...this.props, disableMenuButton: true, enableBackButton: true }} />
-              <PasswordResetForm />
+              <PasswordResetForm resetPassword={(newPassword: string) => this.props.resetPassword(newPassword)} />
           </Container>);
   }
 }

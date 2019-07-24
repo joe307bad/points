@@ -26,6 +26,10 @@ export class UserDto {
     @IsBoolean()
     readonly approved: boolean = false;
 
+    @IsBoolean()
+    readonly passwordReset: boolean = true;
+
+
     readonly roles: string [] = [];
     photo: string = '';
 }

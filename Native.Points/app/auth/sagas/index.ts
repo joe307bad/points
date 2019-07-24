@@ -19,6 +19,35 @@ import { loadNavigation } from '../../navigation/sagas';
 import * as loginActions from '../actions/login';
 import * as registerActions from '../actions/register';
 import * as userDataActions from '../actions/userData';
+import * as passwordResetActions from '../actions/password-reset';
+
+export function* resetPassword(newPassword: string) {
+  debugger;
+  const currentUser = yield select((state: any) =>
+    currentUserSelector(state.authReducer)
+  );
+  const response = yield apply(userService, 'update', [
+    { password: newPassword },
+    { id: currentUser.userId }
+  ]);
+
+  if (!response.errors) {
+    yield put({
+      type: passwordResetActions.PasswordResetSuccess
+    });
+    
+    yield put({
+      type: loginActions.UserLoginSuccess,
+      payload: { currentUser }
+    });
+  }
+
+  if (response.errors) {
+    yield put({
+      type: passwordResetActions.PasswordResetFailure
+    });
+  }
+}
 
 export function* registerUser(userRegister: IUserRegister): any {
   // TODO make id nullable in UserDto
@@ -171,7 +200,7 @@ export function* userDataRequest() {
     ];
 
     const response = yield all(userDataCalls);
-    
+
     if (!isEmpty(response) && response[0].passwordReset === true) {
       NavigationService.navigate('PasswordReset');
     } else if (!some(response, isEmpty)) {
@@ -186,5 +215,14 @@ export function* userRegisterRequest() {
       registerActions.RegisterRequest
     );
     yield call(registerUser, request.payload.userRegister!);
+  }
+}
+
+export function* passwordResetRequest() {
+  while (true) {
+    const request: { payload: IAuthState } = yield take(
+      passwordResetActions.PasswordResetRequest
+    );
+    yield call(resetPassword, request.payload.newPassword);
   }
 }
