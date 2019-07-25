@@ -7,64 +7,70 @@ import * as isImage from 'is-image-filename';
 
 import { Upload, User } from '../shared/interfaces';
 import { DatabaseService } from '../core/mongo';
-import { uploadDir } from '../app.settings';
+import { uploadDir, GlobalYearFilter } from '../app.settings';
 
 @Injectable()
 export class UploadService {
+  private db = DatabaseService;
 
-    private db = DatabaseService;
+  constructor(
+    @Inject('User') private readonly userModel: Model<User>,
+    @InjectModel('Upload') private readonly uploadModel: Model<Upload>
+  ) {}
 
-    constructor(
-        @Inject('User') private readonly userModel: Model<User>,
-        @InjectModel('Upload') private readonly uploadModel: Model<Upload>) { }
+  async create(uploadDto: UploadDto): Promise<Upload> {
+    const upload = new this.uploadModel(uploadDto);
+    return this.db.save(upload);
+  }
 
-    async create(uploadDto: UploadDto): Promise<Upload> {
-        const upload = new this.uploadModel(uploadDto);
-        return this.db.save(upload);
-    }
+  async getAll(): Promise<UploadDto[]> {
+    return this.buildUserUploadAggregate().then(uploads =>
+      uploads.filter(upload => {
+        const url = `${uploadDir}/${upload.photo}`;
+        return isImage(url) && fs.existsSync(url);
+      })
+    );
+  }
 
-    async getAll(): Promise<UploadDto[]> {
-        return this.buildUserUploadAggregate()
-            .then(uploads => uploads.filter(upload => {
-                const url = `${uploadDir}/${upload.photo}`;
-                return isImage(url) && fs.existsSync(url);
-            }));
-    }
-
-    private buildUserUploadAggregate(): Promise<UploadDto[]> {
-
-        const pipeline =
-            [{
-                '$lookup': {
-                    'from': this.userModel.collection.name,
-                    'localField': 'userId',
-                    'foreignField': '_id',
-                    'as': 'users'
+  private buildUserUploadAggregate(): Promise<UploadDto[]> {
+    const pipeline = [
+      {
+        $lookup: {
+          from: this.userModel.collection.name,
+          localField: 'userId',
+          foreignField: '_id',
+          as: 'users'
+        }
+      },
+      {
+        $match: {
+          createdAt: { $gte: new Date(GlobalYearFilter) }
+        }
+      },
+      { $sort: { createdAt: -1 } },
+      {
+        $project: {
+          photo: '$$ROOT.photo',
+          title: '$$ROOT.title',
+          description: '$$ROOT.description',
+          createdAt: '$$ROOT.createdAt',
+          user: {
+            $let: {
+              vars: {
+                firstUser: {
+                  $arrayElemAt: ['$users', 0]
                 }
-            },
-            { '$sort': { 'createdAt': -1 } },
-            {
-                '$project': {
-                    'photo': '$$ROOT.photo',
-                    'title': '$$ROOT.title',
-                    'description': '$$ROOT.description',
-                    'createdAt': '$$ROOT.createdAt',
-                    'user': {
-                        '$let': {
-                            'vars': {
-                                'firstUser': {
-                                    '$arrayElemAt': ['$users', 0]
-                                }
-                            },
-                            'in': {
-                                'firstName': '$$firstUser.firstName',
-                                'userName': '$$firstUser.userName'
-                            }
-                        }
-                    }
-                }
-            }];
+              },
+              in: {
+                firstName: '$$firstUser.firstName',
+                userName: '$$firstUser.userName'
+              }
+            }
+          }
+        }
+      }
+    ];
 
-        return this.uploadModel.aggregate(pipeline).exec();
-    }
+    return this.uploadModel.aggregate(pipeline).exec();
+  }
 }

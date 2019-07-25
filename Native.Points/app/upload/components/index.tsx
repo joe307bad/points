@@ -61,7 +61,9 @@ export class Upload extends Component<IUploadProps, IUploadState> {
         // @ts-ignore
         this.uploadPreview = this.refs.uploadPreview.refs.uploadPreviewModal;
 
-        Permissions.request('camera');
+        Permissions.request('camera').then(response => {
+            debugger;
+          });;
         Permissions.request('photo');
     }
 

@@ -22,6 +22,7 @@ const CameraOptions = {
 
 const Camera = {
     takePhoto: (callBack: (photoData: IPhotoData) => void): Promise<void> => {
+        debugger;
         return new Promise<void>((resolve, reject) => {
             ImagePicker.showImagePicker(CameraOptions, (response) => {
 
