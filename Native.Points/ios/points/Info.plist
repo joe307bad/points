@@ -17,13 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.13</string>
+	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>7</string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
+	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -39,45 +37,8 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>${PRODUCT_NAME} requires access to your phone's media library</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>${PRODUCT_NAME} requires access to your phone's bluetooth</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>${PRODUCT_NAME} requires access to your phone's calendar</string>
-	<key>NSCameraUsageDescription</key>
-	<string>${PRODUCT_NAME} requires access to your phone’s camera.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>${PRODUCT_NAME} requires access to your phone's location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>${PRODUCT_NAME} requires access to your phone's location when in use</string>
-	<key>NSMotionUsageDescription</key>
-	<string>${PRODUCT_NAME} requires access to your phone's motion sensor</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>${PRODUCT_NAME} requires access to your phone’s photo library.</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>${PRODUCT_NAME} requires access to your phone's speech recognition</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Entypo.ttf</string>
-		<string>EvilIcons.ttf</string>
-		<string>Feather.ttf</string>
-		<string>FontAwesome.ttf</string>
-		<string>Foundation.ttf</string>
-		<string>Ionicons.ttf</string>
-		<string>MaterialCommunityIcons.ttf</string>
-		<string>MaterialIcons.ttf</string>
-		<string>Octicons.ttf</string>
-		<string>Roboto_medium.ttf</string>
-		<string>Roboto.ttf</string>
-		<string>rubicon-icon-font.ttf</string>
-		<string>SimpleLineIcons.ttf</string>
-		<string>Zocial.ttf</string>
-		<string>AntDesign.ttf</string>
-		<string>FontAwesome5_Brands.ttf</string>
-		<string>FontAwesome5_Regular.ttf</string>
-		<string>FontAwesome5_Solid.ttf</string>
-	</array>
+	<string></string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -92,7 +53,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>kTCCServiceMediaLibrary</key>
-	<string>${PRODUCT_NAME} requires access to your phone's music</string>
 </dict>
 </plist>
