@@ -5,8 +5,14 @@
     "main": "dist/index.js",
     "types": "./index.d.ts",
     "dependencies": {
+        "accesscontrol": "^2.2.1",
+        "bcrypt": "^3.0.6",
         "class-validator": "^0.8.1",
+        "mongoose": "^5.6.9",
         "typescript": "^2.9.1"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "@types/bcrypt": "^3.0.0",
+        "@types/mongoose": "^5.5.12"
+    }
 }
