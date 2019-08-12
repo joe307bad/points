@@ -28,7 +28,8 @@ import {
   ApiPermission
 } from '../core/acl';
 import { UploadFileSettings } from '../app.settings';
-import {OnlyApprovedUsers} from '../auth/guards/approved.guard';
+import { OnlyApprovedUsers } from '../auth/guards/approved.guard';
+import { User } from './providers/user.schema.provider';
 
 const resource = 'user';
 const to = (action: ApiAction) =>
@@ -38,15 +39,15 @@ const to = (action: ApiAction) =>
 @Controller(resource)
 @UseGuards(PermissionGaurd)
 export class UserController implements IUserService {
-  constructor(private readonly user: UserService) {}
+  constructor(private readonly user: UserService) { }
 
   @Post()
   @UseInterceptors(FileInterceptor('photo', UploadFileSettings))
   async create(
-    @Body() user: UserDto,
+    @Body() user: User,
     @UploadedFile() photo
   ): Promise<JwtResponse> {
-    user.photo = photo ? photo.filename : null;
+    //user.photo = photo ? photo.filename : null;
     return await this.user.create(user).catch(err => err);
   }
 

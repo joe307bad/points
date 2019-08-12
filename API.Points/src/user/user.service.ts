@@ -10,6 +10,7 @@ import {
 } from '@points/shared';
 
 import { User } from '../shared/interfaces';
+import * as typegoose from './providers/user.schema.provider';
 import { DatabaseService } from '../core/mongo/';
 import { AuthService } from '../auth';
 
@@ -18,15 +19,13 @@ export class UserService implements IUserService {
   private db = DatabaseService;
 
   constructor(
-    @Inject('User') private readonly userModel: Model<User>,
+    @Inject('User') private readonly userModel: Model<typegoose.User>,
     private auth: AuthService
-  ) {}
+  ) { }
 
-  async create(userDto: UserDto): Promise<JwtResponse> {
+  async create(userDto: typegoose.User): Promise<JwtResponse> {
     const user = new this.userModel({
-      passwordReset: false,
-      roles: undefined,
-      ...userDto
+      name: Math.random()
     });
     return this.db.save(user).then(newUser => this.auth.createToken(newUser));
   }
@@ -67,7 +66,7 @@ export class UserService implements IUserService {
     return (await this.userModel
       .findOne({ userName })
       .select('+password')
-      ) as UserDto;
+    ) as UserDto;
   }
 
   async update(
