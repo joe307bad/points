@@ -3,3 +3,4 @@ export * from './achievment.interface';
 export * from './checkin.interface';
 export * from './upload.interface';
 export * from './category.interface';
+export * from './services';

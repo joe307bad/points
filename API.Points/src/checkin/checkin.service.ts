@@ -8,12 +8,15 @@ import {
   FeedItemDto
 } from '@points/shared';
 import { Model } from 'mongoose';
+import { InjectModel as InjectTypegoose } from 'nestjs-typegoose';
 
 import { DatabaseService } from '../core/mongo';
-import { Checkin, User } from '../shared/interfaces';
+import { Checkin } from '../shared/interfaces';
 import { userWithCheckinsPipeline, leaderboardPipeline } from './pipelines';
 import { pendingApprovalsPipeline } from './pipelines/pendingApprovals.pipeline';
 import { feedPipeline } from './pipelines/feed.pipeline';
+import { User } from '../shared/models';
+import { ModelType } from 'typegoose';
 
 @Injectable()
 export class CheckinService implements ICheckinService {
@@ -21,8 +24,8 @@ export class CheckinService implements ICheckinService {
 
   constructor(
     @InjectModel('Checkin') private readonly checkinModel: Model<Checkin>,
-    @Inject('User') private readonly userModel: Model<User>,
-  ) {}
+    @InjectTypegoose(User) private readonly userModel: ModelType<User>,
+  ) { }
 
   async create(checkinDto: CheckinDto): Promise<CheckinDto> {
     // TODO prevent from creating approved checkins

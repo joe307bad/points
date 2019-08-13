@@ -14,11 +14,11 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
 import {
   UserDto,
-  IUserService,
   JwtResponse,
   ApiError,
   UserExistsDto
 } from '@points/shared';
+import { IUserService } from '../shared/interfaces';
 
 import { UserService } from './user.service';
 import {
@@ -29,7 +29,7 @@ import {
 } from '../core/acl';
 import { UploadFileSettings } from '../app.settings';
 import { OnlyApprovedUsers } from '../auth/guards/approved.guard';
-import { User } from './providers/user.schema.provider';
+import { User } from '../shared/models';
 
 const resource = 'user';
 const to = (action: ApiAction) =>

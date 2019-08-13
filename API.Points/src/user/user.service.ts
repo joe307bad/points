@@ -5,25 +5,26 @@ import {
   UserDto,
   JwtResponse,
   ApiError,
-  IUserService,
   UserExistsDto
 } from '@points/shared';
+import { IUserService } from '../shared/interfaces';
 
-import { User } from '../shared/interfaces';
-import * as typegoose from './providers/user.schema.provider';
+import { User } from '../shared/models';
 import { DatabaseService } from '../core/mongo/';
 import { AuthService } from '../auth';
+import { InjectModel } from 'nestjs-typegoose';
+import { ModelType } from 'typegoose';
 
 @Injectable()
 export class UserService implements IUserService {
   private db = DatabaseService;
 
   constructor(
-    @Inject('User') private readonly userModel: Model<typegoose.User>,
+    @InjectModel(User) private readonly userModel: ModelType<User>,
     private auth: AuthService
   ) { }
 
-  async create(userDto: typegoose.User): Promise<JwtResponse> {
+  async create(userDto: User): Promise<JwtResponse> {
     const user = new this.userModel({
       name: Math.random(),
       userName: Math.random(),

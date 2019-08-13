@@ -1,7 +1,7 @@
 import { Module, MiddlewareConsumer } from '@nestjs/common';
 
 import { AuthModule } from './auth';
-import { UserModule, UserSchemaProvider } from './user';
+import { UserModule } from './user';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { AchievementModule } from './achievement';

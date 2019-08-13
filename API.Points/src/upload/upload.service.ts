@@ -1,13 +1,16 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { InjectModel as InjectTypegoose } from 'nestjs-typegoose';
 import { UploadDto, IUploadService } from '@points/shared';
 import { Model } from 'mongoose';
 import * as fs from 'fs';
 import * as isImage from 'is-image-filename';
 
-import { Upload, User } from '../shared/interfaces';
+import { Upload } from '../shared/interfaces';
 import { DatabaseService } from '../core/mongo';
 import { uploadDir } from '../app.settings';
+import { User } from '../shared/models';
+import { ModelType } from 'typegoose';
 
 @Injectable()
 export class UploadService {
@@ -15,7 +18,7 @@ export class UploadService {
     private db = DatabaseService;
 
     constructor(
-        @Inject('User') private readonly userModel: Model<User>,
+        @InjectTypegoose(User) private readonly userModel: ModelType<User>,
         @InjectModel('Upload') private readonly uploadModel: Model<Upload>) { }
 
     async create(uploadDto: UploadDto): Promise<Upload> {

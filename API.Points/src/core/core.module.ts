@@ -1,13 +1,25 @@
 import { Module, Global } from '@nestjs/common';
+import { TypegooseModule } from 'nestjs-typegoose';
 
 import { AcProvider } from './acl/ac.provider';
-import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchemaProvider } from '../user';
 import { DBProvider } from '../shared/providers/database.provider';
+import { User } from '../shared/models/user/user.model';
+
+const UserModelInjection = TypegooseModule.forFeature([User]);
 
 @Global()
 @Module({
-  providers: [AcProvider, DBProvider, UserSchemaProvider],
-  exports: [AcProvider, DBProvider, UserSchemaProvider]
+  imports: [
+    UserModelInjection
+  ],
+  providers: [
+    AcProvider,
+    DBProvider
+  ],
+  exports: [
+    AcProvider,
+    DBProvider,
+    UserModelInjection
+  ]
 })
-export class CoreModule {}
+export class CoreModule { }

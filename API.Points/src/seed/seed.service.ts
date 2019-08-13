@@ -1,11 +1,14 @@
 import { Injectable, Inject } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
+import { InjectModel as InjectTypegoose } from "nestjs-typegoose";
 import { Model } from "mongoose";
 import { CategoryDto, AchievementDto, UserDto } from "@points/shared";
 import * as bcrypt from 'bcrypt';
 
-import { User, Achievement, Category } from "../shared/interfaces";
+import { Achievement, Category } from "../shared/interfaces";
 import { SeedResults } from "./seed.controller";
+import { User } from "../shared/models";
+import { ModelType } from "typegoose";
 
 interface SeedData {
     categories: CategoryDto[],
@@ -22,7 +25,7 @@ interface SeedAudit<T> {
 export class SeedService {
 
     constructor(
-        @Inject('User') private readonly userModel: Model<User>,
+        @InjectTypegoose(User) private readonly userModel: ModelType<User>,
         @InjectModel('Achievement') private readonly achievementModel: Model<Achievement>,
         @InjectModel('Category') private readonly categoryModel: Model<Category>,
     ) { }

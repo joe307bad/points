@@ -1,24 +1,27 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { InjectModel as InjectTypegoose } from 'nestjs-typegoose';
 import { AchievementDto, IAchievementService } from '@points/shared';
 import { Model } from 'mongoose';
 import { ObjectId } from 'mongodb';
 
 import { DatabaseService } from '../core/mongo';
-import { Achievement, Checkin, User, Category } from '../shared/interfaces';
+import { Achievement, Checkin, Category } from '../shared/interfaces';
 import { GlobalYearFilter } from '../app.settings';
+import { User } from '../shared/models';
+import { ModelType } from 'typegoose';
 
 @Injectable()
 export class AchievementService implements IAchievementService {
   private db = DatabaseService;
 
   constructor(
-    @Inject('User') private readonly userModel: Model<User>,
+    @InjectTypegoose(User) private readonly userModel: ModelType<User>,
     @InjectModel('Category') private readonly categoryModel: Model<Category>,
     @InjectModel('Checkin') private readonly checkinModel: Model<Checkin>,
     @InjectModel('Achievement')
     private readonly achievementModel: Model<Achievement>
-  ) {}
+  ) { }
 
   async create(
     achievementDto: AchievementDto,
