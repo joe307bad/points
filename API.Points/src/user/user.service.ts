@@ -25,7 +25,9 @@ export class UserService implements IUserService {
 
   async create(userDto: typegoose.User): Promise<JwtResponse> {
     const user = new this.userModel({
-      name: Math.random()
+      name: Math.random(),
+      userName: Math.random(),
+      roles: ['123']
     });
     return this.db.save(user).then(newUser => this.auth.createToken(newUser));
   }

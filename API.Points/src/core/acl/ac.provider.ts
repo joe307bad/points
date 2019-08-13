@@ -5,6 +5,11 @@ export interface Grants {
     [role: string]: { [k in ApiResource]: { [action: string]: string[] } };
 }
 
+export enum Role {
+    Admin = 'ADMIN',
+    User = 'USER'
+}
+
 // TODO how can we make this dynamic?
 // honestly, after some thought, it may not be a bad idea to have to
 // reboot the application in order to refresh these values
@@ -12,8 +17,8 @@ export interface Grants {
 export const AcProvider = {
     provide: 'AccessControl',
     useFactory: (): ac.AccessControl => {
-        const grants: Grants  = {
-            admin: {
+        const grants: Grants = {
+            [Role.Admin]: {
                 user: {
                     'read:any': ['*'],
                     'create:any': ['*'],
@@ -49,7 +54,7 @@ export const AcProvider = {
                     'delete:any': ['*']
                 }
             },
-            user: {
+            [Role.User]: {
                 user: {
                     'read:any': ['*', '!password'],
                     'update:own': ['*'],
