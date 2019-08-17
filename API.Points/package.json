@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "API for Points achievement application",
   "license": "MIT",
+  "main": "dist/shared/models/index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:debug": "nodemon --config nodemon-debug.json",
