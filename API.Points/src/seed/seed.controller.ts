@@ -3,7 +3,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 import { SeedService } from "./seed.service";
 
-export interface SeedResults { 
+export interface SeedResults {
     categories: number;
     achievements: number;
     users: number;
@@ -19,5 +19,4 @@ export class SeedController {
         const json = JSON.parse(data.buffer.toString());
         return this.seed.seed(json);
     }
-
 }
