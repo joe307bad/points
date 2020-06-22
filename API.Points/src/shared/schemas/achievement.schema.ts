@@ -5,7 +5,7 @@ import { Schema } from 'mongoose';
 // not sure of the purpose of class-validtor with current setup
 
 export const AchievementSchema = BaseSchema({
-    name: { type: String, required: true, unique: true, text: true },
+    name: { type: String, required: true, unique: true },
     categoryId: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
     points: { type: Number, required: true },
     description: { type: String, required: true, text: true },

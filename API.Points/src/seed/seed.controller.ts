@@ -17,6 +17,6 @@ export class SeedController {
     @UseInterceptors(FileInterceptor('data'))
     async seedData(@UploadedFile() data): Promise<SeedResults> {
         const json = JSON.parse(data.buffer.toString());
-        return this.seed.seed(json);
+        return this.seed.seed(json).catch(e => e);
     }
 }
