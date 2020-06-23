@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Platform, Image, ActivityIndicator, Dimensions, View, ScrollView } from 'react-native';
-import PhotoView from 'react-native-photo-view';
+import PhotoView from 'react-native-photo-view-ex';
 
 const styles = {
   slideC: {

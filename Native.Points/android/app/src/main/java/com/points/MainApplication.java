@@ -2,17 +2,17 @@ package com.points;
 
 import android.app.Application;
 
+import android.app.Application;
+import android.content.Context;
+import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import com.oblador.vectoricons.VectorIconsPackage;
-import io.sentry.RNSentryPackage;
-import com.imagepicker.ImagePickerPackage;
-import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.reactnative.photoview.PhotoViewPackage;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,15 +27,9 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
-            new VectorIconsPackage(),
-            new RNSentryPackage(),
-            new ImagePickerPackage(),
-            new ReactNativeConfigPackage(),
-            new RNGestureHandlerPackage(),
-            new PhotoViewPackage()
-      );
+      @SuppressWarnings("UnnecessaryLocalVariable") 
+      List<ReactPackage> packages = new PackageList(this).getPackages();
+      return packages;
     }
 
     @Override
