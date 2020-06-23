@@ -13,6 +13,8 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
+
 
 import java.util.Arrays;
 import java.util.List;

@@ -109,7 +109,7 @@ export class Http {
                 ...{
                     headers: {
                         Authorization: 'Bearer ' + token,
-                        'Cache-Control' : 'no-cache'
+                        'Cache-Control': 'no-cache'
                     }
                 }
             };

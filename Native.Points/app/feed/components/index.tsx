@@ -1,5 +1,5 @@
 // @ts-ignore
-import Timeline from 'react-native-timeline-listview';
+import Timeline from '@isitha/react-native-timeline-listview';
 import React, { Component } from 'react';
 import { Container, View } from 'native-base';
 import { RefreshControl } from 'react-native';

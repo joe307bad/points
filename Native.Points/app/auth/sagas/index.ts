@@ -23,7 +23,7 @@ import * as passwordResetActions from '../actions/password-reset';
 import * as approveUserActions from '../actions/approve-user';
 
 export function* approveUser(approveUserId: string) {
-  
+
   const response = yield apply(userService, 'update', [
     { approved: true },
     { id: approveUserId }
@@ -55,7 +55,7 @@ export function* resetPassword(newPassword: string) {
     yield put({
       type: passwordResetActions.PasswordResetSuccess
     });
-    
+
     yield put({
       type: loginActions.UserLoginSuccess,
       payload: { currentUser }
