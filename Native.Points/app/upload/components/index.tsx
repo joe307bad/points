@@ -1,5 +1,6 @@
 // @ts-ignore
-import Gallery from 'react-native-photo-gallery';
+
+import PhotoBrowser, { Media } from 'react-native-photo-browser';
 import React, { Component } from 'react';
 import { Container } from 'native-base';
 import Modal from 'react-native-modalbox';
@@ -88,15 +89,14 @@ export class Upload extends Component<IUploadProps, IUploadState> {
     })
 
     public render(): JSX.Element {
-
-        // TODO stop hardcoding URLs
-        const imageURLs: object[] = this.props.uploadList.map(
+        const mediaList: Media[] = this.props.uploadList.map(
             (img: UploadDto, index: number) => ({
                 id: img.photo,
-                image: { uri: API_URL + 'uploads/medium/' + img.photo },
-                thumb: { uri: API_URL + 'uploads/thumb/' + img.photo }
+                photo: API_URL + 'uploads/medium/' + img.photo,
+                caption: API_URL + 'uploads/thumb/' + img.photo
             })
         );
+
 
         return (
             <Container>
@@ -118,9 +118,11 @@ export class Upload extends Component<IUploadProps, IUploadState> {
                         top: 0,
                         zIndex: -1
                     }}>
-                    <Gallery data={imageURLs && imageURLs.length
-                        ? imageURLs
-                        : [{ id: 'loading', image: { uri: 'http://www.1x1px.me/FFFFFF-1.png' } }]} />
+                    {mediaList && <PhotoBrowser
+                        mediaList={mediaList}
+                        useCircleProgress
+                        startOnGrid={true}
+                    />}
                 </View>
                 <UploadPreview
                     ref='uploadPreview'

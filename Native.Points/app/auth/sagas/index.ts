@@ -100,6 +100,7 @@ export function* registerUser(userRegister: IUserRegister): any {
 }
 
 export function* authorize(currentUser: ICurrentUser): any {
+
   // TODO make id nullable in UserDto
   // @ts-ignore
   const response: JwtResponse & ApiError = yield apply(userService, 'login', [
