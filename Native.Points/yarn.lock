@@ -776,6 +776,13 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@dudigital/react-native-zoomable-view@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@dudigital/react-native-zoomable-view/-/react-native-zoomable-view-1.0.15.tgz#d49cc14f979a4db41719ee2c13b7c91268212936"
+  integrity sha512-Fctft/GmGtEqBC7bLvD0oiqOvPq+NVgLyu9XZWqlMNFqVE2XoJAs9ADrTDMDxdEc4L5ZVNc39D3Bh5CLbVJ3VQ==
+  dependencies:
+    prop-types "^15.5.10"
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"

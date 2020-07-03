@@ -20,6 +20,8 @@ export interface IUploadState {
   uploadList?: UploadDto[];
   userUpload: IUserUpload;
   refreshing?: boolean;
+  pictureOpen?: boolean,
+  previewingUri?: string
 }
 
 export const initialState: IBaseState<IUploadState> = {

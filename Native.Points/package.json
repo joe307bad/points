@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@dudigital/react-native-zoomable-view": "^1.0.15",
     "@isitha/react-native-timeline-listview": "^0.2.3",
     "@points/shared": "file:../Shared.Points",
     "@react-native-community/viewpager": "3.3.0",

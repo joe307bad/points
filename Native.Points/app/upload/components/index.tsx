@@ -17,6 +17,7 @@ import { IPhotoData } from '../../core/camera';
 import { UploadPreview } from './upload-preview';
 import { API_URL } from '../../App';
 import ImageGrid from './fast-image/grid';
+import PictureZoom from './picture-zoom';
 
 export class Upload extends Component<IUploadProps, IUploadState> {
 
@@ -97,6 +98,13 @@ export class Upload extends Component<IUploadProps, IUploadState> {
         prevState.userUpload.description = description;
     })
 
+    public openPicture = (previewingUri: string) => {
+        this.setState({
+            pictureOpen: true,
+            previewingUri
+        })
+    }
+
     public render(): JSX.Element {
         const mediaList: { id: string, photo: string, caption: string }[] = this.props.uploadList.map(
             (img: UploadDto, index: number) => ({
@@ -116,8 +124,8 @@ export class Upload extends Component<IUploadProps, IUploadState> {
                     camera
                     cameraHandler={(photoData: IPhotoData) =>
                         this.showPhotoPreview(photoData)} />
-                <Content>
-                    <ImageGrid images={mediaList} />
+                <Content scrollEnabled={!this.state.pictureOpen}>
+                    <ImageGrid openPicture={this.openPicture} images={mediaList} />
                 </Content>
                 <UploadPreview
                     ref='uploadPreview'
@@ -125,6 +133,12 @@ export class Upload extends Component<IUploadProps, IUploadState> {
                     updateTitle={((event: any) => this.updateTitle(event.nativeEvent.text))}
                     photo={this.state.userUpload.photoData}
                     uploadHandler={() => this.props.upload(this.state.userUpload)} />
+                {this.state.pictureOpen &&
+                    <PictureZoom
+                        uri={this.state.previewingUri}
+                        closePicture={() => this.setState({ pictureOpen: false })}
+                    />
+                }
             </Container>
         );
     }

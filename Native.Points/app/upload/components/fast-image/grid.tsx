@@ -5,6 +5,8 @@ import {
     Text,
     View,
     LayoutChangeEvent,
+    TouchableOpacity,
+    ScrollView
 } from 'react-native'
 import FastImage from 'react-native-fast-image'
 
@@ -14,12 +16,14 @@ const getImageUrl = (id: string, width: number, height: number) =>
 type Upload = { id: string, photo: string, caption: string };
 interface ImageGridProps {
     images: Upload[]
+    openPicture: (uri: string) => void
 }
 
 interface ImageGridState {
     images: any[]
     itemHeight: number
-    error?: any
+    error?: any,
+    preview?: string
 }
 
 class ImageGrid extends Component<ImageGridProps, ImageGridState> {
@@ -34,10 +38,11 @@ class ImageGrid extends Component<ImageGridProps, ImageGridState> {
     state: {
         images: any[]
         itemHeight: number
-        error?: any
+        error?: any,
+        preview?: string
     } = {
             images: [],
-            itemHeight: 0,
+            itemHeight: 0
         }
 
     _onLayout = (e: LayoutChangeEvent) => {
@@ -67,9 +72,9 @@ class ImageGrid extends Component<ImageGridProps, ImageGridState> {
     _renderItem = ({ item }: { item: Upload }) => {
         const uri = getImageUrl(item.id, 100, 100)
         return (
-            <View style={styles.imageContainer}>
+            <TouchableOpacity style={styles.imageContainer} onPress={() => this.props.openPicture(item.photo)}>
                 <FastImage source={{ uri: item.photo }} style={styles.image} />
-            </View>
+            </TouchableOpacity>
         )
     }
 
@@ -80,27 +85,26 @@ class ImageGrid extends Component<ImageGridProps, ImageGridState> {
     render() {
         if (this.state.error) {
             return (
-                <View style={styles.container}>
+                <TouchableOpacity style={styles.container}>
                     <Text style={styles.text}>Error fetching images.</Text>
-                </View>
+                </TouchableOpacity>
             )
         }
         return (
-            <View style={styles.container}>
-                <FlatList
-                    onLayout={this._onLayout}
-                    style={styles.list}
-                    columnWrapperStyle={[
-                        styles.columnWrapper,
-                        { height: this.state.itemHeight },
-                    ]}
-                    data={this.props.images}
-                    renderItem={this._renderItem}
-                    numColumns={4}
-                    keyExtractor={this._extractKey}
-                    getItemLayout={this._getItemLayout}
-                />
-            </View>
+            <FlatList
+                onLayout={this._onLayout}
+                style={styles.list}
+                columnWrapperStyle={[
+                    styles.columnWrapper,
+                    { height: this.state.itemHeight },
+                ]}
+                data={this.props.images}
+                renderItem={this._renderItem}
+                numColumns={4}
+                keyExtractor={this._extractKey}
+                getItemLayout={this._getItemLayout}
+                scrollEnabled={false}
+            />
         )
     }
 }
@@ -113,6 +117,17 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
         justifyContent: 'center',
         backgroundColor: 'white',
+    },
+    previewContainer: {
+        position: 'absolute',
+        width: '100%',
+        height: 100,
+        backgroundColor: 'white',
+        top: 0
+    },
+    previewImage: {
+        //flex: 1,
+        //width: '100%'
     },
     text: {
         textAlign: 'center',
