@@ -24,6 +24,7 @@
     "react-addons-update": "^15.6.2",
     "react-native": "0.60.0",
     "react-native-config": "^1.2.1",
+    "react-native-fast-image": "^8.1.5",
     "react-native-gesture-handler": "~1.4.0",
     "react-native-image-picker": "^1.0.1",
     "react-native-loading-spinner-overlay": "^0.5.2",

@@ -16,7 +16,7 @@ const CameraOptions = {
     storageOptions: {
         cameraRoll: true,
         skipBackup: true,
-        waitUntilSaved:true
+        waitUntilSaved: true
     }
 };
 

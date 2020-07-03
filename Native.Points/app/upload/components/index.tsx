@@ -1,14 +1,13 @@
 // @ts-ignore
 
-import PhotoBrowser, { Media } from 'react-native-photo-browser';
 import React, { Component } from 'react';
-import { Container } from 'native-base';
+import { Container, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
 import Modal from 'react-native-modalbox';
-import { View } from 'react-native';
+import { Platform } from 'react-native';
 import { Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import { UploadDto } from '@points/shared';
-import Permissions from 'react-native-permissions'
+import { PERMISSIONS, request } from 'react-native-permissions'
 
 import { Toolbar } from '../../shared/components/header';
 import { IUploadState, initialState, IUserUpload } from '../reducers';
@@ -17,6 +16,7 @@ import { completedUploadListRequest, completedUserUploadRequest } from '../selec
 import { IPhotoData } from '../../core/camera';
 import { UploadPreview } from './upload-preview';
 import { API_URL } from '../../App';
+import ImageGrid from './fast-image/grid';
 
 export class Upload extends Component<IUploadProps, IUploadState> {
 
@@ -58,12 +58,21 @@ export class Upload extends Component<IUploadProps, IUploadState> {
         this.completedUserUploadRequestSubscription!.unsubscribe();
     }
 
-    public componentDidMount() {
+    public async componentDidMount() {
         // @ts-ignore
         this.uploadPreview = this.refs.uploadPreview.refs.uploadPreviewModal;
 
-        Permissions.request('camera');
-        Permissions.request('photo');
+        await request(
+            Platform.select({
+                android: PERMISSIONS.ANDROID.CAMERA,
+                ios: PERMISSIONS.IOS.CAMERA,
+            }),
+        );
+        await request(
+            Platform.select({
+                android: PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE
+            }),
+        );
     }
 
     public showPhotoPreview(photoData: IPhotoData) {
@@ -89,7 +98,7 @@ export class Upload extends Component<IUploadProps, IUploadState> {
     })
 
     public render(): JSX.Element {
-        const mediaList: Media[] = this.props.uploadList.map(
+        const mediaList: { id: string, photo: string, caption: string }[] = this.props.uploadList.map(
             (img: UploadDto, index: number) => ({
                 id: img.photo,
                 photo: API_URL + 'uploads/medium/' + img.photo,
@@ -107,23 +116,9 @@ export class Upload extends Component<IUploadProps, IUploadState> {
                     camera
                     cameraHandler={(photoData: IPhotoData) =>
                         this.showPhotoPreview(photoData)} />
-                <View
-                    onLayout={() => {
-                        this.forceUpdate();
-                    }}
-                    style={{
-                        height: '100%',
-                        width: '100%',
-                        position: 'absolute',
-                        top: 0,
-                        zIndex: -1
-                    }}>
-                    {mediaList && <PhotoBrowser
-                        mediaList={mediaList}
-                        useCircleProgress
-                        startOnGrid={true}
-                    />}
-                </View>
+                <Content>
+                    <ImageGrid images={mediaList} />
+                </Content>
                 <UploadPreview
                     ref='uploadPreview'
                     updateDescription={((event: any) => this.updateDescription(event.nativeEvent.text))}
@@ -134,3 +129,5 @@ export class Upload extends Component<IUploadProps, IUploadState> {
         );
     }
 }
+
+
