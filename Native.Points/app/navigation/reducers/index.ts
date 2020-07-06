@@ -75,8 +75,8 @@ export const reducer = (state = initialState, action: navigationActions.Navigati
       };
 
     case navigationActions.NavigationBack:
-      const previousHistory = state.condition.history;
-      const previousRoute = previousHistory.length === 1 ? 'Home' : previousHistory[previousHistory.length - 2];
+      const previousHistory = state.condition.history || [];
+      const previousRoute = previousHistory.length <= 1 ? 'Home' : previousHistory[previousHistory.length - 2];
       const history = previousRoute === 'Home' ? [] : previousHistory.slice(0, -1);
 
       return {
