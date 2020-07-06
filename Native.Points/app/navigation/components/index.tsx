@@ -26,6 +26,8 @@ export interface IBaseProps extends NavigationInjectedProps {
     cameraHandler?: (photoData: IPhotoData) => void;
     refresh?: boolean;
     refreshHandler?: () => void;
+    navigateForward: (nextRoute: any) => void
+    navigateBack: () => void
 }
 
 // TODO is there a way to strongly type this `state` argument?

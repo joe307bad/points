@@ -13,6 +13,7 @@ import { checkinService } from '../../checkin/services';
 import { IAuthState, ICurrentUser, IUserRegister } from '../reducers';
 import { persistentStorage } from '../../core/async-storage';
 import NavigationService from '../../navigation/services/navigation-service';
+import * as navigationActions from '../../navigation/actions';
 import { currentUserSelector } from '../../store/selectors/current-user.selector';
 import { loadNavigation } from '../../navigation/sagas';
 
@@ -21,6 +22,7 @@ import * as registerActions from '../actions/register';
 import * as userDataActions from '../actions/userData';
 import * as passwordResetActions from '../actions/password-reset';
 import * as approveUserActions from '../actions/approve-user';
+import { INavigationState } from '../../navigation/reducers';
 
 export function* approveUser(approveUserId: string) {
 
@@ -226,6 +228,10 @@ export function* userDataRequest() {
       NavigationService.navigate('PasswordReset');
     } else if (!some(response, isEmpty)) {
       NavigationService.navigate('AchievementList');
+      yield put({
+        type: navigationActions.NavigationForward,
+        payload: { nextRoute: 'AchievementList' }
+      });
     }
   }
 }

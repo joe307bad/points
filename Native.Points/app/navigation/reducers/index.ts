@@ -5,7 +5,11 @@ import { IProcessing } from '../../store/selectors';
 
 import * as navigationActions from '../actions';
 
-export interface INavigationState extends SettingsDto { }
+export interface INavigationState extends SettingsDto {
+  nextRoute?: any[];
+  history?: any[];
+  previousRoute?: string;
+}
 
 export const initialState: IBaseState<INavigationState> = {
   condition: {
@@ -13,12 +17,12 @@ export const initialState: IBaseState<INavigationState> = {
       enabled: true,
       items: [],
       controlPanel: []
-    }
+    },
   },
   processing: false
 };
 
-export const reducer = (state = initialState, action: navigationActions.UserAction): IBaseState<INavigationState> => {
+export const reducer = (state = initialState, action: navigationActions.NavigationActions): IBaseState<INavigationState> => {
 
   switch (action.type) {
 
@@ -38,7 +42,7 @@ export const reducer = (state = initialState, action: navigationActions.UserActi
       };
 
     case navigationActions.NavigationSuccess:
-    
+
       return {
         ...state,
         condition: {
@@ -56,6 +60,32 @@ export const reducer = (state = initialState, action: navigationActions.UserActi
         processing: false,
         error: true,
         message: 'Loaded navigation failure'
+      };
+
+    case navigationActions.NavigationForward:
+      return {
+        ...state,
+        condition: {
+          ...state.condition,
+          history: [
+            ...state.condition.history || [],
+            action.payload.nextRoute
+          ]
+        }
+      };
+
+    case navigationActions.NavigationBack:
+      const previousHistory = state.condition.history;
+      const previousRoute = previousHistory.length === 1 ? 'Home' : previousHistory[previousHistory.length - 2];
+      const history = previousRoute === 'Home' ? [] : previousHistory.slice(0, -1);
+
+      return {
+        ...state,
+        condition: {
+          ...state.condition,
+          history,
+          previousRoute
+        }
       };
 
     default:
@@ -77,3 +107,11 @@ export const navItems = (state: IBaseState<INavigationState>) => {
     ...controlPanel ? state.condition!.navigation!.controlPanel : []
   ];
 };
+
+export const history = (state: IBaseState<INavigationState>) => {
+  return state.condition!.history!;
+}
+
+export const previousRoute = (state: IBaseState<INavigationState>) => {
+  return state.condition!.previousRoute!;
+}
