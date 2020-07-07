@@ -83,6 +83,7 @@ class SideBar extends Component<IBaseProps, ISideBarState> {
                                     button
                                     onPress={() => {
                                         this.props.navigateForward(data.route);
+                                        this.props.navigation.closeDrawer();
                                         this.props.navigation.dispatch(
                                             NavigationActions.navigate({
                                                 routeName: data.route === 'Logout'

@@ -63,13 +63,17 @@ export const reducer = (state = initialState, action: navigationActions.Navigati
       };
 
     case navigationActions.NavigationForward:
+      const navigatedRoutes = state.condition.history || [];
+      const mostRecentRoute = navigatedRoutes.length > 0 ? navigatedRoutes[navigatedRoutes.length - 1] : null;
+      const nextRoute = mostRecentRoute === action.payload.nextRoute ? [] : [action.payload.nextRoute]
+
       return {
         ...state,
         condition: {
           ...state.condition,
           history: [
-            ...state.condition.history || [],
-            action.payload.nextRoute
+            ...navigatedRoutes,
+            ...nextRoute
           ]
         }
       };
