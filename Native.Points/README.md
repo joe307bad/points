@@ -55,6 +55,7 @@ react-native run-android
 - [ ] Ability to see an individual users achievements, and allow for admin to delete achievments
 - [ ] Restrict some checkins to only allow one checkin per user
 - [ ] Acheievement modifier (are you doing this achievement while on the lake, are you doing this achievement at a certain time of day)
+- [ ] Combo creator (ability to combine achievements and check them all in at once, possibly "save" the combo for future use)
 
 ### User Checkins feature todos:
 - [ ] Access loaded user checkins if checkins had already been loaded
