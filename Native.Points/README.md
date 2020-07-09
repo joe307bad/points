@@ -54,6 +54,7 @@ react-native run-android
 - [ ] Wizard for bulk checking in achievments (give these 3 people, this achievements, this many times)
 - [ ] Ability to see an individual users achievements, and allow for admin to delete achievments
 - [ ] Restrict some checkins to only allow one checkin per user
+- [ ] Acheievement modifier (are you doing this achievement while on the lake, are you doing this achievement at a certain time of day)
 
 ### User Checkins feature todos:
 - [ ] Access loaded user checkins if checkins had already been loaded
