@@ -48,20 +48,25 @@ $env:ENVFILE=".env"
 react-native run-android
 ```
 
+## 2020 DL feature goals
+- [ ] Achievement to CSV exporter and ability to compare CSVs to see what achievements have been changed
+- [ ] Make achievement rows smaller (remove photos)
+- [ ] Wizard for bulk checking in achievments (give these 3 people, this achievements, this many times)
+- [ ] Ability to see an individual users achievements, and allow for admin to delete achievments
+- [ ] Restrict some checkins to only allow one checkin per user
+
 ### User Checkins feature todos:
 - [ ] Access loaded user checkins if checkins had already been loaded
 - [ ] Add refresh button to modal to manually load checkins
  
 ### Post Beta ToDos:
 - [ ] Backup data and archive checkins
-- [ ] Wizard for bulk checking in achievments (give these 3 people, this achievements, this many times)
 - [ ] Return search results as you type
-- [ ] Admin ability to remove pending approvals (delete checkins)
 - [ ] User profile page with personal feed, photo upload capabilities, and leaderboard avatars
-- [ ] Implement back button with React Navigation code
+- [X] Implement back button with React Navigation code
     - https://github.com/react-navigation/react-navigation/blob/5e075e1c31d5e6192f2532a815b1737fa27ed65b/src/createNavigationContainer.js#L154
 - [ ] Why does upload endpoint return empty object when no uploads are present
-- [ ] If use is booted back to login screen, return them to previous screen once they log back in
+- [ ] If user is booted back to login screen, return them to previous screen once they log back in
 - [ ] Flow to approve users instead of automatically granting access
 - [ ] Manage Categories
 - [ ] Manage Achievements
@@ -73,8 +78,6 @@ react-native run-android
     - https://www.npmjs.com/package/react-navigation-transitions
 - [ ] Metrics/graphs for checkins
 - [ ] Delete your own checkin
-- [ ] Admin ability to delete checkins 
-- [ ] Restrict some checkins to only allow one checkin per user
 - [ ] Checkin multiplier? 
 - [ ] Push notifications (checkin approved, this user took the lead, etc.)
 - [ ] Limited time checkins (do this achievement in this time frame)
