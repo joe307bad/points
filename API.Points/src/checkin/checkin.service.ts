@@ -22,7 +22,7 @@ export class CheckinService implements ICheckinService {
   constructor(
     @InjectModel('Checkin') private readonly checkinModel: Model<Checkin>,
     @Inject('User') private readonly userModel: Model<User>,
-  ) {}
+  ) { }
 
   async create(checkinDto: CheckinDto): Promise<CheckinDto> {
     // TODO prevent from creating approved checkins

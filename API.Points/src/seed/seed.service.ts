@@ -1,6 +1,7 @@
 import { Injectable, Inject } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { Model, } from "mongoose";
+import { ObjectId } from "mongodb";
 import { CategoryDto, AchievementDto, UserDto } from "@points/shared";
 import * as bcrypt from 'bcrypt';
 
@@ -67,36 +68,48 @@ export class SeedService {
         return [...newlyAddedCategories, ...categoryAudit.existing];
     }
 
-    private async seedAchievements(achievements: AchievementDto[], categories: CategoryDto[])
-        : Promise<CategoryDto[]> {
+    private async seedAchievements(achievements: AchievementDto[], categories: CategoryDto[]): Promise<CategoryDto[]> {
 
         const allAchievements = await this.achievementModel.find({});
         const existingAchievements = [];
 
         const missingAchievements = achievements
-            .filter(category => !allAchievements.find(savedAchievement => {
-                const achievementExists = savedAchievement.name.toLowerCase() === category.name.toLowerCase();
+            .filter(achievement => !allAchievements.find(savedAchievement => {
+                const achievementExists = savedAchievement.name.toLowerCase() === achievement.name.toLowerCase();
                 if (achievementExists) {
-                    existingAchievements.push(savedAchievement);
+                    existingAchievements.push({
+                        ...achievement,
+                        id: savedAchievement.id
+                    });
                 }
                 return achievementExists
             }));
 
         const achievementAudit: SeedAudit<AchievementDto> = {
             missing: missingAchievements.map(achievement => {
-                const acievementCategory = categories
+                const achievementCategory = categories
                     .find(category => achievement.category.toLowerCase() === category.name.toLowerCase());
-                achievement.categoryId = acievementCategory.id;
+                achievement.categoryId = achievementCategory.id;
                 return achievement;
             }),
             existing: existingAchievements
         };
 
         let newlyAddedAchievements = [];
+        let editedAchievements = [];
 
         if (achievementAudit.missing.length) {
             newlyAddedAchievements = await
                 this.achievementModel.insertMany(achievementAudit.missing);
+        }
+
+        if (achievementAudit.existing.length) {
+            editedAchievements = await achievementAudit.existing.reduce((acc, a) => {
+                return acc.then(async p => [
+                    ...p,
+                    await this.achievementModel.update({ _id: a.id }, a)
+                ])
+            }, Promise.resolve([]))
         }
 
         return [...newlyAddedAchievements, ...achievementAudit.existing];

@@ -16,6 +16,7 @@
         "-r",
         "ts-node/register"
       ],
+      "console": "integratedTerminal",
       "sourceMaps": true,
       "cwd": "${workspaceRoot}",
       "protocol": "inspector"
