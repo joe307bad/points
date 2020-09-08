@@ -30,6 +30,7 @@ export default class AchievementPreview extends Component<IAchievementPreviewPro
     }
 
     selectUser(userId: string) {
+        
         this.setState({
             checkinAs: userId
         });
@@ -39,6 +40,8 @@ export default class AchievementPreview extends Component<IAchievementPreviewPro
         return (
             <Modal
                 style={{ height: 'auto', padding: 10, backgroundColor: 'transparent' }}
+                backdropColor={"black"}
+                backdropOpacity={0.5}
                 easing={Easing.elastic(0)}
                 position={'bottom'}
                 ref='achievementPreviewModal'>

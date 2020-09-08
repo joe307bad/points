@@ -1,5 +1,6 @@
 import React from 'react';
-import { createDrawerNavigator, NavigationInjectedProps, createAppContainer } from 'react-navigation';
+import { NavigationInjectedProps, createAppContainer } from 'react-navigation';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import { NavigationItemDto } from '@points/shared';
 
 import { ICurrentUser } from '../../auth/reducers';

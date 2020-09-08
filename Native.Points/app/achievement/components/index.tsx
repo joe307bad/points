@@ -1,4 +1,4 @@
-import React, { Component } from 'React';
+import React, { Component } from 'react';
 import { Container } from 'native-base';
 import { FlatList } from 'react-native';
 import { AchievementDto, CategoryDto } from '@points/shared';
