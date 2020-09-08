@@ -104,10 +104,14 @@ export class SeedService {
         }
 
         if (achievementAudit.existing.length) {
-            editedAchievements = await achievementAudit.existing.reduce((acc, a) => {
+            editedAchievements = await achievementAudit.existing.reduce(async (acc, a) => {
+                const category = await this.categoryModel.findOne({ name: a.category });
                 return acc.then(async p => [
                     ...p,
-                    await this.achievementModel.update({ _id: a.id }, a)
+                    await this.achievementModel.update({ _id: a.id }, {
+                        ...a,
+                        categoryId: category.id
+                    })
                 ])
             }, Promise.resolve([]))
         }
