@@ -5,6 +5,13 @@ platform :ios, '10.0'
 
 target 'Points' do
   config = use_native_modules!
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
+
+  target 'PointsTests' do
+    inherit! :complete
+    # Pods for testing
+  end
 
   use_react_native!(:path => config["reactNativePath"])
 end
