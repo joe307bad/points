@@ -30,7 +30,7 @@
     "@points/shared": "file:../Shared.Points",
     "accesscontrol": "^2.2.1",
     "bcrypt": "3.0.7",
-    "class-transformer": "^0.2.0",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.9.1",
     "del": "^3.0.0",
     "dotenv": "^6.0.0",
