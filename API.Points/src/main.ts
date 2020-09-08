@@ -16,11 +16,11 @@ async function bootstrap() {
 
   // TODO move to middleware
   // https://github.com/wbhob/nest-middlewares
-  // app.use(express.static(publicDir));
+  app.use(express.static(publicDir));
   // app.use(helmet());
 
   await app.listen(3000);
 }
 bootstrap();
 
-export {}
+export { }
