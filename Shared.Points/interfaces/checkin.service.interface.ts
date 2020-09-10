@@ -7,6 +7,6 @@ export interface ICheckinService {
     getPendingApprovals(): Promise<PendingApprovalDto[]>;
     getLeaderboard(): Promise<UserCheckinsDto[]>;
     update(checkin: CheckinDto): Promise<CheckinDto>;
-    delete(checkin: CheckinDto): Promise<any>;
+    delete(params: { id: string }): Promise<any>;
     getFeed(): Promise<FeedItemDto[]>;
 }

@@ -31,7 +31,7 @@ export class CheckinService implements ICheckinService {
   }
 
   async getForUser(user: { userId: string }): Promise<UserCheckinsDto> {
-    return this.userModel.aggregate(userWithCheckinsPipeline(user.userId)).exec().then(users => users[0]);
+    return this.userModel.aggregate(userWithCheckinsPipeline(user.userId)).exec().then(users => users[0] || {});
   }
 
   async getFeed(): Promise<FeedItemDto[]> {
@@ -54,7 +54,7 @@ export class CheckinService implements ICheckinService {
     );
   }
 
-  async delete(checkinDto: CheckinDto): Promise<any> {
-    return this.checkinModel.deleteOne({ _id: checkinDto.id });
+  async delete(checkin: { id: string }): Promise<any> {
+    return this.checkinModel.deleteOne({ _id: checkin.id });
   }
 }

@@ -7,7 +7,7 @@ import { CheckinService } from './checkin.service';
 import { PermissionGaurd, ApiPermission, ApiAction, HasPermission, decodeToken } from '../core/acl';
 import { UploadFileSettings } from '../app.settings';
 import { isAdmin } from '../core/acl/helpers/isAdmin.helper';
-import {OnlyApprovedUsers} from '../auth/guards/approved.guard';
+import { OnlyApprovedUsers } from '../auth/guards/approved.guard';
 
 const resource = 'checkin';
 export const to = (action: ApiAction) =>
@@ -64,9 +64,9 @@ export class CheckinController implements ICheckinService {
         return await this.checkin.update(checkin).catch(err => err);
     }
 
-    @Delete()
+    @Delete(":id")
     @HasPermission(to('delete'))
-    async delete(@Body() checkin: CheckinDto): Promise<any> {
+    async delete(@Param() checkin: { id: string }): Promise<any> {
         return await this.checkin.delete(checkin).catch(err => err);
     }
 
