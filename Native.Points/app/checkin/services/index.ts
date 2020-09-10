@@ -39,7 +39,7 @@ export class CheckinService implements ICheckinService {
     }
 
     public delete(checkin: CheckinDto): Promise<any> {
-        throw new Error('Method not implemented.');
+        return http.delete(`${CHECKIN_API_URL}${checkin.id}`);
     }
 
     public getFeed(): Promise<FeedItemDto[]> {

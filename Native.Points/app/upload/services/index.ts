@@ -1,5 +1,6 @@
 import { IUploadService, UploadDto } from '@points/shared';
 import { forOwn } from 'lodash';
+import { Platform } from 'react-native';
 
 import { http } from '../../core/http';
 import { IPhotoData } from '../../core/camera';
@@ -31,8 +32,9 @@ export class UploadService implements IUploadService {
         forOwn(upload, (value, key) => {
             form.append(key, value);
         });
+
         form.append('photo', {
-            uri: photoData.location,
+            uri: Platform.OS === 'android' ? photoData.location : photoData.location.replace('file://', '/private'),
             type: photoData.type,
             name: photoData.name
         });

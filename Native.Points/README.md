@@ -49,7 +49,9 @@ react-native run-android
 ```
 
 ## 2020 DL feature goals
-- [ ] Achievement to CSV exporter and ability to compare CSVs to see what achievements have been changed
+- [X] Ability to delete achievements from feed
+- [ ] Lock down "delete from feed" feature by currentUser.isAdmin (will still be rejected because of API permissions)
+- [X] Achievement to CSV exporter and ability to compare CSVs to see what achievements have been changed
 - [ ] Make achievement rows smaller (remove photos)
 - [ ] Wizard for bulk checking in achievments (give these 3 people, this achievements, this many times)
 - [ ] Ability to see an individual users achievements, and allow for admin to delete achievments

@@ -73,7 +73,7 @@ class ImageGrid extends Component<ImageGridProps, ImageGridState> {
         const uri = getImageUrl(item.id, 100, 100)
         return (
             <TouchableOpacity style={styles.imageContainer} onPress={() => this.props.openPicture(item.photo)}>
-                <FastImage source={{ uri: item.photo }} style={styles.image} />
+                <FastImage source={{ uri: item.caption }} style={styles.image} />
             </TouchableOpacity>
         )
     }

@@ -53,6 +53,8 @@
 	<string>${PRODUCT_NAME} requires access to your phone's location when in use</string>
 	<key>NSMotionUsageDescription</key>
 	<string>${PRODUCT_NAME} requires access to your phone's motion sensor</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>${PRODUCT_NAME} requires access to your phone's photo library</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>${PRODUCT_NAME} requires access to your phone’s photo library.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>

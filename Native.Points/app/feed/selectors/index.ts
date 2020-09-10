@@ -20,7 +20,8 @@ export const feedItemsSelector =
         feedItems.map<ITimelineItem>((item: FeedItemDto) => ({
             time: date.relativeFormat(new Date(item.checkinDate)),
             title: `${item.userName} checked into ${item.achievementName}`,
-            description: `${item.category} | ${item.achievementDescription}`
+            description: `${item.category} | ${item.achievementDescription}`,
+            id: (item as any).checkinId
         })));
 
 export const completedFeedRequestSelector =

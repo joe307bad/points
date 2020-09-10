@@ -17,7 +17,8 @@ const CameraOptions = {
         cameraRoll: true,
         skipBackup: true,
         waitUntilSaved: true
-    }
+    },
+    noData: true
 };
 
 const Camera = {
