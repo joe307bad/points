@@ -34,6 +34,17 @@ export class Http {
             .catch((err) => check(err));
     }
 
+    public async delete<T>(url: string, payload?: any): Promise<T> {
+        const check = (data: any) => this.check(data, url, payload);
+        return axios
+            .delete(API_URL + url, {
+                params: payload,
+                ...await this.getConfig()
+            })
+            .then((result: any) => check(result.data))
+            .catch((err) => check(err));
+    }
+
     public async put<T>(url: string, payload?: any): Promise<T> {
         const check = (data: any) => this.check(data, url, payload);
         return axios
