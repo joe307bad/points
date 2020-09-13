@@ -48,7 +48,9 @@ $env:ENVFILE=".env"
 react-native run-android
 ```
 
-## 2020 DL feature goals
+## 2021 DL feature goals
+- [ ] Ability to "do battle" with other participants. eg. Do these achievements in this amount of time and before your opponent, and you get 500pts
+- [ ] Easter eggs or random events. Everytime a checkin is selected to see the details, there is a chance you can augment this checkin for automatic points.
 - [X] Ability to delete achievements from feed
 - [ ] Lock down "delete from feed" feature by currentUser.isAdmin (will still be rejected because of API permissions)
 - [X] Achievement to CSV exporter and ability to compare CSVs to see what achievements have been changed
