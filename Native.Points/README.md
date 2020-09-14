@@ -49,6 +49,7 @@ react-native run-android
 ```
 
 ## 2021 DL feature goals
+- [ ] Points for uploading photos
 - [ ] Ability to "do battle" with other participants. eg. Do these achievements in this amount of time and before your opponent, and you get 500pts
 - [ ] Easter eggs or random events. Everytime a checkin is selected to see the details, there is a chance you can augment this checkin for automatic points.
 - [X] Ability to delete achievements from feed
