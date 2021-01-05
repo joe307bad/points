@@ -12,7 +12,7 @@
     "@points/shared": "file:../Shared.Points",
     "@react-native-community/viewpager": "3.3.0",
     "@sentry/react-native": "^1.4.5",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "class-validator": "^0.8.5",
     "formik": "1.5.7",
     "formik-observer": "^1.0.1",
