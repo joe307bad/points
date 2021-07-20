@@ -23,7 +23,7 @@
     "native-base": "^2.13.14",
     "react": "16.13.1",
     "react-addons-update": "^15.6.2",
-    "react-native": "0.63.2",
+    "react-native": "0.64.1",
     "react-native-config": "^1.2.1",
     "react-native-fast-image": "^8.2.0",
     "react-native-gesture-handler": "^1.8.0",
