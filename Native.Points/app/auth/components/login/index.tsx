@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import {Image, SafeAreaView} from 'react-native';
 import { Container, Card, CardItem, Body, Content } from 'native-base';
 import { withFormik } from 'formik';
 
@@ -8,6 +8,7 @@ import { LoginSchema } from '../../../shared/schemas/login.schema';
 import { LoginInnerForm } from './inner-form';
 import { ICurrentUser } from '../../reducers';
 import { persistentStorage } from '../../../core/async-storage';
+import {Provider} from "react-redux";
 
 export interface ILoginValues {
     userName: string;
@@ -51,7 +52,7 @@ export default class Login extends Component<ILoginProps> {
     public render(): JSX.Element {
 
         return (
-            <Container >
+            <Container>
                 <Content
                     style={{ paddingLeft: 10, paddingRight: 10 }}
                     contentContainerStyle={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>

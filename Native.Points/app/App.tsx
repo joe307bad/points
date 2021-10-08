@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { SafeAreaView} from 'react-native';
 import { Container, Text, Card, CardItem, Body } from 'native-base';
 import { Provider } from 'react-redux';
 import Modal from 'react-native-modalbox';
@@ -18,15 +19,15 @@ export default class App extends Component<{}> {
   public render(): JSX.Element {
 
     return (
-      <Container>
-        <Provider store={store}>
-          <Navigation ref={(navigatorRef: any) => {
-            NavigatorService.setContainer(navigatorRef);
-          }} />
-        </Provider>
-        <Loading />
-        <ErrorModal />
-      </Container>
+            <Container>
+                <Provider store={store}>
+                    <Navigation ref={(navigatorRef: any) => {
+                        NavigatorService.setContainer(navigatorRef);
+                    }} />
+                </Provider>
+                <Loading />
+                <ErrorModal />
+            </Container>
     );
   }
 }

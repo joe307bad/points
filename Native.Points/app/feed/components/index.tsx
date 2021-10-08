@@ -50,24 +50,24 @@ export class Feed extends Component<IFeedProps, IFeedState> {
                         style={{ paddingTop: 10, paddingLeft: 10, paddingRight: 10, paddingBottom: 10 }}
                         onEventPress={(checkin: any) => {
 
-                            Alert.alert(
-                                "Delete Checkin",
-                                `Are you sure you want to delete this checkin? \n\n ${JSON.stringify(checkin)}`,
-                                [
-                                    {
-                                        text: "Delete Checkin",
-                                        onPress: () => {
-                                            checkinService.delete({ id: checkin.id } as CheckinDto)
-                                        },
-                                        style: "cancel"
-                                    },
-                                    {
-                                        text: "Cancel",
-                                        onPress: () => console.log("Cancel Pressed")
-                                    }
-                                ],
-                                { cancelable: false }
-                            );
+                            // Alert.alert(
+                            //     "Delete Checkin",
+                            //     `Are you sure you want to delete this checkin? \n\n ${JSON.stringify(checkin)}`,
+                            //     [
+                            //         {
+                            //             text: "Delete Checkin",
+                            //             onPress: () => {
+                            //                 checkinService.delete({ id: checkin.id } as CheckinDto)
+                            //             },
+                            //             style: "cancel"
+                            //         },
+                            //         {
+                            //             text: "Cancel",
+                            //             onPress: () => console.log("Cancel Pressed")
+                            //         }
+                            //     ],
+                            //     { cancelable: false }
+                            // );
 
                         }}
                         data={this.props.feedItems}
