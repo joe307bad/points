@@ -33,7 +33,7 @@
     "react-native-permissions": "^2.1.5",
     "react-native-photo-browser": "^0.7.0",
     "react-native-photo-view-ex": "github:a-chess/react-native-photo-view-ex#ca9e0847f1e24614e4a795b1ebf61143be732905",
-    "react-native-reanimated": "^1.13.0",
+    "react-native-reanimated": "^2.10.0",
     "react-native-screens": "^2.10.1",
     "react-native-scrollable-tab-view": "^1.0.0",
     "react-native-vector-icons": "7.0.0",
