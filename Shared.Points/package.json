@@ -5,7 +5,7 @@
     "main": "dist/index.js",
     "types": "./index.d.ts",
     "dependencies": {
-        "class-validator": "^0.8.1",
+        "class-validator": "^0.14.0",
         "typescript": "^2.9.1"
     },
     "devDependencies": {}
